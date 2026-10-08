@@ -1,0 +1,5 @@
+/package/*.zip
+/ONI-unsigned.ipa
+/build.log
+/.venv/
+.DS_Store

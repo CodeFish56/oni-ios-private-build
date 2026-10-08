@@ -1,0 +1,24 @@
+{
+  "archive": "ios-xcode-744825.zip",
+  "sha256": "7b6bf8b1c6aa82e1f2cc9f31d078626ee0ca5c75abdb2d7547b8594e26f6b141",
+  "bytes": 1657578121,
+  "files": 4205,
+  "parts": [
+    {
+      "name": "ios-xcode-744825.zip.part-000",
+      "bytes": 536870912
+    },
+    {
+      "name": "ios-xcode-744825.zip.part-001",
+      "bytes": 536870912
+    },
+    {
+      "name": "ios-xcode-744825.zip.part-002",
+      "bytes": 536870912
+    },
+    {
+      "name": "ios-xcode-744825.zip.part-003",
+      "bytes": 46965385
+    }
+  ]
+}

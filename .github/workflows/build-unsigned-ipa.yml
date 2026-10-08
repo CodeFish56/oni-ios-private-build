@@ -1,0 +1,95 @@
+name: Build unsigned iOS IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15-intel
+    timeout-minutes: 300
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout project archive from Git LFS
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Reconstruct and verify Xcode project
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, json, pathlib, zipfile
+          root = pathlib.Path('package')
+          manifest = json.loads((root / 'manifest.json').read_text())
+          digest = hashlib.sha256()
+          archive = pathlib.Path(manifest['archive'])
+          with archive.open('wb') as dest:
+              for part in manifest['parts']:
+                  path = root / part['name']
+                  if path.stat().st_size != part['bytes']:
+                      raise ValueError(f'Unexpected size: {path}')
+                  with path.open('rb') as src:
+                      while block := src.read(4 * 1024 * 1024):
+                          dest.write(block)
+                          digest.update(block)
+          if digest.hexdigest() != manifest['sha256'] or archive.stat().st_size != manifest['bytes']:
+              raise ValueError('Archive SHA-256 or size mismatch')
+          # Git LFS retains another full copy under .git; discard it before extraction.
+          import shutil
+          shutil.rmtree('.git')
+          shutil.rmtree(root)
+          with zipfile.ZipFile(archive) as zf:
+              zf.extractall('.')
+          archive.unlink()
+          PY
+          test -f ios-xcode-744825/Unity-iPhone.xcodeproj/project.pbxproj
+          df -h .
+          xcodebuild -version
+
+      - name: Compile device app without signing
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project ios-xcode-744825/Unity-iPhone.xcodeproj \
+            -scheme Unity-iPhone \
+            -configuration Debug \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath "$RUNNER_TEMP/oni-derived" \
+            -jobs 2 \
+            CODE_SIGNING_ALLOWED=NO \
+            build 2>&1 | tee build.log
+
+      - name: Package unsigned IPA
+        shell: bash
+        run: |
+          set -euo pipefail
+          products="$RUNNER_TEMP/oni-derived/Build/Products/Debug-iphoneos"
+          mapfile -t apps < <(find "$products" -maxdepth 1 -type d -name '*.app')
+          test "${#apps[@]}" -eq 1
+          app="${apps[0]}"
+          mkdir -p unsigned/Payload
+          ditto "$app" "unsigned/Payload/$(basename "$app")"
+          (cd unsigned && zip -qry ../ONI-unsigned.ipa Payload)
+          ls -lh ONI-unsigned.ipa
+
+      - name: Save IPA for Windows-side signing
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ONI-unsigned-ipa
+          path: ONI-unsigned.ipa
+          retention-days: 1
+          compression-level: 0
+
+      - name: Save build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oni-xcode-build-log
+          path: build.log
+          if-no-files-found: ignore
+          retention-days: 1
