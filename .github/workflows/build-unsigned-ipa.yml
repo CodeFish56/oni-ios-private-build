@@ -68,9 +68,10 @@ jobs:
         run: |
           set -euo pipefail
           products="$RUNNER_TEMP/oni-derived/Build/Products/Debug-iphoneos"
-          mapfile -t apps < <(find "$products" -maxdepth 1 -type d -name '*.app')
-          test "${#apps[@]}" -eq 1
-          app="${apps[0]}"
+          set -- "$products"/*.app
+          test "$#" -eq 1
+          test -d "$1"
+          app="$1"
           mkdir -p unsigned/Payload
           ditto "$app" "unsigned/Payload/$(basename "$app")"
           (cd unsigned && zip -qry ../ONI-unsigned.ipa Payload)
