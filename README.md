@@ -33,6 +33,15 @@ AltServer can sideload an IPA with the phone connected and Developer Mode
 enabled. This signing method has a seven-day expiry. Enter Apple credentials
 only in AltServer on your own PC, never in GitHub Actions or this workspace.
 
-The first GitHub build may expose Xcode link errors that Unity's Windows export
-cannot detect. Even a successful IPA may fail at game startup because `SimDLL`
-and other Windows native dependencies have no iOS implementation yet.
+## Verified build
+
+[Build #2](https://github.com/CodeFish56/oni-ios-private-build/actions/runs/37874520403)
+on 2026-10-09 completed with Xcode 16.4: the arm64 app compiled and linked,
+and `ONI-unsigned.ipa` was packaged at about 1.3 GB. The uploaded artifact is
+`ONI-unsigned-ipa` (1,356,848,441 bytes, artifact ZIP SHA-256
+`189b17f377bff41ea78dd098433415e906d2343e3ffde3c95f17047d5b36e496`).
+GitHub retains the artifact for one day. On the authenticated Windows computer,
+`download_artifact.py ARTIFACT_ID OUTPUT_ZIP` downloads it through the official
+GitHub API and checks its digest. This file is still unsigned and has not been
+installed or launched on an iPhone. `SimDLL` and other Windows native
+dependencies still need iOS replacements for gameplay.
