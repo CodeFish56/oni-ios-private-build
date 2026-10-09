@@ -45,3 +45,14 @@ GitHub retains the artifact for one day. On the authenticated Windows computer,
 GitHub API and checks its digest. This file is still unsigned and has not been
 installed or launched on an iPhone. `SimDLL` and other Windows native
 dependencies still need iOS replacements for gameplay.
+
+## Private sideload diagnostic
+
+The full IPA is valid but Windows AltServer 1.8 reports `bad allocation` while
+loading it. A deliberately incomplete 270 MB IPA, with large Unity streaming
+resources and FMOD banks removed, is available only in the
+[private diagnostic release](https://github.com/CodeFish56/oni-ios-private-build/releases/tag/oni-boot-diagnostic-20261009).
+It is **not playable**. Its purpose is to isolate Apple ID signing and device
+installation from the full package size. AltServer currently reports WinHTTP
+12152 for the small IPA, while Sideloadly 0.70.1 receives an Apple GSA HTTP 503
+during authentication. The phone's AltStore import path remains to be tested.
