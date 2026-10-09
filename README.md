@@ -55,4 +55,8 @@ resources and FMOD banks removed, is available only in the
 It is **not playable**. Its purpose is to isolate Apple ID signing and device
 installation from the full package size. AltServer currently reports WinHTTP
 12152 for the small IPA, while Sideloadly 0.70.1 receives an Apple GSA HTTP 503
-during authentication. The phone's AltStore import path remains to be tested.
+during authentication. On-device AltStore import and refresh also fail with HTTP
+503 before signing. Direct installation with 3uTools reaches iOS but the phone
+rejects the unsigned IPA as unverifiable. Both generated IPA files have no
+`_CodeSignature` directory or `embedded.mobileprovision`; the next installation
+test needs a device-signed output IPA.
