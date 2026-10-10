@@ -16,7 +16,7 @@ jobs:
           lfs: false
 
       - name: Download current project archive
-        run: git lfs pull --include="package-probe/*.part-*" --exclude="*"
+        run: git lfs pull --include="package-probe/*.part-*" --exclude=""
 
       - name: Reconstruct and verify Xcode project
         shell: bash
