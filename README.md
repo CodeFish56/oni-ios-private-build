@@ -60,3 +60,20 @@ during authentication. On-device AltStore import and refresh also fail with HTTP
 rejects the unsigned IPA as unverifiable. Both generated IPA files have no
 `_CodeSignature` directory or `embedded.mobileprovision`; the next installation
 test needs a device-signed output IPA.
+
+## Current iPhone diagnostic
+
+The iOS-only offline platform adapter was exported from Unity and compiled by
+[this build](https://github.com/CodeFish56/oni-ios-private-build/actions/runs/38015793088)
+on 2026-10-10. The artifact downloaded through `download_artifact_parallel.py`
+passed GitHub's SHA-256 check. A matching local development certificate and
+provisioning profile signed the IPA offline; no Apple credentials or signing
+material were uploaded. `repack_ipa.py` recompressed the signed ZIP without
+changing any file CRCs. USB installation and process launch succeeded on an
+iPhone 15 Pro, proving that the Steam startup exit was bypassed.
+
+The app now reaches the game's error dialog. Device logs show missing native
+`fmodstudio` audio code, a null reference in `Assets.LoadAnims`, and an async
+personality loader lookup error after asset initialization stopped. This is a
+boot diagnostic, not a playable port. A newer Unity export with iOS-only
+checkpoints is being prepared to isolate the asset failure.

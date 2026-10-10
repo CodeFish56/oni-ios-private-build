@@ -13,7 +13,10 @@ jobs:
       - name: Checkout project archive from Git LFS
         uses: actions/checkout@v4
         with:
-          lfs: true
+          lfs: false
+
+      - name: Download current project archive
+        run: git lfs pull --include="package-probe/*.part-*" --exclude="*"
 
       - name: Reconstruct and verify Xcode project
         shell: bash
@@ -21,7 +24,7 @@ jobs:
           set -euo pipefail
           python3 - <<'PY'
           import hashlib, json, pathlib, zipfile
-          root = pathlib.Path('package')
+          root = pathlib.Path('package-probe')
           manifest = json.loads((root / 'manifest.json').read_text())
           digest = hashlib.sha256()
           archive = pathlib.Path(manifest['archive'])

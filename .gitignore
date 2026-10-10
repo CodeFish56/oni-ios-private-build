@@ -3,3 +3,4 @@
 /build.log
 /.venv/
 .DS_Store
+__pycache__/
