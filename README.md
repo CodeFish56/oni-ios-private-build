@@ -4,6 +4,16 @@ This folder stages the locally generated Build 744825 Xcode export for a **priva
 GitHub repository. The workflow compiles an **unsigned** IPA on a hosted macOS
 runner; it does not make Oxygen Not Included playable or sign the app.
 
+## Current staged iOS export (2026-10-12)
+
+The workflow reads `package-resource/manifest.json` and its four Git LFS parts.
+This archive contains the Unity Xcode export with the iOS Json.NET AOT startup
+repair: before game initialization, Json.NET 7 is switched to its late-bound
+reflection path so mod-state serialization does not call `DynamicMethod`.
+Unity's local iOS export succeeded with zero build errors. The archive SHA-256
+is `de22ad7acadb7facc8737b6a0838dc479d7263ec4f5e83112e5657addf34fce6`.
+The next Actions run has not yet been performed or tested on the phone.
+
 ## Prepare locally
 
 From the main workspace root, run:
