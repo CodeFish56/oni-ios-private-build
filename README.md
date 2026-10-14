@@ -20,6 +20,30 @@ The archive SHA-256 is
 `8c3cba4d4abc9c69fac31d7ae0c755f6f2609b694f119f2bea612f954d666c5a`.
 The next Actions run has not yet been performed or tested on the phone.
 
+## Native FMOD boundary verification (2026-10-14)
+
+A follow-up audit of the 64 iOS build assemblies found 178 external call sites
+that can reach FMOD native imports through static calls. This includes slider
+and scroll sound parameter updates after the silent game wrapper returned an
+empty event instance. These counts describe compiled call candidates; they do
+not prove that every site executes on the phone.
+
+The workflow now runs `scripts/disable_ios_fmod_native.py` after extracting the
+archive. Its plan matches all 585 FMOD native imports to the two generated C++
+translation units and binds them by source SHA-256. The native wrappers return
+`ERR_UNINITIALIZED`, or `false` for validity queries, initialize output values,
+and preserve reference inputs. Managed FMOD types and non-audio game behavior
+remain. The build stops if the source identity changes or any FMOD native
+library resolver remains. No replacement audio engine is implemented.
+
+Local verification found zero remaining FMOD native resolvers, and rerunning
+the patch made no changes. Both patched C++ files compiled with Unity's headers
+on the local Linux host; a linked probe executed representative generated
+wrappers without an FMOD library and verified error results, invalid handles,
+output values and null output pointers. This checks the native boundary; the
+updated workflow still needs macOS arm64 compilation and phone testing.
+The workflow uploads `oni-fmod-native-boundary-check` alongside the IPA.
+
 ## Prepare locally
 
 From the main workspace root, run:

@@ -51,6 +51,11 @@ jobs:
           df -h .
           xcodebuild -version
 
+      - name: Disable native FMOD entry points for silent iOS diagnosis
+        run: |
+          python3 scripts/disable_ios_fmod_native.py ios-xcode-744825 \
+            --report fmod-native-boundary-check.json
+
       - name: Compile device app without signing
         shell: bash
         run: |
@@ -88,6 +93,15 @@ jobs:
           path: ONI-unsigned.ipa
           retention-days: 1
           compression-level: 0
+
+      - name: Save native audio boundary verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oni-fmod-native-boundary-check
+          path: fmod-native-boundary-check.json
+          if-no-files-found: ignore
+          retention-days: 1
 
       - name: Save build log on failure
         if: failure()
