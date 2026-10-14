@@ -56,6 +56,12 @@ jobs:
           python3 scripts/disable_ios_fmod_native.py ios-xcode-744825 \
             --report fmod-native-boundary-check.json
 
+      - name: Restrict app display to landscape orientations
+        run: python3 scripts/configure_ios_landscape.py ios-xcode-744825 --report landscape-check.json
+
+      - name: Disable managed audio startup and desktop-only services
+        run: python3 scripts/patch_ios_startup.py ios-xcode-744825 --report startup-check.json
+
       - name: Compile device app without signing
         shell: bash
         run: |
@@ -100,6 +106,17 @@ jobs:
         with:
           name: oni-fmod-native-boundary-check
           path: fmod-native-boundary-check.json
+          if-no-files-found: ignore
+          retention-days: 1
+
+      - name: Save startup and orientation verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oni-startup-compatibility-check
+          path: |
+            startup-check.json
+            landscape-check.json
           if-no-files-found: ignore
           retention-days: 1
 

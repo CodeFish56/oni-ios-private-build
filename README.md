@@ -18,7 +18,9 @@ element initialization can finish. Desktop and Editor audio paths remain.
 Unity's local iOS export succeeded with zero build errors on 2026-10-14.
 The archive SHA-256 is
 `8c3cba4d4abc9c69fac31d7ae0c755f6f2609b694f119f2bea612f954d666c5a`.
-The next Actions run has not yet been performed or tested on the phone.
+Build #14 compiled this archive with the native audio boundary repair. The
+phone reaches asset initialization and the error dialog; menu startup and
+gameplay are not yet verified.
 
 ## Native FMOD boundary verification (2026-10-14)
 
@@ -41,8 +43,51 @@ the patch made no changes. Both patched C++ files compiled with Unity's headers
 on the local Linux host; a linked probe executed representative generated
 wrappers without an FMOD library and verified error results, invalid handles,
 output values and null output pointers. This checks the native boundary; the
-updated workflow still needs macOS arm64 compilation and phone testing.
+updated workflow passed macOS arm64 compilation in Build #14. Its verification
+artifact confirms all 585 native wrappers were replaced. Device logs expose a
+separate managed-component initialization failure, described below.
 The workflow uploads `oni-fmod-native-boundary-check` alongside the IPA.
+
+## Managed startup repair and landscape display (2026-10-14)
+
+Build #14 reached animation-table registration (2,152 entries) and substance
+initialization (202 elements) on the iPhone. A scene's `StudioListener.OnEnable`
+still called `RuntimeManager.Initialize`. The recovered FMOD platform settings
+could not support that path, producing a null reference and the error dialog.
+Returning an error from native imports alone did not disable managed audio
+components. A separate `SteamUGCService.Initialize` null reference occurred
+because `Global.Update` treated the initialized local platform as Steam.
+
+After the native audio patch, `scripts/patch_ios_startup.py` now replaces 139
+methods across RuntimeManager and seven audio component types. Component
+lifecycle callbacks and playback methods remain silent; audio queries return
+invalid handles or inactive state. Bank-loading completion queries report no
+pending work so callers can continue. FMOD initialization reports
+`ERR_UNINITIALIZED`; it does not create a runtime object or access platform
+settings. Serialized component types, constructors and non-audio game
+initialization remain. The script also removes Steam workshop/achievement
+registration from device `Global.Update` and skips the developer-tool reflection
+scan. The plan verifies source, method-body and output hashes and rejects a
+changed export before writing any files.
+
+`scripts/configure_ios_landscape.py` restricts iPhone and iPad Info.plist entries
+and Unity's runtime autorotation mask to landscape left/right. The local Unity
+recovery/build scripts enforce the same orientations for future exports.
+The workflow uploads `oni-startup-compatibility-check` with both reports. Only
+the `ONI-unsigned-ipa` artifact contains the app to sign and install.
+
+Local verification extracted the affected files from the actual LFS archive
+and passed the workflow patch sequence, repeated startup/orientation checks,
+and rejection of changed source without writes. All three changed C++ files
+compiled with the exported Unity headers on Linux. A linked probe executed
+the real generated listener, runtime, emitter and reflection functions without
+Unity/FMOD initialization and checked invalid handles, completion state and
+output parameters. This repair still needs a new macOS build and phone test.
+
+Earlier foreground exits also have a distinct kernel `killing_highwater_process`
+record at 3,458,227 KB (about 3.3 GiB). The latest user report stays on the error
+dialog without exiting. These startup patches do not establish that memory
+use is fixed; resource memory and menu stability remain to be measured.
 
 ## Prepare locally
 
