@@ -4,16 +4,20 @@ This folder stages the locally generated Build 744825 Xcode export for a **priva
 GitHub repository. The workflow compiles an **unsigned** IPA on a hosted macOS
 runner; it does not make Oxygen Not Included playable or sign the app.
 
-## Current staged iOS export (2026-10-12)
+## Current staged iOS export (2026-10-14)
 
 The workflow reads `package-resource/manifest.json` and its four Git LFS parts.
-This archive combines the iOS Json.NET AOT startup repair with a soundless boot
-diagnostic for the missing native FMOD iOS library. `MusicManager` remains
-available to other components but no longer configures songs at prefab creation
-on iOS; the sound listener and event-path lookup also avoid FMOD on this target.
-The audio workaround is for startup diagnosis, not a playable audio port.
-Unity's local iOS export succeeded with zero build errors. The archive SHA-256
-is `df7bf19b45ed153e155214459a66fdc61132c73465126a0352df6d6112f43f5f`.
+This archive includes the Json.NET AOT startup repair and expanded silent iOS
+audio handling. The reported startup failures were a null audio path passed
+to `StringFormatter.Combine` while creating underwater audio events, and a
+direct FMOD initialization in `AudioMixer.Start` called by the main menu.
+The recovered iOS scripts now skip native FMOD access at the menu, mixer,
+bank enumeration and playback boundaries. Audio-sheet event identities,
+speech metadata and mouth animations remain available so resource and
+element initialization can finish. Desktop and Editor audio paths remain.
+Unity's local iOS export succeeded with zero build errors on 2026-10-14.
+The archive SHA-256 is
+`8c3cba4d4abc9c69fac31d7ae0c755f6f2609b694f119f2bea612f954d666c5a`.
 The next Actions run has not yet been performed or tested on the phone.
 
 ## Prepare locally
