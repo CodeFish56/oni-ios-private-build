@@ -46,5 +46,8 @@
       ]
     }
   ],
-  "header_sha256": "b48b236717237b01d46ba384135c6296435c6ad42473fc559dff74f6382c9c57"
+  "header_sha256": "26d202b135d6d23f2427a9cee04cf3f720a301d0f41bf0f8efeb5aad74ebb44d",
+  "previous_header_sha256": [
+    "b48b236717237b01d46ba384135c6296435c6ad42473fc559dff74f6382c9c57"
+  ]
 }

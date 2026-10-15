@@ -11,14 +11,37 @@ world generation, then throws `DllNotFoundException: SimDLL` at
 `Sim.SIM_Initialize`, called by `ProcGenGame.WorldGenSimUtil.DoSettleSim`.
 The generation worker stops while the loading animation continues. Waiting
 longer or clearing other apps cannot supply the missing simulation library.
-The iOS simulator remains unimplemented; existing portable simulation modules
-are isolated reference-tested subsets, not a linked game backend.
+The first native simulation data core is now implemented and wired into the
+build workflow. It does not yet implement the positive-time physics needed
+to generate or play a colony.
+
+## Native simulation integration (2026-10-15)
+
+`native/sim` now contains the real C++ data core: headless initialization,
+restricted v15 load/save, owned cell and CPU texture arrays, sunlight and
+queued zero-time cell-value updates. Eleven independently captured original
+DLL cases match all 18 arrays at Start and Prepare and the complete save bytes.
+Address/undefined-behavior sanitizer runs pass the same cases and error checks.
+
+The workflow adds eight production modules to UnityFramework and redirects
+seven audited Sim imports to the static C ABI. The actual generated wrapper
+has been compiled and linked against the core locally; its capability error
+reaches the worldgen handler before callback marshaling. The entire patch
+sequence also passes against the real LFS archive.
+
+**Creating/loading a colony remains disabled.** Mixed physics, world settlement,
+ongoing gameplay/rendering and the exported AOT callback are incomplete.
+macOS ARM64 compilation and device execution of this new core remain unverified.
+There is no reason to spend a cloud build solely to try to enter a colony at
+this stage. See [core scope and next gates](native/README.md) and
+[iOS link details](docs/ios-sim-link.md). No Actions run was triggered.
 
 `scripts/patch_ios_worldgen_failure.py` adds failure handling to this export:
 report the native initialization failure to the existing dialog, stop further
 generation, check queued errors before the first progress string, and allow
 the error dialog to appear when shutdown also encounters the missing library.
-Unrelated exceptions propagate. Successful native initialization continues
+The linked core's capability exception is handled by the same initialization
+boundary. Unrelated exceptions propagate. Successful native initialization continues
 through the original world-generation code. This patch does not synthesize
 world data or implement SimDLL.
 

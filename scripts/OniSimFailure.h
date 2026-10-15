@@ -2,7 +2,8 @@
 
 #include <cstring>
 
-// Used only around the SimDLL initialization and error-cleanup boundaries.
+// Used only around simulator initialization and error-cleanup boundaries.
+// PlatformNotSupportedException also covers the linked core's capability gate.
 // Never substitute simulated data or swallow unrelated managed exceptions.
 inline bool OniPortMissingSimLibrary(const Il2CppExceptionWrapper& error) {
     if (error.ex == nullptr) return false;
@@ -10,7 +11,8 @@ inline bool OniPortMissingSimLibrary(const Il2CppExceptionWrapper& error) {
         if (klass->namespaze != nullptr && std::strcmp(klass->namespaze, "System") == 0 &&
             klass->name != nullptr &&
             (std::strcmp(klass->name, "DllNotFoundException") == 0 ||
-             std::strcmp(klass->name, "EntryPointNotFoundException") == 0)) return true;
+             std::strcmp(klass->name, "EntryPointNotFoundException") == 0 ||
+             std::strcmp(klass->name, "PlatformNotSupportedException") == 0)) return true;
     }
     return false;
 }

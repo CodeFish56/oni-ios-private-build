@@ -1,0 +1,192 @@
+#include "GasPressure.h"
+#include "PressureFlux.h"
+
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <limits>
+#include <utility>
+
+namespace {
+uint32_t U32(const std::vector<uint8_t>& bytes, std::size_t at) {
+    return static_cast<uint32_t>(bytes[at]) |
+        (static_cast<uint32_t>(bytes[at + 1]) << 8) |
+        (static_cast<uint32_t>(bytes[at + 2]) << 16) |
+        (static_cast<uint32_t>(bytes[at + 3]) << 24);
+}
+float F32(const std::vector<uint8_t>& bytes, std::size_t at) {
+    uint32_t bits = U32(bytes, at);
+    float result;
+    std::memcpy(&result, &bits, sizeof(result));
+    return result;
+}
+} // namespace
+
+bool DecodePressureElementsV744825(const std::vector<uint8_t>& bytes,
+    std::vector<PressureElementV744825>& elements, uint16_t& vacuum,
+    std::string& error) {
+    error.clear();
+    if (bytes.size() < 4) {
+        error = "Missing element count.";
+        return false;
+    }
+    const uint32_t count = U32(bytes, 0);
+    if (count == 0 || count >= 65535 || count > (bytes.size() - 4) / 164) {
+        error = "Invalid element count or record length.";
+        return false;
+    }
+    std::vector<PressureElementV744825> parsed(count);
+    uint16_t foundVacuum = 65535;
+    for (uint32_t i = 0; i < count; ++i) {
+        const std::size_t at = 4 + static_cast<std::size_t>(i) * 164;
+        const uint32_t index = bytes[at + 8] |
+            (static_cast<uint32_t>(bytes[at + 9]) << 8);
+        if (index != i) {
+            error = "Element indices differ from record order.";
+            return false;
+        }
+        parsed[i].state = bytes[at + 10] & 3;
+        parsed[i].flow = F32(bytes, at + 36);
+        if (!std::isfinite(parsed[i].flow) || parsed[i].flow < 0.0f) {
+            error = "Invalid pressure flow.";
+            return false;
+        }
+        if (U32(bytes, at) == 0x2D39BF75)
+            foundVacuum = static_cast<uint16_t>(i);
+    }
+    if (foundVacuum == 65535 || parsed[foundVacuum].state != 0) {
+        error = "Vacuum element is missing or has an unexpected state.";
+        return false;
+    }
+    elements = std::move(parsed);
+    vacuum = foundVacuum;
+    return true;
+}
+
+bool StepSingleGasPressureV744825(const LoadedWorldV15& source,
+    const std::vector<PressureElementV744825>& elements, uint16_t vacuum,
+    const PressureRegionV744825& region, int direction, LoadedWorldV15& output,
+    std::vector<uint32_t>& elementChanges, std::string& error) {
+    error.clear();
+    const std::size_t count = static_cast<std::size_t>(source.simWidth) * source.simHeight;
+    if ((direction != 1 && direction != -1) || source.simWidth < 3 ||
+        source.simHeight < 3 || count > std::numeric_limits<uint32_t>::max() ||
+        source.elementIdx.size() != count || source.mass.size() != count ||
+        source.temperature.size() != count || source.properties.size() != count ||
+        source.diseaseCount.size() != count || source.diseaseIdx.size() != count ||
+        vacuum >= elements.size() || elements[vacuum].state != 0 ||
+        region.minX > region.maxX || region.minY > region.maxY ||
+        region.maxX > source.simWidth - 2 || region.maxY > source.simHeight - 2) {
+        error = "Invalid pressure grid, vacuum, or iteration direction.";
+        return false;
+    }
+    uint16_t gas = 65535;
+    for (std::size_t cell = 0; cell < count; ++cell) {
+        const uint16_t id = source.elementIdx[cell];
+        if (id >= elements.size() || !std::isfinite(source.mass[cell]) ||
+            source.mass[cell] < 0.0f || !std::isfinite(source.temperature[cell]) ||
+            source.temperature[cell] < 0.0f || source.diseaseCount[cell] != 0 ||
+            source.diseaseIdx[cell] != 255) {
+            error = "Pressure pass requires valid finite grids without disease.";
+            return false;
+        }
+        const uint8_t state = elements[id].state;
+        const std::size_t x = cell % source.simWidth;
+        const std::size_t y = cell / source.simWidth;
+        const bool interior = x > 0 && x + 1 < source.simWidth &&
+            y > 0 && y + 1 < source.simHeight;
+        if (state == 2 || (state == 0 &&
+            (id != vacuum || (interior && source.mass[cell] != 0.0f)))) {
+            error = "Liquids and nonempty vacuum are outside this pressure pass.";
+            return false;
+        }
+        if (state == 1) {
+            if (gas != 65535 && gas != id) {
+                error = "Multiple gas species require displacement rules.";
+                return false;
+            }
+            gas = id;
+        }
+    }
+    LoadedWorldV15 updated = source;
+    std::vector<uint32_t> changes;
+    auto Eligible = [&](std::size_t cell) {
+        return (source.properties[cell] & 1) == 0 &&
+            source.elementIdx[cell] == updated.elementIdx[cell] &&
+            elements[source.elementIdx[cell]].state <= 1;
+    };
+    auto Transfer = [&](std::size_t current, std::size_t neighbor) {
+        if (!Eligible(current) || !Eligible(neighbor))
+            return true;
+        const uint16_t a = source.elementIdx[current];
+        const uint16_t b = source.elementIdx[neighbor];
+        const uint8_t sa = elements[a].state;
+        const uint8_t sb = elements[b].state;
+        if (a != b && sa == sb)
+            return true;
+        const float flow = sa == 1 ? elements[a].flow : elements[b].flow;
+        float gain;
+        if (!TryPressureMassDelta(source.mass[current], source.mass[neighbor], flow, gain))
+            return false;
+        // Native return sign is current -> neighbor; PressureFlux uses the
+        // current cell's gain. The original chooses current as donor at zero.
+        const std::size_t donor = gain > 0.0f ? neighbor : current;
+        const std::size_t receiver = gain > 0.0f ? current : neighbor;
+        const float amount = std::min(std::abs(gain), source.mass[donor]);
+        const float oldReceiverMass = updated.mass[receiver];
+        const float total = oldReceiverMass + amount;
+        if (!std::isfinite(total))
+            return false;
+        float temperature = 0.0f;
+        if (total > 0.0f) {
+            const float donorTemperature = updated.temperature[donor];
+            const float receiverTemperature = updated.temperature[receiver];
+            temperature = (receiverTemperature * oldReceiverMass +
+                donorTemperature * amount) / total;
+            temperature = std::max(std::min(temperature,
+                std::max(donorTemperature, receiverTemperature)),
+                std::min(donorTemperature, receiverTemperature));
+            if (!std::isfinite(temperature))
+                return false;
+        }
+        updated.mass[receiver] = total;
+        updated.temperature[receiver] = temperature;
+        updated.mass[donor] = std::max(updated.mass[donor] - amount, 0.0f);
+        if (elements[source.elementIdx[receiver]].state == 0) {
+            // SimData+0x1A is voidElementIdx, not vacuumElementIdx.
+            // This restricted pass rejects void cells during validation.
+            updated.elementIdx[receiver] = source.elementIdx[donor];
+            if (source.elementIdx[donor] != source.elementIdx[receiver])
+                changes.push_back(static_cast<uint32_t>(receiver));
+        }
+        return true;
+    };
+    const std::size_t width = source.simWidth;
+    for (uint32_t y = region.minY + 1; y < region.maxY + 1; ++y) {
+        // UpdateData uses [min,max) for +1 and (min,max] for -1.
+        const int left = static_cast<int>(region.minX) + 1;
+        const int right = static_cast<int>(region.maxX) + 1;
+        const int first = direction == 1 ? left : right;
+        const int end = direction == 1 ? right : left;
+        for (int x = first; x != end; x += direction) {
+            const std::size_t current = static_cast<std::size_t>(y) * width + x;
+            const std::size_t side = direction == 1 ? current + 1 : current - 1;
+            const std::size_t above = current + width;
+            const std::size_t diagonal = side + width;
+            if (!Transfer(current, side) || !Transfer(current, above)) {
+                error = "Pressure calculation overflowed.";
+                return false;
+            }
+            // A diagonal edge is blocked when either orthogonal cell is solid.
+            if ((elements[source.elementIdx[side]].state |
+                 elements[source.elementIdx[above]].state) != 3 &&
+                !Transfer(current, diagonal)) {
+                error = "Diagonal pressure calculation overflowed.";
+                return false;
+            }
+        }
+    }
+    output = std::move(updated);
+    elementChanges = std::move(changes);
+    return true;
+}

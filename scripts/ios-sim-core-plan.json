@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "source": "Il2CppOutputProject/Source/il2cppOutput/Assembly-CSharp__122.cpp",
+  "source_sha256": "9b440a229e6c57c01cd0fb96de2f3ff51aeadf01e8580b26c4231f8851a10c6d",
+  "methods": [
+    {
+      "function": "Sim_SIM_Initialize_m136F1E495235DD9542F75CA6C1DF81A5DA188123",
+      "signature": "IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Sim_SIM_Initialize_m136F1E495235DD9542F75CA6C1DF81A5DA188123 (GAME_MessageHandler_tB0A13A9744BC86BE363957B6719F85AEBFD9271A* ___0_callback, const RuntimeMethod* method) ",
+      "body_sha256": "7e2674dfdecce9154a7bb2b95aa0a6a7dc12fa690be698aa256c32fafbd5e556",
+      "replacement": "{\n\t// ONI_PORT_LINKED_SIM_CORE\n\tconstexpr uint64_t required = 458752ULL;\n\tif ((OniSim_GetCapabilities() & required) != required)\n\t{\n\t\tstatic const char16_t message[] = u\"ONI iOS simulation core is linked, but world generation settlement, complete game simulation and game render data are not implemented. Creating or loading a colony is unavailable in this build.\";\n\t\tconst il2cpp::utils::StringView<Il2CppChar> text(\n\t\t\treinterpret_cast<const Il2CppChar*>(message), sizeof(message) / sizeof(message[0]) - 1);\n\t\tIL2CPP_RAISE_MANAGED_EXCEPTION(reinterpret_cast<Exception_t*>(\n\t\t\til2cpp::vm::Exception::GetPlatformNotSupportedException(text)), method);\n\t}\n\t// AOT callback support is still required before this capability gate can open.\n\tIl2CppMethodPointer callback = il2cpp_codegen_marshal_delegate(\n\t\treinterpret_cast<MulticastDelegate_t*>(___0_callback));\n\tOniSim_Initialize(reinterpret_cast<OniSim_GameMessageHandler>(callback));\n\tOniPortCheckLinkedSimStatus(method);\n}"
+    },
+    {
+      "function": "Sim_SIM_Shutdown_m2170FCCFF1E09D4DF42C45EBD689DCFE125A0D14",
+      "signature": "IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Sim_SIM_Shutdown_m2170FCCFF1E09D4DF42C45EBD689DCFE125A0D14 (const RuntimeMethod* method) ",
+      "body_sha256": "c2faca01d4fa1aaad9b7c314758984f092be80840289f1b6ce52c094f4fe78f3",
+      "replacement": "{\n\t// ONI_PORT_LINKED_SIM_CORE\n\tOniSim_Shutdown();\n\tOniPortCheckLinkedSimStatus(method);\n}"
+    },
+    {
+      "function": "Sim_SIM_HandleMessage_m74A7E71714B8C87920F0A1667956987A2759C3D5",
+      "signature": "IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR intptr_t Sim_SIM_HandleMessage_m74A7E71714B8C87920F0A1667956987A2759C3D5 (int32_t ___0_sim_msg_id, int32_t ___1_msg_length, uint8_t* ___2_msg, const RuntimeMethod* method) ",
+      "body_sha256": "709332bee0b91368715e4d479a68505d9dda2661e71a9486a5d2288d2880d675",
+      "replacement": "{\n\t// ONI_PORT_LINKED_SIM_CORE\n\tauto* result = OniSim_HandleMessage(___0_sim_msg_id, ___1_msg_length, ___2_msg);\n\tOniPortCheckLinkedSimStatus(method);\n\treturn reinterpret_cast<intptr_t>(result);\n}"
+    },
+    {
+      "function": "Sim_SIM_HandleMessages_m19E6E68BA2DDC39B39868FA9C0FCF4596CF227A4",
+      "signature": "IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR intptr_t Sim_SIM_HandleMessages_m19E6E68BA2DDC39B39868FA9C0FCF4596CF227A4 (int32_t ___0_sim_msg_id, int32_t ___1_msg_length, int32_t ___2_msg_count, uint8_t* ___3_msg, const RuntimeMethod* method) ",
+      "body_sha256": "f17f38a89c3474160803d444367af66738421c91b014ab5b220a0cb2dc3eb7e1",
+      "replacement": "{\n\t// ONI_PORT_LINKED_SIM_CORE\n\tauto* result = OniSim_HandleMessages(___0_sim_msg_id, ___1_msg_length, ___2_msg_count, ___3_msg);\n\tOniPortCheckLinkedSimStatus(method);\n\treturn reinterpret_cast<intptr_t>(result);\n}"
+    },
+    {
+      "function": "Sim_SIM_BeginSave_m3DC78CD6B101301CA272185B4065BC14F0D6209A",
+      "signature": "IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR uint8_t* Sim_SIM_BeginSave_m3DC78CD6B101301CA272185B4065BC14F0D6209A (int32_t* ___0_size, int32_t ___1_x, int32_t ___2_y, const RuntimeMethod* method) ",
+      "body_sha256": "dde82347c25038627c34c386b2f94f1b7f640b6e6cb2fd2bc13df98e5c3d6b4f",
+      "replacement": "{\n\t// ONI_PORT_LINKED_SIM_CORE\n\tuint8_t* result = OniSim_BeginSave(___0_size, ___1_x, ___2_y);\n\tOniPortCheckLinkedSimStatus(method);\n\tif (result == nullptr || ___0_size == nullptr || *___0_size <= 0)\n\t{\n\t\tIL2CPP_RAISE_MANAGED_EXCEPTION(il2cpp_codegen_get_invalid_operation_exception(\n\t\t\t\"OniSim core returned no valid save buffer\"), method);\n\t}\n\treturn result;\n}"
+    },
+    {
+      "function": "Sim_SIM_EndSave_m3E9DA9407023D4E1131772EDE9AC6A4E796708EC",
+      "signature": "IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Sim_SIM_EndSave_m3E9DA9407023D4E1131772EDE9AC6A4E796708EC (const RuntimeMethod* method) ",
+      "body_sha256": "8c582b4de9f58216d10b625ac1c339b3406719d46852204f85ca882bf75c137a",
+      "replacement": "{\n\t// ONI_PORT_LINKED_SIM_CORE\n\tOniSim_EndSave();\n\tOniPortCheckLinkedSimStatus(method);\n}"
+    },
+    {
+      "function": "Sim_SIM_DebugCrash_m502F0D4B0B612D1584D55B33F08222E884C555E4",
+      "signature": "IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Sim_SIM_DebugCrash_m502F0D4B0B612D1584D55B33F08222E884C555E4 (const RuntimeMethod* method) ",
+      "body_sha256": "bf33671e4a5a2fee6f22a3623edc8dec37ce36fccfda8faa5020956a636f8a74",
+      "replacement": "{\n\t// ONI_PORT_LINKED_SIM_CORE\n\tOniSim_DebugCrash();\n\tOniPortCheckLinkedSimStatus(method);\n}"
+    }
+  ],
+  "patched_sha256": "6fbd5e90a4c5ac92e00db4b2830b2b364edbdbd3f390bdc1513e1047325736b5",
+  "pbx_source_sha256": "707f00e46969ba1e586d5268cdf1d26fbfadaed7bca94153f1afe9e338f35cb0",
+  "pbx_patched_sha256": "84fd2db4b9ca096a1177a2e3135b7072a5c0f3eacd003957573072c3d58ff99d",
+  "native_cpp_files": [
+    "FrameCellValues.cpp",
+    "FrameStepSchedule.cpp",
+    "GasPostProcess.cpp",
+    "GasPressure.cpp",
+    "PressureFlux.cpp",
+    "SaveWorldV15.cpp",
+    "SimCore.cpp",
+    "SimCoreExports.cpp"
+  ],
+  "required_capabilities": 458752,
+  "callback_evidence": "IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t GAME_MessageHandler_Invoke_mF315338021656237FFC402518AAE46FDCDE678D8 (GAME_MessageHandler_tB0A13A9744BC86BE363957B6719F85AEBFD9271A* __this, int32_t ___0_message_id, intptr_t ___1_data, const RuntimeMethod* method) ",
+  "conduit_bool_evidence": "Assembly-CSharp__31.cpp: native ConduitTemperatureManager_Add uses int32_t for managed bool; not linked by this patch"
+}

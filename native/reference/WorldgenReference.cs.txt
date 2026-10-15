@@ -1,0 +1,272 @@
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text.Json;
+
+// Isolated, read-only Build 744825 Windows SimDLL oracle. No game process is launched.
+internal static class WorldgenReference
+{
+    const string ExpectedDllHash = "031960F120AC1D59FD8E43F6E1A7369111C629B90C24D52186B691DFE2D8A727";
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate int Callback(int id, IntPtr data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void Initialize(Callback callback);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void Shutdown();
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate IntPtr Handle(int id, int length, IntPtr data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate IntPtr BeginSave(out int length, int x, int y);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void EndSave();
+    static readonly (string Name, int Offset, int Size)[] Grids = [
+        ("elementIdx", 0x04, 2), ("temperature", 0x0c, 4), ("mass", 0x14, 4),
+        ("properties", 0x1c, 1), ("insulation", 0x24, 1), ("strengthInfo", 0x2c, 1),
+        ("radiation", 0x34, 4), ("diseaseIdx", 0x3c, 1), ("diseaseCount", 0x44, 4),
+        ("backwallElement", 0x4c, 2), ("backwallMass", 0x54, 4), ("backwallTemperature", 0x5c, 4)];
+    static string Hash(byte[] bytes) => Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant();
+    static int I32(byte[] bytes, int at) => BitConverter.ToInt32(bytes, at);
+    static uint U32(byte[] bytes, int at) => BitConverter.ToUInt32(bytes, at);
+    static float F32(byte[] bytes, int at) => BitConverter.ToSingle(bytes, at);
+    static void Say(string value) { Console.WriteLine(value); Console.Out.Flush(); }
+    static string Arg(string[] args, string name) {
+        int at = Array.IndexOf(args, name);
+        return at >= 0 && at + 1 < args.Length ? args[at + 1] : throw new ArgumentException("Missing " + name);
+    }
+    static int Main(string[] args)
+    {
+        if (!OperatingSystem.IsWindows() || IntPtr.Size != 8) return 2;
+        try { return Run(args); }
+        catch (Exception ex) { Say(ex.GetType().Name + ": " + ex.Message); return 1; }
+    }
+    static int Run(string[] args)
+    {
+        string game = Arg(args, "--game-root"), capture = Arg(args, "--capture-dir");
+        string output = Path.GetFullPath(Arg(args, "--output-dir"));
+        bool radiation = !args.Contains("--no-radiation");
+        bool prepare = !args.Contains("--no-prepare");
+        bool headless = !args.Contains("--rendered");
+        bool zeroFrame = args.Contains("--zero-frame");
+        bool loadWorld = args.Contains("--load-world");
+        bool defineWorld = args.Contains("--define-world");
+        string native = Path.Combine(game, "OxygenNotIncluded_Data", "Plugins", "x86_64", "SimDLL.dll");
+        byte[] dll = File.ReadAllBytes(native), save = File.ReadAllBytes(Arg(args, "--source-save"));
+        string sourceSaveHash = Hash(save);
+        byte[] elements = File.ReadAllBytes(Path.Combine(capture, "elements.bin"));
+        byte[] diseases = File.ReadAllBytes(Path.Combine(capture, "diseases.bin"));
+        if (!Hash(dll).Equals(ExpectedDllHash, StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException("Expected Build 744825 DLL");
+        if (save.Length < 29 || !save.AsSpan(0, 8).SequenceEqual("SIMSAVE\0"u8) || U32(save, 8) != 15)
+            throw new InvalidDataException("Expected SIMSAVE v15");
+        int fullW = I32(save, 12), fullH = I32(save, 16), width = fullW - 2, height = fullH - 2;
+        int count = checked(width * height), fullCount = checked(fullW * fullH);
+        if (width <= 0 || height <= 0 || save.Length != 29 + 36L * fullCount || I32(save, 20) != 0 || I32(save, 24) != 0)
+            throw new InvalidDataException("Unsupported save shape");
+        int elementCount = I32(elements, 0), diseaseCount = I32(diseases, 0);
+        var elementIds = new Dictionary<uint, ushort>();
+        for (int i = 0; i < elementCount; i++) elementIds.Add(U32(elements, 4 + i * 164), checked((ushort)i));
+        var diseaseIds = new Dictionary<uint, byte>();
+        int diseaseAt = 8;
+        if (I32(diseases, 4) != elementCount) throw new InvalidDataException("Disease element count mismatch");
+        for (int i = 0; i < diseaseCount; i++) {
+            int length = I32(diseases, diseaseAt); diseaseAt += 4 + length;
+            diseaseIds.Add(U32(diseases, diseaseAt), checked((byte)i));
+            diseaseAt += 76 + elementCount * 29;
+        }
+        if (diseaseAt != diseases.Length) throw new InvalidDataException("Disease table length mismatch");
+        bool synthetic = args.Contains("--synthetic");
+        if (synthetic) {
+            string[] dimensions = Arg(args,"--synthetic").Split('x');
+            width = int.Parse(dimensions[0]); height = int.Parse(dimensions[1]);
+            if (width < 2 || height < 2 || width > 512 || height > 512) throw new ArgumentException("Synthetic dimensions outside 2..512");
+            fullW=width+2; fullH=height+2; count=checked(width*height); fullCount=checked(fullW*fullH);
+            save=new byte[29+36*fullCount];
+            using var fixtureStream=new MemoryStream(save); using var fixture=new BinaryWriter(fixtureStream);
+            fixture.Write("SIMSAVE\0"u8); fixture.Write(15); fixture.Write(fullW); fixture.Write(fullH); fixture.Write(0); fixture.Write(0); fixture.Write((byte)0);
+            uint[] hashes = [758759285u,unchecked((uint)-1528777920),1836671383u,unchecked((uint)-105943486)];
+            for(int y=0;y<fullH;y++) for(int x=0;x<fullW;x++) {
+                bool edge=x==0||y==0||x==fullW-1||y==fullH-1; int i=(y-1)*width+x-1;
+                fixture.Write(edge?1838482828u:hashes[i%hashes.Length]);
+                fixture.Write(edge?1f:i%4==0?0f:275f+i*0.25f);
+                fixture.Write(edge?20000f:i%4==0?0f:i%4==1?0.25f+i*0.125f:i%4==2?500f+i:1200f+i);
+                fixture.Write(0f);
+            }
+            var diseasesByIndex=diseaseIds.OrderBy(kv=>kv.Value).Select(kv=>kv.Key).ToArray();
+            for(int y=0;y<fullH;y++) for(int x=0;x<fullW;x++) {
+                bool edge=x==0||y==0||x==fullW-1||y==fullH-1; int i=(y-1)*width+x-1;
+                bool present=!edge&&i%3!=0;
+                fixture.Write(present?diseasesByIndex[i%diseasesByIndex.Length]:0u); fixture.Write(present?100+i:0);
+            }
+            for(int y=0;y<fullH;y++) for(int x=0;x<fullW;x++) {
+                bool edge=x==0||y==0||x==fullW-1||y==fullH-1; int i=(y-1)*width+x-1;
+                bool present=!edge&&i%2!=0;
+                fixture.Write(present?unchecked((uint)-105943486):758759285u); fixture.Write(present?1000f+i:0f); fixture.Write(present?290f+i:0f);
+            }
+            File.WriteAllBytes(Path.Combine(Directory.CreateDirectory(output).FullName,"synthetic-save.bin"),save);
+        }
+        int dstart = 29 + fullCount * 16, bstart = dstart + fullCount * 8;
+        // Exact managed GetBuffer capacity: 20 + 40N. Only 14 + 40N bytes are written.
+        byte[] payload = new byte[checked(20 + 40 * count)];
+        using (var stream = new MemoryStream(payload)) using (var writer = new BinaryWriter(stream)) {
+            writer.Write(width); writer.Write(height); writer.Write(123456u);
+            writer.Write(radiation); writer.Write(headless);
+            for (int y = 1; y < fullH - 1; y++) for (int x = 1; x < fullW - 1; x++) {
+                int at = 29 + (y * fullW + x) * 16;
+                writer.Write(elementIds[U32(save, at)]); writer.Write((byte)0);
+                writer.Write(synthetic ? unchecked((byte)(((y-1)*width+x-1)*17)) : (byte)255);
+                writer.Write(0u); writer.Write(F32(save, at + 4)); writer.Write(F32(save, at + 8));
+            }
+            for (int y = 1; y < fullH - 1; y++) for (int x = 1; x < fullW - 1; x++) {
+                int at = dstart + (y * fullW + x) * 8; uint hash = U32(save, at);
+                writer.Write(hash == 0 ? (byte)255 : diseaseIds[hash]); writer.Write((byte)0); writer.Write((ushort)0);
+                writer.Write(I32(save, at + 4)); writer.Write(0f);
+            }
+            for (int y = 1; y < fullH - 1; y++) for (int x = 1; x < fullW - 1; x++) {
+                int at = bstart + (y * fullW + x) * 12;
+                writer.Write(elementIds[U32(save, at)]); writer.Write((ushort)0);
+                writer.Write(F32(save, at + 4)); writer.Write(F32(save, at + 8));
+            }
+            if (stream.Position != 14 + 40L * count) throw new InvalidDataException("Wire writer length mismatch");
+        }
+        // Diagnostic transport fixture only: managed Cell.Write normally zeroes these two bytes.
+        bool sunFields=args.Contains("--sun-fields");
+        bool rawFields=args.Contains("--raw-fields") || sunFields;
+        if(rawFields) for(int i=0;i<count;i++) {
+            byte[] properties=[0,0x20,0x30,0x10,0x32,0x12];
+            payload[14+i*16+2]=sunFields?properties[i%properties.Length]:(byte)(i%4);
+            payload[14+i*16+4]=unchecked((byte)(i*13));
+        }
+        bool thermalFields=args.Contains("--thermal-fields");
+        if(thermalFields) for(int i=0;i<count;i++) {
+            if(((i%width)+(i/width))%4==0) BitConverter.GetBytes(elementIds[0x3FE0146Eu]).CopyTo(payload,14+i*16);
+            BitConverter.GetBytes(200f+i*2.25f).CopyTo(payload,14+i*16+8);
+            BitConverter.GetBytes(i%7==0?0f:25f+i).CopyTo(payload,14+i*16+12);
+        }
+        Directory.CreateDirectory(output);
+        string wireFile = loadWorld ? "load-world.bin" : "initialize-from-cells.bin";
+        byte[] wireInput = loadWorld ? save : payload;
+        File.WriteAllBytes(Path.Combine(output, wireFile), wireInput);
+        var phases = new Dictionary<string, object>();
+        var stages = new List<string>();
+        var report = new Dictionary<string, object> {
+            ["build"] = "U59-744825-V", ["dll_sha256"] = Hash(dll), ["elements_sha256"] = Hash(elements),
+            ["diseases_sha256"] = Hash(diseases), ["source_save_sha256"] = sourceSaveHash,
+            ["fixture_save_sha256"] = Hash(save), ["synthetic"] = synthetic,
+            ["diagnostic_raw_fields"] = rawFields,
+            ["diagnostic_thermal_fields"] = thermalFields,
+            ["world_offsets_defined"] = loadWorld || defineWorld,
+            ["width"] = width, ["height"] = height, ["seed"] = 123456u,
+            ["headless"] = headless, ["radiation"] = radiation, ["wire_sha256"] = Hash(wireInput),
+            ["wire_length"] = wireInput.Length, ["wire_content_length"] = loadWorld ? wireInput.Length : 14 + 40 * count,
+            ["wire_input"] = new { mode = loadWorld ? "load_world" : "initialize_from_cells", file = wireFile },
+            ["elements"] = elementCount, ["diseases"] = diseaseCount, ["phases"] = phases, ["stages"] = stages };
+        string oldPath = Environment.GetEnvironmentVariable("PATH") ?? "";
+        Environment.SetEnvironmentVariable("PATH", Path.GetDirectoryName(native) + Path.PathSeparator + game + Path.PathSeparator + oldPath);
+        IntPtr library = NativeLibrary.Load(native);
+        var initialize = Marshal.GetDelegateForFunctionPointer<Initialize>(NativeLibrary.GetExport(library, "SIM_Initialize"));
+        var shutdown = Marshal.GetDelegateForFunctionPointer<Shutdown>(NativeLibrary.GetExport(library, "SIM_Shutdown"));
+        var handle = Marshal.GetDelegateForFunctionPointer<Handle>(NativeLibrary.GetExport(library, "SIM_HandleMessage"));
+        Callback callback = (id, data) => { Say("Native callback id=" + id); return 0; };
+        void Stage(string s) { stages.Add(s); Say(s); File.WriteAllText(Path.Combine(output, "report.json"), JsonSerializer.Serialize(report, new JsonSerializerOptions { WriteIndented = true })); }
+        IntPtr Send(int id, byte[] bytes) {
+            IntPtr memory = bytes.Length == 0 ? IntPtr.Zero : Marshal.AllocHGlobal(bytes.Length);
+            try { if (bytes.Length > 0) Marshal.Copy(bytes, 0, memory, bytes.Length); return handle(id, bytes.Length, memory); }
+            finally { if (memory != IntPtr.Zero) Marshal.FreeHGlobal(memory); }
+        }
+        void Inspect(string phase, IntPtr update) {
+            if (update == IntPtr.Zero) throw new InvalidDataException(phase + " returned null");
+            var arrays = new Dictionary<string, object>();
+            foreach (var field in Grids) {
+                IntPtr pointer = Marshal.ReadIntPtr(update, field.Offset);
+                if (pointer == IntPtr.Zero) { arrays[field.Name] = new { present = false }; continue; }
+                byte[] bytes = new byte[count * field.Size]; Marshal.Copy(pointer, bytes, 0, bytes.Length);
+                File.WriteAllBytes(Path.Combine(output, phase + "." + field.Name + ".bin"), bytes);
+                arrays[field.Name] = new { present = true, length = bytes.Length, sha256 = Hash(bytes),
+                    sample_hex = Convert.ToHexString(bytes.AsSpan(0, Math.Min(bytes.Length, 16))) };
+            }
+            var counts = new Dictionary<string, int>();
+            for (int offset = 0x64; offset < 0x1c0; offset += 12) counts["0x" + offset.ToString("x")] = Marshal.ReadInt32(update, offset);
+            var auxiliary = new Dictionary<string, object>();
+            foreach (var (name, offset, size) in new (string,int,int)[] { ("accumulatedFlow",0x1c0,4),("propertyTextureFlow",0x1c8,8),
+                ("propertyTextureLiquid",0x1d0,4),("propertyTextureLiquidData",0x1d8,4),("propertyTextureMaterialData",0x1e0,4),("propertyTextureExposedToSunlight",0x1e8,1) }) {
+                IntPtr pointer=Marshal.ReadIntPtr(update,offset);
+                if(pointer==IntPtr.Zero) { auxiliary[name]=new { present=false }; continue; }
+                byte[] bytes=new byte[count*size]; Marshal.Copy(pointer,bytes,0,bytes.Length);
+                File.WriteAllBytes(Path.Combine(output,phase+"."+name+".bin"),bytes);
+                auxiliary[name]=new { present=true,length=bytes.Length,sha256=Hash(bytes),sample_hex=Convert.ToHexString(bytes.AsSpan(0,Math.Min(bytes.Length,16))) };
+            }
+            phases[phase] = new { numFramesProcessed = Marshal.ReadInt32(update), arrays, event_counts = counts, auxiliary_pointers = auxiliary };
+            // PDB-verified internal dimensions and vector layout, guarded by exact DLL SHA above.
+            IntPtr simData = Marshal.ReadIntPtr(library, 0x115640);
+            if (simData == IntPtr.Zero || Marshal.ReadInt32(simData) != fullW || Marshal.ReadInt32(simData,4) != fullH)
+                throw new InvalidDataException("Internal grid dimension mismatch");
+            var borders = new Dictionary<string, object>();
+            foreach (var field in new (string Name,int VectorOffset,int Size)[] { ("elementIdx",0,2),("temperature",0x20,4),("mass",0x40,4),
+                ("properties",0x60,1),("insulation",0x80,1),("strengthInfo",0xa0,1),("diseaseIdx",0xc0,1),("diseaseCount",0xe0,4),("radiation",0x140,4) }) {
+                IntPtr soa = Marshal.ReadIntPtr(simData, 0x28), begin = Marshal.ReadIntPtr(soa, field.VectorOffset+8), end = Marshal.ReadIntPtr(soa, field.VectorOffset+16);
+                if (end.ToInt64()-begin.ToInt64() != fullCount * (long)field.Size) throw new InvalidDataException("Internal vector length mismatch: " + field.Name);
+                byte[] bytes = new byte[fullCount * field.Size]; Marshal.Copy(begin,bytes,0,bytes.Length);
+                File.WriteAllBytes(Path.Combine(output, phase + ".internal." + field.Name + ".bin"),bytes);
+                var unique = new HashSet<string>();
+                for (int y=0;y<fullH;y++) for (int x=0;x<fullW;x++) if (x==0||y==0||x==fullW-1||y==fullH-1)
+                    unique.Add(Convert.ToHexString(bytes.AsSpan((y*fullW+x)*field.Size,field.Size)));
+                borders[field.Name] = unique.OrderBy(x=>x).ToArray();
+            }
+            report[phase + "_boundary_values_hex"] = borders;
+            report[phase + "_sim_flags"] = new { numGameCells=Marshal.ReadInt32(simData,8), seed=unchecked((uint)Marshal.ReadInt32(simData,12)),
+                headless=Marshal.ReadByte(simData,0x859), radiation=Marshal.ReadByte(simData,0x85a),
+                voidIndex=unchecked((ushort)Marshal.ReadInt16(simData,0x1a)), vacuumIndex=unchecked((ushort)Marshal.ReadInt16(simData,0x1c)),
+                unobtaniumIndex=unchecked((ushort)Marshal.ReadInt16(simData,0x1e)) };
+            Stage(phase + ": inspected 12 grids, 29 event counts, 6 auxiliary pointers");
+        }
+        Stage("SIM_Initialize: calling"); initialize(callback); Stage("SIM_Initialize: returned");
+        Send(1108437482,elements); Stage("Elements_CreateTable: returned");
+        if(loadWorld) {
+            // Sim.AllocateCells uses stream.Length (10), unlike InitializeFromCells.GetBuffer.
+            byte[] allocation=new byte[10]; BitConverter.GetBytes(width).CopyTo(allocation,0); BitConverter.GetBytes(height).CopyTo(allocation,4);
+            allocation[8]=radiation?(byte)1:(byte)0; allocation[9]=headless?(byte)1:(byte)0;
+            Send(1092408308,allocation); Stage("AllocateCells: returned (10 bytes)");
+            // SimMessages.DefineWorldOffsets: count + (offsetX, offsetY, sizeX, sizeY).
+            byte[] offsets=new byte[20]; BitConverter.GetBytes(1).CopyTo(offsets,0);
+            BitConverter.GetBytes(width).CopyTo(offsets,12); BitConverter.GetBytes(height).CopyTo(offsets,16);
+            Send(-895846551,offsets); Stage("DefineWorldOffsets: returned (20 bytes)");
+            File.WriteAllBytes(Path.Combine(output,"allocate-cells.bin"),allocation);
+            File.WriteAllBytes(Path.Combine(output,"world-offsets.bin"),offsets);
+        }
+        Send(825301935,diseases); Stage("Disease_CreateTable: returned");
+        if(loadWorld) {
+            Send(-1836204275,[]); Stage("ClearUnoccupiedCells: returned");
+            if(Send(-672538170,wireInput)==IntPtr.Zero) throw new InvalidDataException("LoadWorld returned null");
+            Stage("LoadWorld: returned nonnull");
+        } else {
+            Send(2062421945,payload); Stage("SimData_InitializeFromCells: returned");
+            if(defineWorld) {
+                byte[] offsets=new byte[20]; BitConverter.GetBytes(1).CopyTo(offsets,0);
+                BitConverter.GetBytes(width).CopyTo(offsets,12); BitConverter.GetBytes(height).CopyTo(offsets,16);
+                Send(-895846551,offsets); Stage("DefineWorldOffsets after cells: returned");
+                File.WriteAllBytes(Path.Combine(output,"world-offsets.bin"),offsets);
+            }
+        }
+        Inspect("start",Send(-931446686,[]));
+        if (zeroFrame) {
+            byte[] frame = new byte[28];
+            BitConverter.GetBytes(width).CopyTo(frame,12); BitConverter.GetBytes(height).CopyTo(frame,16);
+            BitConverter.GetBytes(1f).CopyTo(frame,20);
+            Send(-775326397,frame); Stage("NewGameFrame(0 seconds): returned");
+        }
+        if (prepare) {
+            byte[] visible=new byte[count]; Array.Fill(visible,(byte)255);
+            IntPtr update=Send(1078620451,visible);
+            if(zeroFrame) for(int attempt=0;attempt<20&&update!=IntPtr.Zero&&Marshal.ReadInt32(update)==0;attempt++) {
+                Thread.Sleep(50); update=Send(1078620451,visible);
+            }
+            if(zeroFrame&&(update==IntPtr.Zero||Marshal.ReadInt32(update)!=1)) throw new InvalidDataException("Zero-second frame did not complete exactly once");
+            Inspect("prepare",update);
+        }
+        var beginSave=Marshal.GetDelegateForFunctionPointer<BeginSave>(NativeLibrary.GetExport(library,"SIM_BeginSave"));
+        var endSave=Marshal.GetDelegateForFunctionPointer<EndSave>(NativeLibrary.GetExport(library,"SIM_EndSave"));
+        Stage("SIM_BeginSave: calling");
+        IntPtr saved=beginSave(out int savedLength,0,0);
+        if(saved==IntPtr.Zero||savedLength<29||savedLength>100_000_000) throw new InvalidDataException("Invalid BeginSave output");
+        byte[] savedBytes=new byte[savedLength]; Marshal.Copy(saved,savedBytes,0,savedLength); endSave();
+        File.WriteAllBytes(Path.Combine(output,"original-save.bin"),savedBytes);
+        report["original_save"]=new { length=savedLength,sha256=Hash(savedBytes),header_hex=Convert.ToHexString(savedBytes.AsSpan(0,29)),
+            version=U32(savedBytes,8),width=I32(savedBytes,12),height=I32(savedBytes,16),x=I32(savedBytes,20),y=I32(savedBytes,24),flag=savedBytes[28] };
+        Stage("SIM_BeginSave / SIM_EndSave: returned");
+        Stage("SIM_Shutdown: calling"); shutdown(); Stage("SIM_Shutdown: returned");
+        GC.KeepAlive(callback); NativeLibrary.Free(library);
+        return 0;
+    }
+}

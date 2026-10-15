@@ -65,6 +65,9 @@ jobs:
       - name: Report unavailable simulator without hanging world generation
         run: python3 scripts/patch_ios_worldgen_failure.py ios-xcode-744825 --report worldgen-failure-check.json
 
+      - name: Link capability-gated native simulation core
+        run: python3 scripts/integrate_ios_sim_core.py ios-xcode-744825 --report sim-core-link-check.json
+
       - name: Compile device app without signing
         shell: bash
         run: |
@@ -121,6 +124,7 @@ jobs:
             startup-check.json
             landscape-check.json
             worldgen-failure-check.json
+            sim-core-link-check.json
           if-no-files-found: ignore
           retention-days: 1
 

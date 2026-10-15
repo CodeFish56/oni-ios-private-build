@@ -113,7 +113,8 @@ def patch(project: Path, plan: dict) -> dict:
             raise ValueError(f"Worldgen source changed; audit before building: {path.name}")
         previews[path] = patched
     header_path = project / "Il2CppOutputProject/Source/il2cppOutput" / HEADER
-    if header_path.exists() and header_path.read_bytes() != header:
+    if (header_path.exists() and header_path.read_bytes() != header
+            and digest(header_path.read_bytes()) not in plan.get("previous_header_sha256", [])):
         raise ValueError("An unknown worldgen exception header already exists")
     previews[header_path] = header
     changed = False

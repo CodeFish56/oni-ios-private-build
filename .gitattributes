@@ -1,3 +1,4 @@
 package/*.part-* filter=lfs diff=lfs merge=lfs -text
 package-probe/*.part-* filter=lfs diff=lfs merge=lfs -text
 package-resource/*.part-* filter=lfs diff=lfs merge=lfs -text
+native/** text eol=lf
