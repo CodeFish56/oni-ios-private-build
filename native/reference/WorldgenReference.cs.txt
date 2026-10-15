@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Diagnostics;
 
 // Isolated, read-only Build 744825 Windows SimDLL oracle. No game process is launched.
 internal static class WorldgenReference
@@ -42,6 +43,17 @@ internal static class WorldgenReference
         bool zeroFrame = args.Contains("--zero-frame");
         bool loadWorld = args.Contains("--load-world");
         bool defineWorld = args.Contains("--define-world");
+        bool gasFixture = args.Contains("--gas-fixture");
+        float[] stepSeconds = args.Contains("--step-seconds") ? Arg(args,"--step-seconds").Split(',')
+            .Select(s=>float.Parse(s,System.Globalization.CultureInfo.InvariantCulture)).ToArray() : [];
+        uint seed = args.Contains("--seed") ? uint.Parse(Arg(args,"--seed")) : 123456u;
+        if(stepSeconds.Length>100 || stepSeconds.Any(s=>!float.IsFinite(s)||s<0||s>2))
+            throw new ArgumentException("Frame seconds outside 0..2 or too many frames");
+        if(stepSeconds.Length>0 && OperatingSystem.IsWindows()) {
+            using Process process=Process.GetCurrentProcess();
+            long allowed=process.ProcessorAffinity.ToInt64();
+            process.ProcessorAffinity=(nint)(allowed & -allowed);
+        }
         string native = Path.Combine(game, "OxygenNotIncluded_Data", "Plugins", "x86_64", "SimDLL.dll");
         byte[] dll = File.ReadAllBytes(native), save = File.ReadAllBytes(Arg(args, "--source-save"));
         string sourceSaveHash = Hash(save);
@@ -100,7 +112,7 @@ internal static class WorldgenReference
         // Exact managed GetBuffer capacity: 20 + 40N. Only 14 + 40N bytes are written.
         byte[] payload = new byte[checked(20 + 40 * count)];
         using (var stream = new MemoryStream(payload)) using (var writer = new BinaryWriter(stream)) {
-            writer.Write(width); writer.Write(height); writer.Write(123456u);
+            writer.Write(width); writer.Write(height); writer.Write(seed);
             writer.Write(radiation); writer.Write(headless);
             for (int y = 1; y < fullH - 1; y++) for (int x = 1; x < fullW - 1; x++) {
                 int at = 29 + (y * fullW + x) * 16;
@@ -134,6 +146,28 @@ internal static class WorldgenReference
             BitConverter.GetBytes(200f+i*2.25f).CopyTo(payload,14+i*16+8);
             BitConverter.GetBytes(i%7==0?0f:25f+i).CopyTo(payload,14+i*16+12);
         }
+        string gasLayout = gasFixture ? Arg(args,"--gas-fixture") : "";
+        if(gasFixture) {
+            if(loadWorld || !new[]{"oxygen-single","co2-single","oxygen-full","co2-full"}.Contains(gasLayout))
+                throw new ArgumentException("Gas fixture requires InitializeFromCells and a known layout");
+            ushort vacuum=elementIds[0x2D39BF75u];
+            ushort gas=elementIds[gasLayout.StartsWith("co2",StringComparison.Ordinal)?0x74DC00EFu:0xA4E0B340u];
+            bool filled=gasLayout.EndsWith("full",StringComparison.Ordinal);
+            float initialMass=args.Contains("--gas-mass")?float.Parse(Arg(args,"--gas-mass"),System.Globalization.CultureInfo.InvariantCulture):1f;
+            if(!float.IsFinite(initialMass)||initialMass<=0) throw new ArgumentException("Gas mass must be positive and finite");
+            for(int i=0;i<count;i++) {
+                int at=14+16*i;
+                bool present=filled||i==(height/2)*width+width/2;
+                BitConverter.GetBytes(present?gas:vacuum).CopyTo(payload,at);
+                payload[at+2]=0; payload[at+3]=255; payload[at+4]=0;
+                BitConverter.GetBytes(present?300f:0f).CopyTo(payload,at+8);
+                BitConverter.GetBytes(present?initialMass*(filled?1+(i%7)*.125f:1):0f).CopyTo(payload,at+12);
+                int disease=14+count*16+i*12; payload[disease]=255;
+                Array.Clear(payload,disease+1,11);
+                int backwall=14+count*28+i*12; Array.Clear(payload,backwall,12);
+                BitConverter.GetBytes(vacuum).CopyTo(payload,backwall);
+            }
+        }
         Directory.CreateDirectory(output);
         string wireFile = loadWorld ? "load-world.bin" : "initialize-from-cells.bin";
         byte[] wireInput = loadWorld ? save : payload;
@@ -147,7 +181,8 @@ internal static class WorldgenReference
             ["diagnostic_raw_fields"] = rawFields,
             ["diagnostic_thermal_fields"] = thermalFields,
             ["world_offsets_defined"] = loadWorld || defineWorld,
-            ["width"] = width, ["height"] = height, ["seed"] = 123456u,
+            ["width"] = width, ["height"] = height, ["seed"] = seed,
+            ["gas_fixture"] = gasLayout, ["step_seconds"] = stepSeconds,
             ["headless"] = headless, ["radiation"] = radiation, ["wire_sha256"] = Hash(wireInput),
             ["wire_length"] = wireInput.Length, ["wire_content_length"] = loadWorld ? wireInput.Length : 14 + 40 * count,
             ["wire_input"] = new { mode = loadWorld ? "load_world" : "initialize_from_cells", file = wireFile },
@@ -158,6 +193,8 @@ internal static class WorldgenReference
         var initialize = Marshal.GetDelegateForFunctionPointer<Initialize>(NativeLibrary.GetExport(library, "SIM_Initialize"));
         var shutdown = Marshal.GetDelegateForFunctionPointer<Shutdown>(NativeLibrary.GetExport(library, "SIM_Shutdown"));
         var handle = Marshal.GetDelegateForFunctionPointer<Handle>(NativeLibrary.GetExport(library, "SIM_HandleMessage"));
+        var beginSave=Marshal.GetDelegateForFunctionPointer<BeginSave>(NativeLibrary.GetExport(library,"SIM_BeginSave"));
+        var endSave=Marshal.GetDelegateForFunctionPointer<EndSave>(NativeLibrary.GetExport(library,"SIM_EndSave"));
         Callback callback = (id, data) => { Say("Native callback id=" + id); return 0; };
         void Stage(string s) { stages.Add(s); Say(s); File.WriteAllText(Path.Combine(output, "report.json"), JsonSerializer.Serialize(report, new JsonSerializerOptions { WriteIndented = true })); }
         IntPtr Send(int id, byte[] bytes) {
@@ -178,6 +215,14 @@ internal static class WorldgenReference
             }
             var counts = new Dictionary<string, int>();
             for (int offset = 0x64; offset < 0x1c0; offset += 12) counts["0x" + offset.ToString("x")] = Marshal.ReadInt32(update, offset);
+            foreach(var (name,offset,size) in new (string,int,int)[] {("solidInfo",0x64,8),("liquidChangeInfo",0x70,4),
+                ("solidSubstanceChangeInfo",0x7c,4),("substanceChangeInfo",0x88,8)}) {
+                int entries=Marshal.ReadInt32(update,offset);
+                if(entries<0||entries>count*32) throw new InvalidDataException("Unexpected event count: "+name);
+                byte[] events=new byte[checked(entries*size)];
+                if(events.Length>0) Marshal.Copy(Marshal.ReadIntPtr(update,offset+4),events,0,events.Length);
+                File.WriteAllBytes(Path.Combine(output,phase+"."+name+".bin"),events);
+            }
             var auxiliary = new Dictionary<string, object>();
             foreach (var (name, offset, size) in new (string,int,int)[] { ("accumulatedFlow",0x1c0,4),("propertyTextureFlow",0x1c8,8),
                 ("propertyTextureLiquid",0x1d0,4),("propertyTextureLiquidData",0x1d8,4),("propertyTextureMaterialData",0x1e0,4),("propertyTextureExposedToSunlight",0x1e8,1) }) {
@@ -206,6 +251,7 @@ internal static class WorldgenReference
             }
             report[phase + "_boundary_values_hex"] = borders;
             report[phase + "_sim_flags"] = new { numGameCells=Marshal.ReadInt32(simData,8), seed=unchecked((uint)Marshal.ReadInt32(simData,12)),
+                iterateDirection=Marshal.ReadInt32(simData,16),displacementDirection=Marshal.ReadInt32(simData,20),
                 headless=Marshal.ReadByte(simData,0x859), radiation=Marshal.ReadByte(simData,0x85a),
                 voidIndex=unchecked((ushort)Marshal.ReadInt16(simData,0x1a)), vacuumIndex=unchecked((ushort)Marshal.ReadInt16(simData,0x1c)),
                 unobtaniumIndex=unchecked((ushort)Marshal.ReadInt16(simData,0x1e)) };
@@ -255,8 +301,33 @@ internal static class WorldgenReference
             if(zeroFrame&&(update==IntPtr.Zero||Marshal.ReadInt32(update)!=1)) throw new InvalidDataException("Zero-second frame did not complete exactly once");
             Inspect("prepare",update);
         }
-        var beginSave=Marshal.GetDelegateForFunctionPointer<BeginSave>(NativeLibrary.GetExport(library,"SIM_BeginSave"));
-        var endSave=Marshal.GetDelegateForFunctionPointer<EndSave>(NativeLibrary.GetExport(library,"SIM_EndSave"));
+        if(stepSeconds.Length>0) {
+            int[] region=args.Contains("--frame-region")?Arg(args,"--frame-region").Split(',').Select(int.Parse).ToArray():[0,0,width,height];
+            if(region.Length!=4||region[0]<0||region[1]<0||region[2]<region[0]||region[3]<region[1]||region[2]>width||region[3]>height)
+                throw new ArgumentException("Invalid active frame region");
+            report["frame_region"]=region;
+            byte[] visible=new byte[count]; Array.Fill(visible,(byte)255);
+            for(int index=0;index<stepSeconds.Length;index++) {
+                string phase="frame"+(index+1).ToString("D3");
+                byte[] frame=new byte[28]; BitConverter.GetBytes(stepSeconds[index]).CopyTo(frame,0);
+                for(int i=0;i<4;i++) BitConverter.GetBytes(region[i]).CopyTo(frame,4+i*4);
+                BitConverter.GetBytes(1f).CopyTo(frame,20);
+                File.WriteAllBytes(Path.Combine(output,phase+".input.bin"),frame);
+                Send(-775326397,frame);
+                IntPtr update=IntPtr.Zero;
+                for(int attempt=0;attempt<100;attempt++) {
+                    update=Send(1078620451,visible);
+                    if(update!=IntPtr.Zero&&Marshal.ReadInt32(update)>0) break;
+                    Thread.Sleep(10);
+                }
+                if(update==IntPtr.Zero||Marshal.ReadInt32(update)!=1) throw new InvalidDataException("Frame did not finish exactly once: "+phase);
+                Inspect(phase,update);
+                IntPtr frameSave=beginSave(out int frameSaveLength,0,0);
+                if(frameSave==IntPtr.Zero||frameSaveLength<29||frameSaveLength>100_000_000) throw new InvalidDataException("Invalid frame save");
+                byte[] frameSaved=new byte[frameSaveLength]; Marshal.Copy(frameSave,frameSaved,0,frameSaved.Length); endSave();
+                File.WriteAllBytes(Path.Combine(output,phase+".save.bin"),frameSaved);
+            }
+        }
         Stage("SIM_BeginSave: calling");
         IntPtr saved=beginSave(out int savedLength,0,0);
         if(saved==IntPtr.Zero||savedLength<29||savedLength>100_000_000) throw new InvalidDataException("Invalid BeginSave output");

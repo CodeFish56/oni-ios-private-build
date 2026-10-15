@@ -24,10 +24,20 @@ Other diagnostic switches: `--no-radiation`, `--zero-frame`, `--define-world`
 `--thermal-fields`. The last three deliberately change raw wire data; do not
 describe them as the original managed Cell.Write's default output.
 
+Positive-frame fixtures add `--gas-fixture oxygen-single`, `co2-single`,
+`oxygen-full` or `co2-full`, with `--step-seconds '0.2,0.4,0,0.2'`.
+Use `--seed 70`, `--gas-mass 256` or `--frame-region '4,4,28,28'` as needed.
+These fixtures require InitializeFromCells; pair them with `--no-radiation`.
+The tool pins its own process to one available CPU, preserving original DLL
+instructions, then waits until each frame is processed before capturing it.
+Each phase includes full event records, RNG seed/directions and SIMSAVE bytes.
+`native/sim/Verify-GasFrames.py` compares these records to the actual new C ABI.
+
 Each completed case saves the full input, Start/Prepare grids and auxiliary
 arrays, 29 event counts, internal-border arrays and an original-engine Save.
 `report.json` binds the target, input and output digests. `Verify-Bridge.py`
 compares the new compiled C ABI to these independent outputs.
 
 The tool covers initialization, restricted load/save and zero-time frames.
-It does not validate positive-time simulation or iPhone gameplay.
+Its positive-frame mode validates only the configured scenarios; it does not
+establish mixed-world physics or iPhone gameplay.

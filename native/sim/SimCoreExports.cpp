@@ -29,6 +29,9 @@ extern "C" {
 uint64_t OniSim_GetCapabilities() noexcept { return SimCore::Capabilities; }
 int32_t OniSim_GetLastStatus() noexcept { return lastStatus; }
 const char* OniSim_GetLastError() noexcept { return lastError; }
+void OniSim_GetDiagnostics(OniSimDiagnostics* state) noexcept {
+    Guard(false, [&]() { core.GetDiagnostics(state); return true; });
+}
 void OniSim_Initialize(OniSim_GameMessageHandler callback) noexcept {
     Guard(false, [&]() { core.Initialize(callback); return true; });
 }

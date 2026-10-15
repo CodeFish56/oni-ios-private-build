@@ -66,7 +66,8 @@ bool DecodePressureElementsV744825(const std::vector<uint8_t>& bytes,
 bool StepSingleGasPressureV744825(const LoadedWorldV15& source,
     const std::vector<PressureElementV744825>& elements, uint16_t vacuum,
     const PressureRegionV744825& region, int direction, LoadedWorldV15& output,
-    std::vector<uint32_t>& elementChanges, std::string& error) {
+    std::vector<uint32_t>& elementChanges, std::string& error,
+    std::vector<std::array<float, 4>>* frameFlow) {
     error.clear();
     const std::size_t count = static_cast<std::size_t>(source.simWidth) * source.simHeight;
     if ((direction != 1 && direction != -1) || source.simWidth < 3 ||
@@ -75,6 +76,7 @@ bool StepSingleGasPressureV744825(const LoadedWorldV15& source,
         source.temperature.size() != count || source.properties.size() != count ||
         source.diseaseCount.size() != count || source.diseaseIdx.size() != count ||
         vacuum >= elements.size() || elements[vacuum].state != 0 ||
+        (frameFlow != nullptr && frameFlow->size() != count) ||
         region.minX > region.maxX || region.minY > region.maxY ||
         region.maxX > source.simWidth - 2 || region.maxY > source.simHeight - 2) {
         error = "Invalid pressure grid, vacuum, or iteration direction.";
@@ -109,13 +111,14 @@ bool StepSingleGasPressureV744825(const LoadedWorldV15& source,
         }
     }
     LoadedWorldV15 updated = source;
+    auto flowData = frameFlow == nullptr ? std::vector<std::array<float, 4>>() : *frameFlow;
     std::vector<uint32_t> changes;
     auto Eligible = [&](std::size_t cell) {
         return (source.properties[cell] & 1) == 0 &&
             source.elementIdx[cell] == updated.elementIdx[cell] &&
             elements[source.elementIdx[cell]].state <= 1;
     };
-    auto Transfer = [&](std::size_t current, std::size_t neighbor) {
+    auto Transfer = [&](std::size_t current, std::size_t neighbor, unsigned axis) {
         if (!Eligible(current) || !Eligible(neighbor))
             return true;
         const uint16_t a = source.elementIdx[current];
@@ -128,6 +131,16 @@ bool StepSingleGasPressureV744825(const LoadedWorldV15& source,
         float gain;
         if (!TryPressureMassDelta(source.mass[current], source.mass[neighbor], flow, gain))
             return false;
+        if (frameFlow != nullptr && axis < 2) {
+            if (axis == 0) {
+                const float delta = static_cast<float>(direction) * -gain;
+                flowData[current][1] += delta; flowData[neighbor][0] -= delta;
+            } else {
+                flowData[current][2] += -gain; flowData[neighbor][3] -= -gain;
+            }
+            if (!std::isfinite(flowData[current][axis == 0 ? 1 : 2]) ||
+                !std::isfinite(flowData[neighbor][axis == 0 ? 0 : 3])) return false;
+        }
         // Native return sign is current -> neighbor; PressureFlux uses the
         // current cell's gain. The original chooses current as donor at zero.
         const std::size_t donor = gain > 0.0f ? neighbor : current;
@@ -156,8 +169,8 @@ bool StepSingleGasPressureV744825(const LoadedWorldV15& source,
             // SimData+0x1A is voidElementIdx, not vacuumElementIdx.
             // This restricted pass rejects void cells during validation.
             updated.elementIdx[receiver] = source.elementIdx[donor];
-            if (source.elementIdx[donor] != source.elementIdx[receiver])
-                changes.push_back(static_cast<uint32_t>(receiver));
+            // ChangeSubstance records a notification even for vacuum->vacuum.
+            changes.push_back(static_cast<uint32_t>(receiver));
         }
         return true;
     };
@@ -173,20 +186,21 @@ bool StepSingleGasPressureV744825(const LoadedWorldV15& source,
             const std::size_t side = direction == 1 ? current + 1 : current - 1;
             const std::size_t above = current + width;
             const std::size_t diagonal = side + width;
-            if (!Transfer(current, side) || !Transfer(current, above)) {
+            if (!Transfer(current, side, 0) || !Transfer(current, above, 1)) {
                 error = "Pressure calculation overflowed.";
                 return false;
             }
             // A diagonal edge is blocked when either orthogonal cell is solid.
             if ((elements[source.elementIdx[side]].state |
                  elements[source.elementIdx[above]].state) != 3 &&
-                !Transfer(current, diagonal)) {
+                !Transfer(current, diagonal, 2)) {
                 error = "Diagonal pressure calculation overflowed.";
                 return false;
             }
         }
     }
     output = std::move(updated);
+    if (frameFlow != nullptr) *frameFlow = std::move(flowData);
     elementChanges = std::move(changes);
     return true;
 }

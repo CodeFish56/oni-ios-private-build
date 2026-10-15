@@ -1,5 +1,6 @@
 #include "SimCore.h"
 #include "SimWireABI.h"
+#include "FrameStepSchedule.h"
 #include <algorithm>
 #include <cmath>
 #include <cstring>
@@ -70,6 +71,8 @@ void SimCore::Shutdown() {
     elementBytes_.clear(); diseaseBytes_.clear(); world_ = {}; view_ = {}; update_ = {};
     vacuum_ = boundary_ = 65535; diseasesReady_ = false; worldOffsetsReady_ = false;
     worldDefinitionPresent_ = false;
+    seedKnown_ = false; iterateDirection_ = -1; carrySeconds_ = 0; physicsSteps_ = 0; random_ = {}; pendingPhysicsFrame_ = false;
+    pendingSubstance_.clear(); outputSubstance_.clear(); frameFlow_.clear(); flowSourceElements_.clear();
     radiationEnabled_ = false; allocationOnly_ = false; seed_ = 0; cellValues_ = {}; pendingFrames_ = 0;
     accumulatedFlow_.clear(); textureFlow_.clear(); textureLiquid_.clear();
     textureLiquidData_.clear(); textureMaterial_.clear(); sunlight_.clear(); save_.clear(); saveOpen_ = false;
@@ -184,6 +187,7 @@ bool SimCore::InitializeCells(const uint8_t* data, std::size_t bytes) {
     // in this fresh-grid path (including the thermal-5x7 original fixture).
     // Later positive-time settling needs separate current/updated arrays.
     world_ = std::move(parsed); seed_ = U32(data + 8); radiationEnabled_ = data[12] != 0;
+    random_.seed = seed_; seedKnown_ = true;
     phase_ = Phase::GridReady; worldOffsetsReady_ = true; allocationOnly_ = false;
     return true;
 }
@@ -334,25 +338,121 @@ void SimCore::BindOutput() {
     update_.propertyTextureFlow = textureFlow_.data(); update_.propertyTextureLiquid = textureLiquid_.data();
     update_.propertyTextureLiquidData = textureLiquidData_.data(); update_.propertyTextureMaterialData = textureMaterial_.data();
     update_.propertyTextureExposedToSunlight = sunlight_.data();
+    update_.numSubstanceChangeInfo = static_cast<int32_t>(outputSubstance_.size());
+    update_.substanceChangeInfo = outputSubstance_.empty() ? nullptr : outputSubstance_.data();
+}
+
+void SimCore::GetDiagnostics(OniSimDiagnostics* state) {
+    ClearStatus();
+    if (state == nullptr) { Fail(OniSimStatus::InvalidInput, "Diagnostic output pointer is null."); return; }
+    if (phase_ == Phase::Cold) { Fail(OniSimStatus::InvalidState, "The native core is not initialized."); return; }
+    *state = {random_.seed, iterateDirection_, random_.displacementDirection, carrySeconds_, physicsSteps_};
+}
+
+void SimCore::RefreshFlow() {
+    if (frameFlow_.empty()) return;
+    for (uint32_t y = 0; y < world_.GameHeight(); ++y) for (uint32_t x = 0; x < world_.GameWidth(); ++x) {
+        const std::size_t game = std::size_t(y) * world_.GameWidth() + x, sim = world_.SimIndex(x, y);
+        const auto& flow = frameFlow_[sim];
+        const float scale = flowSourceElements_[sim] == world_.elementIdx[sim] ? 1.0f / std::max(world_.mass[sim], 1.0f) : 0.0f;
+        const float velocity[] = {(flow[0] - flow[1]) * scale, (flow[3] - flow[2]) * scale};
+        std::memcpy(textureFlow_.data() + game * 8, velocity, sizeof(velocity));
+    }
+}
+
+bool SimCore::AdvanceGasFrame(const NewGameFrame& frame, LoadedWorldV15& world) {
+    if (radiationEnabled_ || !seedKnown_ || frame.currentCosmicRadiationIntensity != 0)
+        return Fail(OniSimStatus::UnsupportedFeature, "Positive frames currently require non-radiating InitializeFromCells with a known seed.");
+    if (pendingFrames_ != 0)
+        return Fail(OniSimStatus::InvalidState, "PrepareGameData must consume the preceding frame before a positive frame.");
+    std::vector<PressureElementV744825> pressure;
+    std::vector<GasPostElementV744825> post;
+    uint16_t vacuum = 65535; std::string error;
+    if (!DecodePressureElementsV744825(elementBytes_, pressure, vacuum, error) ||
+        !DecodeGasPostElementsV744825(elementBytes_, post, error)) {
+        status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
+    }
+    // The original temperature task skips differences < 1 K and materials
+    // with no conductivity or the insulation state bit. This narrow gas band
+    // permits pressure rounding without pretending to implement heat exchange.
+    if (F32(elementBytes_.data() + 4 + std::size_t(vacuum) * 164 + 16) != 0 ||
+        (post[boundary_].state & 0x10) == 0)
+        return Fail(OniSimStatus::UnsupportedFeature, "Thermal exchange with vacuum or the boundary is outside this gas path.");
+    for (std::size_t cell = 0; cell < world.mass.size(); ++cell) {
+        if (world.radiation[cell] != 0 || world.backwallMass[cell] != 0 ||
+            world.backwallTemperature[cell] != 0 || world.backwallElement[cell] != vacuum ||
+            (pressure[world.elementIdx[cell]].state == 1 && std::abs(world.temperature[cell] - 300.0f) >= 0.25f))
+            return Fail(OniSimStatus::UnsupportedFeature, "Positive gas frames currently require gas within 0.25 K of 300 K, zero radiation and empty backwalls.");
+    }
+    float carry = carrySeconds_; FrameStepPlan plan{};
+    if (!PlanFrameSteps(frame.elapsedSeconds, carry, plan) || plan.updateDataCalls > 100)
+        return Fail(OniSimStatus::UnsupportedFeature, "Frame timestep is outside the supported bounded gas schedule.");
+    PressureRegionV744825 region{static_cast<uint32_t>(frame.activeRegion.minX), static_cast<uint32_t>(frame.activeRegion.minY),
+        static_cast<uint32_t>(frame.activeRegion.maxX), static_cast<uint32_t>(frame.activeRegion.maxY)};
+    auto random = random_; int direction = iterateDirection_;
+    std::vector<std::array<float, 4>> flow(world.mass.size());
+    std::vector<uint32_t> notified;
+    LoadedWorldV15 current = world;
+    std::vector<uint16_t> flowSource;
+    for (int step = 0; step < plan.updateDataCalls; ++step) {
+        LoadedWorldV15 updated; std::vector<uint32_t> changes;
+        direction = -direction;
+        if (!StepSingleGasPressureV744825(current, pressure, vacuum, region, direction, updated, changes, error, &flow)) {
+            status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
+        }
+        notified.insert(notified.end(), changes.begin(), changes.end());
+        // UpdateData copies updatedCells to cells after pressure and before
+        // PostProcessCell; the flow renderer compares that snapshot to final.
+        flowSource = updated.elementIdx;
+        current = std::move(updated);
+        if (!StepSingleGasPostProcessV744825(current, post, region, random, updated, changes, error)) {
+            status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
+        }
+        notified.insert(notified.end(), changes.begin(), changes.end());
+        current = std::move(updated);
+    }
+    std::sort(notified.begin(), notified.end());
+    notified.erase(std::unique(notified.begin(), notified.end()), notified.end());
+    std::vector<SubstanceNotification> events;
+    for (uint32_t cell : notified) {
+        const uint32_t sx = cell % current.simWidth, sy = cell / current.simWidth;
+        if (sx == 0 || sy == 0 || sx + 1 == current.simWidth || sy + 1 == current.simHeight) continue;
+        const std::size_t game = std::size_t(sy - 1) * current.GameWidth() + sx - 1;
+        events.push_back({static_cast<int32_t>(game), view_.elementIdx[game], current.elementIdx[cell]});
+    }
+    world = std::move(current); frameFlow_ = std::move(flow); flowSourceElements_ = std::move(flowSource);
+    pendingSubstance_ = std::move(events); random_ = random; iterateDirection_ = direction;
+    carrySeconds_ = carry; physicsSteps_ += static_cast<uint64_t>(plan.updateDataCalls);
+    return true;
 }
 
 bool SimCore::QueueFrame(const uint8_t* data, std::size_t bytes) {
     if (phase_ != Phase::Started) return Fail(OniSimStatus::InvalidState, "NewGameFrame requires Start.");
+    if (pendingPhysicsFrame_) return Fail(OniSimStatus::InvalidState, "PrepareGameData must consume the pending positive frame.");
     if (bytes != sizeof(NewGameFrame)) return Fail(OniSimStatus::UnsupportedFeature, "Only one active frame region is supported.");
     NewGameFrame frame{}; std::memcpy(&frame, data, sizeof(frame));
     if (frame.activeRegion.minX < 0 || frame.activeRegion.minY < 0 || frame.activeRegion.maxX < frame.activeRegion.minX ||
         frame.activeRegion.maxY < frame.activeRegion.minY || uint32_t(frame.activeRegion.maxX) > world_.GameWidth() ||
         uint32_t(frame.activeRegion.maxY) > world_.GameHeight()) return Fail(OniSimStatus::InvalidInput, "Frame region is invalid.");
-    if (frame.elapsedSeconds > 0) return Fail(OniSimStatus::UnsupportedFeature, "Positive-time physics/500-step world settlement is not implemented.");
     if (pendingFrames_ == std::numeric_limits<int32_t>::max()) return Fail(OniSimStatus::InvalidState, "Pending frame count exceeds the wire integer range.");
-    auto insulation = view_.insulation, strength = view_.strengthInfo;
+    std::vector<uint8_t> insulation, strength;
+    ToGame(world_, world_.insulation, insulation); ToGame(world_, world_.strengthInfo, strength);
+    LoadedWorldV15 candidate = world_;
     auto queue = cellValues_;
     if (!queue.ApplyInsulation(insulation.data(), CellCount()) || !queue.ApplyStrength(strength.data(), CellCount()))
         return Fail(OniSimStatus::InvalidInput, "A queued cell-value message addresses an invalid game cell.");
     for (uint32_t y = 0; y < world_.GameHeight(); ++y) for (uint32_t x = 0; x < world_.GameWidth(); ++x) {
         const std::size_t g = std::size_t(y) * world_.GameWidth() + x, s = world_.SimIndex(x, y);
-        world_.insulation[s] = insulation[g]; world_.strengthInfo[s] = strength[g];
+        candidate.insulation[s] = insulation[g]; candidate.strengthInfo[s] = strength[g];
     }
+    if (frame.elapsedSeconds > 0 && !AdvanceGasFrame(frame, candidate)) return false;
+    if (frame.elapsedSeconds > 0) pendingPhysicsFrame_ = true;
+    if (!(frame.elapsedSeconds > 0)) {
+        std::vector<std::array<float, 4>> flow(candidate.mass.size());
+        auto sourceElements = candidate.elementIdx;
+        frameFlow_ = std::move(flow); flowSourceElements_ = std::move(sourceElements);
+    }
+    world_ = std::move(candidate);
     cellValues_ = std::move(queue); ++pendingFrames_;
     return true;
 }
@@ -398,9 +498,11 @@ void* SimCore::HandleMessage(int32_t id, int32_t bytes, const uint8_t* data) {
             Fail(OniSimStatus::InvalidInput, "PrepareGameData requires exactly one visibility byte per game cell after Start."); return nullptr;
         }
         RefreshCells(false);
+        RefreshFlow();
         RefreshSunlight();
         if (!RefreshTextures()) return nullptr;
-        update_.numFramesProcessed = pendingFrames_; pendingFrames_ = 0; BindOutput(); return &update_;
+        outputSubstance_ = std::move(pendingSubstance_); pendingSubstance_.clear();
+        update_.numFramesProcessed = pendingFrames_; pendingFrames_ = 0; pendingPhysicsFrame_ = false; BindOutput(); return &update_;
     case -775326397: QueueFrame(data, length); return nullptr;
     case FrameCellValues::SetInsulationValueMessageId:
     case FrameCellValues::SetStrengthValueMessageId:

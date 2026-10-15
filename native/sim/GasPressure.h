@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SaveWorldV15.h"
+#include <array>
 
 struct PressureElementV744825 {
     uint8_t state = 0;
@@ -25,8 +26,10 @@ bool DecodePressureElementsV744825(const std::vector<uint8_t>& bytes,
 // Supports one gas species, vacuum, and solid obstacles, without diseases.
 // direction is the already-negated SimData.iterateDirection (+1 or -1).
 // The source remains fixed throughout the pass; output contains accumulated
-// transfers. Changed element cells are returned without native event packing.
+// transfers. Substance notifications include same-element receiver writes;
+// native event packing and game-grid conversion belong to the caller.
 bool StepSingleGasPressureV744825(const LoadedWorldV15& source,
     const std::vector<PressureElementV744825>& elements, uint16_t vacuum,
     const PressureRegionV744825& region, int direction, LoadedWorldV15& output,
-    std::vector<uint32_t>& elementChanges, std::string& error);
+    std::vector<uint32_t>& elementChanges, std::string& error,
+    std::vector<std::array<float, 4>>* frameFlow = nullptr);

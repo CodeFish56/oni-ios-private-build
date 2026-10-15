@@ -12,8 +12,23 @@ world generation, then throws `DllNotFoundException: SimDLL` at
 The generation worker stops while the loading animation continues. Waiting
 longer or clearing other apps cannot supply the missing simulation library.
 The first native simulation data core is now implemented and wired into the
-build workflow. It does not yet implement the positive-time physics needed
-to generate or play a colony.
+build workflow. Restricted single-gas positive frames now work locally; the
+mixed physics needed to generate or play a colony is incomplete.
+
+## Positive simulation frames (2026-10-15)
+
+The native C ABI now dispatches real single-species gas pressure and random
+postprocessing, preserves frame time carry and returns flow textures and
+substance notifications. Seven independent original-engine scenarios match
+27 subsequent frames: all 18 arrays, 29 event counts, event bytes, RNG state
+and saves. Eleven initialization/load regressions and address/undefined-behavior
+sanitizers pass. Eight unsupported feature cases fail without changing world/RNG.
+
+This path requires a known initialization seed, no radiation, empty backwalls,
+one supported gas plus vacuum, no interior solids/disease/properties, and gas
+within 0.25 K of 300 K. It consumes one positive frame per PrepareGameData.
+It does not supply mixed-world settlement or permit a colony to start.
+[Scope and evidence](docs/ios-gas-frames.md). No cloud build was triggered.
 
 ## Native simulation integration (2026-10-15)
 

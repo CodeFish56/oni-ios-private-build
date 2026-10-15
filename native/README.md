@@ -1,9 +1,10 @@
-# Native simulation core — first integration stage
+# Native simulation core — restricted positive frames
 
 This is a C++17 implementation of the verified Build U59-744825-V data path.
 It owns real cell, disease, backwall and CPU render buffers. It can initialize
 a headless grid, load a restricted SIMSAVE v15 world and write it back.
-**It cannot yet generate a playable colony or advance positive-time physics.**
+It now advances restricted single-gas positive frames with real flow and event
+output. **It cannot yet generate a playable colony.**
 
 ## Implemented and locally verified
 
@@ -17,6 +18,8 @@ a headless grid, load a restricted SIMSAVE v15 world and write it back.
 - Actual CPU liquid colour/data/material encoding and world-scoped sunlight
   attenuation. Flow remains zero in the verified initialization/zero-time path.
 - Queued insulation/strength values, including all-or-nothing invalid batches.
+- Single-species oxygen or CO2 pressure, random displacement, frame scheduling
+  and carry, flow textures and substance notifications through the C ABI.
 - Real SIMSAVE v15 output, with verified zero header option and zero offsets.
 - Seven `OniSim_*` C ABI entry points plus status/error/capability queries.
   Native exceptions are contained inside `noexcept` exports.
@@ -29,6 +32,15 @@ properties/strength, sunlight blockers/windows, a zero-time frame and a
 abyssalite initialization diagnostic. AddressSanitizer and
 UndefinedBehaviorSanitizer runs pass the same fixtures and malformed-input
 checks. Details and file digests: [verification](../docs/native-sim-verification.json).
+
+Seven additional original-engine cases compare 27 subsequent frames, including
+ten consecutive oxygen frames, CO2, variable frame lengths, zero seconds and
+regions on either side of the 32-cell chunk boundary. Every frame matches all
+18 arrays, 29 event counts, four event byte streams, RNG seed/directions and
+complete saved bytes. Mass error stays below 6.1e-8 relative in these cases.
+Both sanitizers pass; eight unsupported feature tests preserve world/RNG on
+failure. See [positive-frame scope](../docs/ios-gas-frames.md) and
+[record](../docs/gas-frame-verification.json).
 
 These are observed fixture results on Linux x86-64 against Windows x86-64
 reference output. They are not proof of every input or ARM64 runtime behavior.
@@ -60,7 +72,7 @@ the Xcode export, adds them to UnityFramework and redirects seven audited
 `Sim.SIM_*` wrappers to this static C ABI. See [link details](../docs/ios-sim-link.md).
 No new 1.66 GB archive upload is needed.
 
-Current capabilities are **63**, covering the limited data operations above.
+Current capabilities are **127**, adding the restricted single-gas physics bit.
 The game wrapper requires world settlement, game simulation and game render
 capabilities (**458752**); all remain absent. It raises a managed capability
 error before marshaling the callback. World-generation failure handling
@@ -72,8 +84,9 @@ Remaining acceptance gates, in order:
 1. Implement mixed solid/liquid/gas time steps, heat exchange, phase changes,
    disease and events. Validate one frame, then the complete 500-step world
    settlement against controlled original runs, including conservation checks.
-   Existing gas-pressure/postprocessing modules are linked but not dispatched
-   from positive-time frames.
+   Gas pressure/postprocessing now runs through the C ABI for the verified
+   restricted domain. Mixed species, liquids, interior solids, low-mass
+   evaporation, substantial temperature differences and radiation remain rejected.
 2. Generate and check the IL2CPP reverse P/Invoke callback. The recovery script
    now adds the iOS `MonoPInvokeCallback` attribute; the current archive was
    exported earlier and still lacks that callback entry.

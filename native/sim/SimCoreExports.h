@@ -33,12 +33,22 @@ enum class OniSimStatus : int32_t {
     InternalError = 6
 };
 
+struct OniSimDiagnostics {
+    uint32_t randomSeed;
+    int32_t iterateDirection;
+    int32_t displacementDirection;
+    float carrySeconds;
+    uint64_t physicsSteps;
+};
+static_assert(sizeof(OniSimDiagnostics) == 24);
+
 // C ABI: no C++ exception crosses this boundary. Check GetLastStatus after
 // every operation. Returned data is owned by the core, not the caller.
 extern "C" {
 ONI_SIM_API uint64_t OniSim_GetCapabilities() ONI_SIM_NOEXCEPT;
 ONI_SIM_API int32_t OniSim_GetLastStatus() ONI_SIM_NOEXCEPT;
 ONI_SIM_API const char* OniSim_GetLastError() ONI_SIM_NOEXCEPT;
+ONI_SIM_API void OniSim_GetDiagnostics(OniSimDiagnostics* state) ONI_SIM_NOEXCEPT;
 ONI_SIM_API void OniSim_Initialize(OniSim_GameMessageHandler callback) ONI_SIM_NOEXCEPT;
 ONI_SIM_API void OniSim_Shutdown() ONI_SIM_NOEXCEPT;
 ONI_SIM_API void* OniSim_HandleMessage(int32_t messageId, int32_t length, const uint8_t* data) ONI_SIM_NOEXCEPT;
