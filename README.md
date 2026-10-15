@@ -4,6 +4,34 @@ This folder stages the locally generated Build 744825 Xcode export for a **priva
 GitHub repository. The workflow compiles an **unsigned** IPA on a hosted macOS
 runner; it does not make Oxygen Not Included playable or sign the app.
 
+## Latest device result (2026-10-15)
+
+The user can now enter the main menu. A USB-recorded new-game attempt reaches
+world generation, then throws `DllNotFoundException: SimDLL` at
+`Sim.SIM_Initialize`, called by `ProcGenGame.WorldGenSimUtil.DoSettleSim`.
+The generation worker stops while the loading animation continues. Waiting
+longer or clearing other apps cannot supply the missing simulation library.
+The iOS simulator remains unimplemented; existing portable simulation modules
+are isolated reference-tested subsets, not a linked game backend.
+
+`scripts/patch_ios_worldgen_failure.py` adds failure handling to this export:
+report the native initialization failure to the existing dialog, stop further
+generation, check queued errors before the first progress string, and allow
+the error dialog to appear when shutdown also encounters the missing library.
+Unrelated exceptions propagate. Successful native initialization continues
+through the original world-generation code. This patch does not synthesize
+world data or implement SimDLL.
+
+The affected generated C++ compiles locally, the actual exception helper passes
+focused tests, and the patch sequence passes against the archived source.
+Its new dialog/return flow still needs an iPhone test. No Actions run is needed
+merely to confirm the already-observed missing backend.
+
+Current measured process physical footprint during the stalled attempt is
+3,615,542,824 bytes (about 3.37 GiB). This indicates substantial memory use;
+it does not establish the cause of every reported exit. See
+[current verification and remaining work](docs/ios-worldgen-status.md).
+
 ## Current staged iOS export (2026-10-14)
 
 The workflow reads `package-resource/manifest.json` and its four Git LFS parts.
@@ -18,9 +46,9 @@ element initialization can finish. Desktop and Editor audio paths remain.
 Unity's local iOS export succeeded with zero build errors on 2026-10-14.
 The archive SHA-256 is
 `8c3cba4d4abc9c69fac31d7ae0c755f6f2609b694f119f2bea612f954d666c5a`.
-Build #14 compiled this archive with the native audio boundary repair. The
-phone reaches asset initialization and the error dialog; menu startup and
-gameplay are not yet verified.
+Build #14 compiled this archive with the native audio boundary repair.
+The follow-up managed startup repair reached the main menu on the iPhone
+on 2026-10-15; new-game generation stops at the missing SimDLL backend.
 
 ## Native FMOD boundary verification (2026-10-14)
 
@@ -82,7 +110,8 @@ and rejection of changed source without writes. All three changed C++ files
 compiled with the exported Unity headers on Linux. A linked probe executed
 the real generated listener, runtime, emitter and reflection functions without
 Unity/FMOD initialization and checked invalid handles, completion state and
-output parameters. This repair still needs a new macOS build and phone test.
+output parameters. The user's subsequent IPA reaches the main menu; the
+next confirmed blocker is new-game simulation initialization, described above.
 
 Earlier foreground exits also have a distinct kernel `killing_highwater_process`
 record at 3,458,227 KB (about 3.3 GiB). The latest user report stays on the error
