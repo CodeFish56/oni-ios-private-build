@@ -149,12 +149,14 @@ internal static class WorldgenReference
         string gasLayout = gasFixture ? Arg(args,"--gas-fixture") : "";
         if(gasFixture) {
             if(loadWorld || !new[]{"oxygen-single","co2-single","oxygen-full","co2-full",
-                "mixed-stripes","mixed-layers","mixed-checker","mixed-pocket","mixed-low"}.Contains(gasLayout))
+                "mixed-stripes","mixed-layers","mixed-checker","mixed-pocket","mixed-low",
+                "water-single","water-column","water-basin","water-corner","water-full"}.Contains(gasLayout))
                 throw new ArgumentException("Gas fixture requires InitializeFromCells and a known layout");
             ushort vacuum=elementIds[0x2D39BF75u];
             ushort gas=elementIds[gasLayout.StartsWith("co2",StringComparison.Ordinal)?0x74DC00EFu:0xA4E0B340u];
             bool filled=gasLayout.EndsWith("full",StringComparison.Ordinal);
             bool mixed=gasLayout.StartsWith("mixed",StringComparison.Ordinal);
+            bool waterLayout=gasLayout.StartsWith("water",StringComparison.Ordinal);
             float initialMass=args.Contains("--gas-mass")?float.Parse(Arg(args,"--gas-mass"),System.Globalization.CultureInfo.InvariantCulture):1f;
             if(!float.IsFinite(initialMass)||initialMass<=0) throw new ArgumentException("Gas mass must be positive and finite");
             for(int i=0;i<count;i++) {
@@ -172,6 +174,15 @@ internal static class WorldgenReference
                     if(gasLayout=="mixed-low") cellMass=(i%9) switch {
                         0=>0f,1=>5e-10f,2=>1e-9f,3=>.0005f,4=>.001f,_=>cellMass};
                 }
+                if(waterLayout) {
+                    cellGas=elementIds[1836671383u];
+                    present=filled || i==(height/2)*width+width/2 ||
+                        (gasLayout=="water-column" && x==width/2 && Math.Abs(y-height/2)<=2);
+                    if((gasLayout=="water-basin" && y==height/2-2 && Math.Abs(x-width/2)<=3) ||
+                        (gasLayout=="water-corner" && y==height/2-1 && x==width/2-1)) {
+                        present=true; cellGas=elementIds[1838482828u]; cellMass=9999f;
+                    }
+                }
                 BitConverter.GetBytes(present?cellGas:vacuum).CopyTo(payload,at);
                 payload[at+2]=0; payload[at+3]=255; payload[at+4]=0;
                 BitConverter.GetBytes(present?300f:0f).CopyTo(payload,at+8);
@@ -181,6 +192,14 @@ internal static class WorldgenReference
                 int backwall=14+count*28+i*12; Array.Clear(payload,backwall,12);
                 BitConverter.GetBytes(vacuum).CopyTo(payload,backwall);
             }
+        }
+        if(args.Contains("--initialize-input")) {
+            if(loadWorld) throw new ArgumentException("Initialize input cannot override LoadWorld");
+            payload=File.ReadAllBytes(Arg(args,"--initialize-input"));
+            if((payload.Length!=14+40L*count && payload.Length!=20+40L*count) ||
+                I32(payload,0)!=width || I32(payload,4)!=height || payload[12]>1 || payload[13]>1)
+                throw new InvalidDataException("Initialize override shape/header mismatch");
+            seed=U32(payload,8); radiation=payload[12]!=0; headless=payload[13]!=0;
         }
         Directory.CreateDirectory(output);
         string wireFile = loadWorld ? "load-world.bin" : "initialize-from-cells.bin";
@@ -197,6 +216,7 @@ internal static class WorldgenReference
             ["world_offsets_defined"] = loadWorld || defineWorld,
             ["width"] = width, ["height"] = height, ["seed"] = seed,
             ["gas_fixture"] = gasLayout, ["step_seconds"] = stepSeconds,
+            ["initialize_input_override"] = args.Contains("--initialize-input"),
             ["headless"] = headless, ["radiation"] = radiation, ["wire_sha256"] = Hash(wireInput),
             ["wire_length"] = wireInput.Length, ["wire_content_length"] = loadWorld ? wireInput.Length : 14 + 40 * count,
             ["wire_input"] = new { mode = loadWorld ? "load_world" : "initialize_from_cells", file = wireFile },
@@ -251,6 +271,11 @@ internal static class WorldgenReference
             IntPtr simData = Marshal.ReadIntPtr(library, 0x115640);
             if (simData == IntPtr.Zero || Marshal.ReadInt32(simData) != fullW || Marshal.ReadInt32(simData,4) != fullH)
                 throw new InvalidDataException("Internal grid dimension mismatch");
+            IntPtr timerPointer=Marshal.ReadIntPtr(simData,0x70);
+            if(timerPointer==IntPtr.Zero) throw new InvalidDataException("Missing stability timers");
+            byte[] timers=new byte[fullCount]; Marshal.Copy(timerPointer,timers,0,timers.Length);
+            File.WriteAllBytes(Path.Combine(output,phase+".internal.timers.bin"),timers);
+            report[phase+"_timers"]=new {length=timers.Length,sha256=Hash(timers)};
             var borders = new Dictionary<string, object>();
             foreach (var field in new (string Name,int VectorOffset,int Size)[] { ("elementIdx",0,2),("temperature",0x20,4),("mass",0x40,4),
                 ("properties",0x60,1),("insulation",0x80,1),("strengthInfo",0xa0,1),("diseaseIdx",0xc0,1),("diseaseCount",0xe0,4),("radiation",0x140,4) }) {

@@ -21,8 +21,8 @@ PREFIX = "ONI_PORT_LINKED_SIM_CORE"
 ROOT = "Libraries/OniSimCore"
 CPP_FILES = (
     "FrameCellValues.cpp", "FrameStepSchedule.cpp", "GasPostProcess.cpp",
-    "GasPressure.cpp", "PressureFlux.cpp", "SaveWorldV15.cpp",
-    "SimCore.cpp", "SimCoreExports.cpp",
+    "GasPressure.cpp", "LiquidFlow.cpp", "PressureFlux.cpp", "SaveWorldV15.cpp",
+    "SimCore.cpp", "SimCoreExports.cpp", "StabilityTimers.cpp",
 )
 SIM_HEADERS = tuple(name.replace(".cpp", ".h") for name in CPP_FILES)
 ABI_HEADERS = ("GameDataUpdate.h", "SimExports.h", "SimWireABI.h")

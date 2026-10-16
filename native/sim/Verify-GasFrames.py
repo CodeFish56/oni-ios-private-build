@@ -1,4 +1,4 @@
-"""Compare complete restricted positive-frame C ABI output to original runs."""
+"""Compare complete restricted gas or water C ABI output to original runs."""
 
 import argparse
 import ctypes as c
@@ -25,6 +25,21 @@ def diagnostics(bridge):
     bridge.library.OniSim_GetDiagnostics(c.byref(state))
     bridge.check()
     return {name: getattr(state, name) for name, _ in Diagnostics._fields_}
+
+
+def timer_snapshot(bridge, fixture=None, phase=None, report=None):
+    size = bridge.library.OniSim_CopyStabilityTimers(None, 0)
+    bridge.check()
+    assert size > 0
+    output = c.create_string_buffer(size)
+    assert bridge.library.OniSim_CopyStabilityTimers(output, size) == size
+    bridge.check()
+    actual = bytes(v & 31 for v in output.raw)
+    if fixture is not None:
+        expected = (fixture / f"{phase}.internal.timers.bin").read_bytes()
+        assert hashlib.sha256(expected).hexdigest() == report[phase + "_timers"]["sha256"]
+        assert actual == bytes(v & 31 for v in expected), (fixture.name, phase, "defined timer bits")
+    return actual
 
 
 def snapshot(pointer, fixture, phase, report):
@@ -74,8 +89,22 @@ def run(bridge, fixture, elements, diseases):
     if report.get("world_offsets_defined"):
         bridge.send(-895846551, (fixture / "world-offsets.bin").read_bytes())
     rows = [{"phase": "start", "arrays": snapshot(bridge.send(-931446686), fixture, "start", report)}]
+    rows[-1]["timers_low5_sha256"] = hashlib.sha256(timer_snapshot(bridge, fixture, "start", report)).hexdigest()
+    if fixture.name == "oxygen-single":
+        size = (report["width"] + 2) * (report["height"] + 2)
+        sentinel = c.create_string_buffer(bytes([165]) * (size + 1), size + 1)
+        saved, before_state = bridge.save(), diagnostics(bridge)
+        assert bridge.library.OniSim_CopyStabilityTimers(sentinel, size - 1) == 0
+        bridge.check(2)
+        assert sentinel.raw == bytes([165]) * (size + 1)
+        assert bridge.library.OniSim_CopyStabilityTimers(None, size) == 0
+        bridge.check(2)
+        assert bridge.library.OniSim_CopyStabilityTimers(sentinel, size) == size
+        bridge.check()
+        assert sentinel.raw[-1] == 165 and bridge.save() == saved and diagnostics(bridge) == before_state
     visible = bytes([255]) * (report["width"] * report["height"])
     rows.append({"phase": "prepare", "arrays": snapshot(bridge.send(1078620451, visible), fixture, "prepare", report)})
+    rows[-1]["timers_low5_sha256"] = hashlib.sha256(timer_snapshot(bridge, fixture, "prepare", report)).hexdigest()
     initial_mass = sum(struct.unpack_from("<f", payload, 26 + 16 * i)[0] for i in range(len(visible)))
     for index in range(len(report["step_seconds"])):
         phase = f"frame{index + 1:03d}"
@@ -102,6 +131,7 @@ def run(bridge, fixture, elements, diseases):
                                ("displacementDirection", "displacementDirection")):
             assert state[name] == expected[original], (fixture.name, phase, name, state[name], expected[original])
         rows.append({"phase": phase, "arrays": arrays, "state": state, "mass": mass, "initial_mass": initial_mass,
+                     "timers_low5_sha256": hashlib.sha256(timer_snapshot(bridge, fixture, phase, report)).hexdigest(),
                      "original_mass_change": original_mass - initial_mass,
                      "save_sha256": hashlib.sha256(before).hexdigest()})
     assert bridge.save() == (fixture / "original-save.bin").read_bytes()
@@ -124,7 +154,12 @@ def rejected_features(bridge, fixture, elements, diseases):
             if elements[14+i*164] & 3 == 1 and struct.unpack_from("<I", elements, 4+i*164)[0]
             not in (0xA4E0B340, 0x74DC00EF) and struct.unpack_from("<f", elements, 60+i*164)[0] < 300
             < struct.unpack_from("<f", elements, 64+i*164)[0]), 300, 1),
-        "liquid": lambda p: struct.pack_into("<H6xff", p, 14, indices[1836671383], 300, 1),
+        "water_gas_interaction": lambda p: struct.pack_into("<H6xff", p, 14, indices[1836671383], 300, 1),
+        "other_liquid": lambda p: struct.pack_into("<H6xff", p, 14, next(i for i in range(len(indices))
+            if elements[14+i*164] & 3 == 2 and struct.unpack_from("<I", elements, 4+i*164)[0] != 1836671383), 300, 1),
+        "water_overpressure": lambda p: struct.pack_into("<H6xff", p, 14 + gas * 16, indices[1836671383], 300, 2000),
+        "hot_water_obstacle": lambda p: (struct.pack_into("<H6xff", p, 14 + gas * 16, indices[1836671383], 300, 1),
+            struct.pack_into("<H6xff", p, 14, indices[1838482828], 500, 9999)),
         "properties": lambda p: p.__setitem__(16, 1),
         "disease": lambda p: struct.pack_into("<B3xi", p, 14 + count * 16, 0, 1),
         "backwall": lambda p: struct.pack_into("<H2xff", p, 14 + count * 28, indices[(-105943486) & 0xffffffff], 1, 300),
@@ -139,9 +174,9 @@ def rejected_features(bridge, fixture, elements, diseases):
         bridge.send(2062421945, bytes(payload))
         bridge.send(-931446686)
         bridge.send(1078620451, bytes([255]) * count)
-        before, state = bridge.save(), diagnostics(bridge)
+        before, state, timers = bridge.save(), diagnostics(bridge), timer_snapshot(bridge)
         bridge.send(-775326397, struct.pack("<fiiiiff", .2, 0, 0, width, height, 1, 0), expected=4)
-        assert bridge.save() == before and diagnostics(bridge) == state, (name, "partial update on failure")
+        assert bridge.save() == before and diagnostics(bridge) == state and timer_snapshot(bridge) == timers, (name, "partial update on failure")
         bridge.Shutdown()
         rows.append({"feature": name, "explicitly_rejected": True, "world_and_rng_unchanged": True})
     return rows
@@ -155,6 +190,8 @@ def main():
     bridge = module.Bridge(args.library)
     bridge.library.OniSim_GetDiagnostics.argtypes = [c.POINTER(Diagnostics)]
     bridge.library.OniSim_GetDiagnostics.restype = None
+    bridge.library.OniSim_CopyStabilityTimers.argtypes = [c.c_void_p, c.c_int32]
+    bridge.library.OniSim_CopyStabilityTimers.restype = c.c_int32
     rows = []
     for fixture in sorted(args.fixtures.iterdir()):
         if not (fixture / "report.json").is_file():
@@ -166,7 +203,7 @@ def main():
     denied = rejected_features(bridge, args.fixtures / "oxygen-single", args.elements.read_bytes(), args.diseases.read_bytes())
     result = {"all_passed": True, "library_sha256": hashlib.sha256(args.library.read_bytes()).hexdigest(),
               "cases": rows, "rejected_features": denied, "capabilities": bridge.GetCapabilities(),
-              "limits": "Restricted non-radiating O2/CO2/vacuum fixtures; not general physics, world settlement or iPhone execution"}
+              "limits": "Restricted non-radiating O2/CO2 or single-water worlds; water/gas interaction, general heat/phase physics, settlement and iPhone execution unavailable"}
     args.result.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
 
 

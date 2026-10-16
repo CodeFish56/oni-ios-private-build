@@ -31,4 +31,5 @@ bool StepGasPostProcessV744825(const LoadedWorldV15& source,
     const std::vector<GasPostElementV744825>& elements,
     const PressureRegionV744825& region, GasRandomStateV744825& random,
     LoadedWorldV15& output, std::vector<uint32_t>& elementChanges,
-    std::string& error, std::vector<std::array<float, 4>>* frameFlow = nullptr);
+    std::string& error, std::vector<std::array<float, 4>>* frameFlow = nullptr,
+    std::vector<uint8_t>* timers = nullptr);

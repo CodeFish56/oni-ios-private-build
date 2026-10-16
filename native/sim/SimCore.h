@@ -11,14 +11,15 @@
 #include <vector>
 
 // Headless native runtime for the verified Build 744825 data protocols.
-// This owns real cells, saves and restricted O2/CO2 positive-time output.
+// This owns real cells, saves and restricted gas or water positive-time output.
 // General mixed-world physics and game capability gates remain unavailable.
 class SimCore {
 public:
     static constexpr uint64_t Capabilities = OniSim_HeadlessInitialization |
         OniSim_PreparedGrids | OniSim_LoadV15 | OniSim_ZeroTimeFrames |
         OniSim_CellValues | OniSim_SaveV15 | OniSim_SingleGasPhysics |
-        OniSim_OxygenCO2Displacement | OniSim_LowMassGasPostprocess;
+        OniSim_OxygenCO2Displacement | OniSim_LowMassGasPostprocess |
+        OniSim_StabilityTimerSemantics | OniSim_RestrictedWaterPhysics;
 
     void Initialize(OniSim_GameMessageHandler callback);
     void Shutdown();
@@ -27,6 +28,7 @@ public:
     uint8_t* BeginSave(int32_t* bytes, int32_t x, int32_t y);
     void EndSave();
     void GetDiagnostics(OniSimDiagnostics* state);
+    int32_t CopyStabilityTimers(uint8_t* destination, int32_t length);
     OniSimStatus Status() const { return status_; }
     const std::string& Error() const { return error_; }
     void SetFailure(OniSimStatus status, const char* message);
@@ -70,8 +72,10 @@ private:
     struct SubstanceNotification { int32_t cell; uint16_t oldElement, newElement; };
     static_assert(sizeof(SubstanceNotification) == 8);
     std::vector<SubstanceNotification> pendingSubstance_, outputSubstance_;
+    std::vector<int32_t> pendingLiquidChanges_, outputLiquidChanges_;
     std::vector<std::array<float, 4>> frameFlow_;
     std::vector<uint16_t> flowSourceElements_;
+    std::vector<uint8_t> stabilityTimers_;
     std::vector<float> accumulatedFlow_;
     std::vector<uint8_t> textureFlow_, textureLiquid_, textureLiquidData_, textureMaterial_, sunlight_;
     std::vector<uint8_t> save_;
@@ -85,7 +89,7 @@ private:
     bool AllocateCells(const uint8_t* data, std::size_t bytes);
     bool Load(const uint8_t* data, std::size_t bytes);
     bool QueueFrame(const uint8_t* data, std::size_t bytes);
-    bool AdvanceGasFrame(const NewGameFrame& frame, LoadedWorldV15& world);
+    bool AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world);
     void RefreshCells(bool initial);
     bool RefreshTextures();
     void RefreshSunlight();

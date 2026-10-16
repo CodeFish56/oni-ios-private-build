@@ -45,7 +45,7 @@ def main():
                         str(width), str(height), str(x), str(y), str(x), str(y),
                         str(before["seed"]), str(before["displacementDirection"])], check=True, timeout=20)
         hashes = {}
-        for name in ["updated." + field for field in FIELDS] + ["flow"]:
+        for name in ["updated." + field for field in FIELDS] + ["flow", "timers"]:
             actual = (output / f"after.{name}.bin").read_bytes()
             expected = (fixture / f"after.{name}.bin").read_bytes()
             assert actual == expected, (fixture.name, name, "byte mismatch")
@@ -73,8 +73,8 @@ def main():
     assert len(rows) == 118, len(rows)
     result = {"all_passed": True, "original_dll_sha256": DLL_SHA,
               "probe_sha256": sha(args.probe.read_bytes()), "cases": rows,
-              "scope": "9 owned cell grids, flow, raw substance event order, seed/direction and RNG calls; direct single-cell calls",
-              "not_implemented_by_candidate": ["persistent stability timers", "disease infestation/error grids"],
+              "scope": "9 owned cell grids, flow, defined timer bytes, raw substance event order, seed/direction and RNG calls; direct single-cell calls",
+              "not_implemented_by_candidate": ["disease infestation/error grids"],
               "limits": "This is a module probe, not full UpdateData, the C ABI or an iPhone run"}
     args.result.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(f"Postprocess: PASS ({len(rows)} original single-cell scenarios)", flush=True)

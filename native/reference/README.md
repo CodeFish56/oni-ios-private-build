@@ -26,7 +26,8 @@ describe them as the original managed Cell.Write's default output.
 
 Positive-frame fixtures add `--gas-fixture oxygen-single`, `co2-single`,
 `oxygen-full`, `co2-full`, `mixed-stripes`, `mixed-layers`, `mixed-checker`,
-`mixed-pocket` or `mixed-low`, with `--step-seconds '0.2,0.4,0,0.2'`.
+`mixed-pocket`, `mixed-low`, `water-single`, `water-column`, `water-basin`,
+`water-corner` or `water-full`, with `--step-seconds '0.2,0.4,0,0.2'`.
 Use `--seed 70`, `--gas-mass 256` or `--frame-region '4,4,28,28'` as needed.
 These fixtures require InitializeFromCells; pair them with `--no-radiation`.
 The tool pins its own process to one available CPU, preserving original DLL
@@ -46,3 +47,13 @@ compares the new compiled C ABI to these independent outputs.
 The tool covers initialization, restricted load/save and zero-time frames.
 Its positive-frame mode validates only the configured scenarios; it does not
 establish mixed-world physics or iPhone gameplay.
+
+`--initialize-input <wire-file>` replays the retained initialization payload
+without changing cell values or seed. Dimensions must match the configured
+synthetic shape. Start/Prepare/frame snapshots also record the raw original
+internal timer bytes. The high three timer bits are uninitialized in fresh
+original worlds; the full-frame verifier compares only their defined low5 bits.
+
+Additional isolated tools: [water flow](LiquidReference/README.md) and
+[stability timers](TimerReference/README.md). They call original functions with
+explicitly documented diagnostic inputs, separately from complete frame runs.

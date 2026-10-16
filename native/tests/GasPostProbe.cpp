@@ -84,6 +84,7 @@ int main(int argc, char** argv) {
         world.backwallMass.assign(count, 0.0f);
         world.backwallTemperature.assign(count, 0.0f);
         auto flow = ReadValues<std::array<float, 4>>(input / "before.flow.bin", count);
+        auto timers = ReadValues<uint8_t>(input / "before.timers.bin", count);
         std::vector<GasPostElementV744825> elements;
         std::string error;
         if (!DecodeGasPostElementsV744825(ReadBytes(argv[1]), elements, error))
@@ -97,7 +98,7 @@ int main(int argc, char** argv) {
         LoadedWorldV15 result;
         std::vector<uint32_t> changes;
         if (!StepGasPostProcessV744825(world, elements, region, random,
-                result, changes, error, &flow))
+                result, changes, error, &flow, &timers))
             throw std::runtime_error(error);
         std::filesystem::create_directories(output);
 #define WRITE_GRID(member) WriteValues(output / "after.updated." #member ".bin", result.member)
@@ -112,6 +113,7 @@ int main(int argc, char** argv) {
         WRITE_GRID(diseaseCount);
 #undef WRITE_GRID
         WriteValues(output / "after.flow.bin", flow);
+        WriteValues(output / "after.timers.bin", timers);
         WriteValues(output / "after.changes.sim.bin", changes);
         std::ofstream state(output / "state.json", std::ios::trunc);
         state << "{\n  \"seed\": " << random.seed

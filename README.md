@@ -12,28 +12,27 @@ world generation, then throws `DllNotFoundException: SimDLL` at
 The generation worker stops while the loading animation continues. Waiting
 longer or clearing other apps cannot supply the missing simulation library.
 The first native simulation data core is now implemented and wired into the
-build workflow. Restricted O2/CO2 positive frames now work locally, including inter-species
-displacement and low-mass gas evaporation. General colony physics is incomplete.
+build workflow. Restricted gas or water positive frames now work locally, including
+inter-species gas displacement, water flow and stability-timer state.
+General colony physics is incomplete.
 
-## Positive simulation frames (2026-10-16)
+## Water and stability timers (2026-10-16)
 
-The native C ABI now runs reconstructed O2/CO2 pressure, inter-species
-pressure displacement, density/random swaps and low-mass gas evaporation.
-Fifteen original-engine scenarios match 58 subsequent frames: all 18 arrays,
-29 event counts, event bytes, RNG state and complete saves. Eleven initialization/
-load regressions and address/undefined-behavior sanitizers pass. Seven unsupported
-feature cases fail without changing the world or RNG.
+The native C ABI now advances restricted water/vacuum/Unobtanium worlds as well
+as the earlier O2/CO2 gas worlds. Twenty-one original-engine cases match all
+86 subsequent frames: 18 arrays, 29 event counts, event records, RNG state,
+full saves and the defined five timer bits. Eleven initialization/load
+regressions pass. Ten unsupported-feature inputs roll back world/RNG/timers.
 
-A separate single-cell probe matches 118 original postprocess scenarios: exact
-float thresholds, four neighbors, flow, raw substance-event order and RNG after
-evaporation. This probe does not claim persistent stability timers or disease
-infestation/error grids, which remain to be implemented.
+Independent module probes match 100 original UpdateLiquid cases, 118 gas
+postprocess cases (now including timer bytes), and 61,440 timer getter calls.
+AddressSanitizer and UndefinedBehaviorSanitizer pass the same local checks.
 
-This path requires a known initialization seed, radiation off, empty backwalls,
-O2/CO2 plus vacuum, no interior solids/disease/properties and gas within 0.25 K
-of 300 K. It consumes one positive frame per PrepareGameData. General heat
-exchange, phase changes and full world settlement remain unavailable.
-[Scope and evidence](docs/ios-gas-frames.md). No cloud build was triggered.
+Water and gas interaction, general heat exchange, phase transitions, unstable
+solid movement and world settlement are incomplete. Water mass after flow
+must stay within the supported pressure range. The game capability gate is
+still closed; another IPA cannot yet create a playable colony.
+[Scope and evidence](docs/ios-water-timers.md). No Actions run was triggered.
 
 ## Native simulation integration (2026-10-15)
 
@@ -43,7 +42,7 @@ queued zero-time cell-value updates. Eleven independently captured original
 DLL cases match all 18 arrays at Start and Prepare and the complete save bytes.
 Address/undefined-behavior sanitizer runs pass the same cases and error checks.
 
-The workflow adds eight production modules to UnityFramework and redirects
+The workflow adds ten production modules to UnityFramework and redirects
 seven audited Sim imports to the static C ABI. The actual generated wrapper
 has been compiled and linked against the core locally; its capability error
 reaches the worldgen handler before callback marshaling. The entire patch

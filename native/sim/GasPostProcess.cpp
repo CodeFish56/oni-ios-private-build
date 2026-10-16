@@ -1,4 +1,5 @@
 #include "GasPostProcess.h"
+#include "StabilityTimers.h"
 
 #include <algorithm>
 #include <cmath>
@@ -67,7 +68,7 @@ bool StepGasPostProcessV744825(const LoadedWorldV15& source,
     const std::vector<GasPostElementV744825>& elements,
     const PressureRegionV744825& region, GasRandomStateV744825& random,
     LoadedWorldV15& output, std::vector<uint32_t>& elementChanges,
-    std::string& error, std::vector<std::array<float, 4>>* frameFlow) {
+    std::string& error, std::vector<std::array<float, 4>>* frameFlow, std::vector<uint8_t>* timers) {
     error.clear();
     const std::size_t count = static_cast<std::size_t>(source.simWidth) * source.simHeight;
     if (source.simWidth < 3 || source.simHeight < 3 ||
@@ -76,6 +77,7 @@ bool StepGasPostProcessV744825(const LoadedWorldV15& source,
         source.diseaseIdx.size() != count || source.diseaseCount.size() != count ||
         source.insulation.size() != count || source.strengthInfo.size() != count ||
         source.radiation.size() != count || (frameFlow != nullptr && frameFlow->size() != count) ||
+        (timers != nullptr && timers->size() != count) ||
         (random.displacementDirection != 1 && random.displacementDirection != -1) ||
         region.minX > region.maxX || region.minY > region.maxY ||
         region.maxX > source.simWidth - 2 || region.maxY > source.simHeight - 2) {
@@ -228,6 +230,7 @@ bool StepGasPostProcessV744825(const LoadedWorldV15& source,
             }
         }
     }
+    if (timers != nullptr) for (uint32_t n : changes) ResetStableCellTimerV744825((*timers)[n]);
     output = std::move(updated);
     if (frameFlow != nullptr) *frameFlow = std::move(flowData);
     random = nextRandom;

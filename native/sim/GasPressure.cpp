@@ -96,9 +96,9 @@ bool StepGasPressureV744825(const LoadedWorldV15& source,
         const std::size_t y = cell / source.simWidth;
         const bool interior = x > 0 && x + 1 < source.simWidth &&
             y > 0 && y + 1 < source.simHeight;
-        if (state == 2 || (state == 0 &&
-            (id != vacuum || (interior && source.mass[cell] != 0.0f)))) {
-            error = "Liquids and nonempty vacuum are outside this pressure pass.";
+        if (state == 0 &&
+            (id != vacuum || (interior && source.mass[cell] != 0.0f))) {
+            error = "Nonempty interior vacuum is outside this pressure pass.";
             return false;
         }
     }

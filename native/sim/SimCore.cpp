@@ -1,6 +1,8 @@
 #include "SimCore.h"
 #include "SimWireABI.h"
 #include "FrameStepSchedule.h"
+#include "StabilityTimers.h"
+#include "LiquidFlow.h"
 #include <algorithm>
 #include <cmath>
 #include <cstring>
@@ -73,6 +75,8 @@ void SimCore::Shutdown() {
     worldDefinitionPresent_ = false;
     seedKnown_ = false; iterateDirection_ = -1; carrySeconds_ = 0; physicsSteps_ = 0; random_ = {}; pendingPhysicsFrame_ = false;
     pendingSubstance_.clear(); outputSubstance_.clear(); frameFlow_.clear(); flowSourceElements_.clear();
+    pendingLiquidChanges_.clear(); outputLiquidChanges_.clear();
+    stabilityTimers_.clear();
     radiationEnabled_ = false; allocationOnly_ = false; seed_ = 0; cellValues_ = {}; pendingFrames_ = 0;
     accumulatedFlow_.clear(); textureFlow_.clear(); textureLiquid_.clear();
     textureLiquidData_.clear(); textureMaterial_.clear(); sunlight_.clear(); save_.clear(); saveOpen_ = false;
@@ -186,7 +190,9 @@ bool SimCore::InitializeCells(const uint8_t* data, std::size_t bytes) {
     // settling with the still-empty cells as SOURCE. No temperatures change
     // in this fresh-grid path (including the thermal-5x7 original fixture).
     // Later positive-time settling needs separate current/updated arrays.
-    world_ = std::move(parsed); seed_ = U32(data + 8); radiationEnabled_ = data[12] != 0;
+    std::vector<uint8_t> timers(parsed.mass.size(), 31u);
+    world_ = std::move(parsed); stabilityTimers_ = std::move(timers);
+    seed_ = U32(data + 8); radiationEnabled_ = data[12] != 0;
     random_.seed = seed_; seedKnown_ = true;
     phase_ = Phase::GridReady; worldOffsetsReady_ = true; allocationOnly_ = false;
     return true;
@@ -197,6 +203,7 @@ bool SimCore::AllocateCells(const uint8_t* data, std::size_t bytes) {
     if (bytes != 10 || !SizedGrid(U32(data), U32(data + 4)) || data[8] > 1 || data[9] != 1)
         return Fail(OniSimStatus::InvalidInput, "Only the 10-byte headless AllocateCells payload is supported.");
     AllocateWorld(world_, U32(data), U32(data + 4), vacuum_, boundary_);
+    stabilityTimers_.assign(world_.mass.size(), 31u);
     radiationEnabled_ = data[8] != 0; phase_ = Phase::GridReady; allocationOnly_ = true;
     return true;
 }
@@ -340,6 +347,8 @@ void SimCore::BindOutput() {
     update_.propertyTextureExposedToSunlight = sunlight_.data();
     update_.numSubstanceChangeInfo = static_cast<int32_t>(outputSubstance_.size());
     update_.substanceChangeInfo = outputSubstance_.empty() ? nullptr : outputSubstance_.data();
+    update_.numLiquidChangeInfo = static_cast<int32_t>(outputLiquidChanges_.size());
+    update_.liquidChangeInfo = outputLiquidChanges_.empty() ? nullptr : outputLiquidChanges_.data();
 }
 
 void SimCore::GetDiagnostics(OniSimDiagnostics* state) {
@@ -360,7 +369,21 @@ void SimCore::RefreshFlow() {
     }
 }
 
-bool SimCore::AdvanceGasFrame(const NewGameFrame& frame, LoadedWorldV15& world) {
+int32_t SimCore::CopyStabilityTimers(uint8_t* destination, int32_t length) {
+    ClearStatus();
+    if ((phase_ != Phase::GridReady && phase_ != Phase::Started) || stabilityTimers_.size() != world_.mass.size()) {
+        Fail(OniSimStatus::InvalidState, "Timer diagnostics require an allocated grid."); return 0;
+    }
+    const int32_t bytes = static_cast<int32_t>(stabilityTimers_.size());
+    if (destination == nullptr && length == 0) return bytes;
+    if (destination == nullptr || length != bytes) {
+        Fail(OniSimStatus::InvalidInput, "Timer output buffer must match the internal grid length."); return 0;
+    }
+    std::memcpy(destination, stabilityTimers_.data(), stabilityTimers_.size());
+    return bytes;
+}
+
+bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world) {
     if (radiationEnabled_ || !seedKnown_ || frame.currentCosmicRadiationIntensity != 0)
         return Fail(OniSimStatus::UnsupportedFeature, "Positive frames currently require non-radiating InitializeFromCells with a known seed.");
     if (pendingFrames_ != 0)
@@ -372,6 +395,19 @@ bool SimCore::AdvanceGasFrame(const NewGameFrame& frame, LoadedWorldV15& world) 
         !DecodeGasPostElementsV744825(elementBytes_, post, error)) {
         status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
     }
+    std::vector<LiquidElementV744825> liquids; uint16_t water = 65535, liquidVacuum = 65535;
+    if (!DecodeLiquidElementsV744825(elementBytes_, liquids, water, liquidVacuum, error) || liquidVacuum != vacuum) {
+        status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
+    }
+    bool waterWorld = false, hasGas = false;
+    for (uint16_t id : world.elementIdx) {
+        if (pressure[id].state == 2) {
+            if (id != water) return Fail(OniSimStatus::UnsupportedFeature, "Only the verified water liquid is supported.");
+            waterWorld = true;
+        }
+        hasGas = hasGas || pressure[id].state == 1;
+    }
+    if (waterWorld && hasGas) return Fail(OniSimStatus::UnsupportedFeature, "Water/gas interaction is not implemented.");
     // The original temperature task skips differences < 1 K and materials
     // with no conductivity or the insulation state bit. This narrow gas band
     // permits pressure rounding without pretending to implement heat exchange.
@@ -381,8 +417,9 @@ bool SimCore::AdvanceGasFrame(const NewGameFrame& frame, LoadedWorldV15& world) 
     for (std::size_t cell = 0; cell < world.mass.size(); ++cell) {
         if (world.radiation[cell] != 0 || world.backwallMass[cell] != 0 ||
             world.backwallTemperature[cell] != 0 || world.backwallElement[cell] != vacuum ||
-            (pressure[world.elementIdx[cell]].state == 1 && std::abs(world.temperature[cell] - 300.0f) >= 0.25f))
-            return Fail(OniSimStatus::UnsupportedFeature, "Positive gas frames currently require gas within 0.25 K of 300 K, zero radiation and empty backwalls.");
+            ((pressure[world.elementIdx[cell]].state == 1 || pressure[world.elementIdx[cell]].state == 2) &&
+                std::abs(world.temperature[cell] - 300.0f) >= 0.25f))
+            return Fail(OniSimStatus::UnsupportedFeature, "Positive fluid frames require fluid within 0.25 K of 300 K, zero radiation and empty backwalls.");
     }
     float carry = carrySeconds_; FrameStepPlan plan{};
     if (!PlanFrameSteps(frame.elapsedSeconds, carry, plan) || plan.updateDataCalls > 100)
@@ -401,27 +438,45 @@ bool SimCore::AdvanceGasFrame(const NewGameFrame& frame, LoadedWorldV15& world) 
             status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
         }
         notified.insert(notified.end(), changes.begin(), changes.end());
+        if (waterWorld) {
+            current = std::move(updated);
+            if (!StepWaterFlowV744825(current, liquids, water, vacuum, region, updated, changes, flow, error)) {
+                status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
+            }
+            notified.insert(notified.end(), changes.begin(), changes.end());
+        }
         // UpdateData copies updatedCells to cells after pressure and before
         // PostProcessCell; the flow renderer compares that snapshot to final.
         flowSource = updated.elementIdx;
         current = std::move(updated);
-        if (!StepGasPostProcessV744825(current, post, region, random, updated, changes, error, &flow)) {
+        const bool processed = waterWorld ?
+            StepWaterPostProcessV744825(current, liquids, post, water, vacuum, region, random, updated, changes, flow, error) :
+            StepGasPostProcessV744825(current, post, region, random, updated, changes, error, &flow);
+        if (!processed) {
             status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
         }
         notified.insert(notified.end(), changes.begin(), changes.end());
         current = std::move(updated);
     }
+    auto timers = stabilityTimers_;
+    for (uint32_t cell : notified) ResetStableCellTimerV744825(timers[cell]);
     std::sort(notified.begin(), notified.end());
     notified.erase(std::unique(notified.begin(), notified.end()), notified.end());
     std::vector<SubstanceNotification> events;
+    std::vector<int32_t> liquidChanges;
     for (uint32_t cell : notified) {
         const uint32_t sx = cell % current.simWidth, sy = cell / current.simWidth;
         if (sx == 0 || sy == 0 || sx + 1 == current.simWidth || sy + 1 == current.simHeight) continue;
         const std::size_t game = std::size_t(sy - 1) * current.GameWidth() + sx - 1;
         events.push_back({static_cast<int32_t>(game), view_.elementIdx[game], current.elementIdx[cell]});
+        if (view_.elementIdx[game] != current.elementIdx[cell] &&
+            (pressure[view_.elementIdx[game]].state == 2 || pressure[current.elementIdx[cell]].state == 2))
+            liquidChanges.push_back(static_cast<int32_t>(game));
     }
     world = std::move(current); frameFlow_ = std::move(flow); flowSourceElements_ = std::move(flowSource);
     pendingSubstance_ = std::move(events); random_ = random; iterateDirection_ = direction;
+    pendingLiquidChanges_ = std::move(liquidChanges);
+    stabilityTimers_ = std::move(timers);
     carrySeconds_ = carry; physicsSteps_ += static_cast<uint64_t>(plan.updateDataCalls);
     return true;
 }
@@ -445,7 +500,7 @@ bool SimCore::QueueFrame(const uint8_t* data, std::size_t bytes) {
         const std::size_t g = std::size_t(y) * world_.GameWidth() + x, s = world_.SimIndex(x, y);
         candidate.insulation[s] = insulation[g]; candidate.strengthInfo[s] = strength[g];
     }
-    if (frame.elapsedSeconds > 0 && !AdvanceGasFrame(frame, candidate)) return false;
+    if (frame.elapsedSeconds > 0 && !AdvanceFluidFrame(frame, candidate)) return false;
     if (frame.elapsedSeconds > 0) pendingPhysicsFrame_ = true;
     if (!(frame.elapsedSeconds > 0)) {
         std::vector<std::array<float, 4>> flow(candidate.mass.size());
@@ -502,6 +557,7 @@ void* SimCore::HandleMessage(int32_t id, int32_t bytes, const uint8_t* data) {
         RefreshSunlight();
         if (!RefreshTextures()) return nullptr;
         outputSubstance_ = std::move(pendingSubstance_); pendingSubstance_.clear();
+        outputLiquidChanges_ = std::move(pendingLiquidChanges_); pendingLiquidChanges_.clear();
         update_.numFramesProcessed = pendingFrames_; pendingFrames_ = 0; pendingPhysicsFrame_ = false; BindOutput(); return &update_;
     case -775326397: QueueFrame(data, length); return nullptr;
     case FrameCellValues::SetInsulationValueMessageId:
