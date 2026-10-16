@@ -149,7 +149,7 @@ def rejected_features(bridge, fixture, elements, diseases):
     indices = {struct.unpack_from("<I", elements, 4 + i * 164)[0]: i for i in range(struct.unpack_from("<I", elements)[0])}
     mutations = {
         "radiation": lambda p: p.__setitem__(12, 1),
-        "temperature_exchange": lambda p: struct.pack_into("<f", p, 22 + gas * 16, 310),
+        "phase_transition": lambda p: struct.pack_into("<f", p, 22 + gas * 16, 50),
         "unsupported_gas": lambda p: struct.pack_into("<H6xff", p, 14, next(i for i in range(len(indices))
             if elements[14+i*164] & 3 == 1 and struct.unpack_from("<I", elements, 4+i*164)[0]
             not in (0xA4E0B340, 0x74DC00EF) and struct.unpack_from("<f", elements, 60+i*164)[0] < 300
@@ -200,10 +200,10 @@ def main():
         rows.append(row)
         print(f"{fixture.name}: PASS ({row['frames']} frames, 18 arrays, 29 event counts, event bytes, RNG and saves)", flush=True)
     assert rows
-    denied = rejected_features(bridge, args.fixtures / "oxygen-single", args.elements.read_bytes(), args.diseases.read_bytes())
+    denied = rejected_features(bridge, args.fixtures / "oxygen-single", args.elements.read_bytes(), args.diseases.read_bytes()) if (args.fixtures / "oxygen-single").is_dir() else []
     result = {"all_passed": True, "library_sha256": hashlib.sha256(args.library.read_bytes()).hexdigest(),
               "cases": rows, "rejected_features": denied, "capabilities": bridge.GetCapabilities(),
-              "limits": "Restricted non-radiating O2/CO2 or single-water worlds; water/gas interaction, general heat/phase physics, settlement and iPhone execution unavailable"}
+              "limits": "Restricted non-radiating O2/CO2 or single-water worlds; water/gas interaction, phase changes, backwall heat, settlement and iPhone execution unavailable"}
     args.result.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
 
 

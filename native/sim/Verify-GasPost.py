@@ -29,6 +29,7 @@ def main():
         raw_report = (fixture / "report.json").read_bytes()
         report = json.loads(raw_report)
         assert report["dll_sha256"] == DLL_SHA
+        assert report["observed_headless"] == 1 and report["observed_radiation"] == 0
         assert report["elements_sha256"] == sha(args.elements.read_bytes())
         assert report["new_game_frames_submitted"] == 0
         assert report["stages"][-1] == "Shutdown: returned"

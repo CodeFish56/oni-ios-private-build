@@ -16,6 +16,22 @@ build workflow. Restricted gas or water positive frames now work locally, includ
 inter-species gas displacement, water flow and stability-timer state.
 General colony physics is incomplete.
 
+## Foreground heat exchange (2026-10-16)
+
+The core now runs original-order heat exchange before pressure. It preserves
+insulation/area coefficients, the 1 K task threshold, float/double rounding,
+accumulated temperature deltas and the original clamps. 195 direct original
+pair/task cases match byte for byte; eight additional worlds match 40 full
+frames, including all 18 arrays, 29 event counts, events, RNG and saves.
+The combined positive-frame regression is 29 worlds / 126 frames.
+AddressSanitizer and UndefinedBehaviorSanitizer pass the same cases.
+
+Eleven modules are wired into UnityFramework. Capability bits are 4095;
+the full-game requirement 458752 remains unavailable. Mixed water/gas worlds,
+phase changes, backwall heat, disease and complete settlement remain incomplete.
+No Actions run was triggered. See [scope](docs/ios-heat-exchange.md) and
+[verification](docs/heat-exchange-verification.json).
+
 ## Water and stability timers (2026-10-16)
 
 The native C ABI now advances restricted water/vacuum/Unobtanium worlds as well
@@ -28,7 +44,7 @@ Independent module probes match 100 original UpdateLiquid cases, 118 gas
 postprocess cases (now including timer bytes), and 61,440 timer getter calls.
 AddressSanitizer and UndefinedBehaviorSanitizer pass the same local checks.
 
-Water and gas interaction, general heat exchange, phase transitions, unstable
+Water and gas interaction, backwall heat exchange, phase transitions, unstable
 solid movement and world settlement are incomplete. Water mass after flow
 must stay within the supported pressure range. The game capability gate is
 still closed; another IPA cannot yet create a playable colony.
@@ -42,7 +58,7 @@ queued zero-time cell-value updates. Eleven independently captured original
 DLL cases match all 18 arrays at Start and Prepare and the complete save bytes.
 Address/undefined-behavior sanitizer runs pass the same cases and error checks.
 
-The workflow adds ten production modules to UnityFramework and redirects
+The workflow adds eleven production modules to UnityFramework and redirects
 seven audited Sim imports to the static C ABI. The actual generated wrapper
 has been compiled and linked against the core locally; its capability error
 reaches the worldgen handler before callback marshaling. The entire patch

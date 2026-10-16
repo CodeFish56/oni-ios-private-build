@@ -22,6 +22,7 @@ enum OniSimCapability : uint64_t {
     OniSim_LowMassGasPostprocess = 256ull,
     OniSim_StabilityTimerSemantics = 512ull,
     OniSim_RestrictedWaterPhysics = 1024ull,
+    OniSim_RestrictedHeatExchange = 2048ull,
     OniSim_WorldgenSettlement = 1ull << 16,
     OniSim_GameSimulation = 1ull << 17,
     OniSim_GameRenderData = 1ull << 18

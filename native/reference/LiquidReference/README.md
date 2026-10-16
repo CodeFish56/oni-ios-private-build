@@ -22,6 +22,9 @@ Initialization is headless, radiation disabled, no properties, no disease, empty
 Vacuum backwall. Some diagnostic cases deliberately contain interior Unobtanium
 solids and masses above 1000; those isolated-flow cases do **not** imply the full
 frame implementation supports their unimplemented pressure-break paths.
+The oracle now checks actual native headless/radiation flags, and the verifier
+requires those checks in the report. The earlier writer had these two input
+booleans reversed; all 100 reference cases have been recaptured correctly.
 
 ## Run locally
 

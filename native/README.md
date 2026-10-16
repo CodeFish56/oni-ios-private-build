@@ -24,6 +24,9 @@ output. **It cannot yet generate a playable colony.**
 - Water flow/postprocessing in the verified pressure/temperature range, liquid
   change events and persistent defined stability-timer bits; timer reset/countdown
   and shared RNG behavior follow the original. Unstable solids remain unsupported.
+- Foreground cell heat exchange before pressure: fixed source, accumulated output,
+  original area/insulation coefficients, binary32 capacities and binary64 exchange
+  calculations. Phase changes and backwall heat remain unsupported.
 - Real SIMSAVE v15 output, with verified zero header option and zero offsets.
 - Seven `OniSim_*` C ABI entry points plus status/error/capability queries.
   Native exceptions are contained inside `noexcept` exports.
@@ -62,6 +65,12 @@ The source was reconstructed using recovered producers, matching PDB types,
 original instructions and independently executed original DLL output.
 No REA runtime evidence is claimed for these ordinary local tools.
 
+Foreground heat exchange additionally matches 195 original pair/task cases and
+eight nonuniform-temperature worlds over 40 complete frames. Both sanitizers
+pass. Combined with the preceding cases, this is 29 worlds and 126 frames.
+See [heat scope](../docs/ios-heat-exchange.md) and
+[heat verification](../docs/heat-exchange-verification.json).
+
 ## Build locally
 
 ```sh
@@ -93,13 +102,13 @@ digest reports, not personal phone/signing logs.
 
 ## iOS integration and remaining work
 
-The workflow copies ten production `.cpp` modules and their headers into
+The workflow copies eleven production `.cpp` modules and their headers into
 the Xcode export, adds them to UnityFramework and redirects seven audited
 `Sim.SIM_*` wrappers to this static C ABI. See [link details](../docs/ios-sim-link.md).
 No new 1.66 GB archive upload is needed.
 
-Current capabilities are **2047**, adding stability-timer semantics and
-restricted water physics to the previous gas/data capabilities.
+Current capabilities are **4095**, adding restricted foreground heat exchange
+to the preceding water, gas, timer and data capabilities.
 The game wrapper requires world settlement, game simulation and game render
 capabilities (**458752**); all remain absent. It raises a managed capability
 error before marshaling the callback. World-generation failure handling
@@ -108,7 +117,7 @@ explicitly and do not advance a pretend simulation.
 
 Remaining acceptance gates, in order:
 
-1. Implement mixed solid/liquid/gas time steps, heat exchange, phase changes,
+1. Implement mixed solid/liquid/gas time steps, backwall heat, phase changes,
    disease and events. Validate one frame, then the complete 500-step world
    settlement against controlled original runs, including conservation checks.
    O2/CO2 pressure/postprocessing now runs through the C ABI for the verified

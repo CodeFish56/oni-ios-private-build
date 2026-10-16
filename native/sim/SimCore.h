@@ -19,7 +19,8 @@ public:
         OniSim_PreparedGrids | OniSim_LoadV15 | OniSim_ZeroTimeFrames |
         OniSim_CellValues | OniSim_SaveV15 | OniSim_SingleGasPhysics |
         OniSim_OxygenCO2Displacement | OniSim_LowMassGasPostprocess |
-        OniSim_StabilityTimerSemantics | OniSim_RestrictedWaterPhysics;
+        OniSim_StabilityTimerSemantics | OniSim_RestrictedWaterPhysics |
+        OniSim_RestrictedHeatExchange;
 
     void Initialize(OniSim_GameMessageHandler callback);
     void Shutdown();

@@ -35,6 +35,9 @@ sets the selected seed/direction, center timer `0xA2`, center flow
 `[1.25,2.5,3.75,5]`, and neighbor flow `[6,7,8,9]` when present. It then directly
 calls original RVA `0x4DAF0` with `gSimData`, `gSimData.simEvents`, and the center
 sim-cell index. It captures before/after and shuts down the original simulator.
+The current oracle explicitly requests radiation off and checks native
+headless=1/radiation=0 after initialization; the verifier rejects older reports
+without those observed flags.
 
 The exact native locations are guarded by the DLL hash: gSimData pointer RVA
 `0x115640`, updatedCells offset `0x28`, flow `0x68`, timers `0x70`, events `0xA8`.

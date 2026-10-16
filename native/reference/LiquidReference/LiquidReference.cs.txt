@@ -128,7 +128,7 @@ internal static class LiquidReference
         int centerGame=(Height/2)*Width+Width/2;
         byte[] payload=new byte[20+40*Count];
         using(var stream=new MemoryStream(payload)) using(var writer=new BinaryWriter(stream)) {
-            writer.Write(Width);writer.Write(Height);writer.Write(item.Seed);writer.Write(true);writer.Write(false);
+            writer.Write(Width);writer.Write(Height);writer.Write(item.Seed);writer.Write(false);writer.Write(true);
             for(int index=0;index<Count;index++) {
                 int x=index%Width+1,y=index/Width+1;
                 CellPatch? patch=item.Cells.LastOrDefault(p=>p.X==x&&p.Y==y);
@@ -172,6 +172,10 @@ internal static class LiquidReference
             IntPtr sim=Marshal.ReadIntPtr(library,0x115640);
             if(sim==IntPtr.Zero||Marshal.ReadInt32(sim)!=SimWidth||Marshal.ReadInt32(sim,4)!=SimHeight)
                 throw new InvalidDataException("Internal SimData dimensions mismatch");
+            report["observed_headless"]=Marshal.ReadByte(sim,0x859);
+            report["observed_radiation"]=Marshal.ReadByte(sim,0x85a);
+            if(Marshal.ReadByte(sim,0x859)!=1 || Marshal.ReadByte(sim,0x85a)!=0)
+                throw new InvalidDataException("Native initialization flags mismatch");
             IntPtr soa=Marshal.ReadIntPtr(sim,0x28),events=Marshal.ReadIntPtr(sim,0xa8),flow=Marshal.ReadIntPtr(sim,0x68),timers=Marshal.ReadIntPtr(sim,0x70);
             if(soa==IntPtr.Zero||events==IntPtr.Zero||flow==IntPtr.Zero||timers==IntPtr.Zero)
                 throw new InvalidDataException("Required native pointers are null");

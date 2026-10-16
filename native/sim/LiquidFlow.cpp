@@ -185,12 +185,11 @@ bool StepWaterPostProcessV744825(const LoadedWorldV15& source, const std::vector
     for (std::size_t cell = 0; cell < source.mass.size(); ++cell) {
         if (source.temperature[cell] > post[water].highTemperature + 3.0f ||
             (source.elementIdx[cell] == water && (source.mass[cell] > elements[water].maxMass ||
-            std::abs(source.temperature[cell] - 300.0f) >= 0.25f ||
             source.temperature[cell] <= post[water].lowTemperature || source.temperature[cell] >= post[water].highTemperature)) ||
             (elements[source.elementIdx[cell]].hash == 0x6D95058C &&
                 (post[source.elementIdx[cell]].hash != 0x6D95058C || post[source.elementIdx[cell]].sublimateIndex != 65535 ||
                  (post[source.elementIdx[cell]].state & 0x0b) == 0x0b))) {
-            error = "Water postprocess requires <= maxMass near 300 K and stable Unobtanium."; return false;
+            error = "Water postprocess requires <= maxMass away from transitions and stable Unobtanium."; return false;
         }
     }
     auto next = source; auto nextFlow = flow; auto nextRandom = random; std::vector<uint32_t> notifications;

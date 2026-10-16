@@ -1,4 +1,5 @@
 #include "SimCore.h"
+#include "HeatExchange.h"
 #include "SimWireABI.h"
 #include "FrameStepSchedule.h"
 #include "StabilityTimers.h"
@@ -408,18 +409,14 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
         hasGas = hasGas || pressure[id].state == 1;
     }
     if (waterWorld && hasGas) return Fail(OniSimStatus::UnsupportedFeature, "Water/gas interaction is not implemented.");
-    // The original temperature task skips differences < 1 K and materials
-    // with no conductivity or the insulation state bit. This narrow gas band
-    // permits pressure rounding without pretending to implement heat exchange.
-    if (F32(elementBytes_.data() + 4 + std::size_t(vacuum) * 164 + 16) != 0 ||
-        (post[boundary_].state & 0x10) == 0)
-        return Fail(OniSimStatus::UnsupportedFeature, "Thermal exchange with vacuum or the boundary is outside this gas path.");
+    std::vector<HeatElementV744825> thermal;
+    if (!DecodeHeatElementsV744825(elementBytes_, thermal, error)) {
+        status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
+    }
     for (std::size_t cell = 0; cell < world.mass.size(); ++cell) {
         if (world.radiation[cell] != 0 || world.backwallMass[cell] != 0 ||
-            world.backwallTemperature[cell] != 0 || world.backwallElement[cell] != vacuum ||
-            ((pressure[world.elementIdx[cell]].state == 1 || pressure[world.elementIdx[cell]].state == 2) &&
-                std::abs(world.temperature[cell] - 300.0f) >= 0.25f))
-            return Fail(OniSimStatus::UnsupportedFeature, "Positive fluid frames require fluid within 0.25 K of 300 K, zero radiation and empty backwalls.");
+            world.backwallTemperature[cell] != 0 || world.backwallElement[cell] != vacuum)
+            return Fail(OniSimStatus::UnsupportedFeature, "Positive fluid frames require zero radiation and empty backwalls.");
     }
     float carry = carrySeconds_; FrameStepPlan plan{};
     if (!PlanFrameSteps(frame.elapsedSeconds, carry, plan) || plan.updateDataCalls > 100)
@@ -432,8 +429,14 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
     LoadedWorldV15 current = world;
     std::vector<uint16_t> flowSource;
     for (int step = 0; step < plan.updateDataCalls; ++step) {
-        LoadedWorldV15 updated; std::vector<uint32_t> changes;
+        LoadedWorldV15 updated = current; std::vector<uint32_t> changes;
         direction = -direction;
+        if (!StepHeatExchangeV744825(current, thermal, region, updated, error)) {
+            status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
+        }
+        // Original UpdateData copies the accumulated thermal output back to
+        // the fixed source before launching pressure work.
+        current = std::move(updated);
         if (!StepGasPressureV744825(current, pressure, vacuum, region, direction, updated, changes, error, &flow)) {
             status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
         }
