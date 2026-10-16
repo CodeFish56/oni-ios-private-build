@@ -1,0 +1,217 @@
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text.Json;
+
+// Controlled direct original-PostProcessCell oracle. No game UI or frame is run.
+internal static class MixedPostReference
+{
+    const string DllHash = "031960F120AC1D59FD8E43F6E1A7369111C629B90C24D52186B691DFE2D8A727";
+    const int Width = 5, Height = 5, SimWidth = 7, SimHeight = 7;
+    const int Count = Width * Height, SimCount = SimWidth * SimHeight;
+    const int Center = 3 * SimWidth + 3;
+    static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate int Callback(int message, IntPtr data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void Initialize(Callback callback);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void Shutdown();
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate IntPtr Handle(int id, int bytes, IntPtr data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void LiquidStep(IntPtr simData, IntPtr events, int simCell);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void CopyFrom(IntPtr destination, IntPtr source);
+    sealed record CellPatch(int X,int Y,string Element,float Mass,float Temperature=300f,byte Properties=0);
+    sealed record Case(string Name,CellPatch[] Cells,uint Seed=70,int Direction=-1,ushort Tick=0);
+    static readonly (string Name, int Offset, int Size)[] Grids = [
+        ("elementIdx",0,2),("temperature",0x20,4),("mass",0x40,4),("properties",0x60,1),
+        ("insulation",0x80,1),("strengthInfo",0xa0,1),("diseaseIdx",0xc0,1),
+        ("diseaseCount",0xe0,4),("diseaseInfestationTickCount",0x100,1),
+        ("diseaseGrowthAccumulatedError",0x120,4),("radiation",0x140,4)];
+    static readonly string[] EventNames = ["substanceChangeInfo","spawnLiquidInfo","spawnOreInfo","unstableCellInfo",
+        "elementChunkMeltedInfo","buildingMeltedInfo","buildingOverheatInfo","buildingNoLongerOverheatedInfo",
+        "cellMeltedInfo","callbackInfo","worldDamageInfo","massConsumedCallbacks","radiationConsumedCallbacks",
+        "massEmittedCallbacks","diseaseConsumedCallbacks","spawnFXInfo","componentStateChangedMessages",
+        "digInfo","backwallElementChangedInfo","backwallShouldTransitionInfo"];
+    static string Hash(byte[] bytes) => Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant();
+    static string Arg(string[] args, string name) {
+        int at = Array.IndexOf(args,name);
+        return at >= 0 && at+1 < args.Length ? args[at+1] : throw new ArgumentException("Missing " + name);
+    }
+    static uint Bits(float value) => BitConverter.SingleToUInt32Bits(value);
+    static float Float(uint bits) => BitConverter.UInt32BitsToSingle(bits);
+    static IEnumerable<Case> Cases() {
+        CellPatch W(int x,int y,float m=500f,float t=300f)=>new(x,y,"water",m,t);
+        CellPatch G(int x,int y,string gas="oxygen",float m=1f,float t=300f)=>new(x,y,gas,m,t);
+        foreach(uint seed in new uint[]{0,7,8,70,9020,10000,20000,0xffffffff}) {
+            foreach(string gas in new[]{"oxygen","co2"}) {
+                yield return new("gas-water-candidates-"+gas+"-"+seed,
+                    [G(3,3,gas,1,320),W(2,3,500,275),W(4,3,500,310),W(3,2,500,290),G(3,4,gas,2,330)],seed);
+                yield return new("water-density-"+gas+"-"+seed,
+                    [W(3,3,125,280),W(3,2,875,350),G(2,3,gas,1,300),G(4,3,gas,2,310)],seed);
+                yield return new("tiny-gas-water-"+gas+"-"+seed,
+                    [G(3,3,gas,.0005f,300),W(2,3),G(4,3,"co2",2,330),W(3,2),G(2,2,gas,1,275)],seed);
+            }
+            var checker=new List<CellPatch>();
+            for(int y=1;y<=5;y++) for(int x=1;x<=5;x++)
+                checker.Add((x+y)%3==0?W(x,y,(x*y)%2==0?500:999,280+((x+y)%7)*10):G(x,y,(x+y)%2==0?"oxygen":"co2",1+x*.25f,290+((x*y)%6)*10));
+            yield return new("mixed-checker-"+seed,checker.ToArray(),seed,seed%2==0?-1:1);
+            var layers=new List<CellPatch>();
+            for(int y=1;y<=5;y++) for(int x=1;x<=5;x++)
+                layers.Add(y<=2?W(x,y,500,350-y*20-x):G(x,y,x%2==0?"oxygen":"co2",2f,280+y*10+x));
+            yield return new("mixed-layers-"+seed,layers.ToArray(),seed);
+            foreach(float mass in new[]{0f,.009999f,.01f,.010001f})
+                yield return new("water-threshold-"+Bits(mass)+"-"+seed,[G(2,2),W(3,3,mass),G(3,2,"co2"),W(4,3,300,340)],seed);
+        }
+    }
+    static int Main(string[] args) {
+        if(!OperatingSystem.IsWindows() || IntPtr.Size!=8) return 2;
+        try {
+            if(args.Contains("--list-cases")) { foreach(var item in Cases()) Console.WriteLine(item.Name); return 0; }
+            if(args.Contains("--suite")) return Suite(args);
+            Case selected=Cases().Single(c=>c.Name==Arg(args,"--case"));
+            return Run(args,selected);
+        } catch(Exception ex) { Console.Error.WriteLine(ex.GetType().Name+": "+ex.Message); return 1; }
+    }
+    static int Suite(string[] args) {
+        string output=Path.GetFullPath(Arg(args,"--output-dir"));Directory.CreateDirectory(output);
+        var results=new List<object>(); int completed=0,failed=0;
+        string executable=Environment.ProcessPath ?? throw new InvalidOperationException("Process path unavailable");
+        foreach(var item in Cases()) {
+            string destination=Path.Combine(output,item.Name);
+            var start=new ProcessStartInfo(executable) { UseShellExecute=false,CreateNoWindow=true,
+                RedirectStandardOutput=true,RedirectStandardError=true };
+            if(Path.GetFileNameWithoutExtension(executable).Equals("dotnet",StringComparison.OrdinalIgnoreCase))
+                start.ArgumentList.Add(Assembly.GetExecutingAssembly().Location);
+            foreach(string text in new[]{"--game-root",Arg(args,"--game-root"),"--capture-dir",Arg(args,"--capture-dir"),
+                "--output-dir",destination,"--case",item.Name}) start.ArgumentList.Add(text);
+            using Process child=Process.Start(start)!;
+            Task<string> stdout=child.StandardOutput.ReadToEndAsync(),stderr=child.StandardError.ReadToEndAsync();
+            if(!child.WaitForExit(20000)) { child.Kill(true); throw new TimeoutException(item.Name+" exceeded 20 seconds"); }
+            string log=stdout.GetAwaiter().GetResult(),error=stderr.GetAwaiter().GetResult();
+            Directory.CreateDirectory(destination);File.WriteAllText(Path.Combine(destination,"process.log"),log+error);
+            if(child.ExitCode!=0) ++failed;
+            results.Add(new { name=item.Name,exit_code=child.ExitCode,report=Path.Combine(destination,"report.json") });
+            ++completed;
+            if(completed%10==0 || child.ExitCode!=0) Console.WriteLine($"Completed {completed}; failed {failed}; last {item.Name}");
+            File.WriteAllText(Path.Combine(output,"suite.json"),JsonSerializer.Serialize(new {
+                build="U59-744825-V",oracle="direct RVA 0x4DAF0 PostProcessCell, no physics frame",
+                completed,failed,cases=results },JsonOptions));
+            if(child.ExitCode!=0) return 1;
+        }
+        Console.WriteLine($"Original direct PostProcessCell oracle completed {completed} cases; failures {failed}");
+        return failed==0?0:1;
+    }
+    static int Run(string[] args, Case item) {
+        string game=Path.GetFullPath(Arg(args,"--game-root")),capture=Path.GetFullPath(Arg(args,"--capture-dir"));
+        string output=Path.GetFullPath(Arg(args,"--output-dir"));Directory.CreateDirectory(output);
+        string native=Path.Combine(game,"OxygenNotIncluded_Data","Plugins","x86_64","SimDLL.dll");
+        byte[] nativeBytes=File.ReadAllBytes(native),elements=File.ReadAllBytes(Path.Combine(capture,"elements.bin")),
+            diseases=File.ReadAllBytes(Path.Combine(capture,"diseases.bin"));
+        if(!Hash(nativeBytes).Equals(DllHash,StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException("Expected exact Build 744825 DLL");
+        int elementCount=BitConverter.ToInt32(elements);
+        if(elementCount<=0 || elementCount>65534 || elements.Length<4+164*elementCount ||
+            diseases.Length<8 || BitConverter.ToInt32(diseases,4)!=elementCount)
+            throw new InvalidDataException("Invalid captured tables");
+        var ids=new Dictionary<uint,ushort>();
+        for(int index=0;index<elementCount;index++) {
+            if(BitConverter.ToUInt16(elements,4+index*164+8)!=index) throw new InvalidDataException("Element index mismatch");
+            ids.Add(BitConverter.ToUInt32(elements,4+index*164),checked((ushort)index));
+        }
+        ushort vacuum=ids[0x2d39bf75u];
+        ushort Element(string value) => value switch { "water"=>ids[1836671383u],"solid"=>ids[1838482828u],"vacuum"=>vacuum,"oxygen"=>ids[0xa4e0b340u],"co2"=>ids[0x74dc00efu],_=>throw new InvalidDataException("Unknown element") };
+        int centerGame=(Height/2)*Width+Width/2;
+        byte[] payload=new byte[20+40*Count];
+        using(var stream=new MemoryStream(payload)) using(var writer=new BinaryWriter(stream)) {
+            writer.Write(Width);writer.Write(Height);writer.Write(item.Seed);writer.Write(false);writer.Write(true);
+            for(int index=0;index<Count;index++) {
+                int x=index%Width+1,y=index/Width+1;
+                CellPatch? patch=item.Cells.LastOrDefault(p=>p.X==x&&p.Y==y);
+                writer.Write(patch==null?vacuum:Element(patch.Element));
+                writer.Write((byte)0);writer.Write((byte)255);writer.Write(patch?.Properties??(byte)0);writer.Write(new byte[3]);
+                writer.Write(patch?.Temperature??0f);writer.Write(patch?.Mass??0f);
+            }
+            for(int index=0;index<Count;index++) {writer.Write((byte)255);writer.Write(new byte[3]);writer.Write(0);writer.Write(0f);}
+            for(int index=0;index<Count;index++) {writer.Write(vacuum);writer.Write((ushort)0);writer.Write(0f);writer.Write(0f);}
+        }
+        File.WriteAllBytes(Path.Combine(output,"initialize-from-cells.bin"),payload);
+        var stages=new List<string>();var phases=new Dictionary<string,object>();
+        var report=new Dictionary<string,object> {
+            ["build"]="U59-744825-V",["dll_sha256"]=Hash(nativeBytes),["elements_sha256"]=Hash(elements),
+            ["diseases_sha256"]=Hash(diseases),["case"]=item,["width"]=Width,["height"]=Height,
+            ["sim_width"]=SimWidth,["sim_height"]=SimHeight,["center_sim_cell"]=Center,["center_game_cell"]=centerGame,
+            ["native_entry_rva"]="0x4DAF0",["postprocess_game_region"]=new[]{0,0,4,4},["new_game_frames_submitted"]=0,
+            ["diagnostic_overrides"]="CopyFrom(updated to source) RVA 0x6390 before oracle; seed/direction, all timers explicit 0xA0|(cell%31), all flow[cell+.25,cell+.5,cell+.75,cell+1]",
+            ["stages"]=stages,["phases"]=phases };
+        void Stage(string text) {stages.Add(text);Console.WriteLine(text);File.WriteAllText(Path.Combine(output,"report.json"),JsonSerializer.Serialize(report,JsonOptions));}
+        Environment.SetEnvironmentVariable("PATH",Path.GetDirectoryName(native)+Path.PathSeparator+game+Path.PathSeparator+Environment.GetEnvironmentVariable("PATH"));
+        IntPtr library=NativeLibrary.Load(native);
+        var initialize=Marshal.GetDelegateForFunctionPointer<Initialize>(NativeLibrary.GetExport(library,"SIM_Initialize"));
+        var shutdown=Marshal.GetDelegateForFunctionPointer<Shutdown>(NativeLibrary.GetExport(library,"SIM_Shutdown"));
+        var handle=Marshal.GetDelegateForFunctionPointer<Handle>(NativeLibrary.GetExport(library,"SIM_HandleMessage"));
+        var post=Marshal.GetDelegateForFunctionPointer<LiquidStep>(library+0x4daf0);
+        var copyFrom=Marshal.GetDelegateForFunctionPointer<CopyFrom>(library+0x6390);
+        Callback callback=(id,data)=>{Stage("Native callback id="+id);return 0;};
+        IntPtr Send(int id,byte[] bytes) {
+            IntPtr ptr=bytes.Length==0?IntPtr.Zero:Marshal.AllocHGlobal(bytes.Length);
+            try {if(bytes.Length>0)Marshal.Copy(bytes,0,ptr,bytes.Length);return handle(id,bytes.Length,ptr);}
+            finally {if(ptr!=IntPtr.Zero)Marshal.FreeHGlobal(ptr);}
+        }
+        bool active=false;
+        try {
+            Stage("Initialize: calling");initialize(callback);active=true;Stage("Initialize: returned");
+            Send(1108437482,elements);Stage("Elements: returned");Send(825301935,diseases);Stage("Diseases: returned");
+            Send(2062421945,payload);Stage("InitializeFromCells: returned");
+            IntPtr update=Send(-931446686,[]);if(update==IntPtr.Zero)throw new InvalidDataException("Start returned null");
+            Stage("Start: returned; no frame queued");
+            IntPtr sim=Marshal.ReadIntPtr(library,0x115640);
+            if(sim==IntPtr.Zero||Marshal.ReadInt32(sim)!=SimWidth||Marshal.ReadInt32(sim,4)!=SimHeight)
+                throw new InvalidDataException("Internal SimData dimensions mismatch");
+            report["observed_headless"]=Marshal.ReadByte(sim,0x859);
+            report["observed_radiation"]=Marshal.ReadByte(sim,0x85a);
+            if(Marshal.ReadByte(sim,0x859)!=1 || Marshal.ReadByte(sim,0x85a)!=0)
+                throw new InvalidDataException("Native initialization flags mismatch");
+            IntPtr soa=Marshal.ReadIntPtr(sim,0x28),events=Marshal.ReadIntPtr(sim,0xa8),flow=Marshal.ReadIntPtr(sim,0x68),timers=Marshal.ReadIntPtr(sim,0x70);
+            if(soa==IntPtr.Zero||events==IntPtr.Zero||flow==IntPtr.Zero||timers==IntPtr.Zero)
+                throw new InvalidDataException("Required native pointers are null");
+            IntPtr sourceSoa=Marshal.ReadIntPtr(sim,0x20);
+            Stage("Diagnostic CopyFrom(updated -> source): calling");copyFrom(sourceSoa,soa);Stage("Diagnostic CopyFrom: returned");
+            Marshal.WriteInt16(sim,0xa0,unchecked((short)item.Tick));Marshal.WriteInt32(sim,0x0c,unchecked((int)item.Seed));Marshal.WriteInt32(sim,0x14,item.Direction);
+            for(int cell=0;cell<SimCount;cell++) {
+                Marshal.Copy(new float[]{cell+.25f,cell+.5f,cell+.75f,cell+1f},0,flow+cell*16,4);
+                Marshal.WriteByte(timers,cell,(byte)(0xa0|(cell%31)));
+            }
+            void Snapshot(string phase) {
+                var arrays=new Dictionary<string,object>();
+                byte[] Copy(string name,IntPtr ptr,int length) {
+                    byte[] raw=new byte[length];if(length>0)Marshal.Copy(ptr,raw,0,length);
+                    File.WriteAllBytes(Path.Combine(output,phase+"."+name+".bin"),raw);
+                    arrays[name]=new{bytes=length,sha256=Hash(raw)};return raw;
+                }
+                foreach(var view in new[]{("source",sourceSoa),("updated",soa)}) foreach(var field in Grids) {
+                    IntPtr begin=Marshal.ReadIntPtr(view.Item2,field.Offset+8),end=Marshal.ReadIntPtr(view.Item2,field.Offset+16);
+                    if(end-begin!=SimCount*field.Size)throw new InvalidDataException("Vector size mismatch: "+field.Name);
+                    Copy(view.Item1+"."+field.Name,begin,SimCount*field.Size);
+                }
+                Copy("flow",flow,SimCount*16);Copy("timers",timers,SimCount);
+                Copy("accumulatedFlow",Marshal.ReadIntPtr(sim,0x60),SimCount*4);
+                var eventVectors=new Dictionary<string,object>();
+                for(int index=0;index<EventNames.Length;index++) {
+                    int offset=index*0x20;IntPtr begin=Marshal.ReadIntPtr(events,offset+8),end=Marshal.ReadIntPtr(events,offset+16);
+                    long bytes=end-begin;if(bytes<0||bytes>SimCount*1024L)throw new InvalidDataException("Event vector bounds: "+EventNames[index]);
+                    byte[] raw=Copy("events."+EventNames[index],begin,checked((int)bytes));
+                    eventVectors[EventNames[index]]=new{bytes,hex=Convert.ToHexString(raw)};
+                }
+                byte[] ev=File.ReadAllBytes(Path.Combine(output,phase+".events.substanceChangeInfo.bin"));
+                if(ev.Length%8!=0)throw new InvalidDataException("Unexpected SubstanceChangeInfo size");
+                var changes=new List<object>();
+                for(int at=0;at<ev.Length;at+=8)changes.Add(new{cell=BitConverter.ToInt32(ev,at),oldElement=BitConverter.ToUInt16(ev,at+4),newElement=BitConverter.ToUInt16(ev,at+6)});
+                phases[phase]=new{seed=unchecked((uint)Marshal.ReadInt32(sim,0xc)),displacementDirection=Marshal.ReadInt32(sim,0x14),
+                    iterateDirection=Marshal.ReadInt32(sim,0x10),tick=unchecked((ushort)Marshal.ReadInt16(sim,0xa0)),arrays,event_vectors=eventVectors,substance_changes=changes};
+                Stage(phase+": copied 11 source and 11 updated grids, flow, timers, accumulatedFlow, 20 event vectors");
+            }
+            Snapshot("before");Stage("PostProcessCell: calling");for(int y=1;y<=5;y++) for(int x=1;x<=5;x++) post(sim,events,y*SimWidth+x);Stage("PostProcessCell: returned");Snapshot("after");
+            report["complete"]=true;Stage("Oracle complete");
+        } finally {
+            if(active) {shutdown();Stage("Shutdown: returned");}GC.KeepAlive(callback);NativeLibrary.Free(library);
+        }
+        return 0;
+    }
+}

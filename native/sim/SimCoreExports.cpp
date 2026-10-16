@@ -32,6 +32,9 @@ const char* OniSim_GetLastError() noexcept { return lastError; }
 void OniSim_GetDiagnostics(OniSimDiagnostics* state) noexcept {
     Guard(false, [&]() { core.GetDiagnostics(state); return true; });
 }
+uint32_t OniSim_GetTickCount() noexcept {
+    return Guard<uint32_t>(0, [&]() { return core.GetTickCount(); });
+}
 int32_t OniSim_CopyStabilityTimers(uint8_t* destination, int32_t length) noexcept {
     return Guard<int32_t>(0, [&]() { return core.CopyStabilityTimers(destination, length); });
 }

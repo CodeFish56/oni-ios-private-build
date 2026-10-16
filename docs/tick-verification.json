@@ -1,0 +1,265 @@
+{
+  "date": "2026-10-16",
+  "build": "U59-744825-V",
+  "evidence_type": "Local original DLL oracle, matching PDB/instructions, compiled C ABI and generated-wrapper probes; not a REA runtime record",
+  "native_sources_sha256": {
+    "native/sim/FrameCellValues.cpp": "0957538f14d432302a8dcc263717c6b97367aee9a3c0f3ae629bd41af4f1c4bf",
+    "native/sim/FrameStepSchedule.cpp": "7d3ce56f70e6913cc78e23f4de6cd6141cab2a0a9e88f0946c59cdda24ea0c52",
+    "native/sim/GasPostProcess.cpp": "8bbdfe10d00adb12ef7b91b0b624d93966a726b8938a7e93d79665cd95c8d70e",
+    "native/sim/GasPressure.cpp": "bdaec01c2aa907c7dcffddda3f8accf0cb37b61c515bedf5b4d28bb2b49caad0",
+    "native/sim/HeatExchange.cpp": "050797214091ef7ea76d48edf464b977b433ac5642faddf3fb51118b45fa57a0",
+    "native/sim/LiquidFlow.cpp": "b93421bfc952e7af7be4c1b6699048ea9b85a5a5b80de4c5f4de76d46072ee46",
+    "native/sim/PressureFlux.cpp": "f879dfdcf4dbef0c92444b00c2d3026654d1cdfe60ef74a83fbd10fd2e74cc04",
+    "native/sim/SaveWorldV15.cpp": "e88393a5e0255b8299c931074c966a1367f044c103259576fa46f326ba942bbe",
+    "native/sim/SimCore.cpp": "215d9ee925d6d8948289a6903cb3d7b7ec6243726d40e3015958efcd439a18e9",
+    "native/sim/SimCoreExports.cpp": "a9947521b8181116390616888aaab74a7e1cbd27ca3e0c8655cee586bc4a557d",
+    "native/sim/StabilityTimers.cpp": "ab790c1c11b8cfb3a2ecf2216c03971564a8162e4a3d961f04a467d617c1ad54",
+    "native/sim/FrameCellValues.h": "2d3766a0309b1b3db50322a39c67f7f806b96a593ff771c2cae7ef65285b2ad2",
+    "native/sim/FrameStepSchedule.h": "793da8b4813b44dd8b2fdfcc462d711301966b0ac266d2d593e8036acb4c58ee",
+    "native/sim/GasPostProcess.h": "864730d4fad3ba8b0c672b1461e6d164984129dad56d87457bdca613ee9fe537",
+    "native/sim/GasPressure.h": "29df1076fb810938ca810bedabeb402c9923f820a39547aca6735e2de46d5113",
+    "native/sim/HeatExchange.h": "350f32b79da1d0c905aad09e956d6a567320ac8dcab993a3b8d8ab8bac167ab2",
+    "native/sim/LiquidFlow.h": "805668f72589f8b3865c318a95085dae9486acd4173b44fde86c44b621b18a82",
+    "native/sim/PressureFlux.h": "a71ae9b043dd5225b76adc1c62a2af8ba9c7bf644ddbafb5211a7606a128cbf0",
+    "native/sim/SaveWorldV15.h": "260a6e2c271d602df8a903b3dc3b946eab53c15e34ed0f3e6b1450a0d852234d",
+    "native/sim/SimCore.h": "735d3e6823ac442d7c4693fc9a063e9cde241a9792f12934c6a0be762e2874da",
+    "native/sim/SimCoreExports.h": "742e5114139da574f5e4380f8d62e38a675299ada00fd70a93c57e04e9ce1f22",
+    "native/sim/StabilityTimers.h": "6e2fe2d97c03d6699ff585b26452fe8e58fb5295e4a3ee166c0f545ca5a2b52c",
+    "native/sim/CMakeLists.txt": "86ecb29e47c6673b802851efa3b7989bb9d863b7d6b269e8285eae87f5eb791d",
+    "native/sim/Verify-Bridge.py": "d656f475f9df3879ec985175fe013220ae4dbf7ce6234dcaeb0af88d22574e9c",
+    "native/sim/Verify-GasFrames.py": "f5534a828e3f0af457d950706933c74a7ec442c3c19e9409da4e49e11d2b8e01",
+    "native/sim/Verify-GasPost.py": "86a0b594e396ab88c3aa0015bbfa5cb1642f0b5fa68599370fc49de376b39f1f",
+    "native/sim/Verify-WaterFlow.py": "c87a20cb7c1e463c21172565bc6aa485d4a1a080f910a2f5ef23bd917fa98d88",
+    "native/sim/Verify-Timers.py": "2fccca33ab336216058e17e36f706210c2c07b4545177a2ca88bbce0c826878e",
+    "native/sim/Verify-Heat.py": "34c7a0120a2585b43610068934f5600f2f10d63d0afbd4b640667f65a3ee8ce2",
+    "native/sim/Verify-WaterGas.py": "ae6becb60738af57730241d9420e83bbbca4081654e48c7fba30ec9569522508",
+    "native/sim/Verify-MixedPost.py": "d053f47c3621e9ee0cabeb7bdbf3dabae1078af970c41db507de0c42ad7b2062",
+    "native/sim/Verify-TickFrames.py": "ec2d1102fc35f849b16efb7644276a62911e790365748d17bf84fb85dfa04432",
+    "native/tests/GasPostProbe.cpp": "00802420f92b1414b3ac063ebf0d155fc3cf454d74ffc3de27a78000f7005232",
+    "native/tests/WaterFlowProbe.cpp": "83980b3a167c53666b8e5361b81308a0ab4f07b591dabdc9de8d9927805e5c39",
+    "native/tests/TimerProbe.cpp": "1153833323b2575b7c3f9f8c29db5c86809558d77a9002c79cfc346c9360df52",
+    "native/tests/HeatProbe.cpp": "04b23fb8c401363e999c3c20a5f553070c7550f135f42086f00f5a55e944f2d0",
+    "native/tests/WaterGasProbe.cpp": "24df278849760858d62ccbf9e48d26c63328abf258ff9f5e9c20ccb0e8cef0c4",
+    "native/tests/MixedPostProbe.cpp": "79a4f81ac8fc82089d553505f22ebdfdc572f92ac1c6f5c2eac0dce754e54fd1",
+    "native/abi/GameDataUpdate.h": "5e18419453fa399bd29118827732251b68664ed3e000c0406a80412ad5a0d10a",
+    "native/abi/SimExports.h": "824f64d08a68ac613b516613973ba4e0068e3ff4c6ee552f6478d29d6faa2c00",
+    "native/abi/SimWireABI.h": "f2f2994d8e90f47fa45e8f86ca75552256c43682cf31879d8eeb0cda1e2df88c",
+    "native/reference/WorldgenReference.csproj": "1608ccaab335bfd46861d2740f7143d452c1a29a113bbe49c30e283841ac489c",
+    "native/reference/WorldgenReference.cs.txt": "04eef397e9410109d24d71273ef8385a608fbe2b2d5aceca05e9eb8a33a01c56",
+    "native/reference/WorldgenAnalyze.py": "fa75b0602d02edc902d82a85fbe5ad7abebd2630d4d1473bff7661ef95b8a567",
+    "native/reference/GasPostReference/GasPostReference.csproj": "3e6bb3f7427b5373177a326dc15d18af114737f328556c5dc97cf5e9d38c94a0",
+    "native/reference/GasPostReference/GasPostReference.cs.txt": "c325d2149746a41b0fec7cf5a55de902f8f0560706cf3f280904c812620dd994",
+    "native/reference/GasPostReference/README.md": "8e2b0ea53ef6d5c78449362066f268bfe894bc77b0ba766a2f2619474d8149b7",
+    "native/reference/TimerReference/TimerReference.csproj": "f3fe184d5180e2674892f63a019bf05e9d3f4e513ad0682c8a9a3d2eef3d4b74",
+    "native/reference/TimerReference/TimerReference.cs.txt": "e2d19730303f6d37ae23d029837120e6bf0f8bfbf33035ea706590b452ecf91b",
+    "native/reference/TimerReference/README.md": "dfd24838c0e0132b2e5ba742bc81678cb490a907a145acd1121bdf7fe010a214",
+    "native/reference/LiquidReference/LiquidReference.csproj": "b9f92f90118fc0b87d42d53b4aa44660cce2364fc407773fbb9e97358c38a141",
+    "native/reference/LiquidReference/LiquidReference.cs.txt": "2c92957a6dd48092e763e81cdb5edb3b38da062fe9492b969fafac05cefb7d12",
+    "native/reference/LiquidReference/README.md": "f3511b2379edb576c7dc541d8c96f44c12372d55602f196f92109b6bce62a918",
+    "native/reference/HeatReference/HeatReference.csproj": "65bf9e9eb844c07fb70e2d09f80230f8324bb438d652eb0f931db48506fc1078",
+    "native/reference/HeatReference/HeatReference.cs.txt": "7e07affc602b602fa4626fc25e35712c6c1b1fb02f9f260782faaa2f96dffc54",
+    "native/reference/HeatReference/README.md": "5696305185f993a75387e284e7f522e62b7ea68faecc3069391e3b5d933d63ca",
+    "native/reference/WaterGasReference/WaterGasReference.csproj": "67ffdf483b429d7201fabf6449aec157bf77aa2eb00c1e119d679e1ae42540b1",
+    "native/reference/WaterGasReference/WaterGasReference.cs.txt": "c5963fc4189c0d75faa68e352895a35f55284afc0a364b2f628e7126b7116f8e",
+    "native/reference/WaterGasReference/README.md": "7eeee78264e2615e61b5ad12492e8402e1ecfbe6e188715ea32cc83903209bd9",
+    "native/reference/MixedPostReference/MixedPostReference.csproj": "a05d08e69c6b3a82eeca13fbdead2d4ae1b4641c7ec121a5b47979de971ecfac",
+    "native/reference/MixedPostReference/MixedPostReference.cs.txt": "9952794659cc8d09b9a586a66e0967688bcb3f94e99c29cdd7af7618d4d15f2a",
+    "native/reference/MixedPostReference/README.md": "62014f6a885ec89b3b6e04867fdb4e75022a557a359038eaf641de866b8a55a2",
+    "native/reference/TickReference/TickReference.csproj": "5026a64d04355056d4725d8eda4b0761625437186521c975b4a948451bb88ebc",
+    "native/reference/TickReference/TickReference.cs.txt": "50d3185a2afef5694769058677d88f588748fb8032abfa9731de5871cb293a33",
+    "native/reference/TickReference/README.md": "0589dff45bb426aa5c5f0b4aeb2a4a9d04440928d3569a9d1264426f502db02f",
+    "native/reference/HeatFrameFixtures.py": "3fc0219ce1420b6dd05e65465db47641a10ec24a507e465458190ee62d82a53e",
+    "native/reference/MixedFrameFixtures.py": "e9863e6ed319d27b6dee6a03ea64f3c03c79c4a5830a39065706a234bbca6335"
+  },
+  "native_c_abi": {
+    "passed": true,
+    "steps_to_wrap": 65537,
+    "observed_wrap_sequence": [
+      65535,
+      0,
+      1,
+      1
+    ],
+    "empty_region_saves_unchanged": true,
+    "failure_rolls_back_tick": true,
+    "original_report_sha256": "5eb0d5955eddfd24f3df8701d672fcf2096f78b7dc109c754137df535cda6d64",
+    "library_sha256": "1dd29b0fdb6db28d6ffab4905d8c1b539f7f0a7bbdc8395a92fd4ed144362620",
+    "limits": "Candidate startup load only; positive-time load has no RNG seed. Original existing-state Load tick retention is evidence for future implementation."
+  },
+  "original_tick_lifecycle": {
+    "dll_sha256": "031960f120ac1d59fd8e43f6e1a7369111c629b90c24d52186b691dfe2d8a727",
+    "initialized": 0,
+    "started": 0,
+    "frames": [
+      {
+        "seconds": 0,
+        "region": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "before": 0,
+        "after": 0,
+        "processed": 1
+      },
+      {
+        "seconds": 0.01,
+        "region": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "before": 0,
+        "after": 1,
+        "processed": 1
+      },
+      {
+        "seconds": 0.39,
+        "region": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "before": 1,
+        "after": 2,
+        "processed": 1
+      },
+      {
+        "seconds": 0.4,
+        "region": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "before": 2,
+        "after": 4,
+        "processed": 1
+      },
+      {
+        "seconds": 0.2,
+        "region": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "before": 4,
+        "after": 5,
+        "processed": 1
+      },
+      {
+        "seconds": 1,
+        "region": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "before": 5,
+        "after": 10,
+        "processed": 1
+      },
+      {
+        "seconds": 0,
+        "region": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "before": 10,
+        "after": 10,
+        "processed": 1
+      }
+    ],
+    "empty_region": {
+      "seconds": 0.2,
+      "region": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "before": 10,
+      "after": 11,
+      "processed": 1
+    },
+    "beforeEmpty": 10,
+    "save": {
+      "tickBeforeSave": 11,
+      "tickAfterSave": 65534,
+      "identical_after_tick_edit": true,
+      "sha256": "f6a85cd58009a3443eb2e64dffad2328a02688921348bb0d55ddf8065e856ba5",
+      "length": 1793
+    },
+    "wrapFrames": [
+      {
+        "seconds": 0.2,
+        "region": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "before": 65534,
+        "after": 65535,
+        "processed": 1
+      },
+      {
+        "seconds": 0.2,
+        "region": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "before": 65535,
+        "after": 0,
+        "processed": 1
+      },
+      {
+        "seconds": 0.2,
+        "region": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "before": 0,
+        "after": 1,
+        "processed": 1
+      },
+      {
+        "seconds": 0,
+        "region": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "before": 1,
+        "after": 1,
+        "processed": 1
+      }
+    ],
+    "load": {
+      "preLoad": 43210,
+      "postLoad": 43210,
+      "postLoadZero": 43210,
+      "returned_nonnull": true
+    },
+    "limitations": "Diagnostic writes only the owned SimData tickCount between completed frames. No instructions patched. Windows x64 does not establish ARM64 behavior."
+  },
+  "sanitizers": {
+    "all_passed": true,
+    "steps_to_wrap": 65537,
+    "same_output_as_normal": true,
+    "library_sha256": "87999c3e61dc691588de272a3e22e8c161c52202e20dc8f16372b13a3214cf5d"
+  },
+  "abi": "OniSim_GetTickCount returns uint32 containing uint16 tick; existing OniSimDiagnostics remains 24 bytes",
+  "limits": "Original existing-state load preserves its receiving tick; candidate still supports startup Load only, with no positive-time Load seed"
+}

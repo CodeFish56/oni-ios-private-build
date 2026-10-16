@@ -182,7 +182,8 @@ bool StepGasPressureV744825(const LoadedWorldV15& source,
                 error = "Pressure calculation overflowed.";
                 return false;
             }
-            // A diagonal edge is blocked when either orthogonal cell is solid.
+            // The original phase OR is also 3 for a gas/water pair, so
+            // either solid or the combination of gas and liquid blocks it.
             if ((elements[source.elementIdx[side]].state |
                  elements[source.elementIdx[above]].state) != 3 &&
                 !Transfer(current, diagonal, 2)) {

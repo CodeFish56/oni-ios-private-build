@@ -27,6 +27,9 @@ output. **It cannot yet generate a playable colony.**
 - Foreground cell heat exchange before pressure: fixed source, accumulated output,
   original area/insulation coefficients, binary32 capacities and binary64 exchange
   calculations. Phase changes and backwall heat remain unsupported.
+- Water/O2/CO2 interaction: tick-rotated gas displacement, ordered water diagonal
+  exchanges and one shared water/gas postprocess traversal with the original RNG
+  sequence. The uint16 update tick wraps and stays outside the v15 save format.
 - Real SIMSAVE v15 output, with verified zero header option and zero offsets.
 - Seven `OniSim_*` C ABI entry points plus status/error/capability queries.
   Native exceptions are contained inside `noexcept` exports.
@@ -46,7 +49,7 @@ stripes, layers, checkerboards, pockets, low masses, variable frame lengths,
 zero seconds and 32-cell chunk boundaries. Every frame matches all 18 arrays,
 29 event counts, four event byte streams, RNG seed/directions and complete
 saved bytes. The original evaporation loss is preserved rather than forced
-to conserve mass. Defined timer bits also match; both sanitizers pass. Ten
+to conserve mass. Defined timer bits also match; both sanitizers pass. Eleven
 unsupported-feature tests preserve world/RNG/timers on failure. See
 [positive-frame scope](../docs/ios-water-timers.md)
 and [record](../docs/gas-frame-verification.json).
@@ -70,6 +73,15 @@ eight nonuniform-temperature worlds over 40 complete frames. Both sanitizers
 pass. Combined with the preceding cases, this is 29 worlds and 126 frames.
 See [heat scope](../docs/ios-heat-exchange.md) and
 [heat verification](../docs/heat-exchange-verification.json).
+
+The mixed-fluid stage adds 15 original worlds and 97 complete frames, including
+two pure-water temperature regressions near freezing and boiling. The cumulative
+regression is 44 worlds / 223 frames, with 11 unsupported-feature rollback tests.
+Independent module probes match 288 water/gas calls and 96 ordered mixed
+postprocess cases, including raw duplicate notification order and shared RNG.
+The C ABI also reaches uint16 wrap via 65537 actual empty-region updates.
+All pass normal and ASan/UBSan builds. See [mixed-fluid scope](../docs/ios-mixed-fluids.md),
+[record](../docs/mixed-fluid-verification.json) and [tick record](../docs/tick-verification.json).
 
 ## Build locally
 
@@ -107,8 +119,8 @@ the Xcode export, adds them to UnityFramework and redirects seven audited
 `Sim.SIM_*` wrappers to this static C ABI. See [link details](../docs/ios-sim-link.md).
 No new 1.66 GB archive upload is needed.
 
-Current capabilities are **4095**, adding restricted foreground heat exchange
-to the preceding water, gas, timer and data capabilities.
+Current capabilities are **8191**, adding restricted water/gas interaction
+to the preceding heat, water, gas, timer and data capabilities.
 The game wrapper requires world settlement, game simulation and game render
 capabilities (**458752**); all remain absent. It raises a managed capability
 error before marshaling the callback. World-generation failure handling
@@ -121,8 +133,8 @@ Remaining acceptance gates, in order:
    disease and events. Validate one frame, then the complete 500-step world
    settlement against controlled original runs, including conservation checks.
    O2/CO2 pressure/postprocessing now runs through the C ABI for the verified
-   restricted domains. Water/gas interaction, other species, reactive solids,
-   general heat/phase changes and radiation remain rejected. Unstable-solid
+   restricted domains. Other species, reactive solids, pressure breaks,
+   backwall heat/phase changes and radiation remain rejected. Unstable-solid
    physics and the remaining disease grids still need reconstruction.
 2. Generate and check the IL2CPP reverse P/Invoke callback. The recovery script
    now adds the iOS `MonoPInvokeCallback` attribute; the current archive was

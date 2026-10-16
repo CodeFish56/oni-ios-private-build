@@ -23,6 +23,7 @@ enum OniSimCapability : uint64_t {
     OniSim_StabilityTimerSemantics = 512ull,
     OniSim_RestrictedWaterPhysics = 1024ull,
     OniSim_RestrictedHeatExchange = 2048ull,
+    OniSim_WaterGasPhysics = 4096ull,
     OniSim_WorldgenSettlement = 1ull << 16,
     OniSim_GameSimulation = 1ull << 17,
     OniSim_GameRenderData = 1ull << 18
@@ -54,6 +55,8 @@ ONI_SIM_API uint64_t OniSim_GetCapabilities() ONI_SIM_NOEXCEPT;
 ONI_SIM_API int32_t OniSim_GetLastStatus() ONI_SIM_NOEXCEPT;
 ONI_SIM_API const char* OniSim_GetLastError() ONI_SIM_NOEXCEPT;
 ONI_SIM_API void OniSim_GetDiagnostics(OniSimDiagnostics* state) ONI_SIM_NOEXCEPT;
+// Original uint16 update tick, exposed without changing the diagnostics ABI.
+ONI_SIM_API uint32_t OniSim_GetTickCount() ONI_SIM_NOEXCEPT;
 // Diagnostic copy of internal timer bytes, including the simulation border.
 // nullptr/0 queries byte count. Only low five bits have defined semantics.
 ONI_SIM_API int32_t OniSim_CopyStabilityTimers(uint8_t* destination, int32_t length) ONI_SIM_NOEXCEPT;

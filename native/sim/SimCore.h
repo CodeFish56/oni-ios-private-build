@@ -20,7 +20,7 @@ public:
         OniSim_CellValues | OniSim_SaveV15 | OniSim_SingleGasPhysics |
         OniSim_OxygenCO2Displacement | OniSim_LowMassGasPostprocess |
         OniSim_StabilityTimerSemantics | OniSim_RestrictedWaterPhysics |
-        OniSim_RestrictedHeatExchange;
+        OniSim_RestrictedHeatExchange | OniSim_WaterGasPhysics;
 
     void Initialize(OniSim_GameMessageHandler callback);
     void Shutdown();
@@ -30,6 +30,7 @@ public:
     void EndSave();
     void GetDiagnostics(OniSimDiagnostics* state);
     int32_t CopyStabilityTimers(uint8_t* destination, int32_t length);
+    uint32_t GetTickCount();
     OniSimStatus Status() const { return status_; }
     const std::string& Error() const { return error_; }
     void SetFailure(OniSimStatus status, const char* message);
@@ -69,6 +70,7 @@ private:
     int iterateDirection_ = -1;
     float carrySeconds_ = 0;
     uint64_t physicsSteps_ = 0;
+    uint16_t tickCount_ = 0;
     GasRandomStateV744825 random_{};
     struct SubstanceNotification { int32_t cell; uint16_t oldElement, newElement; };
     static_assert(sizeof(SubstanceNotification) == 8);

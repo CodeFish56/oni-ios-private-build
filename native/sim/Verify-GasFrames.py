@@ -24,7 +24,10 @@ def diagnostics(bridge):
     state = Diagnostics()
     bridge.library.OniSim_GetDiagnostics(c.byref(state))
     bridge.check()
-    return {name: getattr(state, name) for name, _ in Diagnostics._fields_}
+    result = {name: getattr(state, name) for name, _ in Diagnostics._fields_}
+    result["tickCount"] = bridge.library.OniSim_GetTickCount()
+    bridge.check()
+    return result
 
 
 def timer_snapshot(bridge, fixture=None, phase=None, report=None):
@@ -130,6 +133,9 @@ def run(bridge, fixture, elements, diseases):
         for name, original in (("randomSeed", "seed"), ("iterateDirection", "iterateDirection"),
                                ("displacementDirection", "displacementDirection")):
             assert state[name] == expected[original], (fixture.name, phase, name, state[name], expected[original])
+        if "tickCount" in expected:
+            assert state["tickCount"] == expected["tickCount"], (fixture.name, phase, "tickCount")
+        assert state["tickCount"] == state["physicsSteps"] % 65536
         rows.append({"phase": phase, "arrays": arrays, "state": state, "mass": mass, "initial_mass": initial_mass,
                      "timers_low5_sha256": hashlib.sha256(timer_snapshot(bridge, fixture, phase, report)).hexdigest(),
                      "original_mass_change": original_mass - initial_mass,
@@ -154,7 +160,9 @@ def rejected_features(bridge, fixture, elements, diseases):
             if elements[14+i*164] & 3 == 1 and struct.unpack_from("<I", elements, 4+i*164)[0]
             not in (0xA4E0B340, 0x74DC00EF) and struct.unpack_from("<f", elements, 60+i*164)[0] < 300
             < struct.unpack_from("<f", elements, 64+i*164)[0]), 300, 1),
-        "water_gas_interaction": lambda p: struct.pack_into("<H6xff", p, 14, indices[1836671383], 300, 1),
+        "mixed_phase_transition": lambda p: struct.pack_into("<H6xff", p, 14, indices[1836671383], 380, 1),
+        "mixed_temperature_domain": lambda p: (struct.pack_into("<H6xff", p, 14, indices[1836671383], 300, 1),
+            struct.pack_into("<f", p, 22 + gas * 16, 410)),
         "other_liquid": lambda p: struct.pack_into("<H6xff", p, 14, next(i for i in range(len(indices))
             if elements[14+i*164] & 3 == 2 and struct.unpack_from("<I", elements, 4+i*164)[0] != 1836671383), 300, 1),
         "water_overpressure": lambda p: struct.pack_into("<H6xff", p, 14 + gas * 16, indices[1836671383], 300, 2000),
@@ -192,6 +200,8 @@ def main():
     bridge.library.OniSim_GetDiagnostics.restype = None
     bridge.library.OniSim_CopyStabilityTimers.argtypes = [c.c_void_p, c.c_int32]
     bridge.library.OniSim_CopyStabilityTimers.restype = c.c_int32
+    bridge.library.OniSim_GetTickCount.argtypes = []
+    bridge.library.OniSim_GetTickCount.restype = c.c_uint32
     rows = []
     for fixture in sorted(args.fixtures.iterdir()):
         if not (fixture / "report.json").is_file():
@@ -203,7 +213,7 @@ def main():
     denied = rejected_features(bridge, args.fixtures / "oxygen-single", args.elements.read_bytes(), args.diseases.read_bytes()) if (args.fixtures / "oxygen-single").is_dir() else []
     result = {"all_passed": True, "library_sha256": hashlib.sha256(args.library.read_bytes()).hexdigest(),
               "cases": rows, "rejected_features": denied, "capabilities": bridge.GetCapabilities(),
-              "limits": "Restricted non-radiating O2/CO2 or single-water worlds; water/gas interaction, phase changes, backwall heat, settlement and iPhone execution unavailable"}
+              "limits": "Restricted non-radiating O2/CO2/Water worlds; mixed fluids 275..360 K, single water species, no phase changes, backwall heat, settlement or iPhone execution"}
     args.result.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
 
 

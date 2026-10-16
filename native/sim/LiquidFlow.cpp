@@ -23,10 +23,11 @@ bool Validate(const LoadedWorldV15& world, const std::vector<LiquidElementV74482
     }
     for (std::size_t i = 0; i < count; ++i) {
         const uint16_t id = world.elementIdx[i];
-        if (id >= elements.size() || (id != water && id != vacuum && elements[id].hash != 0x6D95058C) ||
+        if (id >= elements.size() || (id != water && id != vacuum && elements[id].hash != 0x6D95058C &&
+                elements[id].hash != 0xA4E0B340 && elements[id].hash != 0x74DC00EF) ||
             !std::isfinite(world.mass[i]) || world.mass[i] < 0 || !std::isfinite(world.temperature[i]) ||
             world.temperature[i] < 0 || world.properties[i] != 0 || world.diseaseIdx[i] != 255 || world.diseaseCount[i] != 0) {
-            error = "Water flow requires finite water/vacuum/Unobtanium without properties or disease."; return false;
+            error = "Water flow requires finite water/O2/CO2/vacuum/Unobtanium without properties or disease."; return false;
         }
     }
     return true;
@@ -42,7 +43,7 @@ void Clear(LoadedWorldV15& world, std::size_t cell, uint16_t vacuum) {
 }
 bool Cell(const LoadedWorldV15& source, const std::vector<LiquidElementV744825>& elements,
     uint16_t water, uint16_t vacuum, std::size_t cell, LoadedWorldV15& updated,
-    std::vector<uint32_t>& changes, std::vector<std::array<float, 4>>& flow) {
+    std::vector<uint32_t>& changes, std::vector<std::array<float, 4>>& flow, uint16_t tickCount) {
     const auto& data = elements[water];
     const std::size_t below = cell - source.simWidth;
     float remaining = source.mass[cell];
@@ -52,7 +53,51 @@ bool Cell(const LoadedWorldV15& source, const std::vector<LiquidElementV744825>&
         return (source.elementIdx[n] == water || Phase(source, n) <= 1) &&
             Phase(updated, n) != 3 && (source.properties[n] & 2) == 0;
     };
+    // Original DisplaceGas (0x39A00) searches mutable updated cells, using
+    // tickCount rather than consuming the shared random number generator.
+    // Return 0 for a blocked move, -1 for an unsupported boundary/overflow.
+    auto DisplaceGas = [&](std::size_t n) {
+        if (!(updated.mass[n] > 0)) return 0;
+        if (n < source.simWidth || n + source.simWidth >= updated.mass.size() ||
+            n % source.simWidth == 0 || n % source.simWidth + 1 == source.simWidth) return -1;
+        const uint16_t gas = updated.elementIdx[n];
+        const std::array<std::size_t, 4> candidates{
+            n + source.simWidth, n - 1, n + 1, n - source.simWidth};
+        std::size_t destination = updated.mass.size();
+        for (unsigned i = 0; i < 4; ++i) {
+            const std::size_t target = candidates[(tickCount + i) & 3];
+            if ((updated.elementIdx[target] == gas || updated.elementIdx[target] == vacuum) &&
+                (updated.properties[target] & 1) == 0) { destination = target; break; }
+        }
+        if (destination == updated.mass.size()) {
+            const std::array<std::size_t, 2> diagonal{n + source.simWidth - 1, n + source.simWidth + 1};
+            const std::array<std::size_t, 2> side{n - 1, n + 1};
+            for (unsigned i = 0; i < 2; ++i) {
+                const unsigned index = (tickCount + i) & 1;
+                const std::size_t target = diagonal[index];
+                if (updated.elementIdx[target] == gas && Phase(updated, side[index]) != 3 &&
+                    (updated.properties[target] & 1) == 0) { destination = target; break; }
+            }
+        }
+        if (destination == updated.mass.size()) return 0;
+        const float moved = updated.mass[n], oldMass = updated.mass[destination];
+        const float total = oldMass + moved;
+        const float a = updated.temperature[destination], b = updated.temperature[n];
+        float temperature = total > 0 ? (a * oldMass + b * moved) / total : 0.0f;
+        temperature = std::max(std::min(temperature, std::max(a, b)), std::min(a, b));
+        if (!std::isfinite(total) || !std::isfinite(temperature)) return -1;
+        updated.mass[destination] = total; updated.temperature[destination] = temperature;
+        updated.elementIdx[destination] = gas;
+        Clear(updated, n, vacuum);
+        changes.push_back(static_cast<uint32_t>(n)); changes.push_back(static_cast<uint32_t>(destination));
+        return 1;
+    };
     auto Transfer = [&](std::size_t n, float amount, unsigned component) {
+        if (Phase(updated, n) == 1) {
+            const int displaced = DisplaceGas(n);
+            if (displaced < 0) return false;
+            if (displaced == 0) return true;
+        }
         if (updated.elementIdx[n] != water && updated.elementIdx[n] != vacuum) return true;
         const float oldMass = updated.mass[n];
         const float total = oldMass + amount;
@@ -69,7 +114,7 @@ bool Cell(const LoadedWorldV15& source, const std::vector<LiquidElementV744825>&
     };
     if (Phase(updated, below) != 3 && (source.properties[below] & 2) == 0) {
         if (source.elementIdx[below] != water && Phase(source, below) <= 1) {
-            // Void and non-vacuum gases are rejected at the module boundary.
+            // Both vacuum and gas below water use this full-cell fall path.
             const bool corner = (Permeable(cell - 1) && !Permeable(below - 1)) ||
                 (Permeable(cell + 1) && !Permeable(below + 1));
             if (!corner) {
@@ -106,6 +151,22 @@ bool Cell(const LoadedWorldV15& source, const std::vector<LiquidElementV744825>&
         if (remaining < threshold + threshold) amount = std::min(std::min(data.viscosity, remaining), amount);
         if (amount > 0.01f && !Transfer(above, amount, 3)) return false;
     }
+    if (remaining > 0 && Phase(updated, below) != 3 &&
+        (updated.properties[cell] & 1) == 0 && (updated.properties[below] & 3) == 0) {
+        // Original final diagonal exchange tests right before left and uses
+        // updated state throughout. It does not write a flow component.
+        for (int64_t delta : {int64_t(1), -int64_t(1)}) {
+            const std::size_t side = static_cast<std::size_t>(static_cast<int64_t>(cell) + delta);
+            const std::size_t diagonal = static_cast<std::size_t>(static_cast<int64_t>(below) + delta);
+            if (Phase(updated, diagonal) == 1 &&
+                (Phase(updated, side) == 3 || (updated.properties[side] & 1) != 0) &&
+                (updated.properties[diagonal] & 2) == 0) {
+                Swap(updated, cell, diagonal);
+                changes.push_back(static_cast<uint32_t>(cell)); changes.push_back(static_cast<uint32_t>(diagonal));
+                break;
+            }
+        }
+    }
     return true;
 }
 uint32_t End(uint32_t maximum, uint32_t dimension) {
@@ -140,7 +201,7 @@ bool DecodeLiquidElementsV744825(const std::vector<uint8_t>& bytes,
 bool UpdateWaterCellV744825(const LoadedWorldV15& source, const std::vector<LiquidElementV744825>& elements,
     uint16_t water, uint16_t vacuum, uint32_t cell, LoadedWorldV15& updated,
     std::vector<uint32_t>& changes, std::vector<std::array<float, 4>>& flow, std::string& error,
-    std::vector<uint8_t>* timers) {
+    std::vector<uint8_t>* timers, uint16_t tickCount) {
     error.clear();
     if (!Validate(source, elements, water, vacuum, error) || !Validate(updated, elements, water, vacuum, error)) return false;
     if (source.simWidth != updated.simWidth || source.simHeight != updated.simHeight || flow.size() != source.mass.size() ||
@@ -149,14 +210,14 @@ bool UpdateWaterCellV744825(const LoadedWorldV15& source, const std::vector<Liqu
         source.elementIdx[cell] != water || source.mass[cell] <= 0 ||
         (timers != nullptr && timers->size() != source.mass.size())) { error = "Invalid UpdateLiquid target."; return false; }
     auto next = updated; auto nextFlow = flow; std::vector<uint32_t> notifications;
-    if (!Cell(source, elements, water, vacuum, cell, next, notifications, nextFlow)) { error = "Water transfer overflowed."; return false; }
+    if (!Cell(source, elements, water, vacuum, cell, next, notifications, nextFlow, tickCount)) { error = "Water transfer overflowed or requires unsupported border displacement."; return false; }
     if (timers != nullptr) for (uint32_t n : notifications) ResetStableCellTimerV744825((*timers)[n]);
     updated = std::move(next); flow = std::move(nextFlow); changes = std::move(notifications); return true;
 }
 
 bool StepWaterFlowV744825(const LoadedWorldV15& source, const std::vector<LiquidElementV744825>& elements,
     uint16_t water, uint16_t vacuum, const PressureRegionV744825& region, LoadedWorldV15& output,
-    std::vector<uint32_t>& changes, std::vector<std::array<float, 4>>& flow, std::string& error) {
+    std::vector<uint32_t>& changes, std::vector<std::array<float, 4>>& flow, std::string& error, uint16_t tickCount) {
     error.clear();
     if (!Validate(source, elements, water, vacuum, error)) return false;
     if (flow.size() != source.mass.size() || region.minX > region.maxX || region.minY > region.maxY ||
@@ -165,7 +226,7 @@ bool StepWaterFlowV744825(const LoadedWorldV15& source, const std::vector<Liquid
     for (uint32_t y = region.minY + 1; y < region.maxY + 1; ++y) for (uint32_t x = region.minX + 1; x < region.maxX + 1; ++x) {
         const std::size_t cell = std::size_t(y) * source.simWidth + x;
         if (source.elementIdx[cell] == water && source.mass[cell] > 0 &&
-            !Cell(source, elements, water, vacuum, cell, next, notifications, nextFlow)) { error = "Water transfer overflowed."; return false; }
+            !Cell(source, elements, water, vacuum, cell, next, notifications, nextFlow, tickCount)) { error = "Water transfer overflowed or requires unsupported border displacement."; return false; }
     }
     output = std::move(next); flow = std::move(nextFlow); changes = std::move(notifications); return true;
 }
@@ -183,6 +244,9 @@ bool StepWaterPostProcessV744825(const LoadedWorldV15& source, const std::vector
         error = "Invalid water postprocess table, flow or region."; return false;
     }
     for (std::size_t cell = 0; cell < source.mass.size(); ++cell) {
+        if ((elements[source.elementIdx[cell]].state & 3) == 1) {
+            error = "Mixed water/gas postprocess requires the shared fluid traversal."; return false;
+        }
         if (source.temperature[cell] > post[water].highTemperature + 3.0f ||
             (source.elementIdx[cell] == water && (source.mass[cell] > elements[water].maxMass ||
             source.temperature[cell] <= post[water].lowTemperature || source.temperature[cell] >= post[water].highTemperature)) ||

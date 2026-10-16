@@ -77,7 +77,7 @@ void SimCore::Shutdown() {
     seedKnown_ = false; iterateDirection_ = -1; carrySeconds_ = 0; physicsSteps_ = 0; random_ = {}; pendingPhysicsFrame_ = false;
     pendingSubstance_.clear(); outputSubstance_.clear(); frameFlow_.clear(); flowSourceElements_.clear();
     pendingLiquidChanges_.clear(); outputLiquidChanges_.clear();
-    stabilityTimers_.clear();
+    stabilityTimers_.clear(); tickCount_ = 0;
     radiationEnabled_ = false; allocationOnly_ = false; seed_ = 0; cellValues_ = {}; pendingFrames_ = 0;
     accumulatedFlow_.clear(); textureFlow_.clear(); textureLiquid_.clear();
     textureLiquidData_.clear(); textureMaterial_.clear(); sunlight_.clear(); save_.clear(); saveOpen_ = false;
@@ -358,6 +358,11 @@ void SimCore::GetDiagnostics(OniSimDiagnostics* state) {
     if (phase_ == Phase::Cold) { Fail(OniSimStatus::InvalidState, "The native core is not initialized."); return; }
     *state = {random_.seed, iterateDirection_, random_.displacementDirection, carrySeconds_, physicsSteps_};
 }
+uint32_t SimCore::GetTickCount() {
+    ClearStatus();
+    if (phase_ == Phase::Cold) { Fail(OniSimStatus::InvalidState, "The native core is not initialized."); return 0; }
+    return tickCount_;
+}
 
 void SimCore::RefreshFlow() {
     if (frameFlow_.empty()) return;
@@ -400,15 +405,18 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
     if (!DecodeLiquidElementsV744825(elementBytes_, liquids, water, liquidVacuum, error) || liquidVacuum != vacuum) {
         status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
     }
-    bool waterWorld = false, hasGas = false;
-    for (uint16_t id : world.elementIdx) {
+    bool waterWorld = false, obstacleWorld = false, hasGas = false;
+    for (std::size_t cell = 0; cell < world.elementIdx.size(); ++cell) {
+        const uint16_t id = world.elementIdx[cell];
+        hasGas = hasGas || pressure[id].state == 1;
         if (pressure[id].state == 2) {
             if (id != water) return Fail(OniSimStatus::UnsupportedFeature, "Only the verified water liquid is supported.");
             waterWorld = true;
         }
-        hasGas = hasGas || pressure[id].state == 1;
+        const std::size_t x = cell % world.simWidth, y = cell / world.simWidth;
+        obstacleWorld = obstacleWorld || (pressure[id].state == 3 && x > 0 && y > 0 &&
+            x + 1 < world.simWidth && y + 1 < world.simHeight);
     }
-    if (waterWorld && hasGas) return Fail(OniSimStatus::UnsupportedFeature, "Water/gas interaction is not implemented.");
     std::vector<HeatElementV744825> thermal;
     if (!DecodeHeatElementsV744825(elementBytes_, thermal, error)) {
         status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
@@ -423,7 +431,7 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
         return Fail(OniSimStatus::UnsupportedFeature, "Frame timestep is outside the supported bounded gas schedule.");
     PressureRegionV744825 region{static_cast<uint32_t>(frame.activeRegion.minX), static_cast<uint32_t>(frame.activeRegion.minY),
         static_cast<uint32_t>(frame.activeRegion.maxX), static_cast<uint32_t>(frame.activeRegion.maxY)};
-    auto random = random_; int direction = iterateDirection_;
+    auto random = random_; int direction = iterateDirection_; uint16_t tickCount = tickCount_;
     std::vector<std::array<float, 4>> flow(world.mass.size());
     std::vector<uint32_t> notified;
     LoadedWorldV15 current = world;
@@ -443,7 +451,7 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
         notified.insert(notified.end(), changes.begin(), changes.end());
         if (waterWorld) {
             current = std::move(updated);
-            if (!StepWaterFlowV744825(current, liquids, water, vacuum, region, updated, changes, flow, error)) {
+            if (!StepWaterFlowV744825(current, liquids, water, vacuum, region, updated, changes, flow, error, tickCount)) {
                 status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
             }
             notified.insert(notified.end(), changes.begin(), changes.end());
@@ -452,14 +460,17 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
         // PostProcessCell; the flow renderer compares that snapshot to final.
         flowSource = updated.elementIdx;
         current = std::move(updated);
-        const bool processed = waterWorld ?
-            StepWaterPostProcessV744825(current, liquids, post, water, vacuum, region, random, updated, changes, flow, error) :
+        const bool mixedPost = (waterWorld && hasGas) || (!waterWorld && obstacleWorld);
+        const bool processed = mixedPost ?
+            StepFluidPostProcessV744825(current, post, region, random, updated, changes, error, &flow) :
+            waterWorld ? StepWaterPostProcessV744825(current, liquids, post, water, vacuum, region, random, updated, changes, flow, error) :
             StepGasPostProcessV744825(current, post, region, random, updated, changes, error, &flow);
         if (!processed) {
             status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
         }
         notified.insert(notified.end(), changes.begin(), changes.end());
         current = std::move(updated);
+        tickCount = static_cast<uint16_t>(tickCount + 1u);
     }
     auto timers = stabilityTimers_;
     for (uint32_t cell : notified) ResetStableCellTimerV744825(timers[cell]);
@@ -481,6 +492,7 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
     pendingLiquidChanges_ = std::move(liquidChanges);
     stabilityTimers_ = std::move(timers);
     carrySeconds_ = carry; physicsSteps_ += static_cast<uint64_t>(plan.updateDataCalls);
+    tickCount_ = tickCount;
     return true;
 }
 

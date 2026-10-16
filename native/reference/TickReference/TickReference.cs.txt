@@ -1,0 +1,88 @@
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text.Json;
+
+// Own-process diagnostic only. Does not launch the game or modify DLL instructions.
+internal static class TickReference {
+    const string Expected="031960F120AC1D59FD8E43F6E1A7369111C629B90C24D52186B691DFE2D8A727";
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate int Callback(int id,IntPtr data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void Initialize(Callback cb);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void Shutdown();
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate IntPtr Handle(int id,int length,IntPtr data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate IntPtr BeginSave(out int length,int x,int y);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void EndSave();
+    static string Hash(byte[] b)=>Convert.ToHexString(SHA256.HashData(b)).ToLowerInvariant();
+    static string Arg(string[] args,string key)=>args[Array.IndexOf(args,key)+1];
+    static int Main(string[] args) {
+        const int width=5,height=5,count=width*height;
+        string game=Arg(args,"--game-root"),capture=Arg(args,"--capture-dir"),output=Arg(args,"--output-dir");
+        Directory.CreateDirectory(output);
+        string native=Path.Combine(game,"OxygenNotIncluded_Data","Plugins","x86_64","SimDLL.dll");
+        if(!Hash(File.ReadAllBytes(native)).Equals(Expected,StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException("Wrong DLL");
+        byte[] elements=File.ReadAllBytes(Path.Combine(capture,"elements.bin")),diseases=File.ReadAllBytes(Path.Combine(capture,"diseases.bin"));
+        ushort oxygen=65535,vacuum=65535;
+        for(ushort i=0;i<BitConverter.ToInt32(elements);i++) {
+            uint hash=BitConverter.ToUInt32(elements,4+i*164);
+            if(hash==0xA4E0B340u)oxygen=i;
+            if(hash==0x2D39BF75u)vacuum=i;
+        }
+        if(oxygen==65535||vacuum==65535)throw new InvalidDataException("Missing elements");
+        using Process process=Process.GetCurrentProcess();
+        long allowed=process.ProcessorAffinity.ToInt64();process.ProcessorAffinity=(nint)(allowed&-allowed);
+        Environment.SetEnvironmentVariable("PATH",Path.GetDirectoryName(native)+Path.PathSeparator+game+Path.PathSeparator+Environment.GetEnvironmentVariable("PATH"));
+        nint library=NativeLibrary.Load(native);
+        T Load<T>(string name) where T:Delegate=>Marshal.GetDelegateForFunctionPointer<T>(NativeLibrary.GetExport(library,name));
+        var initialize=Load<Initialize>("SIM_Initialize");var shutdown=Load<Shutdown>("SIM_Shutdown");
+        var handle=Load<Handle>("SIM_HandleMessage");var beginSave=Load<BeginSave>("SIM_BeginSave");var endSave=Load<EndSave>("SIM_EndSave");
+        Callback callback=(id,p)=>0;
+        IntPtr Send(int id,byte[] data) {
+            nint p=data.Length==0?0:Marshal.AllocHGlobal(data.Length);
+            try{if(data.Length>0)Marshal.Copy(data,0,p,data.Length);return handle(id,data.Length,p);}
+            finally{if(p!=0)Marshal.FreeHGlobal(p);}
+        }
+        nint Data()=>Marshal.ReadIntPtr(library,0x115640);
+        ushort Tick()=>unchecked((ushort)Marshal.ReadInt16(Data(),0xA0));
+        void SetTick(ushort v)=>Marshal.WriteInt16(Data(),0xA0,unchecked((short)v));
+        byte[] Save() {nint p=beginSave(out int n,0,0);if(p==0||n<29)throw new InvalidDataException("Save failed");byte[] b=new byte[n];Marshal.Copy(p,b,0,n);endSave();return b;}
+        byte[] visible=Enumerable.Repeat((byte)255,count).ToArray();
+        object Frame(float seconds,int minX=0,int minY=0,int maxX=width,int maxY=height) {
+            ushort before=Tick();byte[] frame=new byte[28];
+            BitConverter.GetBytes(seconds).CopyTo(frame,0);
+            foreach(var (v,i) in new[]{(minX,4),(minY,8),(maxX,12),(maxY,16)})BitConverter.GetBytes(v).CopyTo(frame,i);
+            BitConverter.GetBytes(1f).CopyTo(frame,20);Send(-775326397,frame);
+            nint u=0;
+            for(int i=0;i<200;i++){u=Send(1078620451,visible);if(u!=0&&Marshal.ReadInt32(u)>0)break;Thread.Sleep(10);}
+            if(u==0||Marshal.ReadInt32(u)!=1)throw new InvalidDataException("Frame timeout");
+            var row=new {seconds,region=new[]{minX,minY,maxX,maxY},before,after=Tick(),processed=Marshal.ReadInt32(u)};
+            Console.WriteLine(JsonSerializer.Serialize(row));return row;
+        }
+        initialize(callback);Send(1108437482,elements);Send(825301935,diseases);
+        byte[] payload=new byte[14+40*count];
+        using(var stream=new MemoryStream(payload))using(var writer=new BinaryWriter(stream)){
+            writer.Write(width);writer.Write(height);writer.Write(123456u);writer.Write(false);writer.Write(true);
+            for(int i=0;i<count;i++){writer.Write(oxygen);writer.Write((byte)0);writer.Write((byte)255);writer.Write(0u);writer.Write(300f);writer.Write(1f);}
+            for(int i=0;i<count;i++){writer.Write((byte)255);writer.Write((byte)0);writer.Write((ushort)0);writer.Write(0);writer.Write(0f);}
+            for(int i=0;i<count;i++){writer.Write(vacuum);writer.Write((ushort)0);writer.Write(0f);writer.Write(0f);}
+        }
+        Send(2062421945,payload);ushort initialized=Tick();Send(-931446686,[]);Send(1078620451,visible);ushort started=Tick();
+        var frames=new List<object>();
+        foreach(float seconds in new[]{0f,.01f,.39f,.4f,.2f,1f,0f})frames.Add(Frame(seconds));
+        ushort beforeEmpty=Tick();object empty=Frame(.2f,2,2,2,2);
+        byte[] originalSave=Save();ushort tickBeforeSave=Tick();
+        SetTick(65534);byte[] editedSave=Save();
+        ushort tickAfterSave=Tick();bool identical=originalSave.SequenceEqual(editedSave);
+        var wrapFrames=new[]{Frame(.2f),Frame(.2f),Frame(.2f),Frame(0f)};
+        SetTick(43210);
+        ushort preLoad=Tick();nint loaded=Send(-672538170,originalSave);ushort postLoad=Tick();
+        Frame(0f);ushort postLoadZero=Tick();
+        if(loaded==0)throw new InvalidDataException("Load returned null");
+        File.WriteAllBytes(Path.Combine(output,"original-save.bin"),originalSave);
+        var report=new{dll_sha256=Expected.ToLowerInvariant(),initialized,started,frames,empty_region=empty,beforeEmpty,
+            save=new{tickBeforeSave,tickAfterSave,identical_after_tick_edit=identical,sha256=Hash(originalSave),length=originalSave.Length},
+            wrapFrames,load=new{preLoad,postLoad,postLoadZero,returned_nonnull=loaded!=0},
+            limitations="Diagnostic writes only the owned SimData tickCount between completed frames. No instructions patched. Windows x64 does not establish ARM64 behavior."};
+        File.WriteAllText(Path.Combine(output,"report.json"),JsonSerializer.Serialize(report,new JsonSerializerOptions{WriteIndented=true}));
+        shutdown();GC.KeepAlive(callback);NativeLibrary.Free(library);return 0;
+    }
+}

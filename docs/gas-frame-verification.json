@@ -6,42 +6,47 @@
   "native_sources_sha256": {
     "native/sim/FrameCellValues.cpp": "0957538f14d432302a8dcc263717c6b97367aee9a3c0f3ae629bd41af4f1c4bf",
     "native/sim/FrameStepSchedule.cpp": "7d3ce56f70e6913cc78e23f4de6cd6141cab2a0a9e88f0946c59cdda24ea0c52",
-    "native/sim/GasPostProcess.cpp": "a951c9274da8f9df3dbd752da0cd4593ee3ec9fb141cf5c28a7c09751aecc5de",
-    "native/sim/GasPressure.cpp": "f8db530a4c8131ab09cf7cfbc156193b5c337586039c5fb8b0d8fcef245c6a0f",
+    "native/sim/GasPostProcess.cpp": "8bbdfe10d00adb12ef7b91b0b624d93966a726b8938a7e93d79665cd95c8d70e",
+    "native/sim/GasPressure.cpp": "bdaec01c2aa907c7dcffddda3f8accf0cb37b61c515bedf5b4d28bb2b49caad0",
     "native/sim/HeatExchange.cpp": "050797214091ef7ea76d48edf464b977b433ac5642faddf3fb51118b45fa57a0",
-    "native/sim/LiquidFlow.cpp": "a8a7200c4d7c874a34a9f93f5436c9af75b3bcedbfffe4c0dadc994190d52a39",
+    "native/sim/LiquidFlow.cpp": "b93421bfc952e7af7be4c1b6699048ea9b85a5a5b80de4c5f4de76d46072ee46",
     "native/sim/PressureFlux.cpp": "f879dfdcf4dbef0c92444b00c2d3026654d1cdfe60ef74a83fbd10fd2e74cc04",
     "native/sim/SaveWorldV15.cpp": "e88393a5e0255b8299c931074c966a1367f044c103259576fa46f326ba942bbe",
-    "native/sim/SimCore.cpp": "d1da300260563515a325bc27aa64fcc73eb558e256446f4936a2c95421234c42",
-    "native/sim/SimCoreExports.cpp": "5e66a676b33d570e8c46963e6c2056578722d38ab05a575239450d239757d6f6",
+    "native/sim/SimCore.cpp": "215d9ee925d6d8948289a6903cb3d7b7ec6243726d40e3015958efcd439a18e9",
+    "native/sim/SimCoreExports.cpp": "a9947521b8181116390616888aaab74a7e1cbd27ca3e0c8655cee586bc4a557d",
     "native/sim/StabilityTimers.cpp": "ab790c1c11b8cfb3a2ecf2216c03971564a8162e4a3d961f04a467d617c1ad54",
     "native/sim/FrameCellValues.h": "2d3766a0309b1b3db50322a39c67f7f806b96a593ff771c2cae7ef65285b2ad2",
     "native/sim/FrameStepSchedule.h": "793da8b4813b44dd8b2fdfcc462d711301966b0ac266d2d593e8036acb4c58ee",
-    "native/sim/GasPostProcess.h": "1c196467b219fcaee225c1a2d649ded0cc5bafd50d098ba61f522b9d5f700a58",
+    "native/sim/GasPostProcess.h": "864730d4fad3ba8b0c672b1461e6d164984129dad56d87457bdca613ee9fe537",
     "native/sim/GasPressure.h": "29df1076fb810938ca810bedabeb402c9923f820a39547aca6735e2de46d5113",
     "native/sim/HeatExchange.h": "350f32b79da1d0c905aad09e956d6a567320ac8dcab993a3b8d8ab8bac167ab2",
-    "native/sim/LiquidFlow.h": "84adebfe929aa2e2e0f9fbeb8c988eb8be42ac12e55e6e7ea9ffbca01fdb41b7",
+    "native/sim/LiquidFlow.h": "805668f72589f8b3865c318a95085dae9486acd4173b44fde86c44b621b18a82",
     "native/sim/PressureFlux.h": "a71ae9b043dd5225b76adc1c62a2af8ba9c7bf644ddbafb5211a7606a128cbf0",
     "native/sim/SaveWorldV15.h": "260a6e2c271d602df8a903b3dc3b946eab53c15e34ed0f3e6b1450a0d852234d",
-    "native/sim/SimCore.h": "8606c224355ce3e5ad3615cabc9fcd9d7a5ca7536e137738d46b416a77e9e007",
-    "native/sim/SimCoreExports.h": "6f3f462e901382e239230ab9caf04c457b3bac3270ad6757f11b552a3f9ad723",
+    "native/sim/SimCore.h": "735d3e6823ac442d7c4693fc9a063e9cde241a9792f12934c6a0be762e2874da",
+    "native/sim/SimCoreExports.h": "742e5114139da574f5e4380f8d62e38a675299ada00fd70a93c57e04e9ce1f22",
     "native/sim/StabilityTimers.h": "6e2fe2d97c03d6699ff585b26452fe8e58fb5295e4a3ee166c0f545ca5a2b52c",
     "native/sim/CMakeLists.txt": "86ecb29e47c6673b802851efa3b7989bb9d863b7d6b269e8285eae87f5eb791d",
     "native/sim/Verify-Bridge.py": "d656f475f9df3879ec985175fe013220ae4dbf7ce6234dcaeb0af88d22574e9c",
-    "native/sim/Verify-GasFrames.py": "3cabe0d3c13bebbac40a83efe4fccc11530865dad20d3e99228ee77a2e6698ca",
+    "native/sim/Verify-GasFrames.py": "f5534a828e3f0af457d950706933c74a7ec442c3c19e9409da4e49e11d2b8e01",
     "native/sim/Verify-GasPost.py": "86a0b594e396ab88c3aa0015bbfa5cb1642f0b5fa68599370fc49de376b39f1f",
     "native/sim/Verify-WaterFlow.py": "c87a20cb7c1e463c21172565bc6aa485d4a1a080f910a2f5ef23bd917fa98d88",
     "native/sim/Verify-Timers.py": "2fccca33ab336216058e17e36f706210c2c07b4545177a2ca88bbce0c826878e",
     "native/sim/Verify-Heat.py": "34c7a0120a2585b43610068934f5600f2f10d63d0afbd4b640667f65a3ee8ce2",
+    "native/sim/Verify-WaterGas.py": "ae6becb60738af57730241d9420e83bbbca4081654e48c7fba30ec9569522508",
+    "native/sim/Verify-MixedPost.py": "d053f47c3621e9ee0cabeb7bdbf3dabae1078af970c41db507de0c42ad7b2062",
+    "native/sim/Verify-TickFrames.py": "ec2d1102fc35f849b16efb7644276a62911e790365748d17bf84fb85dfa04432",
     "native/tests/GasPostProbe.cpp": "00802420f92b1414b3ac063ebf0d155fc3cf454d74ffc3de27a78000f7005232",
     "native/tests/WaterFlowProbe.cpp": "83980b3a167c53666b8e5361b81308a0ab4f07b591dabdc9de8d9927805e5c39",
     "native/tests/TimerProbe.cpp": "1153833323b2575b7c3f9f8c29db5c86809558d77a9002c79cfc346c9360df52",
     "native/tests/HeatProbe.cpp": "04b23fb8c401363e999c3c20a5f553070c7550f135f42086f00f5a55e944f2d0",
+    "native/tests/WaterGasProbe.cpp": "24df278849760858d62ccbf9e48d26c63328abf258ff9f5e9c20ccb0e8cef0c4",
+    "native/tests/MixedPostProbe.cpp": "79a4f81ac8fc82089d553505f22ebdfdc572f92ac1c6f5c2eac0dce754e54fd1",
     "native/abi/GameDataUpdate.h": "5e18419453fa399bd29118827732251b68664ed3e000c0406a80412ad5a0d10a",
     "native/abi/SimExports.h": "824f64d08a68ac613b516613973ba4e0068e3ff4c6ee552f6478d29d6faa2c00",
     "native/abi/SimWireABI.h": "f2f2994d8e90f47fa45e8f86ca75552256c43682cf31879d8eeb0cda1e2df88c",
     "native/reference/WorldgenReference.csproj": "1608ccaab335bfd46861d2740f7143d452c1a29a113bbe49c30e283841ac489c",
-    "native/reference/WorldgenReference.cs.txt": "79fae8f176a66a1eb3db27ec90c6378970dde5f46cc6cc868ea9e64a468ca0ab",
+    "native/reference/WorldgenReference.cs.txt": "04eef397e9410109d24d71273ef8385a608fbe2b2d5aceca05e9eb8a33a01c56",
     "native/reference/WorldgenAnalyze.py": "fa75b0602d02edc902d82a85fbe5ad7abebd2630d4d1473bff7661ef95b8a567",
     "native/reference/GasPostReference/GasPostReference.csproj": "3e6bb3f7427b5373177a326dc15d18af114737f328556c5dc97cf5e9d38c94a0",
     "native/reference/GasPostReference/GasPostReference.cs.txt": "c325d2149746a41b0fec7cf5a55de902f8f0560706cf3f280904c812620dd994",
@@ -56,13 +61,20 @@
     "native/reference/HeatReference/HeatReference.cs.txt": "7e07affc602b602fa4626fc25e35712c6c1b1fb02f9f260782faaa2f96dffc54",
     "native/reference/HeatReference/README.md": "5696305185f993a75387e284e7f522e62b7ea68faecc3069391e3b5d933d63ca",
     "native/reference/WaterGasReference/WaterGasReference.csproj": "67ffdf483b429d7201fabf6449aec157bf77aa2eb00c1e119d679e1ae42540b1",
-    "native/reference/WaterGasReference/WaterGasReference.cs.txt": "8afa7f8edd1aafa5c50c46a1bef38c2ca28615b06c0bd86ed95936ef20e93226",
-    "native/reference/WaterGasReference/README.md": "61edd220f20c7f7f3406c5278068b76fecb98f98a4c10900c6ba9979ef9736b0",
-    "native/reference/HeatFrameFixtures.py": "3fc0219ce1420b6dd05e65465db47641a10ec24a507e465458190ee62d82a53e"
+    "native/reference/WaterGasReference/WaterGasReference.cs.txt": "c5963fc4189c0d75faa68e352895a35f55284afc0a364b2f628e7126b7116f8e",
+    "native/reference/WaterGasReference/README.md": "7eeee78264e2615e61b5ad12492e8402e1ecfbe6e188715ea32cc83903209bd9",
+    "native/reference/MixedPostReference/MixedPostReference.csproj": "a05d08e69c6b3a82eeca13fbdead2d4ae1b4641c7ec121a5b47979de971ecfac",
+    "native/reference/MixedPostReference/MixedPostReference.cs.txt": "9952794659cc8d09b9a586a66e0967688bcb3f94e99c29cdd7af7618d4d15f2a",
+    "native/reference/MixedPostReference/README.md": "62014f6a885ec89b3b6e04867fdb4e75022a557a359038eaf641de866b8a55a2",
+    "native/reference/TickReference/TickReference.csproj": "5026a64d04355056d4725d8eda4b0761625437186521c975b4a948451bb88ebc",
+    "native/reference/TickReference/TickReference.cs.txt": "50d3185a2afef5694769058677d88f588748fb8032abfa9731de5871cb293a33",
+    "native/reference/TickReference/README.md": "0589dff45bb426aa5c5f0b4aeb2a4a9d04440928d3569a9d1264426f502db02f",
+    "native/reference/HeatFrameFixtures.py": "3fc0219ce1420b6dd05e65465db47641a10ec24a507e465458190ee62d82a53e",
+    "native/reference/MixedFrameFixtures.py": "e9863e6ed319d27b6dee6a03ea64f3c03c79c4a5830a39065706a234bbca6335"
   },
   "native_c_abi": {
     "all_passed": true,
-    "library_sha256": "c33df0eb5f5bf324834503af6fea20e1a0e83078a88e36fee27d197bfba62591",
+    "library_sha256": "1dd29b0fdb6db28d6ffab4905d8c1b539f7f0a7bbdc8395a92fd4ed144362620",
     "cases": [
       {
         "case": "co2-chunk33",
@@ -156,7 +168,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 5631.625,
             "initial_mass": 5631.625,
@@ -195,7 +208,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 5631.624999642372,
             "initial_mass": 5631.625,
@@ -234,7 +248,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 5631.624999880791,
             "initial_mass": 5631.625,
@@ -337,7 +352,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
@@ -376,7 +392,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.14999999105930328,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 1407.3750010728836,
             "initial_mass": 1407.375,
@@ -415,7 +432,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.15000000596046448,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 1407.3750004768372,
             "initial_mass": 1407.375,
@@ -454,7 +472,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.15000000596046448,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 1407.3750004768372,
             "initial_mass": 1407.375,
@@ -493,7 +512,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.15000002086162567,
-              "physicsSteps": 5
+              "physicsSteps": 5,
+              "tickCount": 5
             },
             "mass": 1407.3750001192093,
             "initial_mass": 1407.375,
@@ -596,7 +616,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 0.0005000000237487257,
             "initial_mass": 0.0005000000237487257,
@@ -635,7 +656,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 0.000500000015108526,
             "initial_mass": 0.0005000000237487257,
@@ -674,7 +696,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 0.0005000000182313613,
             "initial_mass": 0.0005000000237487257,
@@ -777,7 +800,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 0.9999999394640326,
             "initial_mass": 1.0,
@@ -880,7 +904,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 351.25,
             "initial_mass": 351.25,
@@ -919,7 +944,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 351.2499999254942,
             "initial_mass": 351.25,
@@ -958,7 +984,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 351.24999886006117,
             "initial_mass": 351.25,
@@ -1061,7 +1088,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 5631.625,
             "initial_mass": 5631.625,
@@ -1100,7 +1128,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 3
+              "physicsSteps": 3,
+              "tickCount": 3
             },
             "mass": 5631.625000476837,
             "initial_mass": 5631.625,
@@ -1139,7 +1168,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 5631.625000730157,
             "initial_mass": 5631.625,
@@ -1242,7 +1272,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 1407.3749995231628,
             "initial_mass": 1407.375,
@@ -1281,7 +1312,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 3
+              "physicsSteps": 3,
+              "tickCount": 3
             },
             "mass": 1407.3749979287386,
             "initial_mass": 1407.375,
@@ -1320,7 +1352,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 1407.37499884516,
             "initial_mass": 1407.375,
@@ -1359,7 +1392,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 5
+              "physicsSteps": 5,
+              "tickCount": 5
             },
             "mass": 1407.3750003967434,
             "initial_mass": 1407.375,
@@ -1462,7 +1496,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 154.0412434447958,
             "initial_mass": 154.04250004551852,
@@ -1501,7 +1536,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 154.0403633508896,
             "initial_mass": 154.04250004551852,
@@ -1540,7 +1576,8 @@
               "iterateDirection": -1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 154.03978667390618,
             "initial_mass": 154.04250004551852,
@@ -1579,7 +1616,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 5
+              "physicsSteps": 5,
+              "tickCount": 5
             },
             "mass": 154.03978646994653,
             "initial_mass": 154.04250004551852,
@@ -1618,7 +1656,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 6
+              "physicsSteps": 6,
+              "tickCount": 6
             },
             "mass": 154.03978626109745,
             "initial_mass": 154.04250004551852,
@@ -1721,7 +1760,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 8800.00008392334,
             "initial_mass": 8800.0,
@@ -1760,7 +1800,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 8800.000126838684,
             "initial_mass": 8800.0,
@@ -1799,7 +1840,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 8800.000126838684,
             "initial_mass": 8800.0,
@@ -1838,7 +1880,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 8799.999981338158,
             "initial_mass": 8800.0,
@@ -1941,7 +1984,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 1407.3749980926514,
             "initial_mass": 1407.375,
@@ -1980,7 +2024,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 1407.3749890178442,
             "initial_mass": 1407.375,
@@ -2019,7 +2064,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 1407.3749891147017,
             "initial_mass": 1407.375,
@@ -2058,7 +2104,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 5
+              "physicsSteps": 5,
+              "tickCount": 5
             },
             "mass": 1407.37499031052,
             "initial_mass": 1407.375,
@@ -2097,7 +2144,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.14999999105930328,
-              "physicsSteps": 6
+              "physicsSteps": 6,
+              "tickCount": 6
             },
             "mass": 1407.3749904911965,
             "initial_mass": 1407.375,
@@ -2136,7 +2184,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.14999999105930328,
-              "physicsSteps": 7
+              "physicsSteps": 7,
+              "tickCount": 7
             },
             "mass": 1407.3749928213656,
             "initial_mass": 1407.375,
@@ -2239,7 +2288,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 5631.625,
             "initial_mass": 5631.625,
@@ -2278,7 +2328,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 3
+              "physicsSteps": 3,
+              "tickCount": 3
             },
             "mass": 5631.625,
             "initial_mass": 5631.625,
@@ -2317,7 +2368,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 5631.625,
             "initial_mass": 5631.625,
@@ -2420,7 +2472,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
@@ -2459,7 +2512,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
@@ -2498,7 +2552,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 3
+              "physicsSteps": 3,
+              "tickCount": 3
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
@@ -2537,7 +2592,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
@@ -2576,7 +2632,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 5
+              "physicsSteps": 5,
+              "tickCount": 5
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
@@ -2615,7 +2672,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 6
+              "physicsSteps": 6,
+              "tickCount": 6
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
@@ -2654,7 +2712,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 7
+              "physicsSteps": 7,
+              "tickCount": 7
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
@@ -2693,7 +2752,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 8
+              "physicsSteps": 8,
+              "tickCount": 8
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
@@ -2732,7 +2792,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 9
+              "physicsSteps": 9,
+              "tickCount": 9
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
@@ -2771,7 +2832,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 10
+              "physicsSteps": 10,
+              "tickCount": 10
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
@@ -2874,7 +2936,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 255.9999885559082,
             "initial_mass": 256.0,
@@ -2913,7 +2976,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 255.99998474121094,
             "initial_mass": 256.0,
@@ -2952,7 +3016,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 255.99998474121094,
             "initial_mass": 256.0,
@@ -2991,7 +3056,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 3
+              "physicsSteps": 3,
+              "tickCount": 3
             },
             "mass": 255.9999886751175,
             "initial_mass": 256.0,
@@ -3094,7 +3160,8 @@
               "iterateDirection": 1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 0.9999999552965164,
             "initial_mass": 1.0,
@@ -3197,7 +3264,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 5.999999802552836e-11,
             "initial_mass": 4.999999858590343e-10,
@@ -3236,7 +3304,8 @@
               "iterateDirection": -1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 0.0,
             "initial_mass": 4.999999858590343e-10,
@@ -3275,7 +3344,8 @@
               "iterateDirection": -1,
               "displacementDirection": 1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 0.0,
             "initial_mass": 4.999999858590343e-10,
@@ -3378,7 +3448,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 70993.0,
             "initial_mass": 70993.0,
@@ -3417,7 +3488,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 70993.0,
             "initial_mass": 70993.0,
@@ -3456,7 +3528,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 70993.0,
             "initial_mass": 70993.0,
@@ -3495,7 +3568,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 5
+              "physicsSteps": 5,
+              "tickCount": 5
             },
             "mass": 70993.0,
             "initial_mass": 70993.0,
@@ -3598,7 +3672,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 1250.0,
             "initial_mass": 1250.0,
@@ -3637,7 +3712,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 3
+              "physicsSteps": 3,
+              "tickCount": 3
             },
             "mass": 1250.0,
             "initial_mass": 1250.0,
@@ -3676,7 +3752,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 1250.0,
             "initial_mass": 1250.0,
@@ -3715,7 +3792,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 5
+              "physicsSteps": 5,
+              "tickCount": 5
             },
             "mass": 1250.0,
             "initial_mass": 1250.0,
@@ -3818,7 +3896,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 10009.0,
             "initial_mass": 10009.0,
@@ -3857,7 +3936,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 10009.0,
             "initial_mass": 10009.0,
@@ -3896,7 +3976,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 10009.0,
             "initial_mass": 10009.0,
@@ -3999,7 +4080,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 500.0,
             "initial_mass": 500.0,
@@ -4038,7 +4120,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 500.0,
             "initial_mass": 500.0,
@@ -4077,7 +4160,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 3
+              "physicsSteps": 3,
+              "tickCount": 3
             },
             "mass": 500.0,
             "initial_mass": 500.0,
@@ -4116,7 +4200,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 500.0,
             "initial_mass": 500.0,
@@ -4155,7 +4240,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 5
+              "physicsSteps": 5,
+              "tickCount": 5
             },
             "mass": 500.0,
             "initial_mass": 500.0,
@@ -4194,7 +4280,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 6
+              "physicsSteps": 6,
+              "tickCount": 6
             },
             "mass": 500.0,
             "initial_mass": 500.0,
@@ -4233,7 +4320,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 7
+              "physicsSteps": 7,
+              "tickCount": 7
             },
             "mass": 500.0,
             "initial_mass": 500.0,
@@ -4272,7 +4360,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 8
+              "physicsSteps": 8,
+              "tickCount": 8
             },
             "mass": 500.0,
             "initial_mass": 500.0,
@@ -4311,7 +4400,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 9
+              "physicsSteps": 9,
+              "tickCount": 9
             },
             "mass": 500.0,
             "initial_mass": 500.0,
@@ -4350,7 +4440,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 10
+              "physicsSteps": 10,
+              "tickCount": 10
             },
             "mass": 500.0,
             "initial_mass": 500.0,
@@ -4453,7 +4544,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 703.6875,
             "initial_mass": 703.6875,
@@ -4492,7 +4584,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 3
+              "physicsSteps": 3,
+              "tickCount": 3
             },
             "mass": 703.6875,
             "initial_mass": 703.6875,
@@ -4531,7 +4624,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 3
+              "physicsSteps": 3,
+              "tickCount": 3
             },
             "mass": 703.6875,
             "initial_mass": 703.6875,
@@ -4570,7 +4664,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 4
+              "physicsSteps": 4,
+              "tickCount": 4
             },
             "mass": 703.6875,
             "initial_mass": 703.6875,
@@ -4673,7 +4768,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 0
+              "physicsSteps": 0,
+              "tickCount": 0
             },
             "mass": 0.004999999888241291,
             "initial_mass": 0.004999999888241291,
@@ -4712,7 +4808,8 @@
               "iterateDirection": 1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 1
+              "physicsSteps": 1,
+              "tickCount": 1
             },
             "mass": 0.0,
             "initial_mass": 0.004999999888241291,
@@ -4751,7 +4848,8 @@
               "iterateDirection": -1,
               "displacementDirection": -1,
               "carrySeconds": 0.0,
-              "physicsSteps": 2
+              "physicsSteps": 2,
+              "tickCount": 2
             },
             "mass": 0.0,
             "initial_mass": 0.004999999888241291,
@@ -4780,7 +4878,12 @@
         "world_and_rng_unchanged": true
       },
       {
-        "feature": "water_gas_interaction",
+        "feature": "mixed_phase_transition",
+        "explicitly_rejected": true,
+        "world_and_rng_unchanged": true
+      },
+      {
+        "feature": "mixed_temperature_domain",
         "explicitly_rejected": true,
         "world_and_rng_unchanged": true
       },
@@ -4815,8 +4918,8 @@
         "world_and_rng_unchanged": true
       }
     ],
-    "capabilities": 4095,
-    "limits": "Restricted non-radiating O2/CO2 or single-water worlds; water/gas interaction, phase changes, backwall heat, settlement and iPhone execution unavailable"
+    "capabilities": 8191,
+    "limits": "Restricted non-radiating O2/CO2/Water worlds; mixed fluids 275..360 K, single water species, no phase changes, backwall heat, settlement or iPhone execution"
   },
   "original_fixtures": [
     {
@@ -5058,13 +5161,13 @@
     "case_count": 21,
     "subsequent_frames": 86,
     "same_output_as_normal": true,
-    "library_sha256": "a62b3ebd14fbdeffe92342e8f69f82e74de08579ea8cd82b79bc96f783e23488",
+    "library_sha256": "87999c3e61dc691588de272a3e22e8c161c52202e20dc8f16372b13a3214cf5d",
     "options": "AddressSanitizer + UndefinedBehaviorSanitizer, halt on error; Python process leak detection disabled"
   },
   "generated_wrapper_probe": {
     "passed": true,
     "generated_source_sha256": "6fbd5e90a4c5ac92e00db4b2830b2b364edbdbd3f390bdc1513e1047325736b5",
-    "linked_static_core_sha256": "5f98329cf41a322841f75795e814988ca4ecbc553527aac924435c050bd96605",
+    "linked_static_core_sha256": "59b71a43678731cbc8be22a4e196cf7d71f99da48d3d487baabaa004f6eda207",
     "checks": [
       "game capability rejection before callback conversion",
       "worldgen helper receives capability error",
@@ -5075,7 +5178,7 @@
     "host": "Linux x86-64, GCC 11.4, real exported IL2CPP headers; managed exception runtime supplied by probe"
   },
   "limits": [
-    "O2/CO2 plus vacuum OR water/vacuum/Unobtanium; no water-gas interaction, other species or disease",
+    "O2/CO2/Water plus vacuum/stable Unobtanium; mixed-water/gas verification is recorded separately",
     "Known InitializeFromCells seed, radiation off, empty backwalls; foreground heat exchange now recorded separately",
     "One pending positive frame, at most 100 internal updates; phase changes and backwall heat remain unsupported",
     "Native evaporation deletes small masses; total mass matches original output, not a forced conservation rule",

@@ -291,6 +291,7 @@ internal static class WorldgenReference
             report[phase + "_boundary_values_hex"] = borders;
             report[phase + "_sim_flags"] = new { numGameCells=Marshal.ReadInt32(simData,8), seed=unchecked((uint)Marshal.ReadInt32(simData,12)),
                 iterateDirection=Marshal.ReadInt32(simData,16),displacementDirection=Marshal.ReadInt32(simData,20),
+                tickCount=unchecked((ushort)Marshal.ReadInt16(simData,0xa0)),
                 headless=Marshal.ReadByte(simData,0x859), radiation=Marshal.ReadByte(simData,0x85a),
                 voidIndex=unchecked((ushort)Marshal.ReadInt16(simData,0x1a)), vacuumIndex=unchecked((ushort)Marshal.ReadInt16(simData,0x1c)),
                 unobtaniumIndex=unchecked((ushort)Marshal.ReadInt16(simData,0x1e)) };

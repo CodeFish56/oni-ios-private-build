@@ -4,6 +4,7 @@
 
 本页记录水流阶段的原始验收范围。后续[前景热交换](ios-heat-exchange.md)已接入，
 模块总数更新为11、能力为4095，并解除下述300K附近限制；相变仍未开放。
+随后[混合流体阶段](ios-mixed-fluids.md)又开放受限水气交互，当前能力为8191。
 
 新增 `LiquidFlow`、`StabilityTimers` 两个生产模块。现在共有10个C++模块、
 10个头文件与3个ABI头文件，静态编入UnityFramework。7个游戏wrapper的

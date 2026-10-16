@@ -51,6 +51,7 @@ bool DecodeGasPostElementsV744825(const std::vector<uint8_t>& bytes,
         element.molarMass = F32(bytes, at + 20);
         element.lowTemperature = F32(bytes, at + 56);
         element.highTemperature = F32(bytes, at + 60);
+        element.maxMass = F32(bytes, at + 52);
         element.highTransitionIndex = U16(bytes, at + 6);
         element.sublimateIndex = U16(bytes, at + 84);
         if (!std::isfinite(element.molarMass) ||
@@ -64,11 +65,13 @@ bool DecodeGasPostElementsV744825(const std::vector<uint8_t>& bytes,
     return true;
 }
 
-bool StepGasPostProcessV744825(const LoadedWorldV15& source,
+namespace {
+bool StepPostProcessV744825(const LoadedWorldV15& source,
     const std::vector<GasPostElementV744825>& elements,
     const PressureRegionV744825& region, GasRandomStateV744825& random,
     LoadedWorldV15& output, std::vector<uint32_t>& elementChanges,
-    std::string& error, std::vector<std::array<float, 4>>* frameFlow, std::vector<uint8_t>* timers) {
+    std::string& error, std::vector<std::array<float, 4>>* frameFlow, std::vector<uint8_t>* timers,
+    bool allowWater) {
     error.clear();
     const std::size_t count = static_cast<std::size_t>(source.simWidth) * source.simHeight;
     if (source.simWidth < 3 || source.simHeight < 3 ||
@@ -84,10 +87,16 @@ bool StepGasPostProcessV744825(const LoadedWorldV15& source,
         error = "Invalid gas postprocess grid, region, or direction.";
         return false;
     }
-    uint16_t vacuum = 65535;
+    uint16_t vacuum = 65535, water = 65535;
     for (std::size_t i = 0; i < elements.size(); ++i)
         if (elements[i].hash == 0x2D39BF75) vacuum = static_cast<uint16_t>(i);
+        else if (elements[i].hash == 1836671383u) water = static_cast<uint16_t>(i);
     if (vacuum == 65535) { error = "Missing vacuum in gas postprocess."; return false; }
+    if (allowWater && (water == 65535 || (elements[water].state & 3) != 2 ||
+            !std::isfinite(elements[water].maxMass) || elements[water].maxMass <= 0.0f ||
+            elements[water].sublimateIndex != 65535)) {
+        error = "Missing or invalid Water in fluid postprocess."; return false;
+    }
     float maximumGasTemperature = 0.0f;
     float partialMeltThreshold = std::numeric_limits<float>::max();
     for (std::size_t cell = 0; cell < count; ++cell) {
@@ -105,6 +114,17 @@ bool StepGasPostProcessV744825(const LoadedWorldV15& source,
         const bool interior = x > 0 && x + 1 < source.simWidth &&
             y > 0 && y + 1 < source.simHeight;
         const uint8_t phase = element.state & 3;
+        if (allowWater && ((interior && id == vacuum && source.mass[cell] != 0.0f) ||
+                source.temperature[cell] > elements[water].highTemperature + 3.0f)) {
+            error = "Fluid postprocess requires empty vacuum and no partial water heat transition: cell=" +
+                std::to_string(cell) + " id=" + std::to_string(id) +
+                " mass=" + std::to_string(source.mass[cell]) +
+                " temperature=" + std::to_string(source.temperature[cell]); return false;
+        }
+        if (allowWater && phase != 0 && phase != 3 &&
+                (source.temperature[cell] < 275.0f || source.temperature[cell] > 360.0f)) {
+            error = "Fluid postprocess requires temperatures in 275..360 K."; return false;
+        }
         if (phase == 1) {
             if ((element.hash != 0xA4E0B340 && element.hash != 0x74DC00EF) ||
                 element.sublimateIndex != 65535 ||
@@ -116,7 +136,16 @@ bool StepGasPostProcessV744825(const LoadedWorldV15& source,
                 return false;
             }
             maximumGasTemperature = std::max(maximumGasTemperature, source.temperature[cell]);
-        } else if (interior && (element.hash != 0x2D39BF75 || source.mass[cell] != 0.0f)) {
+        } else if (allowWater && id == water) {
+            if (source.mass[cell] > element.maxMass ||
+                    source.temperature[cell] <= element.lowTemperature ||
+                    source.temperature[cell] >= element.highTemperature) {
+                error = "Water postprocess requires <= maxMass away from transitions."; return false;
+            }
+        } else if (interior && (element.hash != 0x2D39BF75 || source.mass[cell] != 0.0f) &&
+                !(allowWater && element.hash == 1838482828u && element.sublimateIndex == 65535 &&
+                  (element.state & 0x0b) != 0x0b &&
+                  (element.highTransitionIndex == 65535 || element.highTransitionIndex == id))) {
             error = "Interior solids, liquids, and nonempty vacuum are not yet supported.";
             return false;
         } else if (!interior && element.hash != 0x2D39BF75 &&
@@ -127,6 +156,15 @@ bool StepGasPostProcessV744825(const LoadedWorldV15& source,
         }
         if (!interior && (element.state & 3) == 3)
             partialMeltThreshold = std::min(partialMeltThreshold, element.highTemperature + 3.0f);
+        if (allowWater && phase == 3) {
+            partialMeltThreshold = std::min(partialMeltThreshold, element.highTemperature + 3.0f);
+            if (source.temperature[cell] > elements[water].highTemperature + 3.0f) {
+                error = "Hot solid requires partial water heat transition."; return false;
+            }
+        }
+        if (allowWater && source.radiation[cell] != 0.0f) {
+            error = "Fluid postprocess does not support radiation."; return false;
+        }
     }
     if (maximumGasTemperature > partialMeltThreshold) {
         error = "Gas is hot enough to require the unimplemented partial-melt path.";
@@ -161,6 +199,30 @@ bool StepGasPostProcessV744825(const LoadedWorldV15& source,
         for (uint32_t x = region.minX + 1; x < endX; ++x) {
             const std::size_t cell = static_cast<std::size_t>(y) * width + x;
             const auto& element = elements[updated.elementIdx[cell]];
+            if (allowWater && updated.elementIdx[cell] == water) {
+                if (updated.mass[cell] < 0.01f) {
+                    if (frameFlow != nullptr) flowData[cell] = {};
+                    updated.elementIdx[cell] = vacuum;
+                    updated.mass[cell] = 0.0f; updated.temperature[cell] = 0.0f;
+                    updated.diseaseIdx[cell] = 255; updated.diseaseCount[cell] = 0;
+                    changes.push_back(static_cast<uint32_t>(cell));
+                    continue;
+                }
+                const std::size_t below = cell - width;
+                if (element.state == elements[updated.elementIdx[below]].state &&
+                        Next(nextRandom) > 0.3f && updated.elementIdx[below] == water &&
+                        updated.temperature[below] > updated.temperature[cell]) {
+                    const float a = updated.temperature[cell], b = updated.temperature[below];
+                    const float total = updated.mass[cell] + updated.mass[below];
+                    float temperature = (updated.mass[cell] * a + updated.mass[below] * b) / total;
+                    temperature = std::max(std::min(temperature, b), a);
+                    updated.temperature[cell] = updated.temperature[below] = temperature;
+                }
+                // Mass <= maxMass rules out pressure-break and liquid pressure
+                // displacement. All neighbors are <= water.highTemperature+3;
+                // PartialHeatTransition exits without RNG. Water cannot offgas.
+                continue;
+            }
             if ((element.state & 3) != 1)
                 continue;
             nextRandom.displacementDirection = -nextRandom.displacementDirection;
@@ -236,4 +298,23 @@ bool StepGasPostProcessV744825(const LoadedWorldV15& source,
     random = nextRandom;
     elementChanges = std::move(changes);
     return true;
+}
+} // namespace
+
+bool StepGasPostProcessV744825(const LoadedWorldV15& source,
+    const std::vector<GasPostElementV744825>& elements,
+    const PressureRegionV744825& region, GasRandomStateV744825& random,
+    LoadedWorldV15& output, std::vector<uint32_t>& elementChanges,
+    std::string& error, std::vector<std::array<float, 4>>* frameFlow, std::vector<uint8_t>* timers) {
+    return StepPostProcessV744825(source, elements, region, random, output,
+        elementChanges, error, frameFlow, timers, false);
+}
+
+bool StepFluidPostProcessV744825(const LoadedWorldV15& source,
+    const std::vector<GasPostElementV744825>& elements,
+    const PressureRegionV744825& region, GasRandomStateV744825& random,
+    LoadedWorldV15& output, std::vector<uint32_t>& elementChanges,
+    std::string& error, std::vector<std::array<float, 4>>* frameFlow, std::vector<uint8_t>* timers) {
+    return StepPostProcessV744825(source, elements, region, random, output,
+        elementChanges, error, frameFlow, timers, true);
 }

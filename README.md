@@ -16,6 +16,28 @@ build workflow. Restricted gas or water positive frames now work locally, includ
 inter-species gas displacement, water flow and stability-timer state.
 General colony physics is incomplete.
 
+## Mixed water/gas physics (2026-10-16)
+
+The core now handles Water with Oxygen/CO2, including gas displacement in tick
+order, diagonal water swaps and a single ordered fluid postprocess traversal.
+The original shared RNG order is retained across water and gas visits.
+288 original water/gas module calls and 96 mixed postprocess cases match;
+15 additional worlds match all 97 complete frames, including two pure-water
+temperature regressions. The cumulative regression
+is 44 worlds /223 frames plus 11 initialization cases. ASan/UBSan pass.
+
+The uint16 tick increments per internal update, wraps at 65535 and is absent
+from v15 saves. The candidate reaches wrap with 65537 real updates and has a
+read-only diagnostic API; the existing diagnostics struct remains 24 bytes.
+Eleven unsupported inputs preserve world/RNG/timers/tick on failure.
+
+Capabilities are now 8191. Full-game requirement 458752 is still unavailable.
+Mixed fluids remain restricted to 275..360 K, Water<=maxMass after flow,
+empty backwalls and no disease/radiation. Phase changes, other materials,
+world settlement, gameplay and ARM64 device validation remain incomplete.
+No Actions run was triggered. See [scope](docs/ios-mixed-fluids.md) and
+[verification](docs/mixed-fluid-verification.json).
+
 ## Foreground heat exchange (2026-10-16)
 
 The core now runs original-order heat exchange before pressure. It preserves
@@ -26,9 +48,9 @@ frames, including all 18 arrays, 29 event counts, events, RNG and saves.
 The combined positive-frame regression is 29 worlds / 126 frames.
 AddressSanitizer and UndefinedBehaviorSanitizer pass the same cases.
 
-Eleven modules are wired into UnityFramework. Capability bits are 4095;
-the full-game requirement 458752 remains unavailable. Mixed water/gas worlds,
-phase changes, backwall heat, disease and complete settlement remain incomplete.
+Eleven modules are wired into UnityFramework. That stage added foreground
+heat exchange; the subsequent mixed-fluid stage above raises capabilities to
+8191. Phase changes, backwall heat, disease and complete settlement remain incomplete.
 No Actions run was triggered. See [scope](docs/ios-heat-exchange.md) and
 [verification](docs/heat-exchange-verification.json).
 
@@ -44,7 +66,7 @@ Independent module probes match 100 original UpdateLiquid cases, 118 gas
 postprocess cases (now including timer bytes), and 61,440 timer getter calls.
 AddressSanitizer and UndefinedBehaviorSanitizer pass the same local checks.
 
-Water and gas interaction, backwall heat exchange, phase transitions, unstable
+Backwall heat exchange, phase transitions, unstable
 solid movement and world settlement are incomplete. Water mass after flow
 must stay within the supported pressure range. The game capability gate is
 still closed; another IPA cannot yet create a playable colony.
