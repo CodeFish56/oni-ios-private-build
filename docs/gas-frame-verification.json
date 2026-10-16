@@ -1,38 +1,43 @@
 {
-  "date": "2026-10-15",
+  "date": "2026-10-16",
   "build": "U59-744825-V",
   "evidence_type": "Local original DLL oracle, matching PDB/instructions, compiled C ABI and generated-wrapper probes; not a REA runtime record",
   "original_dll_sha256": "031960f120ac1d59fd8e43f6e1a7369111c629b90c24d52186b691dfe2d8a727",
   "native_sources_sha256": {
     "native/sim/FrameCellValues.cpp": "0957538f14d432302a8dcc263717c6b97367aee9a3c0f3ae629bd41af4f1c4bf",
     "native/sim/FrameStepSchedule.cpp": "7d3ce56f70e6913cc78e23f4de6cd6141cab2a0a9e88f0946c59cdda24ea0c52",
-    "native/sim/GasPostProcess.cpp": "9b38951bc32a9d3b1b131aa67f8e0c5ead53a659d15f3d9199a1173257c7ff4d",
-    "native/sim/GasPressure.cpp": "334b358852f3eea8fc4f29fb1500fdfe8b72885f47ff3d6cbefaf1abf0331d69",
+    "native/sim/GasPostProcess.cpp": "8fc52dfa057af773ae561e78a67f5317023b09704c60c60e93924b8861f829ff",
+    "native/sim/GasPressure.cpp": "2b0d8aaff4bc8139862074a91624160f8d3a07200033fe472d525f4a522a8532",
     "native/sim/PressureFlux.cpp": "f879dfdcf4dbef0c92444b00c2d3026654d1cdfe60ef74a83fbd10fd2e74cc04",
     "native/sim/SaveWorldV15.cpp": "e88393a5e0255b8299c931074c966a1367f044c103259576fa46f326ba942bbe",
-    "native/sim/SimCore.cpp": "8fc73be1439db7f7fb98fc2905c208bf575346065cc55ac8b3f9e548ce4fca41",
+    "native/sim/SimCore.cpp": "b3ecaa1abc1397b5f96016a193e2ff7040625663e6fe90756399ab3ef3b6397a",
     "native/sim/SimCoreExports.cpp": "f35252205aee06eb376f54edb35139e831ddd27f3c17fa6f3d98ad6ffae212a5",
     "native/sim/FrameCellValues.h": "2d3766a0309b1b3db50322a39c67f7f806b96a593ff771c2cae7ef65285b2ad2",
     "native/sim/FrameStepSchedule.h": "793da8b4813b44dd8b2fdfcc462d711301966b0ac266d2d593e8036acb4c58ee",
-    "native/sim/GasPostProcess.h": "446c374f2b59ef82875fdfea702ee3b9ee126331fe6664d3c0ba79cc52f23ea9",
-    "native/sim/GasPressure.h": "29af96756dddc6dace71e6044fa928af7d62af2de7f6597b7995044ecdeac9d6",
+    "native/sim/GasPostProcess.h": "19e15c644cfa1fe1fe34c4f1926dd7d29038273771b0db1c9a985bcefa6f3c49",
+    "native/sim/GasPressure.h": "29df1076fb810938ca810bedabeb402c9923f820a39547aca6735e2de46d5113",
     "native/sim/PressureFlux.h": "a71ae9b043dd5225b76adc1c62a2af8ba9c7bf644ddbafb5211a7606a128cbf0",
     "native/sim/SaveWorldV15.h": "260a6e2c271d602df8a903b3dc3b946eab53c15e34ed0f3e6b1450a0d852234d",
-    "native/sim/SimCore.h": "09f401f72518e1d0ebbaf0140ef0eec27065bd2c81b41dabd66978c5689e609c",
-    "native/sim/SimCoreExports.h": "781760fd6682f2b857ab72a5b95660f92cfa9d982de9ee1bea0bf77ef3e45524",
+    "native/sim/SimCore.h": "2c98cd64a58cfe3f0bae96273f4adb8d4ca60643109a6d51b804265e34ecc9ec",
+    "native/sim/SimCoreExports.h": "4e6da5ea61402df08ca385485fd931f1210a618ba3463f7bf0b522ca48d5ef92",
     "native/sim/CMakeLists.txt": "7b76940e29e9e590017db8b2976716d84f1ba560db26702f4520147e64402a4d",
     "native/sim/Verify-Bridge.py": "d656f475f9df3879ec985175fe013220ae4dbf7ce6234dcaeb0af88d22574e9c",
-    "native/sim/Verify-GasFrames.py": "677ab7558958699d706879b5d9514de223cccfffefe5c4e8ccb4649be17c6bc1",
+    "native/sim/Verify-GasFrames.py": "2516c8eaa7cc8639cf26afe472040e7d2cf999203ee17887ec6a92c97f61da79",
+    "native/sim/Verify-GasPost.py": "4ca305c0d0b6d6e5ae31449405c3ffe54cba04a7f9c12c5914ebdb44b1cc3e3a",
+    "native/tests/GasPostProbe.cpp": "e08d1667102204c3b8264cd51f1cd7c5392a6489855fbf9b0c8663c3976ddf2c",
     "native/abi/GameDataUpdate.h": "5e18419453fa399bd29118827732251b68664ed3e000c0406a80412ad5a0d10a",
     "native/abi/SimExports.h": "824f64d08a68ac613b516613973ba4e0068e3ff4c6ee552f6478d29d6faa2c00",
     "native/abi/SimWireABI.h": "f2f2994d8e90f47fa45e8f86ca75552256c43682cf31879d8eeb0cda1e2df88c",
     "native/reference/WorldgenReference.csproj": "1608ccaab335bfd46861d2740f7143d452c1a29a113bbe49c30e283841ac489c",
-    "native/reference/WorldgenReference.cs.txt": "ac71ffb6121344f518f81ded39bf834c5546b802393536f7f4d9becf45b5e39b",
-    "native/reference/WorldgenAnalyze.py": "fa75b0602d02edc902d82a85fbe5ad7abebd2630d4d1473bff7661ef95b8a567"
+    "native/reference/WorldgenReference.cs.txt": "003f65f384c2c24de527415b792ded70f06a22aab93222d885a6bddca4f3268e",
+    "native/reference/WorldgenAnalyze.py": "fa75b0602d02edc902d82a85fbe5ad7abebd2630d4d1473bff7661ef95b8a567",
+    "native/reference/GasPostReference/GasPostReference.csproj": "3e6bb3f7427b5373177a326dc15d18af114737f328556c5dc97cf5e9d38c94a0",
+    "native/reference/GasPostReference/GasPostReference.cs.txt": "a6a5d617963ecbc3e49cb44de2c63c0f3659cc1587ccd90b54131ec12310ddde",
+    "native/reference/GasPostReference/README.md": "752e0e720ef17f81cd1c97116c2978fa603a4dd9ca47c7bb45163ca7b0f73986"
   },
   "native_c_abi": {
     "all_passed": true,
-    "library_sha256": "446b1f5f8f9c2cc966827c656dd8c10a899caa909df46136789e2902d1f0169b",
+    "library_sha256": "e98729ffca0e4c1a40376d546c75921458d07f2794c5fc2cb9b4ee4f6b60d59b",
     "cases": [
       {
         "case": "co2-chunk33",
@@ -128,6 +133,7 @@
             },
             "mass": 5631.625,
             "initial_mass": 5631.625,
+            "original_mass_change": 0.0,
             "save_sha256": "1b133f428db9410417e08c0f675a0656c81c2edd057f0077d43cada01cad0620"
           },
           {
@@ -165,6 +171,7 @@
             },
             "mass": 5631.624999642372,
             "initial_mass": 5631.625,
+            "original_mass_change": -3.5762786865234375e-07,
             "save_sha256": "67101b83de3c2ba23607f8ce37a8ca1e97f54c4cb199ea07cefa3785125c0cd7"
           },
           {
@@ -202,6 +209,7 @@
             },
             "mass": 5631.624999880791,
             "initial_mass": 5631.625,
+            "original_mass_change": -1.1920928955078125e-07,
             "save_sha256": "1ed7ebc9f88776218d3d4dcdda2353875265801967cdf65cfbd0274d29326801"
           }
         ],
@@ -301,6 +309,7 @@
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
+            "original_mass_change": 0.0,
             "save_sha256": "a1069ac0b4c516f9293dff9d318e4d21335eeb312a5731065cad40391c58b3b9"
           },
           {
@@ -338,6 +347,7 @@
             },
             "mass": 1407.3750010728836,
             "initial_mass": 1407.375,
+            "original_mass_change": 1.0728836059570312e-06,
             "save_sha256": "b6bcc8b2c73198c4c2ee32494caf3ff87fa9f49b2bc175a7632947d43a5fc68c"
           },
           {
@@ -375,6 +385,7 @@
             },
             "mass": 1407.3750004768372,
             "initial_mass": 1407.375,
+            "original_mass_change": 4.76837158203125e-07,
             "save_sha256": "bc84873ff9da16f364dd02de941884664999a5f3112241a0504a0419b18740ba"
           },
           {
@@ -412,6 +423,7 @@
             },
             "mass": 1407.3750004768372,
             "initial_mass": 1407.375,
+            "original_mass_change": 4.76837158203125e-07,
             "save_sha256": "bc84873ff9da16f364dd02de941884664999a5f3112241a0504a0419b18740ba"
           },
           {
@@ -449,7 +461,184 @@
             },
             "mass": 1407.3750001192093,
             "initial_mass": 1407.375,
+            "original_mass_change": 1.1920928955078125e-07,
             "save_sha256": "0598a7824b7251f101464c177aae316b4bfaa8db57e122156115b76bbcd78aaf"
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "co2-small-three",
+        "cells": 256,
+        "frames": 3,
+        "snapshots": [
+          {
+            "phase": "start",
+            "arrays": {
+              "elementIdx": "3acc1d3f161266954ccce06cffc96fae18edca08e64584aa55da0f15f3f45cb3",
+              "temperature": "b18851d689f034cc51773be6ed79ea73e468831e9dc2a02a909e9caf037c2596",
+              "mass": "8fae3ce00116188391cbc47a2a77e75ffd9286f16b0ecc9b14dfdc6259725ba4",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "9f56cda75fefeab90f6fa5d5ddc9601544b121732c5ecccab32e631060453a5d",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "prepare",
+            "arrays": {
+              "elementIdx": "3acc1d3f161266954ccce06cffc96fae18edca08e64584aa55da0f15f3f45cb3",
+              "temperature": "b18851d689f034cc51773be6ed79ea73e468831e9dc2a02a909e9caf037c2596",
+              "mass": "8fae3ce00116188391cbc47a2a77e75ffd9286f16b0ecc9b14dfdc6259725ba4",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "frame001",
+            "arrays": {
+              "elementIdx": "384d29e946ac3583d8717096caa679fee496eb0757c55a0bae7b16a49c905c36",
+              "temperature": "54b46681a4b90a0af6941a2f66ea7d58f775d879f303926566fb344ab27e3c2f",
+              "mass": "d79f316c6140c807734ae57629ee05d93ed6b13d26443c40de18aa2b5ea91d25",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "9d5583dc4c03d14bbec525dcc5332104afa207419a6c274822fce690f172844d",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "be1b4acb75c0372afbcf116ae7029059cacda842287f498e7e1373273136ed8f"
+            },
+            "state": {
+              "randomSeed": 1173750646,
+              "iterateDirection": 1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 1
+            },
+            "mass": 0.0005000000237487257,
+            "initial_mass": 0.0005000000237487257,
+            "original_mass_change": 0.0,
+            "save_sha256": "d5a14fce320101346d61d522810e6f36b258b99eb232f124f579ffb965671c4a"
+          },
+          {
+            "phase": "frame002",
+            "arrays": {
+              "elementIdx": "3bfdd1e15307c529597c40da8cc4baa00a2e397c9c93ad2f419ddaf4d8be1729",
+              "temperature": "274683aad1dbf77b40efec6d79adfc22458e2302e665e201cf823c6e4649e94b",
+              "mass": "4e2ca56c427caec0164f5f92872c4b75abb76cbf1e75dc0a048b4aa31ba329a7",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "b6a4e75d7b1d7393fb8624904775909c2b18f1f56c5b224ecc249121b6a0fafb",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "80b8894f3d59efad5dd88ba2336566f84b3b5c98cc58f18e6ff302581cccb3a9"
+            },
+            "state": {
+              "randomSeed": 1108856350,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 2
+            },
+            "mass": 0.000500000015108526,
+            "initial_mass": 0.0005000000237487257,
+            "original_mass_change": -8.640199666842818e-12,
+            "save_sha256": "46ecd61c8f9207717959a5129d2fdd362e96eae0533a0a7565588213594baa12"
+          },
+          {
+            "phase": "frame003",
+            "arrays": {
+              "elementIdx": "948215f01ccfcaa96b9d6530883b3d29f74c21a65280309ae92722dc8984f3a1",
+              "temperature": "4f0eb174a3555e40394dc8ad40ef4c9ea1a3a491bf3b0e662cec06ebb963a107",
+              "mass": "d6e094a6c0cf1feb935680519c6cb10841d3eb66e2a7719aed4252d2cfbb41c1",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "d445346d05dc35685512c73895c8eb7a358f6ccc3c1387301d0a7e1a606305b8",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "793f674dd1d50d1a7a4918b99fcf97863d334ba52636d0bcc92f1b5467c03abc"
+            },
+            "state": {
+              "randomSeed": 2342988613,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 4
+            },
+            "mass": 0.0005000000182313613,
+            "initial_mass": 0.0005000000237487257,
+            "original_mass_change": -5.517364343177178e-12,
+            "save_sha256": "e38e49bfb19da17283f0c93032f6ee2efc91340a2dae258d439493b5703690a1"
           }
         ],
         "passed": true
@@ -548,7 +737,1330 @@
             },
             "mass": 0.9999999394640326,
             "initial_mass": 1.0,
+            "original_mass_change": -6.05359673500061e-08,
             "save_sha256": "c1b83d1d3d2c80580e5d0be38e1af922a054311174b3c61ff5e57da3d5255bee"
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "mixed-checker-three",
+        "cells": 256,
+        "frames": 3,
+        "snapshots": [
+          {
+            "phase": "start",
+            "arrays": {
+              "elementIdx": "0f2805b772c8e0f496cca611807b42fd04613fcf476dcd68eec8db5a01ecc881",
+              "temperature": "561f755fb1164752fc9c3b59379c7e4b45ed06d1b8a851dbc99d79f7e385f1a7",
+              "mass": "103eb7dccc72b726bf56fed8a6522e14188244af6248b5d278ea6911764a07f0",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "9f56cda75fefeab90f6fa5d5ddc9601544b121732c5ecccab32e631060453a5d",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "prepare",
+            "arrays": {
+              "elementIdx": "0f2805b772c8e0f496cca611807b42fd04613fcf476dcd68eec8db5a01ecc881",
+              "temperature": "561f755fb1164752fc9c3b59379c7e4b45ed06d1b8a851dbc99d79f7e385f1a7",
+              "mass": "103eb7dccc72b726bf56fed8a6522e14188244af6248b5d278ea6911764a07f0",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "frame001",
+            "arrays": {
+              "elementIdx": "15f4f366eb9173a3910d6b4a48f271e1aea46ba23a597133e1201c1b98267781",
+              "temperature": "561f755fb1164752fc9c3b59379c7e4b45ed06d1b8a851dbc99d79f7e385f1a7",
+              "mass": "9dd102859d7b30cbab0218c47d0e51b52cc0e12240aaed4e52b17688f1416f80",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "ecb391b6710b0516f13f60da07a01caa55139225a518851d44551ee53587be46"
+            },
+            "state": {
+              "randomSeed": 2974707906,
+              "iterateDirection": 1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 1
+            },
+            "mass": 351.25,
+            "initial_mass": 351.25,
+            "original_mass_change": 0.0,
+            "save_sha256": "aeef09c5944c2e11073ffe219edf96f56f3e359f6071316fdea154c80c9b900d"
+          },
+          {
+            "phase": "frame002",
+            "arrays": {
+              "elementIdx": "b8cccf61671dd6801348a7cb014e1cc28181dc13c4cf141c72c5d39a8c20434d",
+              "temperature": "561f755fb1164752fc9c3b59379c7e4b45ed06d1b8a851dbc99d79f7e385f1a7",
+              "mass": "a3078ca505adc4a20dd02c6b9dbfd5640b3ac22efb461d0e450e7bcc11ba6b6d",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "ef4b8da025276f91c3ff1a68b4fbd0b1363eb850cae7245d35aa0e826a5debbd",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "1a17f4ae84685f84ce010160be38a5202d3d190cb935ea2ab211b84fc5b8ae64"
+            },
+            "state": {
+              "randomSeed": 1786695849,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 2
+            },
+            "mass": 351.2499999254942,
+            "initial_mass": 351.25,
+            "original_mass_change": -7.450580596923828e-08,
+            "save_sha256": "ea1e398d0fa0324fec496ee2a41adff31325c4a0f311f584f748656d2e9d72a6"
+          },
+          {
+            "phase": "frame003",
+            "arrays": {
+              "elementIdx": "e2cfaeb535a91886f69736c817e69532044bb9575dc26fa7cc88a00ff210ecb2",
+              "temperature": "561f755fb1164752fc9c3b59379c7e4b45ed06d1b8a851dbc99d79f7e385f1a7",
+              "mass": "2361ed58c0db86aeb7a1ac9f2b8b813215949f457efacc87dee61a6bf8234cd9",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "4dfd85d3a1e0b7134c679d8875482a51c53199b24e42226096e2a9b14d0e12c5",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "c6058f68ef9d5462270430226b053deba270fcf7c259c70671f08ba1eb0eee9a"
+            },
+            "state": {
+              "randomSeed": 2792476232,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 4
+            },
+            "mass": 351.24999886006117,
+            "initial_mass": 351.25,
+            "original_mass_change": -1.1399388313293457e-06,
+            "save_sha256": "69bc55137767d6840a4354b716fc8289c161548c70b03143628c98ae6ff38e84"
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "mixed-chunk32",
+        "cells": 4096,
+        "frames": 3,
+        "snapshots": [
+          {
+            "phase": "start",
+            "arrays": {
+              "elementIdx": "6904ade3d1890faefec60005cea41e1d394c9e50ba8cc636b87f0a492add96f8",
+              "temperature": "89a7648d12256948ac625e7f7d0e118fdf37c0ddd44642fb12b1ee9ea797e2f4",
+              "mass": "a3186d86c27cb432580b4d707b94990bd02cc3e0f84068ea4db148a26411b01c",
+              "properties": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "insulation": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+              "strengthInfo": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "radiation": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "diseaseIdx": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+              "diseaseCount": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "backwallElement": "7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f",
+              "backwallMass": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "backwallTemperature": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "accumulatedFlow": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureFlow": "c35020473aed1b4642cd726cad727b63fff2824ad68cedd7ffb73c7cbd890479",
+              "propertyTextureLiquid": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureLiquidData": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureMaterialData": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureExposedToSunlight": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "prepare",
+            "arrays": {
+              "elementIdx": "6904ade3d1890faefec60005cea41e1d394c9e50ba8cc636b87f0a492add96f8",
+              "temperature": "89a7648d12256948ac625e7f7d0e118fdf37c0ddd44642fb12b1ee9ea797e2f4",
+              "mass": "a3186d86c27cb432580b4d707b94990bd02cc3e0f84068ea4db148a26411b01c",
+              "properties": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "insulation": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+              "strengthInfo": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "radiation": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "diseaseIdx": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+              "diseaseCount": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "backwallElement": "18af04b7f381b9ef54d1ffaaae129e059ae76a7b4a222456412c84d02286192c",
+              "backwallMass": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "backwallTemperature": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "accumulatedFlow": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureFlow": "c35020473aed1b4642cd726cad727b63fff2824ad68cedd7ffb73c7cbd890479",
+              "propertyTextureLiquid": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureLiquidData": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureMaterialData": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureExposedToSunlight": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "frame001",
+            "arrays": {
+              "elementIdx": "a88813106166e3bdc5eda8b0bd424696cd9f32eb6dba15e8b4f8d04e583ca95a",
+              "temperature": "89a7648d12256948ac625e7f7d0e118fdf37c0ddd44642fb12b1ee9ea797e2f4",
+              "mass": "823ec397b74639567fa7463d0eecff53c6fb54e8d89934132dc8fbfab44410be",
+              "properties": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "insulation": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+              "strengthInfo": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "radiation": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "diseaseIdx": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+              "diseaseCount": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "backwallElement": "18af04b7f381b9ef54d1ffaaae129e059ae76a7b4a222456412c84d02286192c",
+              "backwallMass": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "backwallTemperature": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "accumulatedFlow": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureFlow": "2a42e31e6d0ad750b3cf650f808fa6cd4c59cd7584c8874b70f20d9aa2d88eca",
+              "propertyTextureLiquid": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureLiquidData": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureMaterialData": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureExposedToSunlight": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "096ae29ebe0f6dae5558a7393f3925a44222dca98a70303c36af68fb268f2e94"
+            },
+            "state": {
+              "randomSeed": 531692094,
+              "iterateDirection": 1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 1
+            },
+            "mass": 5631.625,
+            "initial_mass": 5631.625,
+            "original_mass_change": 0.0,
+            "save_sha256": "a11c1e4200594ae8956bcf0a046a63be414c6c36b5473278496e090d1c9b4ecc"
+          },
+          {
+            "phase": "frame002",
+            "arrays": {
+              "elementIdx": "b35f24d897907925cf27e608b98592dcb17c44f99d4ac294180ee3536825d830",
+              "temperature": "89a7648d12256948ac625e7f7d0e118fdf37c0ddd44642fb12b1ee9ea797e2f4",
+              "mass": "3eefb78141506f8626544107de0e345162a5c896f7bab41c13f4f2f178f6420b",
+              "properties": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "insulation": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+              "strengthInfo": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "radiation": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "diseaseIdx": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+              "diseaseCount": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "backwallElement": "18af04b7f381b9ef54d1ffaaae129e059ae76a7b4a222456412c84d02286192c",
+              "backwallMass": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "backwallTemperature": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "accumulatedFlow": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureFlow": "9bf0e8a1e09bc783f02ae39d83383fdf138f4d41777f9523bc541bc4422b36cd",
+              "propertyTextureLiquid": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureLiquidData": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureMaterialData": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureExposedToSunlight": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "1cedce91d5dff662952db3fc8a74781fbf2c683d747f4663630398bf509fb7b1"
+            },
+            "state": {
+              "randomSeed": 1106551924,
+              "iterateDirection": 1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 3
+            },
+            "mass": 5631.625000476837,
+            "initial_mass": 5631.625,
+            "original_mass_change": 4.76837158203125e-07,
+            "save_sha256": "654e82451982de03c0bd15c8578b3a85dd7ae6c01dfbb5b4f37628645cf684cf"
+          },
+          {
+            "phase": "frame003",
+            "arrays": {
+              "elementIdx": "57a44bba1b6c31d4542bb301c5f20852bb6ef5c19e9e55e783d913973e724a0a",
+              "temperature": "89a7648d12256948ac625e7f7d0e118fdf37c0ddd44642fb12b1ee9ea797e2f4",
+              "mass": "13c9ff8e609d0e6da73716254c97f9f842e9aff57600bef37c36f89e287d2068",
+              "properties": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "insulation": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+              "strengthInfo": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "radiation": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "diseaseIdx": "f47a8ec3e9aff2318d896942282ad4fe37d6391c82914f54a5da8a37de1300c6",
+              "diseaseCount": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "backwallElement": "18af04b7f381b9ef54d1ffaaae129e059ae76a7b4a222456412c84d02286192c",
+              "backwallMass": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "backwallTemperature": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "accumulatedFlow": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureFlow": "1f2fd06ba008b684818e62e8b18414c9b721838574091c15f385bba94ecc67dc",
+              "propertyTextureLiquid": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureLiquidData": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureMaterialData": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe",
+              "propertyTextureExposedToSunlight": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "9f2dfb6208f7db55c39693465923ffed5d7872bc9b8c810ebb016eb2d0343b42"
+            },
+            "state": {
+              "randomSeed": 3029545293,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 4
+            },
+            "mass": 5631.625000730157,
+            "initial_mass": 5631.625,
+            "original_mass_change": 7.301568984985352e-07,
+            "save_sha256": "804030218dc1f0a3858e177b2236300c640a0b54b85f946245305481cc3b1d53"
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "mixed-layers-four",
+        "cells": 1024,
+        "frames": 4,
+        "snapshots": [
+          {
+            "phase": "start",
+            "arrays": {
+              "elementIdx": "2baac05d6409a925e77b200365901b4dcfe8cad106f4e0d531751e8aa8a90a39",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "3c098df6c0155c7e025ef23ec7c73ab77c8bb2962af50dce36d828e4738490cc",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "d0ff1b294b5288d1ae1421eadf5b2d38a8752b76d472ff30bed9028e25b1c5b8",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "prepare",
+            "arrays": {
+              "elementIdx": "2baac05d6409a925e77b200365901b4dcfe8cad106f4e0d531751e8aa8a90a39",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "3c098df6c0155c7e025ef23ec7c73ab77c8bb2962af50dce36d828e4738490cc",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "frame001",
+            "arrays": {
+              "elementIdx": "72aaf2c37d1ec5abe585877e55f30b5e099e817ba697a095857b6d6dee29ec7c",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "35959504a2a9e6ee9c1e0e98013a0cf46de03c5737b3fe937f74a2f7005d7b89",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "5dd112c74f7a50e47aa342b996f4723d3e5808b599583ab1025de72facb5836b",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "bfd4ecda7eaf98c4767dace15f78e96745a6fedcef200b105bf4e11aed6da024"
+            },
+            "state": {
+              "randomSeed": 3814371222,
+              "iterateDirection": 1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 1
+            },
+            "mass": 1407.3749995231628,
+            "initial_mass": 1407.375,
+            "original_mass_change": -4.76837158203125e-07,
+            "save_sha256": "ee8b3052791972400b4ab6b09c9a1e8bfaca80cae7b1085301e85017d8ecad78"
+          },
+          {
+            "phase": "frame002",
+            "arrays": {
+              "elementIdx": "6f4596af1de322ba14969829556314c18354f38a3fc64b2c7a6f77436840a74d",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "b24205f16d539a1d1a4d0ab4398966568542a51f12688e3658db5aca2dd6adeb",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "0cae0b96ac0b9791a454cd9117e8c309c28c6262ca5c3f095c07f3aad1ebd1dc",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "724499ba00aca4ed18d22c775e470f96819e684a4b68603af8c0d6fa11768011"
+            },
+            "state": {
+              "randomSeed": 3875652217,
+              "iterateDirection": 1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 3
+            },
+            "mass": 1407.3749979287386,
+            "initial_mass": 1407.375,
+            "original_mass_change": -2.0712614059448242e-06,
+            "save_sha256": "80158ee78807ad5374ce00c5ae20d7f42906ccfe55b9c90a432685d9d49e88b2"
+          },
+          {
+            "phase": "frame003",
+            "arrays": {
+              "elementIdx": "bec6094e1b8400435264c832f6474dbe6007eb6ea445bc0039c766f225588e73",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "106f82af1b6b274605ee65f1065a6c530be305bed5fb454e66b30728eabbbdf2",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "63d095e16eb45ea68a930ef85a5f3bc4159fbce891679cee7f2e84e40e529e61",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "f8b8e0dade87a849d2629d34667c4d0dc80bc42bad6576ae4419a5992239465a"
+            },
+            "state": {
+              "randomSeed": 2650313208,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 4
+            },
+            "mass": 1407.37499884516,
+            "initial_mass": 1407.375,
+            "original_mass_change": -1.1548399925231934e-06,
+            "save_sha256": "4fdf9d29021503415ac8e233e9514f392743bb1288a18a72d0b72e5ed95e39c4"
+          },
+          {
+            "phase": "frame004",
+            "arrays": {
+              "elementIdx": "35439463cd2d560fdb3fc1f49f2fe048372a94e390366bf79314dec06eeb731e",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "23d4ad652ab32a4bdc42c471086b1607654cbf215187b13a5788cd9e75957602",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "71a4cc30d2e66266e9b3376d209aa847e84d91bb08f05a7278eb5a05dffa2306",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "3ea48c57a0cb7d8e6806b7a53e599b88ce7fb753c8d886e63d4cbe329d530d3b"
+            },
+            "state": {
+              "randomSeed": 3787032086,
+              "iterateDirection": 1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 5
+            },
+            "mass": 1407.3750003967434,
+            "initial_mass": 1407.375,
+            "original_mass_change": 3.9674341678619385e-07,
+            "save_sha256": "0b5992a61e065b11e4051350cec8c432fcf6ebd7f83e34e86fc17e7aa10a0844"
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "mixed-low-five",
+        "cells": 256,
+        "frames": 5,
+        "snapshots": [
+          {
+            "phase": "start",
+            "arrays": {
+              "elementIdx": "8d11ca53919f73c311b5e244391cd3b75579bb0e4e00144d0db38f4dd52fb4aa",
+              "temperature": "561f755fb1164752fc9c3b59379c7e4b45ed06d1b8a851dbc99d79f7e385f1a7",
+              "mass": "e9ffe60ecfee1407f7a045fccd33b6c72d49200fe8af2c1c9c80d8ee4ee3c904",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "9f56cda75fefeab90f6fa5d5ddc9601544b121732c5ecccab32e631060453a5d",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "prepare",
+            "arrays": {
+              "elementIdx": "8d11ca53919f73c311b5e244391cd3b75579bb0e4e00144d0db38f4dd52fb4aa",
+              "temperature": "561f755fb1164752fc9c3b59379c7e4b45ed06d1b8a851dbc99d79f7e385f1a7",
+              "mass": "e9ffe60ecfee1407f7a045fccd33b6c72d49200fe8af2c1c9c80d8ee4ee3c904",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "frame001",
+            "arrays": {
+              "elementIdx": "f28ce33c361145939981aee2f0a4a77675a3e60fd00f3c03a011587cafcba6ff",
+              "temperature": "dc7835b6450890c667364ad2f7aeb16fd5122e705eafb162558cb161f927cc72",
+              "mass": "09dda1a07acc474a176c3ad8f0768518f86d5e997785da997fb93273c08d3409",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e36cd35662cf76162083a6056aae6f36887d9fac91be8bf7a33cab4afea91d8b",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "c5d104177fbf8f0f59c55ecc318bfec73cc5b2f201054a23aeb2cc0434636d2c"
+            },
+            "state": {
+              "randomSeed": 3118938910,
+              "iterateDirection": 1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 1
+            },
+            "mass": 154.0412434447958,
+            "initial_mass": 154.04250004551852,
+            "original_mass_change": -0.0012566007227121645,
+            "save_sha256": "d98d9a8c93e236afa78968253418db688194d754a43c3f563b96d0c445656f8c"
+          },
+          {
+            "phase": "frame002",
+            "arrays": {
+              "elementIdx": "aadf9c5fd3c14c655ca7681ad6c0190b122e251f54bc3e910abce825f3971769",
+              "temperature": "657fd0b9270563e8907ecb6a406ae01a6dae1171c1b584c3a6bb577353574701",
+              "mass": "857ffb7e32cbc0ee18c673f56cc7ed54582e2b01c1942f6355c8e63d6a045d86",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "949909b33ff2508b6c81315446bb8646e678c00241352367952f4146d2ff2a70",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "5367eb268355631c0b8e2bab97c18ec75331579282ac7f2bffcacbb9a644e7d9"
+            },
+            "state": {
+              "randomSeed": 964979954,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 2
+            },
+            "mass": 154.0403633508896,
+            "initial_mass": 154.04250004551852,
+            "original_mass_change": -0.0021366946289163025,
+            "save_sha256": "17c99d2850ee19d869d7b31ef45b7f15a36a22835233b7c6e45cb13c0ecd6bc0"
+          },
+          {
+            "phase": "frame003",
+            "arrays": {
+              "elementIdx": "2005a756209a11cb42188cfacc4a13d70650b7b6e46ea62f412d303f5d139717",
+              "temperature": "d06d9f8dcb1135a8801d03d3d8bb098e91b5142b5a03bc4d9a668c64612de1b0",
+              "mass": "4c8b5c84fc860b5a5f6a3ff5ec66a7ee0c46d744da04fc0dc62b1660f47a7176",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "9dd6d9bafea18bd2d17f4c51dafdbd48337386dd06d8be2842c262811c50b2e2",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e126821604b9e5b4ff53d37a5d2abf47ece2d175a528c4b8d796caf3fb99192a"
+            },
+            "state": {
+              "randomSeed": 1683670487,
+              "iterateDirection": -1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 4
+            },
+            "mass": 154.03978667390618,
+            "initial_mass": 154.04250004551852,
+            "original_mass_change": -0.0027133716123444174,
+            "save_sha256": "d690c536b9c0ce25b97d42f13fce547f10a63909f746d8fa6c66470868cc5b51"
+          },
+          {
+            "phase": "frame004",
+            "arrays": {
+              "elementIdx": "c5c1168d78257774223963d5c565ccd3dd195fc6a3e1b87d277eefe51a700b90",
+              "temperature": "48e5f12a73059acd9d65ae029594983b29468dcef652cc44968b6f2344883f93",
+              "mass": "df14e9fa1532a91d5f8891c40fbd5223236523192da856778334a9705b108df1",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "354dd983aa794830a28f94907a10629e931535bd7634ef399fdd5a346f5c65d5",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "4a8b7e2a17775548a33c944a5cf991b4b4fa66af5e93c497035a6b99145fcc26"
+            },
+            "state": {
+              "randomSeed": 874874951,
+              "iterateDirection": 1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 5
+            },
+            "mass": 154.03978646994653,
+            "initial_mass": 154.04250004551852,
+            "original_mass_change": -0.002713575571988258,
+            "save_sha256": "96bad7d075e9e98dcc1afc4bb5a05abd8b787ff393847b0769dff513f736ee7e"
+          },
+          {
+            "phase": "frame005",
+            "arrays": {
+              "elementIdx": "445c4709b23c96db07d26c0d5d300a5e6c0820cc0300249b1195fb554b11a70a",
+              "temperature": "561f755fb1164752fc9c3b59379c7e4b45ed06d1b8a851dbc99d79f7e385f1a7",
+              "mass": "96bd2d8867209bc7892f4191c65fad567ae777242055a731119d154795052ea7",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "46a809de71e1cb9ba77c8a46ccb24ff245c6674232ddca19844cb7a0ad432067",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "c111e6e7e8063c1ffd90fed7b240acf613e3e240ec45081bbdb65175d3e51e74"
+            },
+            "state": {
+              "randomSeed": 1797891404,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 6
+            },
+            "mass": 154.03978626109745,
+            "initial_mass": 154.04250004551852,
+            "original_mass_change": -0.0027137844210756157,
+            "save_sha256": "efb69689bd4fdaf3ec2b772f46fc4303f8e18e018d48413f776cae4ade43291e"
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "mixed-pocket-four",
+        "cells": 1024,
+        "frames": 4,
+        "snapshots": [
+          {
+            "phase": "start",
+            "arrays": {
+              "elementIdx": "65399be224775fbcda2333a3bde415860dd4bb801efb51699aa7ffd8f7b58625",
+              "temperature": "7251914c38435a9ebef62cfdb65a2a1efdb51e9684facf72ec8a66d79970aa40",
+              "mass": "6f122b64f17af60c0e0823e58879489e756dd8d364c73c2950425f5fe9ebfce6",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "d0ff1b294b5288d1ae1421eadf5b2d38a8752b76d472ff30bed9028e25b1c5b8",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "prepare",
+            "arrays": {
+              "elementIdx": "65399be224775fbcda2333a3bde415860dd4bb801efb51699aa7ffd8f7b58625",
+              "temperature": "7251914c38435a9ebef62cfdb65a2a1efdb51e9684facf72ec8a66d79970aa40",
+              "mass": "6f122b64f17af60c0e0823e58879489e756dd8d364c73c2950425f5fe9ebfce6",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "frame001",
+            "arrays": {
+              "elementIdx": "2866417acbd1569d7e6d92e0d2d2fde123c61ce7924cf46175d78d9ff219c9da",
+              "temperature": "136ae6b421a52ad0d16b20935e37e1261db71cef22188b7b93d22fbe9e21872a",
+              "mass": "2e87899555cd35a84075ea85ed2a1c125527b41bc85587ec41db66ff63c54127",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "0a53cf4bcaf1ad41e7730ca50c47a4b8b2f4aebf85f09f930b4b1073357cfea9",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "aba0e239802959705b80afb129c6cca09520737d89f5b328ab9a6daafda3cdb6"
+            },
+            "state": {
+              "randomSeed": 311787930,
+              "iterateDirection": 1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 1
+            },
+            "mass": 8800.00008392334,
+            "initial_mass": 8800.0,
+            "original_mass_change": 8.392333984375e-05,
+            "save_sha256": "6083e122c0a4ba745de6b55f94bcf028b4e017efb7b5f165acd3ec9763de70b0"
+          },
+          {
+            "phase": "frame002",
+            "arrays": {
+              "elementIdx": "4f9d27095b1ec075b2b9c68d5dbfdb7d5f1f1b208f4ca6795abd31d6d75588da",
+              "temperature": "d8a16ccc21f4a4985f4f14ac983669a15cf5fa498abfc5f72fdf31f0d9224e59",
+              "mass": "9ca6834a605fb03e4b49028c985d6eb80ff8c44241dcbbff88ec5385b9309d69",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "e70e04d9414fc5c5fb539bae869382a851525e1313b8f9ef0d27cd39a41622eb",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "0981c0e3b9e527ff8b0f1e352d59e26c0e83713fede98f97276f8350bb809fbf"
+            },
+            "state": {
+              "randomSeed": 1538578743,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 2
+            },
+            "mass": 8800.000126838684,
+            "initial_mass": 8800.0,
+            "original_mass_change": 0.00012683868408203125,
+            "save_sha256": "523e2242d1246d090dbec25cd9d777295c74fa5bd6b7fc26839aac80d423be8e"
+          },
+          {
+            "phase": "frame003",
+            "arrays": {
+              "elementIdx": "4f9d27095b1ec075b2b9c68d5dbfdb7d5f1f1b208f4ca6795abd31d6d75588da",
+              "temperature": "d8a16ccc21f4a4985f4f14ac983669a15cf5fa498abfc5f72fdf31f0d9224e59",
+              "mass": "9ca6834a605fb03e4b49028c985d6eb80ff8c44241dcbbff88ec5385b9309d69",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "state": {
+              "randomSeed": 1538578743,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 2
+            },
+            "mass": 8800.000126838684,
+            "initial_mass": 8800.0,
+            "original_mass_change": 0.00012683868408203125,
+            "save_sha256": "523e2242d1246d090dbec25cd9d777295c74fa5bd6b7fc26839aac80d423be8e"
+          },
+          {
+            "phase": "frame004",
+            "arrays": {
+              "elementIdx": "38a32bfedeb86e809361a373b04ae3b88488787803cb0ccf80cac03284634357",
+              "temperature": "22d1ab7d04126df9f42b5cc371b9c12ab678e4f4c71ae1b8df320c5486a706da",
+              "mass": "febd2f10ab11befaef6319f6695808ec7b9492243fc4638dfd54afb0d4222aef",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "0091f7b4110a46a98cb0035be56060161926e146cc327876b25f9650c2f5946a",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "8068dae42883b522411ef3a51284de6871283dd891305b062243dca73145cd88"
+            },
+            "state": {
+              "randomSeed": 2665383703,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 4
+            },
+            "mass": 8799.999981338158,
+            "initial_mass": 8800.0,
+            "original_mass_change": -1.866184175014496e-05,
+            "save_sha256": "b385143086b5472394cbc1f7ba8e6f91f607a22b76783b5c1fbacbb998c81b06"
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "mixed-stripes-six",
+        "cells": 1024,
+        "frames": 6,
+        "snapshots": [
+          {
+            "phase": "start",
+            "arrays": {
+              "elementIdx": "53e6d49a5cd107e4803d1b704ac7caea231fedff18d15230f4a43badf40e54a0",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "3c098df6c0155c7e025ef23ec7c73ab77c8bb2962af50dce36d828e4738490cc",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "d0ff1b294b5288d1ae1421eadf5b2d38a8752b76d472ff30bed9028e25b1c5b8",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "prepare",
+            "arrays": {
+              "elementIdx": "53e6d49a5cd107e4803d1b704ac7caea231fedff18d15230f4a43badf40e54a0",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "3c098df6c0155c7e025ef23ec7c73ab77c8bb2962af50dce36d828e4738490cc",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "frame001",
+            "arrays": {
+              "elementIdx": "d72c3134b881af1778e1799a5d95cbcabdbee4f68e3c526352741e4cd0154228",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "7cc4772441416d8f93d96f3a8b1d88be1b942eaa65faafeeacd0c8566125dc22",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "75f84cf9d5b15ff06977d18dddcfd7096ec00a651bdcc181b5a013d1c248cff8",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "93e68d311ff955619b7450f76e21d7461464fe2a4c30b92fe631dcb258336b83"
+            },
+            "state": {
+              "randomSeed": 3300065695,
+              "iterateDirection": 1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 1
+            },
+            "mass": 1407.3749980926514,
+            "initial_mass": 1407.375,
+            "original_mass_change": -1.9073486328125e-06,
+            "save_sha256": "d2f07eda62a5b27e9304cc3715c4db0d960a983e24b92a4b0213a2ca249d39b6"
+          },
+          {
+            "phase": "frame002",
+            "arrays": {
+              "elementIdx": "f354d22143a31ce8c046b5945f0967f302cbffd12b18713311a8253077ddb30b",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "6041f5d3aa89bb38f50b13b570faf407a2b1e6411bcb6350900d3ac25a6d534c",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "12ddef2054f36cc2e25a53258a58546c80ad2454306e07815fc83c28e3c8f11d",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "62ab69aa169a659390661eec5424646f73f8d5a30f6015e253291310d71edb41"
+            },
+            "state": {
+              "randomSeed": 3011983130,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 2
+            },
+            "mass": 1407.3749890178442,
+            "initial_mass": 1407.375,
+            "original_mass_change": -1.0982155799865723e-05,
+            "save_sha256": "ea207a91ec78a3826d840e2ec21007de0f45817bab1ee60db109a22503def219"
+          },
+          {
+            "phase": "frame003",
+            "arrays": {
+              "elementIdx": "f601ca9840fabf6ac32fa139902d45a099fd7cd3c028fd01bbfd8ea294c81331",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "14aeef19b1dd85bcd166d038032ecaabef75e2a3daa0c381fbdc1ce8a70a002a",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "d5c70b0a4013b9a81bec1ee141104cd8db67dbe85804006fbc3a69706f689c7f",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "8c2883d65e8e03a33e8c051fe6d10296b7087ad160d320b1127112f4ebc59e0b"
+            },
+            "state": {
+              "randomSeed": 2564205386,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 4
+            },
+            "mass": 1407.3749891147017,
+            "initial_mass": 1407.375,
+            "original_mass_change": -1.0885298252105713e-05,
+            "save_sha256": "f3c60e9dee5bc8427fbe3ae478a73f995c3bca3f3b7ace9dad2c4413e0c3b7f7"
+          },
+          {
+            "phase": "frame004",
+            "arrays": {
+              "elementIdx": "0cf30ee8fdaf207092c417d8839e4427c3dfdfd1e680bb7551f71920d863ca4e",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "9decd77b174bda674d4aefc48efaf670ed3901f12dcaf2dd5a5fa73f34b4c203",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "1437a2088d30c80a696af02f3c74a1b6d62143a0c5488cb7755716c60bd45d71",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "b5d582016468bdd1c83496f6cbb2e7d57136abd05262aed38799d08afb9bb9b5"
+            },
+            "state": {
+              "randomSeed": 4033059792,
+              "iterateDirection": 1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 5
+            },
+            "mass": 1407.37499031052,
+            "initial_mass": 1407.375,
+            "original_mass_change": -9.689480066299438e-06,
+            "save_sha256": "a2f9abd09383d7e1252ec26e32e8da8b5d8f19361d0c0cdee6d1c7cbd409637c"
+          },
+          {
+            "phase": "frame005",
+            "arrays": {
+              "elementIdx": "43763ea3785e4b73f4d62482c93b5580404bc5c9f938b245efed8d95b762331a",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "409e2dcf781a9c5d05b7721abc1bcf26eedcd8977b40aa3743a652f924098ba6",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "399463353013b3eac367d5d5690fd6f75836f5857784fb4b755fa7897fa8755f",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "df3b9fffa1a1eef9561e6727b675eb24fdd7ea9e3a7236f1a3f6aa450e5f18dc"
+            },
+            "state": {
+              "randomSeed": 2766390072,
+              "iterateDirection": -1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.14999999105930328,
+              "physicsSteps": 6
+            },
+            "mass": 1407.3749904911965,
+            "initial_mass": 1407.375,
+            "original_mass_change": -9.508803486824036e-06,
+            "save_sha256": "8c4bd9a90755559739020f8c4144b9af55d3f773d1659842c3ea2bdac8748f98"
+          },
+          {
+            "phase": "frame006",
+            "arrays": {
+              "elementIdx": "57cca339cbd816d19f232dfe1898ed7fd8e3e9a5c7fa57dc4ebec132c24143c9",
+              "temperature": "04cb22e6c8ad08b0806b365fa96ca942c94833a400fac1434a2243b7e80da5d4",
+              "mass": "a711c80bdb9442764e781a09c960b5df7fe1b6be073d132edab99216be4155c4",
+              "properties": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "insulation": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "strengthInfo": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "radiation": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "diseaseIdx": "5f4ecdb7b71c3e403983fe405cddcdc2f2576b655fdb3e80d94a6f7c32e58bc2",
+              "diseaseCount": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallElement": "7e7a080afae13d11fa7797258089ff8ff95c005a5789d8d76148f3820b005400",
+              "backwallMass": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "backwallTemperature": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "accumulatedFlow": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureFlow": "e1e854f049c42d0e07d12f5494d0f949266e88d3b59a4dc72771fd0ebbf19d35",
+              "propertyTextureLiquid": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureLiquidData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureMaterialData": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+              "propertyTextureExposedToSunlight": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "485df035c4c658c4452e122f0810c59c1a83a96c44d300d2f7779f7181d65ce2"
+            },
+            "state": {
+              "randomSeed": 962751080,
+              "iterateDirection": 1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.14999999105930328,
+              "physicsSteps": 7
+            },
+            "mass": 1407.3749928213656,
+            "initial_mass": 1407.375,
+            "original_mass_change": -7.178634405136108e-06,
+            "save_sha256": "3eeb8d8c71f1c5daf8d1d03a5ba607da219bc02e5777ab34b1ee602ce4002253"
           }
         ],
         "passed": true
@@ -647,6 +2159,7 @@
             },
             "mass": 5631.625,
             "initial_mass": 5631.625,
+            "original_mass_change": 0.0,
             "save_sha256": "d5aa6c659cd1155807e4f4dff676d92be33b41a40590de39a218c738f9030dd1"
           },
           {
@@ -684,6 +2197,7 @@
             },
             "mass": 5631.625,
             "initial_mass": 5631.625,
+            "original_mass_change": 0.0,
             "save_sha256": "418415bf6be496f56947b0ae30d99ba644b8ed1929139b69e5e4a26ce1debb58"
           },
           {
@@ -721,6 +2235,7 @@
             },
             "mass": 5631.625,
             "initial_mass": 5631.625,
+            "original_mass_change": 0.0,
             "save_sha256": "a94524209fcbca960e507bdae47554659b81b1b16788a33b203b6ea8f8192ec8"
           }
         ],
@@ -820,6 +2335,7 @@
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
+            "original_mass_change": 0.0,
             "save_sha256": "533e715164a8bb6336dcf3aff44047039ef7cc70b8942c22bdebbf7aa7ab8e6d"
           },
           {
@@ -857,6 +2373,7 @@
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
+            "original_mass_change": 0.0,
             "save_sha256": "7ef654b75c7bc079f59d29fd1977478f9ec73f8bce6cdd32ccfff4e9c784dd69"
           },
           {
@@ -894,6 +2411,7 @@
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
+            "original_mass_change": 0.0,
             "save_sha256": "ce370cd066845cde1f0cef0260b97b5ed27ce9d358b2a849d1f03afcc1c3c790"
           },
           {
@@ -931,6 +2449,7 @@
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
+            "original_mass_change": 0.0,
             "save_sha256": "b920d27cf8bee1a566afbe7c25a579770c823885db33063b4f56dbaedd515723"
           },
           {
@@ -968,6 +2487,7 @@
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
+            "original_mass_change": 0.0,
             "save_sha256": "26a86237cd75ef2d1b6488d40ea5fe2b41b6d49e5c59f4f7b58daee0eba45fa3"
           },
           {
@@ -1005,6 +2525,7 @@
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
+            "original_mass_change": 0.0,
             "save_sha256": "8208fdcc7fb159849c40665589aa5e9e7e2542763e5ef1174ea775f816923ab1"
           },
           {
@@ -1042,6 +2563,7 @@
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
+            "original_mass_change": 0.0,
             "save_sha256": "60ed600e017fe68fece376dfea26b5d6d79fe9b2afcfe5ea0b4dc9696560ded3"
           },
           {
@@ -1079,6 +2601,7 @@
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
+            "original_mass_change": 0.0,
             "save_sha256": "b7459b5bf6ef34011dc1e1181de5b96ffebf99487605899a8f1e15e84c8ead20"
           },
           {
@@ -1116,6 +2639,7 @@
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
+            "original_mass_change": 0.0,
             "save_sha256": "b125ae005cd024a5c141144ca29ebf45657e7e5ae6785f14342ccd0a36f916e2"
           },
           {
@@ -1153,6 +2677,7 @@
             },
             "mass": 1407.375,
             "initial_mass": 1407.375,
+            "original_mass_change": 0.0,
             "save_sha256": "fd555e367af608700443f3a7402240473822fabff2c11900f9ae4d4d7423bcc1"
           }
         ],
@@ -1252,6 +2777,7 @@
             },
             "mass": 255.9999885559082,
             "initial_mass": 256.0,
+            "original_mass_change": -1.1444091796875e-05,
             "save_sha256": "57bd2ad2249476abee2d14e68b9f74bb1b118d455d803d7e92c8a52c6305656a"
           },
           {
@@ -1289,6 +2815,7 @@
             },
             "mass": 255.99998474121094,
             "initial_mass": 256.0,
+            "original_mass_change": -1.52587890625e-05,
             "save_sha256": "3f06d79ec3c425be1310aae2ebe4b743649f5f11481e00e0ab70fd507ef6421f"
           },
           {
@@ -1326,6 +2853,7 @@
             },
             "mass": 255.99998474121094,
             "initial_mass": 256.0,
+            "original_mass_change": -1.52587890625e-05,
             "save_sha256": "3f06d79ec3c425be1310aae2ebe4b743649f5f11481e00e0ab70fd507ef6421f"
           },
           {
@@ -1363,6 +2891,7 @@
             },
             "mass": 255.9999886751175,
             "initial_mass": 256.0,
+            "original_mass_change": -1.1324882507324219e-05,
             "save_sha256": "e56b980691947c40c9956df0f2a867f7eb3690dddc01918d3e1894b8a78994c4"
           }
         ],
@@ -1462,7 +2991,184 @@
             },
             "mass": 0.9999999552965164,
             "initial_mass": 1.0,
+            "original_mass_change": -4.470348358154297e-08,
             "save_sha256": "1d718b284dc27c32e0938dafbc949d935671d044a6be8f0f1b0114624cd41f7f"
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "oxygen-tiny-three",
+        "cells": 256,
+        "frames": 3,
+        "snapshots": [
+          {
+            "phase": "start",
+            "arrays": {
+              "elementIdx": "b0e63b1222638bdf2161bb9e8ee1c223227d2ddccd155427221160eb4fdf7cb5",
+              "temperature": "b18851d689f034cc51773be6ed79ea73e468831e9dc2a02a909e9caf037c2596",
+              "mass": "b29ea19b5856c601ea910ea201d4136706189bbec7665bf1b08e4ccd49afb05f",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "9f56cda75fefeab90f6fa5d5ddc9601544b121732c5ecccab32e631060453a5d",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "prepare",
+            "arrays": {
+              "elementIdx": "b0e63b1222638bdf2161bb9e8ee1c223227d2ddccd155427221160eb4fdf7cb5",
+              "temperature": "b18851d689f034cc51773be6ed79ea73e468831e9dc2a02a909e9caf037c2596",
+              "mass": "b29ea19b5856c601ea910ea201d4136706189bbec7665bf1b08e4ccd49afb05f",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          {
+            "phase": "frame001",
+            "arrays": {
+              "elementIdx": "71a24ad25511c4f11aeb5009f184679b087edf106433920218ac3d56e62ca4ef",
+              "temperature": "1798ab9ddfc50871833cb0dfe685c022fc0a123bff8d9ff6be8f3df94dd9d264",
+              "mass": "711b794e38a35dc80a99c7fa57164789d2cdbd47ff4e91d1e545d863624fcb97",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "d8f88ee978a96fa0336c613287ff4d4ccc3a11aed3d40ab19b76521390966ea0"
+            },
+            "state": {
+              "randomSeed": 1212255774,
+              "iterateDirection": 1,
+              "displacementDirection": -1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 1
+            },
+            "mass": 5.999999802552836e-11,
+            "initial_mass": 4.999999858590343e-10,
+            "original_mass_change": -4.399999878335059e-10,
+            "save_sha256": "1f975a1eda7fa03e0c4efc6c8fb0ae8bc85c6c4fefa09a5d7f02df5d707ebf16"
+          },
+          {
+            "phase": "frame002",
+            "arrays": {
+              "elementIdx": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "temperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "mass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "92959b2718df35790bc19a2146ca4aaa5c0504d6fc06e902d285a004a50bf76e"
+            },
+            "state": {
+              "randomSeed": 2254780752,
+              "iterateDirection": -1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 2
+            },
+            "mass": 0.0,
+            "initial_mass": 4.999999858590343e-10,
+            "original_mass_change": -4.999999858590343e-10,
+            "save_sha256": "5912adb1e792d6b4940a46d8f7779cc6143e88169a673ae2544a1461189cc41a"
+          },
+          {
+            "phase": "frame003",
+            "arrays": {
+              "elementIdx": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "temperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "mass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "properties": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "insulation": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "strengthInfo": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "radiation": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "diseaseIdx": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546",
+              "diseaseCount": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallElement": "1614e547576d1eb0949fef4b36823fc08f2e9435530ec70eaef51827b181924a",
+              "backwallMass": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "backwallTemperature": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "accumulatedFlow": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureFlow": "e5a00aa9991ac8a5ee3109844d84a55583bd20572ad3ffcd42792f3c36b183ad",
+              "propertyTextureLiquid": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureLiquidData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureMaterialData": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+              "propertyTextureExposedToSunlight": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+              "solidInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "liquidChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "substanceChangeInfo": "77b90b221f583fd4629bfeb58cb236c944dded517ff44feb5490026481c6e8c7"
+            },
+            "state": {
+              "randomSeed": 2254780752,
+              "iterateDirection": -1,
+              "displacementDirection": 1,
+              "carrySeconds": 0.0,
+              "physicsSteps": 4
+            },
+            "mass": 0.0,
+            "initial_mass": 4.999999858590343e-10,
+            "original_mass_change": -4.999999858590343e-10,
+            "save_sha256": "5912adb1e792d6b4940a46d8f7779cc6143e88169a673ae2544a1461189cc41a"
           }
         ],
         "passed": true
@@ -1480,12 +3186,7 @@
         "world_and_rng_unchanged": true
       },
       {
-        "feature": "low_mass_evaporation",
-        "explicitly_rejected": true,
-        "world_and_rng_unchanged": true
-      },
-      {
-        "feature": "mixed_gases",
+        "feature": "unsupported_gas",
         "explicitly_rejected": true,
         "world_and_rng_unchanged": true
       },
@@ -1510,8 +3211,8 @@
         "world_and_rng_unchanged": true
       }
     ],
-    "capabilities": 127,
-    "limits": "Restricted non-radiating single-gas/vacuum fixtures; not mixed physics, world settlement or iPhone execution"
+    "capabilities": 511,
+    "limits": "Restricted non-radiating O2/CO2/vacuum fixtures; not general physics, world settlement or iPhone execution"
   },
   "original_fixtures": [
     {
@@ -1537,11 +3238,88 @@
       }
     },
     {
+      "case": "co2-small-three",
+      "report_sha256": "290b4a035d8ec8b5c8aa1a0e75e553162c50117b06b9c1e81d769f06b51e4d05",
+      "wire_sha256": "d3c3cefcc71f5ccfdadf636a19b52f5aa5930fc7d50e41564370da8d57010ac8",
+      "frame_inputs_sha256": {
+        "frame001": "6e44eed2a3bd9923804dd0aa38183fdfaa39ae0c41b3c61e72a75fd79f9458ce",
+        "frame002": "6e44eed2a3bd9923804dd0aa38183fdfaa39ae0c41b3c61e72a75fd79f9458ce",
+        "frame003": "71f586348cddc4ade17870e8ca6656e037081bc81cb35a04d76c29aab6573c30"
+      }
+    },
+    {
       "case": "co2-two-steps",
       "report_sha256": "55f4a8fdac8d19ca221345545803dcf81a771df390d0b8b391eb08848206ca85",
       "wire_sha256": "4b2c81be3ea95c8407d878087949132867cff5047147afe26ea0a6e2680e1bc4",
       "frame_inputs_sha256": {
         "frame001": "71f586348cddc4ade17870e8ca6656e037081bc81cb35a04d76c29aab6573c30"
+      }
+    },
+    {
+      "case": "mixed-checker-three",
+      "report_sha256": "f263666f073ffa7972e8db153b406ff400c9b22e2397d51f13bb47422c198464",
+      "wire_sha256": "4fd187b7df5408e593f07bce4aaa4c95f8ee188086711a28bd2f07f0630c7cb5",
+      "frame_inputs_sha256": {
+        "frame001": "692f4bf97b32c46e5124aff2ce380f99c07cb7c2b8ffd5b7293d5a40940a087d",
+        "frame002": "692f4bf97b32c46e5124aff2ce380f99c07cb7c2b8ffd5b7293d5a40940a087d",
+        "frame003": "c72e5c05c85320f60f84c9e91cf44589c34b40d44e416c3b4bf30e21b7473703"
+      }
+    },
+    {
+      "case": "mixed-chunk32",
+      "report_sha256": "3ff3c0445944483a5e9a7ee05c59347f81361e7ea8227b9b7a723438792d4eb1",
+      "wire_sha256": "e5a690c778574f5e02b43a93d82f1d4e297429f39220cfb0f548d8b0a4b11574",
+      "frame_inputs_sha256": {
+        "frame001": "817f827492deb1d72b19ecec238e1103b62ff504f9a229e2af4f54c8cfc08e28",
+        "frame002": "cfc042806f5bbe0e3d9f52174b4a0a9a5f6b76b4d1aeed57d71c2f880ea98b0f",
+        "frame003": "817f827492deb1d72b19ecec238e1103b62ff504f9a229e2af4f54c8cfc08e28"
+      }
+    },
+    {
+      "case": "mixed-layers-four",
+      "report_sha256": "7c4eb1a3b7c638a1d3d22e6860b9ac3e1aefeb326c35929b6ec5163b6da4f570",
+      "wire_sha256": "53b1a777cfb7aa3181c5df8a94007dbf0f5cb6840f3150cfc98cc2173e8d4685",
+      "frame_inputs_sha256": {
+        "frame001": "d3e0e653307a07c2c2c77a1df23931aadb9517a8760fe30a2bfd8de6b90eeb6d",
+        "frame002": "d69ddb17dd89410a1acf603a3587c46c08cffeffed1b209f24914cbd45e6aa77",
+        "frame003": "d3e0e653307a07c2c2c77a1df23931aadb9517a8760fe30a2bfd8de6b90eeb6d",
+        "frame004": "d3e0e653307a07c2c2c77a1df23931aadb9517a8760fe30a2bfd8de6b90eeb6d"
+      }
+    },
+    {
+      "case": "mixed-low-five",
+      "report_sha256": "158e448e8624173204e3b4db38035d50de428fa4db9a4ad64b4134173588900a",
+      "wire_sha256": "a034dbd7a4674776654e0403ff63cce314df0a30de2fca572f5bf0f171fb4e00",
+      "frame_inputs_sha256": {
+        "frame001": "692f4bf97b32c46e5124aff2ce380f99c07cb7c2b8ffd5b7293d5a40940a087d",
+        "frame002": "692f4bf97b32c46e5124aff2ce380f99c07cb7c2b8ffd5b7293d5a40940a087d",
+        "frame003": "c72e5c05c85320f60f84c9e91cf44589c34b40d44e416c3b4bf30e21b7473703",
+        "frame004": "692f4bf97b32c46e5124aff2ce380f99c07cb7c2b8ffd5b7293d5a40940a087d",
+        "frame005": "692f4bf97b32c46e5124aff2ce380f99c07cb7c2b8ffd5b7293d5a40940a087d"
+      }
+    },
+    {
+      "case": "mixed-pocket-four",
+      "report_sha256": "4a3ff8e4a2c909f669bb21214a93c98a03b2aa63971b600f14489d4c5a4e1549",
+      "wire_sha256": "da1331284906938cbc7b58c49fff74abdddbda32e462a23f084d20d685ae81cf",
+      "frame_inputs_sha256": {
+        "frame001": "6379fd7758057db2926dc75ce7cb56beb6124304bceca2cf6c8c46f77f7cca1a",
+        "frame002": "6379fd7758057db2926dc75ce7cb56beb6124304bceca2cf6c8c46f77f7cca1a",
+        "frame003": "3a8bc78ce70b8c9560cfd31016aaa8b10f2c6807ecb01495b5eef982b35c6054",
+        "frame004": "e86e19c679cfc8789576d2e4e79e4aaf97c2dbce3f38d8f6c345cb3df9cb34b8"
+      }
+    },
+    {
+      "case": "mixed-stripes-six",
+      "report_sha256": "7724ae68c298fede2975ca97cd747e27ee5486b541f69fc9ce0ec0cf23247244",
+      "wire_sha256": "0b5bae7192339e1850fbfdfe09646c0bbf62654b18d88b1066e3caa986555b76",
+      "frame_inputs_sha256": {
+        "frame001": "d3e0e653307a07c2c2c77a1df23931aadb9517a8760fe30a2bfd8de6b90eeb6d",
+        "frame002": "d3e0e653307a07c2c2c77a1df23931aadb9517a8760fe30a2bfd8de6b90eeb6d",
+        "frame003": "d69ddb17dd89410a1acf603a3587c46c08cffeffed1b209f24914cbd45e6aa77",
+        "frame004": "49c6d4a64e85e0c5364de31a68113375711004f36a6f8fb47660b72cb028c673",
+        "frame005": "0c552375601680c05329dbaa958987361ee054ccb1194b472eb99ad5898538a7",
+        "frame006": "d3e0e653307a07c2c2c77a1df23931aadb9517a8760fe30a2bfd8de6b90eeb6d"
       }
     },
     {
@@ -1589,20 +3367,30 @@
       "frame_inputs_sha256": {
         "frame001": "6e44eed2a3bd9923804dd0aa38183fdfaa39ae0c41b3c61e72a75fd79f9458ce"
       }
+    },
+    {
+      "case": "oxygen-tiny-three",
+      "report_sha256": "2ff619853dd9ae600e7ef9f889c4050064d822575ef7b4deddca66c4020d68f8",
+      "wire_sha256": "6b1b5543b6d7df784f6553cee301cd4722b6797b0d9a369bf893b64be24078f5",
+      "frame_inputs_sha256": {
+        "frame001": "6e44eed2a3bd9923804dd0aa38183fdfaa39ae0c41b3c61e72a75fd79f9458ce",
+        "frame002": "6e44eed2a3bd9923804dd0aa38183fdfaa39ae0c41b3c61e72a75fd79f9458ce",
+        "frame003": "71f586348cddc4ade17870e8ca6656e037081bc81cb35a04d76c29aab6573c30"
+      }
     }
   ],
   "sanitizers": {
     "all_passed": true,
-    "case_count": 7,
-    "subsequent_frames": 27,
+    "case_count": 15,
+    "subsequent_frames": 58,
     "same_output_as_normal": true,
-    "library_sha256": "cb0eecd9c9a0ecc19847c26b58e6cbff1a05cd868eb85b311ad057ffd0496463",
+    "library_sha256": "4bb115c5b0965ddab4d60d5a507ab2ee815218cf111a0ead8287041b4e9b8212",
     "options": "AddressSanitizer + UndefinedBehaviorSanitizer, halt on error; Python process leak detection disabled"
   },
   "generated_wrapper_probe": {
     "passed": true,
     "generated_source_sha256": "6fbd5e90a4c5ac92e00db4b2830b2b364edbdbd3f390bdc1513e1047325736b5",
-    "linked_static_core_sha256": "fa3681688ba6a00d83220094ca2cb53b5056fb5ea343d0d1942789a79098d8b2",
+    "linked_static_core_sha256": "6d5616559eaff817258eba856f353f56026b748e121141f83b9bf2ca2e20709b",
     "checks": [
       "game capability rejection before callback conversion",
       "worldgen helper receives capability error",
@@ -1613,9 +3401,11 @@
     "host": "Linux x86-64, GCC 11.4, real exported IL2CPP headers; managed exception runtime supplied by probe"
   },
   "limits": [
-    "Single O2 or CO2 plus vacuum; no mixed species, liquids, interior solids or disease",
+    "O2 and CO2 plus vacuum; no other gas species, liquids, interior solids or disease",
     "Known InitializeFromCells seed, radiation off, empty backwalls, gas within 0.25 K of 300 K",
-    "One pending positive frame, at most 100 internal updates; general heat exchange and low mass rejected",
+    "One pending positive frame, at most 100 internal updates; no general heat exchange or transitions",
+    "Native evaporation deletes small masses; total mass matches original output, not a forced conservation rule",
+    "Persistent stability timers and disease infestation/error grids are not implemented",
     "No world settlement, full game simulation/render capabilities, ARM64/device execution or memory-reduction claim"
   ]
 }

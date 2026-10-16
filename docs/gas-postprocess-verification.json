@@ -1,0 +1,2889 @@
+{
+  "date": "2026-10-16",
+  "build": "U59-744825-V",
+  "evidence_type": "Local original DLL oracle, matching PDB/instructions, compiled C ABI and generated-wrapper probes; not a REA runtime record",
+  "native_sources_sha256": {
+    "native/sim/FrameCellValues.cpp": "0957538f14d432302a8dcc263717c6b97367aee9a3c0f3ae629bd41af4f1c4bf",
+    "native/sim/FrameStepSchedule.cpp": "7d3ce56f70e6913cc78e23f4de6cd6141cab2a0a9e88f0946c59cdda24ea0c52",
+    "native/sim/GasPostProcess.cpp": "8fc52dfa057af773ae561e78a67f5317023b09704c60c60e93924b8861f829ff",
+    "native/sim/GasPressure.cpp": "2b0d8aaff4bc8139862074a91624160f8d3a07200033fe472d525f4a522a8532",
+    "native/sim/PressureFlux.cpp": "f879dfdcf4dbef0c92444b00c2d3026654d1cdfe60ef74a83fbd10fd2e74cc04",
+    "native/sim/SaveWorldV15.cpp": "e88393a5e0255b8299c931074c966a1367f044c103259576fa46f326ba942bbe",
+    "native/sim/SimCore.cpp": "b3ecaa1abc1397b5f96016a193e2ff7040625663e6fe90756399ab3ef3b6397a",
+    "native/sim/SimCoreExports.cpp": "f35252205aee06eb376f54edb35139e831ddd27f3c17fa6f3d98ad6ffae212a5",
+    "native/sim/FrameCellValues.h": "2d3766a0309b1b3db50322a39c67f7f806b96a593ff771c2cae7ef65285b2ad2",
+    "native/sim/FrameStepSchedule.h": "793da8b4813b44dd8b2fdfcc462d711301966b0ac266d2d593e8036acb4c58ee",
+    "native/sim/GasPostProcess.h": "19e15c644cfa1fe1fe34c4f1926dd7d29038273771b0db1c9a985bcefa6f3c49",
+    "native/sim/GasPressure.h": "29df1076fb810938ca810bedabeb402c9923f820a39547aca6735e2de46d5113",
+    "native/sim/PressureFlux.h": "a71ae9b043dd5225b76adc1c62a2af8ba9c7bf644ddbafb5211a7606a128cbf0",
+    "native/sim/SaveWorldV15.h": "260a6e2c271d602df8a903b3dc3b946eab53c15e34ed0f3e6b1450a0d852234d",
+    "native/sim/SimCore.h": "2c98cd64a58cfe3f0bae96273f4adb8d4ca60643109a6d51b804265e34ecc9ec",
+    "native/sim/SimCoreExports.h": "4e6da5ea61402df08ca385485fd931f1210a618ba3463f7bf0b522ca48d5ef92",
+    "native/sim/CMakeLists.txt": "7b76940e29e9e590017db8b2976716d84f1ba560db26702f4520147e64402a4d",
+    "native/sim/Verify-Bridge.py": "d656f475f9df3879ec985175fe013220ae4dbf7ce6234dcaeb0af88d22574e9c",
+    "native/sim/Verify-GasFrames.py": "2516c8eaa7cc8639cf26afe472040e7d2cf999203ee17887ec6a92c97f61da79",
+    "native/sim/Verify-GasPost.py": "4ca305c0d0b6d6e5ae31449405c3ffe54cba04a7f9c12c5914ebdb44b1cc3e3a",
+    "native/tests/GasPostProbe.cpp": "e08d1667102204c3b8264cd51f1cd7c5392a6489855fbf9b0c8663c3976ddf2c",
+    "native/abi/GameDataUpdate.h": "5e18419453fa399bd29118827732251b68664ed3e000c0406a80412ad5a0d10a",
+    "native/abi/SimExports.h": "824f64d08a68ac613b516613973ba4e0068e3ff4c6ee552f6478d29d6faa2c00",
+    "native/abi/SimWireABI.h": "f2f2994d8e90f47fa45e8f86ca75552256c43682cf31879d8eeb0cda1e2df88c",
+    "native/reference/WorldgenReference.csproj": "1608ccaab335bfd46861d2740f7143d452c1a29a113bbe49c30e283841ac489c",
+    "native/reference/WorldgenReference.cs.txt": "003f65f384c2c24de527415b792ded70f06a22aab93222d885a6bddca4f3268e",
+    "native/reference/WorldgenAnalyze.py": "fa75b0602d02edc902d82a85fbe5ad7abebd2630d4d1473bff7661ef95b8a567",
+    "native/reference/GasPostReference/GasPostReference.csproj": "3e6bb3f7427b5373177a326dc15d18af114737f328556c5dc97cf5e9d38c94a0",
+    "native/reference/GasPostReference/GasPostReference.cs.txt": "a6a5d617963ecbc3e49cb44de2c63c0f3659cc1587ccd90b54131ec12310ddde",
+    "native/reference/GasPostReference/README.md": "752e0e720ef17f81cd1c97116c2978fa603a4dd9ca47c7bb45163ca7b0f73986"
+  },
+  "module_probe": {
+    "all_passed": true,
+    "original_dll_sha256": "031960f120ac1d59fd8e43f6e1a7369111c629b90c24d52186b691dfe2d8a727",
+    "probe_sha256": "42698dfca37ec2d031fb15dc07a285cf14bc9697f12abd5bcd0a7bd02a86acd6",
+    "cases": [
+      {
+        "case": "continuation-co2-co2-below-small-seed10000",
+        "report_sha256": "a5de152efe48cf2a5df143600221d209f8613fcd3bb93dac575ecce2968bb23b",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 835153418,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-co2-below-small-seed20000",
+        "report_sha256": "c1307f8db26c3d5880c0c47b4c57bc7b7bac01bc980ed1f3fc15bc36d1e5d514",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 1164397978,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-co2-below-small-seed9020",
+        "report_sha256": "2785e05d4dcba33fb5469aa9e365996d6e03230ff815c1e3b440c8528625a360",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 1177324163,
+          "displacementDirection": 1,
+          "rngCalls": 5,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-co2-below-tiny-seed10000",
+        "report_sha256": "f3b78c6590e1c3f1a82c29be57ac80f6fb6735b56df6256ad726cc56e691a397",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 835153418,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-co2-below-tiny-seed20000",
+        "report_sha256": "66516a4f69cc922d7507c056caeedd59b6cb70f1e07a0e2eb34ba3e32a4382f2",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 1164397978,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-co2-below-tiny-seed9020",
+        "report_sha256": "5425bf772fe11b2589a8c981b827276f0f3b8971b7023f2d6754c096988b34ee",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 1177324163,
+          "displacementDirection": 1,
+          "rngCalls": 5,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-co2-right-small-seed10000",
+        "report_sha256": "c15f2eb21177f204d10e734b12d4ab5ca330713fb4ee5beb21e5074f40932a0b",
+        "arrays_sha256": {
+          "updated.elementIdx": "d12f899da0c60260a5af05dec69add20710e7d5ba075509109b45043a0dc7b0f",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 3468066004,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-co2-right-small-seed20000",
+        "report_sha256": "c62da9834da0804a044ee83e39cc135eee6266858d53a0c6450b8035e65ac67a",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 2481445092,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-co2-right-small-seed9020",
+        "report_sha256": "9a367a76ae85aeb33fa10b642ef2419a7034e6ca59b21d261f226a9f2864a35d",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 4183230144,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-co2-right-tiny-seed10000",
+        "report_sha256": "593b49d6d32f9fc2c4fb22655a401a6b83a09a24effa972efbf4bc09c8049a7b",
+        "arrays_sha256": {
+          "updated.elementIdx": "d12f899da0c60260a5af05dec69add20710e7d5ba075509109b45043a0dc7b0f",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 3468066004,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-co2-right-tiny-seed20000",
+        "report_sha256": "b88d7a8e5b225ce33ddb66c2df5f07f670efc94ee3ac8f9513cdff3ad0f70476",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 2481445092,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-co2-right-tiny-seed9020",
+        "report_sha256": "4963101d6d89fcc109d47d0501d5ef88ba6b4c28f978c57d0a2a4a84a723bbd3",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 4183230144,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-oxygen-below-small-seed10000",
+        "report_sha256": "23ddd8f6b04c2c3d446af3bf4814288d083255d524201626080b7b3d03d71212",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "75c832793e75be1bafa8ba70d398d6436db201309a42fbf966ede298027004c4"
+        },
+        "state": {
+          "seed": 2142661011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-oxygen-below-small-seed20000",
+        "report_sha256": "5d78a4e446cae99a4589b918be8454ac6228bf1db2e99c5a5a88d43a95f410ca",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "75c832793e75be1bafa8ba70d398d6436db201309a42fbf966ede298027004c4"
+        },
+        "state": {
+          "seed": 4282791011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-oxygen-below-small-seed9020",
+        "report_sha256": "f7c800188939a72dbaa1adce956d3b98aabc1717cffc1ee5ff1027a4dde4171e",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "82c14784063476f6633a535695b55cb1a139c3f1c29e3179895f3b2b0f144edd"
+        },
+        "state": {
+          "seed": 1177324163,
+          "displacementDirection": 1,
+          "rngCalls": 5,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-oxygen-below-tiny-seed10000",
+        "report_sha256": "0c3b0862652158f16453c85098d0ca7857bb856148c51b59350574d80c1589fa",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "75c832793e75be1bafa8ba70d398d6436db201309a42fbf966ede298027004c4"
+        },
+        "state": {
+          "seed": 2142661011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-oxygen-below-tiny-seed20000",
+        "report_sha256": "5cee7c4bfd23b086fca89da04369ccfff4b670db171875e2df12a651b3f8b18a",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "75c832793e75be1bafa8ba70d398d6436db201309a42fbf966ede298027004c4"
+        },
+        "state": {
+          "seed": 4282791011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-oxygen-below-tiny-seed9020",
+        "report_sha256": "9695a01965e61451a81e307ab06e7f167b7f5d7ad79d14a343467b63e1417eab",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "82c14784063476f6633a535695b55cb1a139c3f1c29e3179895f3b2b0f144edd"
+        },
+        "state": {
+          "seed": 1177324163,
+          "displacementDirection": 1,
+          "rngCalls": 5,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-oxygen-right-small-seed10000",
+        "report_sha256": "863647bddcac5ac68dbd0aec52b9007ae158aff00f83485c013440f849423d9b",
+        "arrays_sha256": {
+          "updated.elementIdx": "95dbe16cdffc37e8237960e874052b4d849984910b6d3b8a5587f1ffd265790e",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 3468066004,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-oxygen-right-small-seed20000",
+        "report_sha256": "4d98a143ed19627162ff9c4caa6f9aa095e409b3ad69493d074e379b2da81a7f",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 2481445092,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-oxygen-right-small-seed9020",
+        "report_sha256": "6995fd7f021e92228774ede6cfef304ecf81a2994c9ca64efd7e20ccca62d5d2",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 4183230144,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-oxygen-right-tiny-seed10000",
+        "report_sha256": "aaef0f7f096a713676cf84278dfec083428cbebbdc5e9b19bdc988397f5d1ee1",
+        "arrays_sha256": {
+          "updated.elementIdx": "95dbe16cdffc37e8237960e874052b4d849984910b6d3b8a5587f1ffd265790e",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 3468066004,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-oxygen-right-tiny-seed20000",
+        "report_sha256": "965509b0a6c656344f0b1d96d46dfcba858a783b0068f5786ddfba7910c738b7",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 2481445092,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-co2-oxygen-right-tiny-seed9020",
+        "report_sha256": "2cd11dca2732e58837c50a4e816084ca7bcf111d9c5776a63e8f57b4100b16ae",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 4183230144,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-co2-below-small-seed10000",
+        "report_sha256": "0a6eb34482aef2c8201ec2953ccdaa41cb43aa10d413e3771a4fcf37fccce61f",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 835153418,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-co2-below-small-seed20000",
+        "report_sha256": "87be6928e95e9058d77370c1816320fef1090483208257b2322554cb6cc76abc",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 1164397978,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-co2-below-small-seed9020",
+        "report_sha256": "9b6e774359988e27b45741600768d2a0da59bbf93eb232d22a86e08b3b6021c6",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 1177324163,
+          "displacementDirection": 1,
+          "rngCalls": 5,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-co2-below-tiny-seed10000",
+        "report_sha256": "0a82e2ba01896ccffc145b5ce9b7a9abb44c16c70e60f7350d814f84e16186b0",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 835153418,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-co2-below-tiny-seed20000",
+        "report_sha256": "c17ef52cb89e0692ad30c275ac5f43df95fa9d32cdeda2227391e14dc60821cd",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 1164397978,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-co2-below-tiny-seed9020",
+        "report_sha256": "cbd7ca5f420dc760dd93a29316fced7548de34f24dbc3868b9ea0519081c2ecb",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 1177324163,
+          "displacementDirection": 1,
+          "rngCalls": 5,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-co2-right-small-seed10000",
+        "report_sha256": "8581397c706317ad9906da33cb87e03be59f0226d7e5d35fcdaf22d8926664df",
+        "arrays_sha256": {
+          "updated.elementIdx": "d12f899da0c60260a5af05dec69add20710e7d5ba075509109b45043a0dc7b0f",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 3468066004,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-co2-right-small-seed20000",
+        "report_sha256": "540a6b08834e56379bb19ae57827365e1441026912ef83b2dfa8a63874f21d91",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 2481445092,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-co2-right-small-seed9020",
+        "report_sha256": "181d7399bbc16f2f2c4e03a181c291bf45328074a0b35592a17b462270d14e49",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 4183230144,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-co2-right-tiny-seed10000",
+        "report_sha256": "c15d2072e7bcbf68136c55ed9d7534bc667b3e0b7817aeed80acc238b27bdd1e",
+        "arrays_sha256": {
+          "updated.elementIdx": "d12f899da0c60260a5af05dec69add20710e7d5ba075509109b45043a0dc7b0f",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 3468066004,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-co2-right-tiny-seed20000",
+        "report_sha256": "3eeb5e6c9007e6f4965231723150b50a4e94cb984caf04475126b38bb352b7d1",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 2481445092,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-co2-right-tiny-seed9020",
+        "report_sha256": "fe85c19812fa4f3c51d88ff7d4be919c9cc4310e7df7fed7860e8e6908acd062",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 4183230144,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-oxygen-below-small-seed10000",
+        "report_sha256": "8c1053559cd78bd2eaf5fc2bd38946f41de3357e9b86d51364112e46443428fa",
+        "arrays_sha256": {
+          "updated.elementIdx": "32af743c3b4f7fb021c5a265aa684125b0a0695909519020b998725f986fcd71",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 835153418,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-oxygen-below-small-seed20000",
+        "report_sha256": "c436e98fe8e88d2b414f3ed9dd2cbc77c7aba5138e221458358e0eb42ae55b1d",
+        "arrays_sha256": {
+          "updated.elementIdx": "32af743c3b4f7fb021c5a265aa684125b0a0695909519020b998725f986fcd71",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 1164397978,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-oxygen-below-small-seed9020",
+        "report_sha256": "6203fa2d5c1bf3df80af244f2522b98ca49d52b7fc8135817062930a485d1be7",
+        "arrays_sha256": {
+          "updated.elementIdx": "32af743c3b4f7fb021c5a265aa684125b0a0695909519020b998725f986fcd71",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 1177324163,
+          "displacementDirection": 1,
+          "rngCalls": 5,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-oxygen-below-tiny-seed10000",
+        "report_sha256": "01f69a23c07cfe9b212b5c26409b37f4cd805a36bee507c71bd351342aed544b",
+        "arrays_sha256": {
+          "updated.elementIdx": "32af743c3b4f7fb021c5a265aa684125b0a0695909519020b998725f986fcd71",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 835153418,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-oxygen-below-tiny-seed20000",
+        "report_sha256": "52219fc1800e4c3a488d9a63a3cee7ddf561ba8b8ea84efc1126b3073ec11c49",
+        "arrays_sha256": {
+          "updated.elementIdx": "32af743c3b4f7fb021c5a265aa684125b0a0695909519020b998725f986fcd71",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 1164397978,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-oxygen-below-tiny-seed9020",
+        "report_sha256": "977b9f8b1f33a11922f3e9af7285032122531ceba8eb8678462fa6d5d0c0ca35",
+        "arrays_sha256": {
+          "updated.elementIdx": "32af743c3b4f7fb021c5a265aa684125b0a0695909519020b998725f986fcd71",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 1177324163,
+          "displacementDirection": 1,
+          "rngCalls": 5,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-oxygen-right-small-seed10000",
+        "report_sha256": "3d44a3699978b6812fdf7abe346940b1be09f288dfc515662238b144ebc45687",
+        "arrays_sha256": {
+          "updated.elementIdx": "95dbe16cdffc37e8237960e874052b4d849984910b6d3b8a5587f1ffd265790e",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 3468066004,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-oxygen-right-small-seed20000",
+        "report_sha256": "541303e28ec37278a6e6c910fc0adcb6472d3eafb800177e28e0f5d629a1d2bd",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 2481445092,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-oxygen-right-small-seed9020",
+        "report_sha256": "fbf1991348b3a809caf371f7b3bb6e8fbf35e43bcaec1ae4ac9f8e8d3a368e45",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 4183230144,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-oxygen-right-tiny-seed10000",
+        "report_sha256": "d060990a5d4e3386f04b0c771291839b50b114bbd6fc967d05ef831c18a1f431",
+        "arrays_sha256": {
+          "updated.elementIdx": "95dbe16cdffc37e8237960e874052b4d849984910b6d3b8a5587f1ffd265790e",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 3468066004,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-oxygen-right-tiny-seed20000",
+        "report_sha256": "54f8331f9ff3d1c00a2325ff677bfff552fe389e200371ab1a4e625afa8743da",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 2481445092,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "continuation-oxygen-oxygen-right-tiny-seed9020",
+        "report_sha256": "0ad9e95d0c176c36bd71aa719391a127d6c6513b5a379e81a9595c6affdfc03d",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "dfc2669a2a3265acabc5e20872091146815dcc6d95cb3e0d663eedf02482d07c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "21e83c212c245d69f96a4b358022a7354f906dafb62e01fc634dfa208337ac21"
+        },
+        "state": {
+          "seed": 4183230144,
+          "displacementDirection": 1,
+          "rngCalls": 4,
+          "changeCount": 3
+        },
+        "passed": true
+      },
+      {
+        "case": "flip-co2-left",
+        "report_sha256": "a9a417179675c5a3c1975f04dffbadf8b52db546b89f176138f6ad960c84a734",
+        "arrays_sha256": {
+          "updated.elementIdx": "31a1921c326baccd15a9c5862f90ff1da71b20bcc2cf762d6c4641ef726530ef",
+          "updated.temperature": "92014b7b695a6fdebb7363f0bec558c0fbcf334427ddb7e78fbf6692ebfcb636",
+          "updated.mass": "a99871e913fe6725bc9b1b2cfa14b2995bf29eea9442262d7bfd0765221ac95d",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "911884247b67ce95a48888fd69570c2fac9583c6c3a6c80b393e59687fa1f5b8",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": -1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "flip-co2-right",
+        "report_sha256": "60da73f862c4b0cc76d8f8c902e49bfc53ff99aee2c319e71d60811517b0f302",
+        "arrays_sha256": {
+          "updated.elementIdx": "95dbe16cdffc37e8237960e874052b4d849984910b6d3b8a5587f1ffd265790e",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": -1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "flip-oxygen-left",
+        "report_sha256": "2ea0f4c3f51dd08aaebe03e7e46dcb05bda5f37cbab6aad06566ecc3f3a4866e",
+        "arrays_sha256": {
+          "updated.elementIdx": "31a1921c326baccd15a9c5862f90ff1da71b20bcc2cf762d6c4641ef726530ef",
+          "updated.temperature": "92014b7b695a6fdebb7363f0bec558c0fbcf334427ddb7e78fbf6692ebfcb636",
+          "updated.mass": "a99871e913fe6725bc9b1b2cfa14b2995bf29eea9442262d7bfd0765221ac95d",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "911884247b67ce95a48888fd69570c2fac9583c6c3a6c80b393e59687fa1f5b8",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": -1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "flip-oxygen-right",
+        "report_sha256": "2e1f034ada4cebeab61c85355d8809e2537129a6755bb5db1e3bd2d59a2e946c",
+        "arrays_sha256": {
+          "updated.elementIdx": "95dbe16cdffc37e8237960e874052b4d849984910b6d3b8a5587f1ffd265790e",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": -1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-co2-above-above1",
+        "report_sha256": "e488a01d46bb20e998eb87eeef880b4c1dca77b6ca8781c287243fa6398189d5",
+        "arrays_sha256": {
+          "updated.elementIdx": "91d1d6381cdc4f76d6be8dc2e3135c87f4267f4042c4051730f8716d654d5083",
+          "updated.temperature": "86bd1f554ca62e9c6e74a0f76e94f6a582056f2bfa8fb4c9b48dbfaf0e613f3b",
+          "updated.mass": "ab2d97d043877821734bdb15ece1ca88baa448aa442197e11d7ebb31217cffef",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "993fd67222c80c26b1ccecb56993e8b1e1ee28a64e30e760d9981de0e09b321c",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-co2-above-below1",
+        "report_sha256": "77ba941a43e3327eeb7c3600d32195a442c697e648663deaf18fe84946b1db22",
+        "arrays_sha256": {
+          "updated.elementIdx": "55d1f3c1d59d2b61bd5e533eb5893ef8775d573ec0013e4337cc3ca765c441dd",
+          "updated.temperature": "921a7909ecc3bf5e3af976af1684d98420d2c1c4ee79fbc32b66c5611d5a5ccc",
+          "updated.mass": "db272d4846bc733861fa2e4eec6f7f60eba805191c59f822389531adc3d46e96",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "09d2c7cbf98df2d1b70997d2450419194d8c84c4f936d5d3e75a431fcc95b1d7",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-co2-above-one",
+        "report_sha256": "9b49a7f79eca453fe4644369b29d1b65f89db6dd5bc9a145b9a2b0903e8eb322",
+        "arrays_sha256": {
+          "updated.elementIdx": "91d1d6381cdc4f76d6be8dc2e3135c87f4267f4042c4051730f8716d654d5083",
+          "updated.temperature": "86bd1f554ca62e9c6e74a0f76e94f6a582056f2bfa8fb4c9b48dbfaf0e613f3b",
+          "updated.mass": "33ba96ac4697d30ea3029eab5c7cf36d7b9d8ed0d7b734db7b41751d598c5022",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "993fd67222c80c26b1ccecb56993e8b1e1ee28a64e30e760d9981de0e09b321c",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-co2-below-above1",
+        "report_sha256": "0137806a7047ffcdd4ee779abf5aaf3e411a309b4a53f420ed74cfc5564f2329",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "cf29cabee03908a2210feb32672296329923ac41bf9acfd38d7cbeb2e898a0c9",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 505908858,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-co2-below-below1",
+        "report_sha256": "012ab37366ad0f9d20d4100a14e255078be4c4883c5519e920ecfce9b0632386",
+        "arrays_sha256": {
+          "updated.elementIdx": "b9b595a5b274b157b7f05af31a49b8b612b47e1774236ca9db7cf1fb4ed8e738",
+          "updated.temperature": "943051a76d562f837b276ceed3f9670d622a4f56e10a2750690e0c1a7fffa5e0",
+          "updated.mass": "010c23a466ad1dbafcc99dacf78b3f555227cff3a3b5dd755fe847957189819e",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "1e4c96655d871a36894c1802e34b56859cd13324b0fb5b573c5f6d7f9b420f0a",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 505908858,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-co2-below-one",
+        "report_sha256": "e440f1ed1dca68b31eaf57ae0b234369a956f9277ffd9db0bc18c890b6c2a511",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 505908858,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-co2-left-above1",
+        "report_sha256": "e66aa0ad68b719e4384220619c862b0b7e0428d8a7bcf08106415d3109d60e3f",
+        "arrays_sha256": {
+          "updated.elementIdx": "eea77e8a0fa0882fa562a6e98cc15776ab7b2efb42c1116ec82942afe44dce66",
+          "updated.temperature": "92014b7b695a6fdebb7363f0bec558c0fbcf334427ddb7e78fbf6692ebfcb636",
+          "updated.mass": "d1db793abe73b2794d4c3954835ff3324bf4fea93a1cb6beb206fdf9d72cf77f",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "911884247b67ce95a48888fd69570c2fac9583c6c3a6c80b393e59687fa1f5b8",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-co2-left-below1",
+        "report_sha256": "525891bbfcbc6c1b9691493e8ac4c2fb45685210ad0b2588979d2b562dc76118",
+        "arrays_sha256": {
+          "updated.elementIdx": "e3fb2a0d71698ffafb59bcc0c99aab304a884f14b9048657a97cb76cc3a728e1",
+          "updated.temperature": "b8bd84781217011891978419bfb9406b22f68ebeb5814dd30eaa9b363175dc37",
+          "updated.mass": "9d6802a30a9b7b12713e09e6ae5c5ce5668d3e7b648eb3fbab6d72550ff34937",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "aaac23a3401043918a981f46817df3fbbef5a97e9c902478f0afcd4f28d3a9c0",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-co2-left-one",
+        "report_sha256": "ca883855fae19d0d8d25466f06cb6d974c6a08105276fc6d8de2cba9fd5cdf94",
+        "arrays_sha256": {
+          "updated.elementIdx": "eea77e8a0fa0882fa562a6e98cc15776ab7b2efb42c1116ec82942afe44dce66",
+          "updated.temperature": "92014b7b695a6fdebb7363f0bec558c0fbcf334427ddb7e78fbf6692ebfcb636",
+          "updated.mass": "a99871e913fe6725bc9b1b2cfa14b2995bf29eea9442262d7bfd0765221ac95d",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "911884247b67ce95a48888fd69570c2fac9583c6c3a6c80b393e59687fa1f5b8",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-co2-right-above1",
+        "report_sha256": "5ced05291a73efd4274af0eded87323345c1ebebe08e04e5dd7e3a766d6c50ea",
+        "arrays_sha256": {
+          "updated.elementIdx": "d12f899da0c60260a5af05dec69add20710e7d5ba075509109b45043a0dc7b0f",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "03348509c7fcc40b5a1991a942f6358d8f23f99067fd1dc9908a015e5ed11c90",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-co2-right-below1",
+        "report_sha256": "0372ee8c79261e4a7e3420b569e5331e30eb0dd8099eed7a1194dc121b4e162c",
+        "arrays_sha256": {
+          "updated.elementIdx": "10ad96eca444ddf435fa0e2a506abfe7619a94eeaaf2214e337d1b53f50663c6",
+          "updated.temperature": "67f096cc5b34f2ea2768b744a46b874f41e80af092c762d55fd46c2ca71bed2e",
+          "updated.mass": "388318dbf22ad0576aced22efb26d27d99fbc0aa6f837ade9b331f3c9331f430",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "8b976848d00496f71f7cf12f70127f7d8ec1c2e194582fa5cdb6f97b699bd7ac",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-co2-right-one",
+        "report_sha256": "187152cdfeecedc57aa35051faef9dc0287a49d02786ab1a293ea05f85740d38",
+        "arrays_sha256": {
+          "updated.elementIdx": "d12f899da0c60260a5af05dec69add20710e7d5ba075509109b45043a0dc7b0f",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-oxygen-above-above1",
+        "report_sha256": "8f2d7b70bcd1d21efc8a2d7556427cefcdf2689ae1e5e5fa388d372c20a6133b",
+        "arrays_sha256": {
+          "updated.elementIdx": "5556de8f81504c89952e222d9abd4e535a0106cccb21df3616a6959114a0b450",
+          "updated.temperature": "86bd1f554ca62e9c6e74a0f76e94f6a582056f2bfa8fb4c9b48dbfaf0e613f3b",
+          "updated.mass": "ab2d97d043877821734bdb15ece1ca88baa448aa442197e11d7ebb31217cffef",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "993fd67222c80c26b1ccecb56993e8b1e1ee28a64e30e760d9981de0e09b321c",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-oxygen-above-below1",
+        "report_sha256": "a0a658beff9f6cf3ea41be7c3ecc1cd39969d480ae8c0a5648a6e764d022fa07",
+        "arrays_sha256": {
+          "updated.elementIdx": "d2f7739c62a6787a9fc86e926848b8fd60ff7333897974e665e68bcb23b94b1a",
+          "updated.temperature": "921a7909ecc3bf5e3af976af1684d98420d2c1c4ee79fbc32b66c5611d5a5ccc",
+          "updated.mass": "db272d4846bc733861fa2e4eec6f7f60eba805191c59f822389531adc3d46e96",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "09d2c7cbf98df2d1b70997d2450419194d8c84c4f936d5d3e75a431fcc95b1d7",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-oxygen-above-one",
+        "report_sha256": "0d50f4431fc031f7f6e772392bc8e43a0abaa5a5a546e537f166c6498b9773ef",
+        "arrays_sha256": {
+          "updated.elementIdx": "5556de8f81504c89952e222d9abd4e535a0106cccb21df3616a6959114a0b450",
+          "updated.temperature": "86bd1f554ca62e9c6e74a0f76e94f6a582056f2bfa8fb4c9b48dbfaf0e613f3b",
+          "updated.mass": "33ba96ac4697d30ea3029eab5c7cf36d7b9d8ed0d7b734db7b41751d598c5022",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "993fd67222c80c26b1ccecb56993e8b1e1ee28a64e30e760d9981de0e09b321c",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-oxygen-below-above1",
+        "report_sha256": "9fb3bd566f50b2b35dd75003837c009f4f29484fb5a3922088b56b4500bde7ad",
+        "arrays_sha256": {
+          "updated.elementIdx": "32af743c3b4f7fb021c5a265aa684125b0a0695909519020b998725f986fcd71",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "cf29cabee03908a2210feb32672296329923ac41bf9acfd38d7cbeb2e898a0c9",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 505908858,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-oxygen-below-below1",
+        "report_sha256": "507d594d17ef4dba3a6b1c743b650fbd661d5dcbac1282abd157a90b65b35cff",
+        "arrays_sha256": {
+          "updated.elementIdx": "f73d72133bfb21ab0f90e4f80dc347a99965bf0388bb5bd3203a19fedb45c6ed",
+          "updated.temperature": "943051a76d562f837b276ceed3f9670d622a4f56e10a2750690e0c1a7fffa5e0",
+          "updated.mass": "010c23a466ad1dbafcc99dacf78b3f555227cff3a3b5dd755fe847957189819e",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "1e4c96655d871a36894c1802e34b56859cd13324b0fb5b573c5f6d7f9b420f0a",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 505908858,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-oxygen-below-one",
+        "report_sha256": "8ef7c940b12b19fbb969c715e21b5ecc9cbcf35afd4e3d17e06baecfc7ab409a",
+        "arrays_sha256": {
+          "updated.elementIdx": "32af743c3b4f7fb021c5a265aa684125b0a0695909519020b998725f986fcd71",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 505908858,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-oxygen-left-above1",
+        "report_sha256": "6fb99a4d81bd394e933bde82d6eebcf6db2c7ce2ae6f6be8438531410c58d16f",
+        "arrays_sha256": {
+          "updated.elementIdx": "31a1921c326baccd15a9c5862f90ff1da71b20bcc2cf762d6c4641ef726530ef",
+          "updated.temperature": "92014b7b695a6fdebb7363f0bec558c0fbcf334427ddb7e78fbf6692ebfcb636",
+          "updated.mass": "d1db793abe73b2794d4c3954835ff3324bf4fea93a1cb6beb206fdf9d72cf77f",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "911884247b67ce95a48888fd69570c2fac9583c6c3a6c80b393e59687fa1f5b8",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-oxygen-left-below1",
+        "report_sha256": "aa3213cc0f80b246b545baeb14a76ac6ab0ff3e29386076f146d6d5454d83f7a",
+        "arrays_sha256": {
+          "updated.elementIdx": "cef0484de3a8cb84e2bcf5bd4707f97c376d6a2184f1329736539f304487784b",
+          "updated.temperature": "b8bd84781217011891978419bfb9406b22f68ebeb5814dd30eaa9b363175dc37",
+          "updated.mass": "9d6802a30a9b7b12713e09e6ae5c5ce5668d3e7b648eb3fbab6d72550ff34937",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "aaac23a3401043918a981f46817df3fbbef5a97e9c902478f0afcd4f28d3a9c0",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-oxygen-left-one",
+        "report_sha256": "46f5a64fccee2345c0fb9e376ac1487ee13d665bcde2e51902a1d93b65b5e3b1",
+        "arrays_sha256": {
+          "updated.elementIdx": "31a1921c326baccd15a9c5862f90ff1da71b20bcc2cf762d6c4641ef726530ef",
+          "updated.temperature": "92014b7b695a6fdebb7363f0bec558c0fbcf334427ddb7e78fbf6692ebfcb636",
+          "updated.mass": "a99871e913fe6725bc9b1b2cfa14b2995bf29eea9442262d7bfd0765221ac95d",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "911884247b67ce95a48888fd69570c2fac9583c6c3a6c80b393e59687fa1f5b8",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-oxygen-right-above1",
+        "report_sha256": "f91bdb9d482e2f75a4b45e994163b03beeda78e663f7930e082b41a39c94cb1b",
+        "arrays_sha256": {
+          "updated.elementIdx": "95dbe16cdffc37e8237960e874052b4d849984910b6d3b8a5587f1ffd265790e",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "03348509c7fcc40b5a1991a942f6358d8f23f99067fd1dc9908a015e5ed11c90",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-oxygen-right-below1",
+        "report_sha256": "1009ae9036d4daec22e1a05582638e3579e95ccd96eb21f39b5daec49c38ba86",
+        "arrays_sha256": {
+          "updated.elementIdx": "258dfe9f11acdd776910114f09c640d75e18d48743e4204117f623a2c02bf015",
+          "updated.temperature": "67f096cc5b34f2ea2768b744a46b874f41e80af092c762d55fd46c2ca71bed2e",
+          "updated.mass": "388318dbf22ad0576aced22efb26d27d99fbc0aa6f837ade9b331f3c9331f430",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "8b976848d00496f71f7cf12f70127f7d8ec1c2e194582fa5cdb6f97b699bd7ac",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-co2-oxygen-right-one",
+        "report_sha256": "3999b6af0eac5e4c59d8006ce601b7a756c68623e5a62a25b6a7ea6624f76202",
+        "arrays_sha256": {
+          "updated.elementIdx": "95dbe16cdffc37e8237960e874052b4d849984910b6d3b8a5587f1ffd265790e",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-co2-above-above1",
+        "report_sha256": "2e1ffcd81702991c9f27cc9802b7ece15d3f59a0bcc99a857ebc94a3e9e7412f",
+        "arrays_sha256": {
+          "updated.elementIdx": "91d1d6381cdc4f76d6be8dc2e3135c87f4267f4042c4051730f8716d654d5083",
+          "updated.temperature": "86bd1f554ca62e9c6e74a0f76e94f6a582056f2bfa8fb4c9b48dbfaf0e613f3b",
+          "updated.mass": "ab2d97d043877821734bdb15ece1ca88baa448aa442197e11d7ebb31217cffef",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "993fd67222c80c26b1ccecb56993e8b1e1ee28a64e30e760d9981de0e09b321c",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-co2-above-below1",
+        "report_sha256": "685cf154fd68575524a4da38b16fa617966ebd5a63759f49a330bbfd90cc45ca",
+        "arrays_sha256": {
+          "updated.elementIdx": "a0a6812f43d08a26e503d28b31f1e6150bfb72064b803863ebf012be28b5ee3b",
+          "updated.temperature": "921a7909ecc3bf5e3af976af1684d98420d2c1c4ee79fbc32b66c5611d5a5ccc",
+          "updated.mass": "db272d4846bc733861fa2e4eec6f7f60eba805191c59f822389531adc3d46e96",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "09d2c7cbf98df2d1b70997d2450419194d8c84c4f936d5d3e75a431fcc95b1d7",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-co2-above-one",
+        "report_sha256": "5f0153611d1052be552d8b76a9477f8d4796b56442cbab815f089b9622c8e8f0",
+        "arrays_sha256": {
+          "updated.elementIdx": "91d1d6381cdc4f76d6be8dc2e3135c87f4267f4042c4051730f8716d654d5083",
+          "updated.temperature": "86bd1f554ca62e9c6e74a0f76e94f6a582056f2bfa8fb4c9b48dbfaf0e613f3b",
+          "updated.mass": "33ba96ac4697d30ea3029eab5c7cf36d7b9d8ed0d7b734db7b41751d598c5022",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "993fd67222c80c26b1ccecb56993e8b1e1ee28a64e30e760d9981de0e09b321c",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-co2-below-above1",
+        "report_sha256": "f22b4ac27200e5e12ce3808f6bb13253e1621588bccf47d94757d8ddbbf229e5",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "cf29cabee03908a2210feb32672296329923ac41bf9acfd38d7cbeb2e898a0c9",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 505908858,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-co2-below-below1",
+        "report_sha256": "533f3680cd69e6580b959213aeb441e3bc3e2bde9f86150fa7f8fa3a8c964964",
+        "arrays_sha256": {
+          "updated.elementIdx": "88dd5d9d8c043afb4e9e02ba32c87959e098c3ee0f7e9040b1dc4f43a2b4f37c",
+          "updated.temperature": "943051a76d562f837b276ceed3f9670d622a4f56e10a2750690e0c1a7fffa5e0",
+          "updated.mass": "010c23a466ad1dbafcc99dacf78b3f555227cff3a3b5dd755fe847957189819e",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "1e4c96655d871a36894c1802e34b56859cd13324b0fb5b573c5f6d7f9b420f0a",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 505908858,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-co2-below-one",
+        "report_sha256": "fe989bf6937029b330fcef12490fe1bbc074cf4c6f0a3dee1c7571a94feff120",
+        "arrays_sha256": {
+          "updated.elementIdx": "edafa69df478915528b471ab6a6a3c7f4cbdd725db8845cb767d7f7e487575a9",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 505908858,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-co2-left-above1",
+        "report_sha256": "acc954593ad96f95de4c141a8e00aa324cad76ef0ca5fa0c5c4df2416ed73378",
+        "arrays_sha256": {
+          "updated.elementIdx": "eea77e8a0fa0882fa562a6e98cc15776ab7b2efb42c1116ec82942afe44dce66",
+          "updated.temperature": "92014b7b695a6fdebb7363f0bec558c0fbcf334427ddb7e78fbf6692ebfcb636",
+          "updated.mass": "d1db793abe73b2794d4c3954835ff3324bf4fea93a1cb6beb206fdf9d72cf77f",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "911884247b67ce95a48888fd69570c2fac9583c6c3a6c80b393e59687fa1f5b8",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-co2-left-below1",
+        "report_sha256": "a35bbaec8801a2b83554926676a8788bb448a65c40fcdafb3c7ded041d89166b",
+        "arrays_sha256": {
+          "updated.elementIdx": "532adeed8a48a764cdf0b01c46934ecf47682c0481f715be21a35b753345eb34",
+          "updated.temperature": "b8bd84781217011891978419bfb9406b22f68ebeb5814dd30eaa9b363175dc37",
+          "updated.mass": "9d6802a30a9b7b12713e09e6ae5c5ce5668d3e7b648eb3fbab6d72550ff34937",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "aaac23a3401043918a981f46817df3fbbef5a97e9c902478f0afcd4f28d3a9c0",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-co2-left-one",
+        "report_sha256": "e04ef7edc62898a4fee927097fa25a0105903d3f9ca560e1816865ad62784b1d",
+        "arrays_sha256": {
+          "updated.elementIdx": "eea77e8a0fa0882fa562a6e98cc15776ab7b2efb42c1116ec82942afe44dce66",
+          "updated.temperature": "92014b7b695a6fdebb7363f0bec558c0fbcf334427ddb7e78fbf6692ebfcb636",
+          "updated.mass": "a99871e913fe6725bc9b1b2cfa14b2995bf29eea9442262d7bfd0765221ac95d",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "911884247b67ce95a48888fd69570c2fac9583c6c3a6c80b393e59687fa1f5b8",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-co2-right-above1",
+        "report_sha256": "34a85870e171aaae3608b9c4e6837151846d741eb7c587a74958c61eb639df5c",
+        "arrays_sha256": {
+          "updated.elementIdx": "d12f899da0c60260a5af05dec69add20710e7d5ba075509109b45043a0dc7b0f",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "03348509c7fcc40b5a1991a942f6358d8f23f99067fd1dc9908a015e5ed11c90",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-co2-right-below1",
+        "report_sha256": "bc30daf28d8fc505c3c85e11e7c0e74d52f6a3dbe7fb6bfd481e6c11c116149b",
+        "arrays_sha256": {
+          "updated.elementIdx": "70a88e3dee4719b376bb3cd68df7fbb0b6b67a028914401abf37390f6358ffc8",
+          "updated.temperature": "67f096cc5b34f2ea2768b744a46b874f41e80af092c762d55fd46c2ca71bed2e",
+          "updated.mass": "388318dbf22ad0576aced22efb26d27d99fbc0aa6f837ade9b331f3c9331f430",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "8b976848d00496f71f7cf12f70127f7d8ec1c2e194582fa5cdb6f97b699bd7ac",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-co2-right-one",
+        "report_sha256": "5e1bbfdb821551f747ea1b05584e24f0a62a915297e875dffc2211775258237c",
+        "arrays_sha256": {
+          "updated.elementIdx": "d12f899da0c60260a5af05dec69add20710e7d5ba075509109b45043a0dc7b0f",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-oxygen-above-above1",
+        "report_sha256": "654811dba7273934defd9ff4732b678696420a9be350d57f00495dc3b6ed768a",
+        "arrays_sha256": {
+          "updated.elementIdx": "5556de8f81504c89952e222d9abd4e535a0106cccb21df3616a6959114a0b450",
+          "updated.temperature": "86bd1f554ca62e9c6e74a0f76e94f6a582056f2bfa8fb4c9b48dbfaf0e613f3b",
+          "updated.mass": "ab2d97d043877821734bdb15ece1ca88baa448aa442197e11d7ebb31217cffef",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "993fd67222c80c26b1ccecb56993e8b1e1ee28a64e30e760d9981de0e09b321c",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-oxygen-above-below1",
+        "report_sha256": "7b218fac6169081a046b2bfb8925abe14ea9e9a6bcb9ac47e77bd921a85b0f22",
+        "arrays_sha256": {
+          "updated.elementIdx": "fe977c0f90d71e6862bfad8fcf4a45f4f7456b8e1583c7eb5b7efc3ca2338eb3",
+          "updated.temperature": "921a7909ecc3bf5e3af976af1684d98420d2c1c4ee79fbc32b66c5611d5a5ccc",
+          "updated.mass": "db272d4846bc733861fa2e4eec6f7f60eba805191c59f822389531adc3d46e96",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "09d2c7cbf98df2d1b70997d2450419194d8c84c4f936d5d3e75a431fcc95b1d7",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-oxygen-above-one",
+        "report_sha256": "32b064c57e0f1c22b80bb1cf81fdc7094403d4e7b709c1b9a94c1bfe9497ce8d",
+        "arrays_sha256": {
+          "updated.elementIdx": "5556de8f81504c89952e222d9abd4e535a0106cccb21df3616a6959114a0b450",
+          "updated.temperature": "86bd1f554ca62e9c6e74a0f76e94f6a582056f2bfa8fb4c9b48dbfaf0e613f3b",
+          "updated.mass": "33ba96ac4697d30ea3029eab5c7cf36d7b9d8ed0d7b734db7b41751d598c5022",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "993fd67222c80c26b1ccecb56993e8b1e1ee28a64e30e760d9981de0e09b321c",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-oxygen-below-above1",
+        "report_sha256": "8cc46e8a8cbe0a83529535f7d27fec257922e07eea1c93b115dd6dbabe822510",
+        "arrays_sha256": {
+          "updated.elementIdx": "32af743c3b4f7fb021c5a265aa684125b0a0695909519020b998725f986fcd71",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "cf29cabee03908a2210feb32672296329923ac41bf9acfd38d7cbeb2e898a0c9",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 505908858,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-oxygen-below-below1",
+        "report_sha256": "53fe0fc33dd5a8aa262fa544ee2f33d69e785786c2b9a799b922e8ee8cb61758",
+        "arrays_sha256": {
+          "updated.elementIdx": "a68c0c733359ac5fdea918e52111b44e53061225733e745e0b537a8734c3b478",
+          "updated.temperature": "943051a76d562f837b276ceed3f9670d622a4f56e10a2750690e0c1a7fffa5e0",
+          "updated.mass": "010c23a466ad1dbafcc99dacf78b3f555227cff3a3b5dd755fe847957189819e",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "1e4c96655d871a36894c1802e34b56859cd13324b0fb5b573c5f6d7f9b420f0a",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 505908858,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-oxygen-below-one",
+        "report_sha256": "2c7b2079fb806ccdda00cbfdeaa5c154ecbd321ac1444c4f7e627d751237451f",
+        "arrays_sha256": {
+          "updated.elementIdx": "32af743c3b4f7fb021c5a265aa684125b0a0695909519020b998725f986fcd71",
+          "updated.temperature": "d7db0ae85b4f77d8a97c1986ae48b8508d92b2c1dc9ccccf8e4e26f85929945f",
+          "updated.mass": "0713fda49f72fd2971909482a997b48a0536e290bec3ba65640c273a96a37042",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "4a5a3b7a92673164b599b4f8589dfcfcf3a9b87278de3c77a2a5ce3229394537",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 505908858,
+          "displacementDirection": 1,
+          "rngCalls": 2,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-oxygen-left-above1",
+        "report_sha256": "3ce70d534a0b4a5719727bd8ef884e862332bd32ff05b595634b00fab937a40e",
+        "arrays_sha256": {
+          "updated.elementIdx": "31a1921c326baccd15a9c5862f90ff1da71b20bcc2cf762d6c4641ef726530ef",
+          "updated.temperature": "92014b7b695a6fdebb7363f0bec558c0fbcf334427ddb7e78fbf6692ebfcb636",
+          "updated.mass": "d1db793abe73b2794d4c3954835ff3324bf4fea93a1cb6beb206fdf9d72cf77f",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "911884247b67ce95a48888fd69570c2fac9583c6c3a6c80b393e59687fa1f5b8",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-oxygen-left-below1",
+        "report_sha256": "9bcf64357df50ad930381522842b971d40ab152839c1b0d7f78941f329994304",
+        "arrays_sha256": {
+          "updated.elementIdx": "33ccfa93b5d987c54e211a4aa10ea3f766af410abc24ead2d9d8abdcb532d486",
+          "updated.temperature": "b8bd84781217011891978419bfb9406b22f68ebeb5814dd30eaa9b363175dc37",
+          "updated.mass": "9d6802a30a9b7b12713e09e6ae5c5ce5668d3e7b648eb3fbab6d72550ff34937",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "aaac23a3401043918a981f46817df3fbbef5a97e9c902478f0afcd4f28d3a9c0",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-oxygen-left-one",
+        "report_sha256": "4a3248dae2888386d560042d58fc3a15cd5cfc907600de74e5900f8d6a87a766",
+        "arrays_sha256": {
+          "updated.elementIdx": "31a1921c326baccd15a9c5862f90ff1da71b20bcc2cf762d6c4641ef726530ef",
+          "updated.temperature": "92014b7b695a6fdebb7363f0bec558c0fbcf334427ddb7e78fbf6692ebfcb636",
+          "updated.mass": "a99871e913fe6725bc9b1b2cfa14b2995bf29eea9442262d7bfd0765221ac95d",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "911884247b67ce95a48888fd69570c2fac9583c6c3a6c80b393e59687fa1f5b8",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-oxygen-right-above1",
+        "report_sha256": "dbcaaebe4523fb8639d5b39421906955ebc194b0087c022f04173b2bf19a5b15",
+        "arrays_sha256": {
+          "updated.elementIdx": "95dbe16cdffc37e8237960e874052b4d849984910b6d3b8a5587f1ffd265790e",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "03348509c7fcc40b5a1991a942f6358d8f23f99067fd1dc9908a015e5ed11c90",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-oxygen-right-below1",
+        "report_sha256": "995141005b18646485d82070048eeff71c0c3436cb7a397b47bfd50e80607bea",
+        "arrays_sha256": {
+          "updated.elementIdx": "77e2d5113fd5d7d6940daf593969325b86f0ea81d5b0e87060ab3d9121b2e502",
+          "updated.temperature": "67f096cc5b34f2ea2768b744a46b874f41e80af092c762d55fd46c2ca71bed2e",
+          "updated.mass": "388318dbf22ad0576aced22efb26d27d99fbc0aa6f837ade9b331f3c9331f430",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "8b976848d00496f71f7cf12f70127f7d8ec1c2e194582fa5cdb6f97b699bd7ac",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "neighbor-oxygen-oxygen-right-one",
+        "report_sha256": "2ae32c312a5864ad2edff98284c2f2aa9314a6517926c5d96779bbaf7459e6da",
+        "arrays_sha256": {
+          "updated.elementIdx": "95dbe16cdffc37e8237960e874052b4d849984910b6d3b8a5587f1ffd265790e",
+          "updated.temperature": "cdd2d4794831d8cc1e7356073aca55abcd0be1227106814b99751a1f609b3242",
+          "updated.mass": "39062adbd26cf74eb587efd9c6d5d9d81d35881ccf8247cec5fb5a2c709f6e50",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "a911648b3a4c05e9717e113c24403e32e86f72ee961ad81b96286b5f15256d8b",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-co2-aftermin",
+        "report_sha256": "6a22408f0cb459debe46b008342d408a8b842daa65f52b507fabac905254bdff",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "8d772f382362e0db8b4eb9f6ac3fc4a7123e4732e2e863d8b52fa7f963cbcb5a",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "c63121890eb034381d8a1af6874eac5510d7876c87abc7c155efcd6e8d5f52a4",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-co2-aftersmall",
+        "report_sha256": "01e8e6d893cdeac5926cd98e7038603d6b58b82c4ff34c426500efdb54bfb797",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "f166afd53ac26828ad99b373607d59c8a9b106dd42dfa0beec696bc688422d3c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "c63121890eb034381d8a1af6874eac5510d7876c87abc7c155efcd6e8d5f52a4",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-co2-beforemin",
+        "report_sha256": "075226961a4aa32ea8e4262b064df6a9a0a08f51fca2a0069d20cb4592686a1b",
+        "arrays_sha256": {
+          "updated.elementIdx": "1ff94fc4ec874ef5c3f4ec0343dd9d188db4ef282dcddbdbd094ce098cccf170",
+          "updated.temperature": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.mass": "db72f620025e83f5dbe97aee1271d7dc86aeac22d8285189cad4854a34acf0be",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "0c37ddc45244523ca3b841e3ea85e147a1d35c6ae1cd767e8c30dabf057516fd",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-co2-beforesmall",
+        "report_sha256": "4b437fd633bc88a200d2a880fd77a3ef058011576ed0451506cbfed0855f4dfb",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "622fb8ddbfdb11789d5d594864029797839f4d790fc45614ed5f95ae32210833",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "c63121890eb034381d8a1af6874eac5510d7876c87abc7c155efcd6e8d5f52a4",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-co2-halfmin",
+        "report_sha256": "414d5eff1be68071cfa7865505306ab5c47f4982da2851bef675ff374cd272b5",
+        "arrays_sha256": {
+          "updated.elementIdx": "1ff94fc4ec874ef5c3f4ec0343dd9d188db4ef282dcddbdbd094ce098cccf170",
+          "updated.temperature": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.mass": "db72f620025e83f5dbe97aee1271d7dc86aeac22d8285189cad4854a34acf0be",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "0c37ddc45244523ca3b841e3ea85e147a1d35c6ae1cd767e8c30dabf057516fd",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-co2-min",
+        "report_sha256": "30aad67769372a4b6ac54c5742400db15c83b5027d081ef000cfada166cf4941",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "93f0bb8374d669630c6357a3e047cf0a75477e1384decb89c424d06d9acbcbc8",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "c63121890eb034381d8a1af6874eac5510d7876c87abc7c155efcd6e8d5f52a4",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-co2-small",
+        "report_sha256": "934ff09c222a1fba695f01cfba0a89dd2cef04607b297cb93849d3d76573a2bb",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "6f77f98fa325cd0fd5018b75dfecb4ebd7103acd11a3c5eda0cf8d0be56c084b",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "c63121890eb034381d8a1af6874eac5510d7876c87abc7c155efcd6e8d5f52a4",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-co2-smallthreshold",
+        "report_sha256": "d4abeb83a69e21b4cd7351c660269f38bb70d8882b644dbc93b81345ecb378b0",
+        "arrays_sha256": {
+          "updated.elementIdx": "cb2b9695f58cc3041a02d0fa655cdaeab4d257b1b2f28127571d8af647a354b1",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "02d530d4dfabb6cf8c1f20e70b19239af712f31b69553d8c713ad4481d0ad7bd",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "c63121890eb034381d8a1af6874eac5510d7876c87abc7c155efcd6e8d5f52a4",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-co2-zero",
+        "report_sha256": "dbd8971d0ee20dde3867119cc0f36295fcb999d78cc35c2a1e73677dbcafe516",
+        "arrays_sha256": {
+          "updated.elementIdx": "1ff94fc4ec874ef5c3f4ec0343dd9d188db4ef282dcddbdbd094ce098cccf170",
+          "updated.temperature": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.mass": "db72f620025e83f5dbe97aee1271d7dc86aeac22d8285189cad4854a34acf0be",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "0c37ddc45244523ca3b841e3ea85e147a1d35c6ae1cd767e8c30dabf057516fd",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-oxygen-aftermin",
+        "report_sha256": "c53f74f5984457b4d41e0de19752349205e93df10734455366995bc81b54bacd",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "8d772f382362e0db8b4eb9f6ac3fc4a7123e4732e2e863d8b52fa7f963cbcb5a",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "c63121890eb034381d8a1af6874eac5510d7876c87abc7c155efcd6e8d5f52a4",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-oxygen-aftersmall",
+        "report_sha256": "cdba40787db71b94dd88acccdcb21630a31c278c3c6b02b9f64553d274db365c",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "f166afd53ac26828ad99b373607d59c8a9b106dd42dfa0beec696bc688422d3c",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "c63121890eb034381d8a1af6874eac5510d7876c87abc7c155efcd6e8d5f52a4",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-oxygen-beforemin",
+        "report_sha256": "317842d1048e567d422b55b03a7f14960ddd2f4682b99bb849dce198123316d2",
+        "arrays_sha256": {
+          "updated.elementIdx": "1ff94fc4ec874ef5c3f4ec0343dd9d188db4ef282dcddbdbd094ce098cccf170",
+          "updated.temperature": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.mass": "db72f620025e83f5dbe97aee1271d7dc86aeac22d8285189cad4854a34acf0be",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "0c37ddc45244523ca3b841e3ea85e147a1d35c6ae1cd767e8c30dabf057516fd",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-oxygen-beforesmall",
+        "report_sha256": "8bf3e540f42508f219cb713f155992ecc3f799e867c8557c04c933b9dd2446dd",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "622fb8ddbfdb11789d5d594864029797839f4d790fc45614ed5f95ae32210833",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "c63121890eb034381d8a1af6874eac5510d7876c87abc7c155efcd6e8d5f52a4",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-oxygen-halfmin",
+        "report_sha256": "a05d8eb6762220ff6e1980d4648cc811d0cfc33b777b1aba3e57d3c9a61b5619",
+        "arrays_sha256": {
+          "updated.elementIdx": "1ff94fc4ec874ef5c3f4ec0343dd9d188db4ef282dcddbdbd094ce098cccf170",
+          "updated.temperature": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.mass": "db72f620025e83f5dbe97aee1271d7dc86aeac22d8285189cad4854a34acf0be",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "0c37ddc45244523ca3b841e3ea85e147a1d35c6ae1cd767e8c30dabf057516fd",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-oxygen-min",
+        "report_sha256": "4e4b4f01bb3824a2026d9fdacd87687e26e3ae5ceabb0720a680c42f5cb6e926",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "93f0bb8374d669630c6357a3e047cf0a75477e1384decb89c424d06d9acbcbc8",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "c63121890eb034381d8a1af6874eac5510d7876c87abc7c155efcd6e8d5f52a4",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-oxygen-small",
+        "report_sha256": "65a64fec908c761104ed5c8091862bfc3caa5cd3f1270b02909e7b968d4f4d82",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "6f77f98fa325cd0fd5018b75dfecb4ebd7103acd11a3c5eda0cf8d0be56c084b",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "c63121890eb034381d8a1af6874eac5510d7876c87abc7c155efcd6e8d5f52a4",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-oxygen-smallthreshold",
+        "report_sha256": "9b04c50c12c422bd2221fc294b01fcf18a5d84c3b83a046d612c20b3794bb0ac",
+        "arrays_sha256": {
+          "updated.elementIdx": "5d326963b93cdb207d88ddf533c7a1f6a138a641d42b5a758661000f2d916c4a",
+          "updated.temperature": "0a3af373e78003ca26a3840ecf00b9c32e054ae6f264a849fbf4a5aec2a960c9",
+          "updated.mass": "02d530d4dfabb6cf8c1f20e70b19239af712f31b69553d8c713ad4481d0ad7bd",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "c63121890eb034381d8a1af6874eac5510d7876c87abc7c155efcd6e8d5f52a4",
+          "events.substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 0
+        },
+        "passed": true
+      },
+      {
+        "case": "threshold-oxygen-zero",
+        "report_sha256": "efd71deaac78f843a23b74795b9474daad583b247cc7c756e0d894fe06afe437",
+        "arrays_sha256": {
+          "updated.elementIdx": "1ff94fc4ec874ef5c3f4ec0343dd9d188db4ef282dcddbdbd094ce098cccf170",
+          "updated.temperature": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.mass": "db72f620025e83f5dbe97aee1271d7dc86aeac22d8285189cad4854a34acf0be",
+          "updated.properties": "78877fa898f0b4c45c9c33ae941e40617ad7c8657a307db62bc5691f92f4f60e",
+          "updated.insulation": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.strengthInfo": "d0047207ba3e7577831dae546a1b6cad5157d7a2035dffa8b06ea80a0f21eb2a",
+          "updated.radiation": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "updated.diseaseIdx": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+          "updated.diseaseCount": "d904e1f1e028ba9058a128a6fd724f0f9892ae8fe49c8f7dc2613183f7f8bbca",
+          "flow": "0c37ddc45244523ca3b841e3ea85e147a1d35c6ae1cd767e8c30dabf057516fd",
+          "events.substanceChangeInfo": "f20ebed74cf1c4b01c2c76dd8671d3b276127039187382597f515edb12878aed"
+        },
+        "state": {
+          "seed": 2531011,
+          "displacementDirection": 1,
+          "rngCalls": 1,
+          "changeCount": 1
+        },
+        "passed": true
+      }
+    ],
+    "scope": "9 owned cell grids, flow, raw substance event order, seed/direction and RNG calls; direct single-cell calls",
+    "not_implemented_by_candidate": [
+      "persistent stability timers",
+      "disease infestation/error grids"
+    ],
+    "limits": "This is a module probe, not full UpdateData, the C ABI or an iPhone run"
+  },
+  "sanitizers": {
+    "all_passed": true,
+    "case_count": 118,
+    "same_output_as_normal": true,
+    "probe_sha256": "972c6db27ea3966c4cfc06c0ea4c15c7c9525b3ee8c50856ea0797d5f4628956",
+    "options": "AddressSanitizer + UndefinedBehaviorSanitizer, halt on error; Python process leak detection disabled"
+  }
+}

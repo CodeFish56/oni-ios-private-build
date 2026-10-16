@@ -18,6 +18,8 @@ enum OniSimCapability : uint64_t {
     OniSim_CellValues = 16ull,
     OniSim_SaveV15 = 32ull,
     OniSim_SingleGasPhysics = 64ull,
+    OniSim_OxygenCO2Displacement = 128ull,
+    OniSim_LowMassGasPostprocess = 256ull,
     OniSim_WorldgenSettlement = 1ull << 16,
     OniSim_GameSimulation = 1ull << 17,
     OniSim_GameRenderData = 1ull << 18

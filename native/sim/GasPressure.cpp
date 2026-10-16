@@ -63,7 +63,7 @@ bool DecodePressureElementsV744825(const std::vector<uint8_t>& bytes,
     return true;
 }
 
-bool StepSingleGasPressureV744825(const LoadedWorldV15& source,
+bool StepGasPressureV744825(const LoadedWorldV15& source,
     const std::vector<PressureElementV744825>& elements, uint16_t vacuum,
     const PressureRegionV744825& region, int direction, LoadedWorldV15& output,
     std::vector<uint32_t>& elementChanges, std::string& error,
@@ -82,7 +82,6 @@ bool StepSingleGasPressureV744825(const LoadedWorldV15& source,
         error = "Invalid pressure grid, vacuum, or iteration direction.";
         return false;
     }
-    uint16_t gas = 65535;
     for (std::size_t cell = 0; cell < count; ++cell) {
         const uint16_t id = source.elementIdx[cell];
         if (id >= elements.size() || !std::isfinite(source.mass[cell]) ||
@@ -101,13 +100,6 @@ bool StepSingleGasPressureV744825(const LoadedWorldV15& source,
             (id != vacuum || (interior && source.mass[cell] != 0.0f)))) {
             error = "Liquids and nonempty vacuum are outside this pressure pass.";
             return false;
-        }
-        if (state == 1) {
-            if (gas != 65535 && gas != id) {
-                error = "Multiple gas species require displacement rules.";
-                return false;
-            }
-            gas = id;
         }
     }
     LoadedWorldV15 updated = source;
@@ -196,6 +188,76 @@ bool StepSingleGasPressureV744825(const LoadedWorldV15& source,
                 !Transfer(current, diagonal, 2)) {
                 error = "Diagonal pressure calculation overflowed.";
                 return false;
+            }
+        }
+    }
+    // UpdateData's second pass uses the same fixed pre-pressure source, but
+    // accumulates into updatedCells. Its four pushes all write flow.w/z,
+    // including horizontal pushes (original RVA 467E7 and 468A3).
+    auto Displace = [&](std::size_t current, std::size_t neighbor, std::size_t destination) {
+        const uint16_t gas = source.elementIdx[current];
+        const uint16_t other = source.elementIdx[neighbor];
+        if (other == gas || (source.properties[neighbor] & 1) != 0 ||
+            elements[other].state != 1 || source.mass[current] <= source.mass[neighbor] ||
+            updated.elementIdx[current] != gas || updated.elementIdx[neighbor] != other ||
+            updated.mass[neighbor] <= 0.0f ||
+            (updated.elementIdx[destination] != other && updated.elementIdx[destination] != vacuum) ||
+            (updated.properties[destination] & 1) != 0)
+            return true;
+        // DoDisplacement moves the entire updated neighbor into destination,
+        // combines mass/temperature, clears neighbor, and notifies both.
+        const float moved = updated.mass[neighbor];
+        const float oldMass = updated.mass[destination];
+        const float total = oldMass + moved;
+        const float a = updated.temperature[destination];
+        const float b = updated.temperature[neighbor];
+        float temperature = total > 0.0f ? (a * oldMass + b * moved) / total : 0.0f;
+        temperature = std::max(std::min(temperature, std::max(a, b)), std::min(a, b));
+        if (!std::isfinite(total) || !std::isfinite(temperature)) return false;
+        updated.mass[destination] = total;
+        updated.temperature[destination] = temperature;
+        updated.elementIdx[destination] = other;
+        updated.mass[neighbor] = 0.0f;
+        updated.temperature[neighbor] = 0.0f;
+        updated.elementIdx[neighbor] = vacuum;
+        changes.push_back(static_cast<uint32_t>(neighbor));
+        changes.push_back(static_cast<uint32_t>(destination));
+        const float amount = std::min(updated.mass[current], source.mass[current] * 0.125f);
+        updated.mass[neighbor] += amount;
+        updated.temperature[neighbor] = source.temperature[current];
+        updated.elementIdx[neighbor] = gas;
+        changes.push_back(static_cast<uint32_t>(neighbor));
+        updated.mass[current] = std::max(updated.mass[current] - amount, 0.0f);
+        if (frameFlow != nullptr) {
+            flowData[current][3] -= amount;
+            flowData[neighbor][2] += amount;
+            if (!std::isfinite(flowData[current][3]) || !std::isfinite(flowData[neighbor][2])) return false;
+        }
+        return true;
+    };
+    const uint32_t minX = std::max(region.minX + 1, 3u);
+    const uint32_t maxX = std::min(region.maxX + 1, source.simWidth - 3);
+    const uint32_t span = maxX > minX ? std::min(maxX - minX, region.maxX - region.minX) : 0;
+    // The original uses MIN for the starting y (cmovge at RVA 46595), not
+    // MAX as for x. Below-border neighbors are solid and reject the push.
+    const uint32_t minY = std::min(region.minY + 1, 3u);
+    const uint32_t maxY = std::min(region.maxY + 1, source.simHeight - 3);
+    for (uint32_t y = minY; y < maxY; ++y) {
+        for (uint32_t x = minX; x < minX + span; ++x) {
+            const std::size_t current = std::size_t(y) * width + x;
+            if (elements[source.elementIdx[current]].state != 1) continue;
+            for (int64_t delta : {-static_cast<int64_t>(width), -static_cast<int64_t>(direction),
+                    static_cast<int64_t>(direction), static_cast<int64_t>(width)}) {
+                const auto neighbor = static_cast<std::size_t>(static_cast<int64_t>(current) + delta);
+                // Avoid forming an out-of-range two-step destination when
+                // the native caller has already rejected a solid neighbor.
+                if (source.elementIdx[neighbor] == source.elementIdx[current] ||
+                    elements[source.elementIdx[neighbor]].state != 1) continue;
+                const auto destination = static_cast<std::size_t>(static_cast<int64_t>(current) + 2 * delta);
+                if (destination >= count || !Displace(current, neighbor, destination)) {
+                    error = "Gas displacement calculation overflowed or left the grid.";
+                    return false;
+                }
             }
         }
     }

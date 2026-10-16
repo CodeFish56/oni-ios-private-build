@@ -11,13 +11,14 @@
 #include <vector>
 
 // Headless native runtime for the verified Build 744825 data protocols.
-// This owns real cells, saves and restricted single-gas positive-time output.
-// Mixed-world physics and the game capability gates remain unavailable.
+// This owns real cells, saves and restricted O2/CO2 positive-time output.
+// General mixed-world physics and game capability gates remain unavailable.
 class SimCore {
 public:
     static constexpr uint64_t Capabilities = OniSim_HeadlessInitialization |
         OniSim_PreparedGrids | OniSim_LoadV15 | OniSim_ZeroTimeFrames |
-        OniSim_CellValues | OniSim_SaveV15 | OniSim_SingleGasPhysics;
+        OniSim_CellValues | OniSim_SaveV15 | OniSim_SingleGasPhysics |
+        OniSim_OxygenCO2Displacement | OniSim_LowMassGasPostprocess;
 
     void Initialize(OniSim_GameMessageHandler callback);
     void Shutdown();

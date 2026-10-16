@@ -95,12 +95,14 @@ def run(bridge, fixture, elements, diseases):
         sim_width, sim_height = struct.unpack_from("<ii", before, 12)
         mass = sum(struct.unpack_from("<f", before, 37 + 16 * (y * sim_width + x))[0]
                    for y in range(1, sim_height - 1) for x in range(1, sim_width - 1))
-        assert abs(mass - initial_mass) <= max(1, initial_mass) * 2e-6, (fixture.name, phase, "mass conservation", mass, initial_mass)
+        original_mass = sum(struct.unpack("<" + "f" * len(visible), (fixture / f"{phase}.mass.bin").read_bytes()))
+        assert mass == original_mass, (fixture.name, phase, "original mass differs", mass, original_mass)
         expected = report[phase + "_sim_flags"]
         for name, original in (("randomSeed", "seed"), ("iterateDirection", "iterateDirection"),
                                ("displacementDirection", "displacementDirection")):
             assert state[name] == expected[original], (fixture.name, phase, name, state[name], expected[original])
         rows.append({"phase": phase, "arrays": arrays, "state": state, "mass": mass, "initial_mass": initial_mass,
+                     "original_mass_change": original_mass - initial_mass,
                      "save_sha256": hashlib.sha256(before).hexdigest()})
     assert bridge.save() == (fixture / "original-save.bin").read_bytes()
     bridge.Shutdown()
@@ -118,8 +120,10 @@ def rejected_features(bridge, fixture, elements, diseases):
     mutations = {
         "radiation": lambda p: p.__setitem__(12, 1),
         "temperature_exchange": lambda p: struct.pack_into("<f", p, 22 + gas * 16, 310),
-        "low_mass_evaporation": lambda p: struct.pack_into("<f", p, 26 + gas * 16, .0001),
-        "mixed_gases": lambda p: struct.pack_into("<H6xff", p, 14, indices[0x74DC00EF], 300, 1),
+        "unsupported_gas": lambda p: struct.pack_into("<H6xff", p, 14, next(i for i in range(len(indices))
+            if elements[14+i*164] & 3 == 1 and struct.unpack_from("<I", elements, 4+i*164)[0]
+            not in (0xA4E0B340, 0x74DC00EF) and struct.unpack_from("<f", elements, 60+i*164)[0] < 300
+            < struct.unpack_from("<f", elements, 64+i*164)[0]), 300, 1),
         "liquid": lambda p: struct.pack_into("<H6xff", p, 14, indices[1836671383], 300, 1),
         "properties": lambda p: p.__setitem__(16, 1),
         "disease": lambda p: struct.pack_into("<B3xi", p, 14 + count * 16, 0, 1),
@@ -162,7 +166,7 @@ def main():
     denied = rejected_features(bridge, args.fixtures / "oxygen-single", args.elements.read_bytes(), args.diseases.read_bytes())
     result = {"all_passed": True, "library_sha256": hashlib.sha256(args.library.read_bytes()).hexdigest(),
               "cases": rows, "rejected_features": denied, "capabilities": bridge.GetCapabilities(),
-              "limits": "Restricted non-radiating single-gas/vacuum fixtures; not mixed physics, world settlement or iPhone execution"}
+              "limits": "Restricted non-radiating O2/CO2/vacuum fixtures; not general physics, world settlement or iPhone execution"}
     args.result.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
 
 

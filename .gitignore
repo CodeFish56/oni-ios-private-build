@@ -6,4 +6,6 @@
 __pycache__/
 /native/bin/
 /native/obj/
+/native/reference/bin/
+/native/reference/obj/
 /build-native/

@@ -1,34 +1,39 @@
 {
-  "date": "2026-10-15",
+  "date": "2026-10-16",
   "build": "U59-744825-V",
   "evidence_type": "Local original DLL oracle, matching PDB/instructions, compiled C ABI and generated-wrapper probes; not a REA runtime record",
   "original_dll_sha256": "031960f120ac1d59fd8e43f6e1a7369111c629b90c24d52186b691dfe2d8a727",
   "native_sources_sha256": {
     "native/sim/FrameCellValues.cpp": "0957538f14d432302a8dcc263717c6b97367aee9a3c0f3ae629bd41af4f1c4bf",
     "native/sim/FrameStepSchedule.cpp": "7d3ce56f70e6913cc78e23f4de6cd6141cab2a0a9e88f0946c59cdda24ea0c52",
-    "native/sim/GasPostProcess.cpp": "9b38951bc32a9d3b1b131aa67f8e0c5ead53a659d15f3d9199a1173257c7ff4d",
-    "native/sim/GasPressure.cpp": "334b358852f3eea8fc4f29fb1500fdfe8b72885f47ff3d6cbefaf1abf0331d69",
+    "native/sim/GasPostProcess.cpp": "8fc52dfa057af773ae561e78a67f5317023b09704c60c60e93924b8861f829ff",
+    "native/sim/GasPressure.cpp": "2b0d8aaff4bc8139862074a91624160f8d3a07200033fe472d525f4a522a8532",
     "native/sim/PressureFlux.cpp": "f879dfdcf4dbef0c92444b00c2d3026654d1cdfe60ef74a83fbd10fd2e74cc04",
     "native/sim/SaveWorldV15.cpp": "e88393a5e0255b8299c931074c966a1367f044c103259576fa46f326ba942bbe",
-    "native/sim/SimCore.cpp": "8fc73be1439db7f7fb98fc2905c208bf575346065cc55ac8b3f9e548ce4fca41",
+    "native/sim/SimCore.cpp": "b3ecaa1abc1397b5f96016a193e2ff7040625663e6fe90756399ab3ef3b6397a",
     "native/sim/SimCoreExports.cpp": "f35252205aee06eb376f54edb35139e831ddd27f3c17fa6f3d98ad6ffae212a5",
     "native/sim/FrameCellValues.h": "2d3766a0309b1b3db50322a39c67f7f806b96a593ff771c2cae7ef65285b2ad2",
     "native/sim/FrameStepSchedule.h": "793da8b4813b44dd8b2fdfcc462d711301966b0ac266d2d593e8036acb4c58ee",
-    "native/sim/GasPostProcess.h": "446c374f2b59ef82875fdfea702ee3b9ee126331fe6664d3c0ba79cc52f23ea9",
-    "native/sim/GasPressure.h": "29af96756dddc6dace71e6044fa928af7d62af2de7f6597b7995044ecdeac9d6",
+    "native/sim/GasPostProcess.h": "19e15c644cfa1fe1fe34c4f1926dd7d29038273771b0db1c9a985bcefa6f3c49",
+    "native/sim/GasPressure.h": "29df1076fb810938ca810bedabeb402c9923f820a39547aca6735e2de46d5113",
     "native/sim/PressureFlux.h": "a71ae9b043dd5225b76adc1c62a2af8ba9c7bf644ddbafb5211a7606a128cbf0",
     "native/sim/SaveWorldV15.h": "260a6e2c271d602df8a903b3dc3b946eab53c15e34ed0f3e6b1450a0d852234d",
-    "native/sim/SimCore.h": "09f401f72518e1d0ebbaf0140ef0eec27065bd2c81b41dabd66978c5689e609c",
-    "native/sim/SimCoreExports.h": "781760fd6682f2b857ab72a5b95660f92cfa9d982de9ee1bea0bf77ef3e45524",
+    "native/sim/SimCore.h": "2c98cd64a58cfe3f0bae96273f4adb8d4ca60643109a6d51b804265e34ecc9ec",
+    "native/sim/SimCoreExports.h": "4e6da5ea61402df08ca385485fd931f1210a618ba3463f7bf0b522ca48d5ef92",
     "native/sim/CMakeLists.txt": "7b76940e29e9e590017db8b2976716d84f1ba560db26702f4520147e64402a4d",
     "native/sim/Verify-Bridge.py": "d656f475f9df3879ec985175fe013220ae4dbf7ce6234dcaeb0af88d22574e9c",
-    "native/sim/Verify-GasFrames.py": "677ab7558958699d706879b5d9514de223cccfffefe5c4e8ccb4649be17c6bc1",
+    "native/sim/Verify-GasFrames.py": "2516c8eaa7cc8639cf26afe472040e7d2cf999203ee17887ec6a92c97f61da79",
+    "native/sim/Verify-GasPost.py": "4ca305c0d0b6d6e5ae31449405c3ffe54cba04a7f9c12c5914ebdb44b1cc3e3a",
+    "native/tests/GasPostProbe.cpp": "e08d1667102204c3b8264cd51f1cd7c5392a6489855fbf9b0c8663c3976ddf2c",
     "native/abi/GameDataUpdate.h": "5e18419453fa399bd29118827732251b68664ed3e000c0406a80412ad5a0d10a",
     "native/abi/SimExports.h": "824f64d08a68ac613b516613973ba4e0068e3ff4c6ee552f6478d29d6faa2c00",
     "native/abi/SimWireABI.h": "f2f2994d8e90f47fa45e8f86ca75552256c43682cf31879d8eeb0cda1e2df88c",
     "native/reference/WorldgenReference.csproj": "1608ccaab335bfd46861d2740f7143d452c1a29a113bbe49c30e283841ac489c",
-    "native/reference/WorldgenReference.cs.txt": "ac71ffb6121344f518f81ded39bf834c5546b802393536f7f4d9becf45b5e39b",
-    "native/reference/WorldgenAnalyze.py": "fa75b0602d02edc902d82a85fbe5ad7abebd2630d4d1473bff7661ef95b8a567"
+    "native/reference/WorldgenReference.cs.txt": "003f65f384c2c24de527415b792ded70f06a22aab93222d885a6bddca4f3268e",
+    "native/reference/WorldgenAnalyze.py": "fa75b0602d02edc902d82a85fbe5ad7abebd2630d4d1473bff7661ef95b8a567",
+    "native/reference/GasPostReference/GasPostReference.csproj": "3e6bb3f7427b5373177a326dc15d18af114737f328556c5dc97cf5e9d38c94a0",
+    "native/reference/GasPostReference/GasPostReference.cs.txt": "a6a5d617963ecbc3e49cb44de2c63c0f3659cc1587ccd90b54131ec12310ddde",
+    "native/reference/GasPostReference/README.md": "752e0e720ef17f81cd1c97116c2978fa603a4dd9ca47c7bb45163ca7b0f73986"
   },
   "native_c_abi": {
     "cases": [
@@ -550,8 +555,8 @@
         "passed": true
       }
     ],
-    "library_sha256": "446b1f5f8f9c2cc966827c656dd8c10a899caa909df46136789e2902d1f0169b",
-    "capabilities": 127,
+    "library_sha256": "e98729ffca0e4c1a40376d546c75921458d07f2794c5fc2cb9b4ee4f6b60d59b",
+    "capabilities": 511,
     "all_passed": true,
     "limits": "Compiled C ABI tested against original headless initialization, v15 load and zero-time fixtures; not positive-time physics or iPhone execution."
   },
@@ -559,7 +564,7 @@
     "all_passed": true,
     "case_count": 11,
     "case_outputs_match_normal_build": true,
-    "library_sha256": "cb0eecd9c9a0ecc19847c26b58e6cbff1a05cd868eb85b311ad057ffd0496463",
+    "library_sha256": "4bb115c5b0965ddab4d60d5a507ab2ee815218cf111a0ead8287041b4e9b8212",
     "options": "AddressSanitizer + UndefinedBehaviorSanitizer, halt on error; Python process leak detection disabled"
   },
   "original_fixtures": [
@@ -644,7 +649,7 @@
   "generated_wrapper_probe": {
     "passed": true,
     "generated_source_sha256": "6fbd5e90a4c5ac92e00db4b2830b2b364edbdbd3f390bdc1513e1047325736b5",
-    "linked_static_core_sha256": "fa3681688ba6a00d83220094ca2cb53b5056fb5ea343d0d1942789a79098d8b2",
+    "linked_static_core_sha256": "6d5616559eaff817258eba856f353f56026b748e121141f83b9bf2ca2e20709b",
     "checks": [
       "game capability rejection before callback conversion",
       "worldgen helper receives capability error",
@@ -676,20 +681,20 @@
     "native_source_sha256": {
       "sim/FrameCellValues.cpp": "0957538f14d432302a8dcc263717c6b97367aee9a3c0f3ae629bd41af4f1c4bf",
       "sim/FrameStepSchedule.cpp": "7d3ce56f70e6913cc78e23f4de6cd6141cab2a0a9e88f0946c59cdda24ea0c52",
-      "sim/GasPostProcess.cpp": "9b38951bc32a9d3b1b131aa67f8e0c5ead53a659d15f3d9199a1173257c7ff4d",
-      "sim/GasPressure.cpp": "334b358852f3eea8fc4f29fb1500fdfe8b72885f47ff3d6cbefaf1abf0331d69",
+      "sim/GasPostProcess.cpp": "8fc52dfa057af773ae561e78a67f5317023b09704c60c60e93924b8861f829ff",
+      "sim/GasPressure.cpp": "2b0d8aaff4bc8139862074a91624160f8d3a07200033fe472d525f4a522a8532",
       "sim/PressureFlux.cpp": "f879dfdcf4dbef0c92444b00c2d3026654d1cdfe60ef74a83fbd10fd2e74cc04",
       "sim/SaveWorldV15.cpp": "e88393a5e0255b8299c931074c966a1367f044c103259576fa46f326ba942bbe",
-      "sim/SimCore.cpp": "8fc73be1439db7f7fb98fc2905c208bf575346065cc55ac8b3f9e548ce4fca41",
+      "sim/SimCore.cpp": "b3ecaa1abc1397b5f96016a193e2ff7040625663e6fe90756399ab3ef3b6397a",
       "sim/SimCoreExports.cpp": "f35252205aee06eb376f54edb35139e831ddd27f3c17fa6f3d98ad6ffae212a5",
       "sim/FrameCellValues.h": "2d3766a0309b1b3db50322a39c67f7f806b96a593ff771c2cae7ef65285b2ad2",
       "sim/FrameStepSchedule.h": "793da8b4813b44dd8b2fdfcc462d711301966b0ac266d2d593e8036acb4c58ee",
-      "sim/GasPostProcess.h": "446c374f2b59ef82875fdfea702ee3b9ee126331fe6664d3c0ba79cc52f23ea9",
-      "sim/GasPressure.h": "29af96756dddc6dace71e6044fa928af7d62af2de7f6597b7995044ecdeac9d6",
+      "sim/GasPostProcess.h": "19e15c644cfa1fe1fe34c4f1926dd7d29038273771b0db1c9a985bcefa6f3c49",
+      "sim/GasPressure.h": "29df1076fb810938ca810bedabeb402c9923f820a39547aca6735e2de46d5113",
       "sim/PressureFlux.h": "a71ae9b043dd5225b76adc1c62a2af8ba9c7bf644ddbafb5211a7606a128cbf0",
       "sim/SaveWorldV15.h": "260a6e2c271d602df8a903b3dc3b946eab53c15e34ed0f3e6b1450a0d852234d",
-      "sim/SimCore.h": "09f401f72518e1d0ebbaf0140ef0eec27065bd2c81b41dabd66978c5689e609c",
-      "sim/SimCoreExports.h": "781760fd6682f2b857ab72a5b95660f92cfa9d982de9ee1bea0bf77ef3e45524",
+      "sim/SimCore.h": "2c98cd64a58cfe3f0bae96273f4adb8d4ca60643109a6d51b804265e34ecc9ec",
+      "sim/SimCoreExports.h": "4e6da5ea61402df08ca385485fd931f1210a618ba3463f7bf0b522ca48d5ef92",
       "abi/GameDataUpdate.h": "5e18419453fa399bd29118827732251b68664ed3e000c0406a80412ad5a0d10a",
       "abi/SimExports.h": "824f64d08a68ac613b516613973ba4e0068e3ff4c6ee552f6478d29d6faa2c00",
       "abi/SimWireABI.h": "f2f2994d8e90f47fa45e8f86ca75552256c43682cf31879d8eeb0cda1e2df88c"
@@ -706,7 +711,7 @@
     "ios_compile_validation": "pending"
   },
   "limitations": [
-    "No mixed physics, world settlement, gameplay or full dynamic render capability; restricted gas-frame verification is recorded separately",
+    "No general mixed-world physics, world settlement, gameplay or full dynamic render capability; restricted O2/CO2-frame verification is recorded separately",
     "Current archive lacks exported reverse P/Invoke callback; source attribute added for a future export only",
     "No macOS ARM64 build or device run of this new native core yet",
     "No memory-reduction or playable-colony claim; workflow remains manual"

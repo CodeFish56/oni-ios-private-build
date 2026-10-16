@@ -63,11 +63,11 @@ bool DecodeGasPostElementsV744825(const std::vector<uint8_t>& bytes,
     return true;
 }
 
-bool StepSingleGasPostProcessV744825(const LoadedWorldV15& source,
+bool StepGasPostProcessV744825(const LoadedWorldV15& source,
     const std::vector<GasPostElementV744825>& elements,
     const PressureRegionV744825& region, GasRandomStateV744825& random,
     LoadedWorldV15& output, std::vector<uint32_t>& elementChanges,
-    std::string& error) {
+    std::string& error, std::vector<std::array<float, 4>>* frameFlow) {
     error.clear();
     const std::size_t count = static_cast<std::size_t>(source.simWidth) * source.simHeight;
     if (source.simWidth < 3 || source.simHeight < 3 ||
@@ -75,14 +75,17 @@ bool StepSingleGasPostProcessV744825(const LoadedWorldV15& source,
         source.temperature.size() != count || source.properties.size() != count ||
         source.diseaseIdx.size() != count || source.diseaseCount.size() != count ||
         source.insulation.size() != count || source.strengthInfo.size() != count ||
-        source.radiation.size() != count ||
+        source.radiation.size() != count || (frameFlow != nullptr && frameFlow->size() != count) ||
         (random.displacementDirection != 1 && random.displacementDirection != -1) ||
         region.minX > region.maxX || region.minY > region.maxY ||
         region.maxX > source.simWidth - 2 || region.maxY > source.simHeight - 2) {
         error = "Invalid gas postprocess grid, region, or direction.";
         return false;
     }
-    uint16_t gas = 65535;
+    uint16_t vacuum = 65535;
+    for (std::size_t i = 0; i < elements.size(); ++i)
+        if (elements[i].hash == 0x2D39BF75) vacuum = static_cast<uint16_t>(i);
+    if (vacuum == 65535) { error = "Missing vacuum in gas postprocess."; return false; }
     float maximumGasTemperature = 0.0f;
     float partialMeltThreshold = std::numeric_limits<float>::max();
     for (std::size_t cell = 0; cell < count; ++cell) {
@@ -101,15 +104,15 @@ bool StepSingleGasPostProcessV744825(const LoadedWorldV15& source,
             y > 0 && y + 1 < source.simHeight;
         const uint8_t phase = element.state & 3;
         if (phase == 1) {
-            if ((gas != 65535 && gas != id) ||
-                (element.hash != 0xA4E0B340 && element.hash != 0x74DC00EF) ||
-                element.sublimateIndex != 65535 || source.mass[cell] < 0.001f ||
+            if ((element.hash != 0xA4E0B340 && element.hash != 0x74DC00EF) ||
+                element.sublimateIndex != 65535 ||
                 source.temperature[cell] <= element.lowTemperature ||
                 source.temperature[cell] >= element.highTemperature) {
-                error = "Gas postprocess requires one supported gas away from low mass or transitions.";
+                error = "Gas postprocess requires supported O2/CO2 away from transitions: cell=" +
+                    std::to_string(cell) + " mass=" + std::to_string(source.mass[cell]) +
+                    " temperature=" + std::to_string(source.temperature[cell]);
                 return false;
             }
-            gas = id;
             maximumGasTemperature = std::max(maximumGasTemperature, source.temperature[cell]);
         } else if (interior && (element.hash != 0x2D39BF75 || source.mass[cell] != 0.0f)) {
             error = "Interior solids, liquids, and nonempty vacuum are not yet supported.";
@@ -128,6 +131,7 @@ bool StepSingleGasPostProcessV744825(const LoadedWorldV15& source,
         return false;
     }
     LoadedWorldV15 updated = source;
+    auto flowData = frameFlow == nullptr ? std::vector<std::array<float, 4>>() : *frameFlow;
     GasRandomStateV744825 nextRandom = random;
     std::vector<uint32_t> changes;
     auto Swap = [&](std::size_t a, std::size_t b) {
@@ -159,6 +163,26 @@ bool StepSingleGasPostProcessV744825(const LoadedWorldV15& source,
                 continue;
             nextRandom.displacementDirection = -nextRandom.displacementDirection;
             const std::size_t below = cell - width;
+            bool evaporate = updated.mass[cell] < 1e-9f;
+            if (!evaporate && updated.mass[cell] < 0.001f) {
+                const int64_t d = nextRandom.displacementDirection;
+                for (int64_t delta : {-d, d, -static_cast<int64_t>(width), static_cast<int64_t>(width)}) {
+                    const auto neighbor = static_cast<std::size_t>(static_cast<int64_t>(cell) + delta);
+                    if (updated.mass[neighbor] >= 1.0f && (elements[updated.elementIdx[neighbor]].state & 3) == 1) {
+                        evaporate = true; break;
+                    }
+                }
+            }
+            if (evaporate) {
+                if (frameFlow != nullptr) flowData[cell] = {};
+                updated.elementIdx[cell] = vacuum;
+                updated.mass[cell] = 0.0f; updated.temperature[cell] = 0.0f;
+                updated.diseaseIdx[cell] = 255; updated.diseaseCount[cell] = 0;
+                // Disease infestation/error are zero throughout this domain.
+                changes.push_back(static_cast<uint32_t>(cell));
+                // Keep the original element reference and continue: native
+                // density/random displacement may move gas back into cell.
+            }
             const auto& belowElement = elements[updated.elementIdx[below]];
             bool displaced = false;
             // DoDensityDisplacement compares full states before consuming RNG.
@@ -205,6 +229,7 @@ bool StepSingleGasPostProcessV744825(const LoadedWorldV15& source,
         }
     }
     output = std::move(updated);
+    if (frameFlow != nullptr) *frameFlow = std::move(flowData);
     random = nextRandom;
     elementChanges = std::move(changes);
     return true;

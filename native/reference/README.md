@@ -25,13 +25,18 @@ Other diagnostic switches: `--no-radiation`, `--zero-frame`, `--define-world`
 describe them as the original managed Cell.Write's default output.
 
 Positive-frame fixtures add `--gas-fixture oxygen-single`, `co2-single`,
-`oxygen-full` or `co2-full`, with `--step-seconds '0.2,0.4,0,0.2'`.
+`oxygen-full`, `co2-full`, `mixed-stripes`, `mixed-layers`, `mixed-checker`,
+`mixed-pocket` or `mixed-low`, with `--step-seconds '0.2,0.4,0,0.2'`.
 Use `--seed 70`, `--gas-mass 256` or `--frame-region '4,4,28,28'` as needed.
 These fixtures require InitializeFromCells; pair them with `--no-radiation`.
 The tool pins its own process to one available CPU, preserving original DLL
 instructions, then waits until each frame is processed before capturing it.
 Each phase includes full event records, RNG seed/directions and SIMSAVE bytes.
 `native/sim/Verify-GasFrames.py` compares these records to the actual new C ABI.
+
+The [direct postprocess oracle](GasPostReference/README.md) runs 118 bounded
+single-cell cases separately. The candidate comparison is a module probe;
+it does not cover the full frame scheduler or persistent stability timers.
 
 Each completed case saves the full input, Start/Prepare grids and auxiliary
 arrays, 29 event counts, internal-border arrays and an original-engine Save.

@@ -148,20 +148,34 @@ internal static class WorldgenReference
         }
         string gasLayout = gasFixture ? Arg(args,"--gas-fixture") : "";
         if(gasFixture) {
-            if(loadWorld || !new[]{"oxygen-single","co2-single","oxygen-full","co2-full"}.Contains(gasLayout))
+            if(loadWorld || !new[]{"oxygen-single","co2-single","oxygen-full","co2-full",
+                "mixed-stripes","mixed-layers","mixed-checker","mixed-pocket","mixed-low"}.Contains(gasLayout))
                 throw new ArgumentException("Gas fixture requires InitializeFromCells and a known layout");
             ushort vacuum=elementIds[0x2D39BF75u];
             ushort gas=elementIds[gasLayout.StartsWith("co2",StringComparison.Ordinal)?0x74DC00EFu:0xA4E0B340u];
             bool filled=gasLayout.EndsWith("full",StringComparison.Ordinal);
+            bool mixed=gasLayout.StartsWith("mixed",StringComparison.Ordinal);
             float initialMass=args.Contains("--gas-mass")?float.Parse(Arg(args,"--gas-mass"),System.Globalization.CultureInfo.InvariantCulture):1f;
             if(!float.IsFinite(initialMass)||initialMass<=0) throw new ArgumentException("Gas mass must be positive and finite");
             for(int i=0;i<count;i++) {
                 int at=14+16*i;
+                int x=i%width,y=i/width;
                 bool present=filled||i==(height/2)*width+width/2;
-                BitConverter.GetBytes(present?gas:vacuum).CopyTo(payload,at);
+                ushort cellGas=gas;
+                float cellMass=initialMass*(filled?1+(i%7)*.125f:1);
+                if(mixed) {
+                    present=gasLayout!="mixed-pocket" || (Math.Abs(x-width/2)<=2 && Math.Abs(y-height/2)<=2);
+                    bool oxygen=gasLayout=="mixed-layers"?(y/2)%2==0:
+                        gasLayout=="mixed-checker"?(x+y)%2==0:(x/2)%2==0;
+                    cellGas=elementIds[oxygen?0xA4E0B340u:0x74DC00EFu];
+                    cellMass=initialMass*(1+(i%7)*.125f);
+                    if(gasLayout=="mixed-low") cellMass=(i%9) switch {
+                        0=>0f,1=>5e-10f,2=>1e-9f,3=>.0005f,4=>.001f,_=>cellMass};
+                }
+                BitConverter.GetBytes(present?cellGas:vacuum).CopyTo(payload,at);
                 payload[at+2]=0; payload[at+3]=255; payload[at+4]=0;
                 BitConverter.GetBytes(present?300f:0f).CopyTo(payload,at+8);
-                BitConverter.GetBytes(present?initialMass*(filled?1+(i%7)*.125f:1):0f).CopyTo(payload,at+12);
+                BitConverter.GetBytes(present?cellMass:0f).CopyTo(payload,at+12);
                 int disease=14+count*16+i*12; payload[disease]=255;
                 Array.Clear(payload,disease+1,11);
                 int backwall=14+count*28+i*12; Array.Clear(payload,backwall,12);

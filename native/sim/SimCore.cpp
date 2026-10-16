@@ -397,7 +397,7 @@ bool SimCore::AdvanceGasFrame(const NewGameFrame& frame, LoadedWorldV15& world) 
     for (int step = 0; step < plan.updateDataCalls; ++step) {
         LoadedWorldV15 updated; std::vector<uint32_t> changes;
         direction = -direction;
-        if (!StepSingleGasPressureV744825(current, pressure, vacuum, region, direction, updated, changes, error, &flow)) {
+        if (!StepGasPressureV744825(current, pressure, vacuum, region, direction, updated, changes, error, &flow)) {
             status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
         }
         notified.insert(notified.end(), changes.begin(), changes.end());
@@ -405,7 +405,7 @@ bool SimCore::AdvanceGasFrame(const NewGameFrame& frame, LoadedWorldV15& world) 
         // PostProcessCell; the flow renderer compares that snapshot to final.
         flowSource = updated.elementIdx;
         current = std::move(updated);
-        if (!StepSingleGasPostProcessV744825(current, post, region, random, updated, changes, error)) {
+        if (!StepGasPostProcessV744825(current, post, region, random, updated, changes, error, &flow)) {
             status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
         }
         notified.insert(notified.end(), changes.begin(), changes.end());

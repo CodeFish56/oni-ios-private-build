@@ -22,13 +22,13 @@ bool DecodeGasPostElementsV744825(const std::vector<uint8_t>& bytes,
     std::vector<GasPostElementV744825>& elements, std::string& error);
 
 // Restricted PostProcessCell gas branch, after a pressure pass. Supports
-// oxygen or CO2 (one species), vacuum, no interior solids or disease, and
-// gas masses >= 0.001 kg away from transitions; border solids must be the
+// oxygen and CO2, vacuum, no interior solids or disease, including native
+// low-mass evaporation; border solids must be the
 // captured non-sublimating, non-melting Unobtanium. Fails rather than silently
-// substituting unimplemented evaporation, phase, or sublimation behavior.
+// substituting unimplemented phase or sublimation behavior.
 // Postprocessing always traverses x/y ascending, independent of pressure.
-bool StepSingleGasPostProcessV744825(const LoadedWorldV15& source,
+bool StepGasPostProcessV744825(const LoadedWorldV15& source,
     const std::vector<GasPostElementV744825>& elements,
     const PressureRegionV744825& region, GasRandomStateV744825& random,
     LoadedWorldV15& output, std::vector<uint32_t>& elementChanges,
-    std::string& error);
+    std::string& error, std::vector<std::array<float, 4>>* frameFlow = nullptr);

@@ -12,22 +12,27 @@ world generation, then throws `DllNotFoundException: SimDLL` at
 The generation worker stops while the loading animation continues. Waiting
 longer or clearing other apps cannot supply the missing simulation library.
 The first native simulation data core is now implemented and wired into the
-build workflow. Restricted single-gas positive frames now work locally; the
-mixed physics needed to generate or play a colony is incomplete.
+build workflow. Restricted O2/CO2 positive frames now work locally, including inter-species
+displacement and low-mass gas evaporation. General colony physics is incomplete.
 
-## Positive simulation frames (2026-10-15)
+## Positive simulation frames (2026-10-16)
 
-The native C ABI now dispatches real single-species gas pressure and random
-postprocessing, preserves frame time carry and returns flow textures and
-substance notifications. Seven independent original-engine scenarios match
-27 subsequent frames: all 18 arrays, 29 event counts, event bytes, RNG state
-and saves. Eleven initialization/load regressions and address/undefined-behavior
-sanitizers pass. Eight unsupported feature cases fail without changing world/RNG.
+The native C ABI now runs reconstructed O2/CO2 pressure, inter-species
+pressure displacement, density/random swaps and low-mass gas evaporation.
+Fifteen original-engine scenarios match 58 subsequent frames: all 18 arrays,
+29 event counts, event bytes, RNG state and complete saves. Eleven initialization/
+load regressions and address/undefined-behavior sanitizers pass. Seven unsupported
+feature cases fail without changing the world or RNG.
 
-This path requires a known initialization seed, no radiation, empty backwalls,
-one supported gas plus vacuum, no interior solids/disease/properties, and gas
-within 0.25 K of 300 K. It consumes one positive frame per PrepareGameData.
-It does not supply mixed-world settlement or permit a colony to start.
+A separate single-cell probe matches 118 original postprocess scenarios: exact
+float thresholds, four neighbors, flow, raw substance-event order and RNG after
+evaporation. This probe does not claim persistent stability timers or disease
+infestation/error grids, which remain to be implemented.
+
+This path requires a known initialization seed, radiation off, empty backwalls,
+O2/CO2 plus vacuum, no interior solids/disease/properties and gas within 0.25 K
+of 300 K. It consumes one positive frame per PrepareGameData. General heat
+exchange, phase changes and full world settlement remain unavailable.
 [Scope and evidence](docs/ios-gas-frames.md). No cloud build was triggered.
 
 ## Native simulation integration (2026-10-15)
