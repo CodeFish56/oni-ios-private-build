@@ -7,7 +7,7 @@ endif()
 set(ONI_SIM_SOURCES SimCore.cpp SimCoreExports.cpp FrameCellValues.cpp FrameStepSchedule.cpp
     SaveWorldV15.cpp PressureFlux.cpp GasPressure.cpp GasPostProcess.cpp
     StabilityTimers.cpp LiquidFlow.cpp HeatExchange.cpp PhaseTransitions.cpp
-    PressureBreak.cpp SolidBehavior.cpp)
+    PressureBreak.cpp SolidBehavior.cpp PartialTransitions.cpp PressureDisplacement.cpp)
 add_library(OniSimCore STATIC ${ONI_SIM_SOURCES})
 add_library(OniSimCoreShared SHARED ${ONI_SIM_SOURCES})
 foreach(target OniSimCore OniSimCoreShared)

@@ -38,4 +38,5 @@ bool StepHeatAndTransitionsV744825(const LoadedWorldV15& source,
     const PressureRegionV744825& region, LoadedWorldV15& updated,
     std::vector<uint32_t>& changes, std::vector<uint8_t>& timers,
     std::string& error, const std::vector<uint8_t>* visibility = nullptr,
-    std::vector<PhaseOreSpawnV744825>* ore = nullptr);
+    std::vector<PhaseOreSpawnV744825>* ore = nullptr,
+    std::vector<int32_t>* cellMelted = nullptr);

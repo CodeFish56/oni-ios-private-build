@@ -122,7 +122,35 @@ bool DecodeSolidElementsV744825(const std::vector<uint8_t>& bytes,
     elements = std::move(parsed); return true;
 }
 
-bool ProcessUnstableSolidCellV744825(LoadedWorldV15& world,
+bool ValidateSolidDomainV744825(const LoadedWorldV15& world,
+    const std::vector<SolidElementV744825>& elements, uint16_t vacuum,
+    const std::vector<uint8_t>& timers, std::string& error) {
+    const std::size_t count = std::size_t(world.simWidth) * world.simHeight;
+    if (world.simWidth < 3 || world.simHeight < 3 || vacuum >= elements.size() ||
+        elements[vacuum].hash != 0x2D39BF75 || world.elementIdx.size() != count ||
+        world.mass.size() != count || world.temperature.size() != count || world.properties.size() != count ||
+        world.diseaseIdx.size() != count || world.diseaseCount.size() != count || timers.size() != count) {
+        error = "Invalid prepared solid grid."; return false;
+    }
+    // Reject disease until the auxiliary history arrays join the owned world.
+    for (std::size_t n = 0; n < count; ++n) {
+        if (world.elementIdx[n] >= elements.size() || !std::isfinite(world.mass[n]) || world.mass[n] < 0.0f ||
+            world.mass[n] > 1.0e10f || !std::isfinite(world.temperature[n]) || world.temperature[n] < 0.0f ||
+            world.temperature[n] > 10000.0f || world.diseaseIdx[n] != 255 || world.diseaseCount[n] != 0) {
+            error = "Unstable-solid cells require bounded finite values without disease."; return false;
+        }
+        const std::size_t x = n % world.simWidth, y = n / world.simWidth;
+        const bool closedBorder = y == 0 || ((x == 0 || x + 1 == world.simWidth) && y + 1 != world.simHeight);
+        if ((closedBorder && (elements[world.elementIdx[n]].state & 3u) != 3u) ||
+            (!closedBorder && y + 1 == world.simHeight && world.elementIdx[n] != vacuum)) {
+            error = "Unstable-solid displacement requires the original closed sides/bottom and vacuum top.";
+            return false;
+        }
+    }
+    return true;
+}
+
+bool ProcessUnstableSolidCellInPlaceV744825(LoadedWorldV15& world,
     const std::vector<SolidElementV744825>& elements, uint16_t vacuum,
     std::size_t cell, bool diagonals, GasRandomStateV744825& random,
     std::vector<uint8_t>& timers, std::vector<uint32_t>& changes,
@@ -139,23 +167,7 @@ bool ProcessUnstableSolidCellV744825(LoadedWorldV15& world,
         cell % world.simWidth + 1 == world.simWidth || solid.sublimateIndex != 65535) {
         error = "Unstable-solid boundary or sublimation is outside the verified domain."; return false;
     }
-    // Finite bounds ensure every displacement product and sum remains finite.
-    // Reject disease until the auxiliary history arrays join the owned world.
-    for (std::size_t n = 0; n < count; ++n) {
-        if (world.elementIdx[n] >= elements.size() || !std::isfinite(world.mass[n]) || world.mass[n] < 0.0f ||
-            world.mass[n] > 1.0e10f || !std::isfinite(world.temperature[n]) || world.temperature[n] < 0.0f ||
-            world.temperature[n] > 10000.0f || world.diseaseIdx[n] != 255 || world.diseaseCount[n] != 0) {
-            error = "Unstable-solid cells require bounded finite values without disease."; return false;
-        }
-        const std::size_t x = n % world.simWidth, y = n / world.simWidth;
-        const bool closedBorder = y == 0 || ((x == 0 || x + 1 == world.simWidth) && y + 1 != world.simHeight);
-        if ((closedBorder && (elements[world.elementIdx[n]].state & 3u) != 3u) ||
-            (!closedBorder && y + 1 == world.simHeight && world.elementIdx[n] != vacuum)) {
-            error = "Unstable-solid displacement requires the original closed sides/bottom and vacuum top.";
-            return false;
-        }
-    }
-    auto next = world; auto nextTimers = timers; auto nextRandom = random; std::vector<uint32_t> notifications;
+    auto& next = world; auto& nextTimers = timers; auto& nextRandom = random; auto& notifications = changes;
     Context c{next, elements, vacuum, nextTimers, notifications, tickCount};
     auto Timer = [&]() {
         const bool draws = (nextTimers[cell] & 31u) == 31u;
@@ -193,6 +205,19 @@ bool ProcessUnstableSolidCellV744825(LoadedWorldV15& world,
         }
         if (!eligible) ResetStableCellTimerV744825(nextTimers[cell]);
     }
+    return true;
+}
+
+bool ProcessUnstableSolidCellV744825(LoadedWorldV15& world,
+    const std::vector<SolidElementV744825>& elements, uint16_t vacuum,
+    std::size_t cell, bool diagonals, GasRandomStateV744825& random,
+    std::vector<uint8_t>& timers, std::vector<uint32_t>& changes,
+    std::string& error, uint16_t tickCount) {
+    if (!ValidateSolidDomainV744825(world, elements, vacuum, timers, error)) return false;
+    auto next = world; auto nextTimers = timers; auto nextRandom = random;
+    std::vector<uint32_t> notifications;
+    if (!ProcessUnstableSolidCellInPlaceV744825(next, elements, vacuum, cell, diagonals,
+            nextRandom, nextTimers, notifications, error, tickCount)) return false;
     world = std::move(next); timers = std::move(nextTimers); random = nextRandom;
     changes.insert(changes.end(), notifications.begin(), notifications.end()); return true;
 }

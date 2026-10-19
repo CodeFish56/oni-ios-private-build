@@ -27,6 +27,9 @@ enum OniSimCapability : uint64_t {
     OniSim_WaterWholeCellTransitions = 8192ull,
     OniSim_LiquidPressureDamage = 16384ull,
     OniSim_HeadlessSolidBehavior = 32768ull,
+    OniSim_HeadlessPartialTransitions = 1ull << 19,
+    OniSim_GeneralWholeCellTransitions = 1ull << 20,
+    OniSim_WaterPressureRedistribution = 1ull << 21,
     OniSim_WorldgenSettlement = 1ull << 16,
     OniSim_GameSimulation = 1ull << 17,
     OniSim_GameRenderData = 1ull << 18

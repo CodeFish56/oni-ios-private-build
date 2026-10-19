@@ -1,5 +1,24 @@
 # Original Build 744825 phase transition oracle
 
+## Current retained suites (2026-10-19)
+
+The legacy 164 cases below and a separate `--materials-suite` of 555 cases
+are now retained. The material suite covers 199 initial materials, 180 ore
+positives, six ordered double-ore positives and eight CellMeltedInfo positives:
+247 basic conversions, 276 byproduct-threshold cases, 14 property-0x40 cases
+and 18 border cases. Use `Verify-Phase.py --expected-cases 555` for this suite;
+the default remains 164. Both pass normal and ASan/UBSan probes linked to the
+staged core. The active partial helpers are covered by PartialReference.
+
+Every retained case records the raw debug force-ore byte and explicitly writes
+zero in its owned process; fresh native initialization is not reliably zero.
+Property cases explicitly restore and observe source/updated properties after
+initialization clears them. The checker asserts actual element, mass,
+temperature and properties in both original before-grids. Case names alone do
+not establish coverage. It also compares raw 4-byte CellMeltedInfo.
+
+## Legacy suite and invocation
+
 Windows x64 / .NET 10. The original SimDLL is bound to SHA-256
 `031960f120ac1d59fd8e43f6e1a7369111c629b90c24d52186b691dfe2d8a727`.
 No instructions are patched and no game UI or physics frame is run. Each
@@ -43,8 +62,9 @@ zero, matching deterministic candidate padding. Padding is not claimed byte
 exact. Auxiliary disease grids and accumulated flow are retained evidence,
 not owned-module coverage.
 
-The candidate still rejects actual transitions involving ore byproducts,
-forced ore creation, properties, diseases or other material chains. Complex
-partial heat transitions, backwall transitions and full-world simulation remain
-outside this oracle's implemented candidate scope. These checks do not establish
-ARM64 or iPhone behavior.
+The general candidate module now handles the audited byproducts and other
+material chains above. Forced main low-temperature ore, property bits other
+than 0x40 and disease remain rejected. Active partial heat transitions use a
+separate module; backwall transitions and full-world simulation remain outside
+this oracle's scope. Border helper cases do not establish full-frame border
+packing. These checks do not establish ARM64 or iPhone behavior.

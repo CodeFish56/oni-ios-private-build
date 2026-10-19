@@ -203,7 +203,8 @@ bool StepThermalTask(const LoadedWorldV15& source,
     std::string& error, const std::vector<PhaseElementV744825>* phases,
     std::vector<uint32_t>* changes, std::vector<uint8_t>* timers,
     const std::vector<uint8_t>* visibility = nullptr,
-    std::vector<PhaseOreSpawnV744825>* ore = nullptr) {
+    std::vector<PhaseOreSpawnV744825>* ore = nullptr,
+    std::vector<int32_t>* cellMelted = nullptr) {
     error.clear();
     if (!ValidShape(source, updated, error)) return false;
     const std::size_t count = source.mass.size();
@@ -224,6 +225,7 @@ bool StepThermalTask(const LoadedWorldV15& source,
     auto notifications = changes == nullptr ? std::vector<uint32_t>() : *changes;
     auto nextTimers = timers == nullptr ? std::vector<uint8_t>() : *timers;
     auto nextOre = ore == nullptr ? std::vector<PhaseOreSpawnV744825>() : *ore;
+    auto nextMelted = cellMelted == nullptr ? std::vector<int32_t>() : *cellMelted;
     if (phases != nullptr && (phases->size() != elements.size() ||
             nextTimers.size() != count)) {
         error = "Invalid thermal transition table or timers."; return false;
@@ -251,13 +253,14 @@ bool StepThermalTask(const LoadedWorldV15& source,
                 bool transitioned = false;
                 if (!ApplyStateTransitionV744825(next, *phases, static_cast<uint32_t>(y * width + x),
                         notifications, transitioned, error, &nextTimers, visibility,
-                        ore == nullptr ? nullptr : &nextOre)) return false;
+                        ore == nullptr ? nullptr : &nextOre, cellMelted == nullptr ? nullptr : &nextMelted)) return false;
             } else if (!ValidCell(source, elements, y * width + x, next, true, error)) return false;
         }
     updated = std::move(next);
     if (changes != nullptr) *changes = std::move(notifications);
     if (timers != nullptr) *timers = std::move(nextTimers);
     if (ore != nullptr) *ore = std::move(nextOre);
+    if (cellMelted != nullptr) *cellMelted = std::move(nextMelted);
     return true;
 }
 } // namespace
@@ -273,6 +276,7 @@ bool StepHeatAndTransitionsV744825(const LoadedWorldV15& source,
     const std::vector<PhaseElementV744825>& phaseElements,
     const PressureRegionV744825& region, LoadedWorldV15& updated,
     std::vector<uint32_t>& changes, std::vector<uint8_t>& timers, std::string& error,
-    const std::vector<uint8_t>* visibility, std::vector<PhaseOreSpawnV744825>* ore) {
-    return StepThermalTask(source, elements, region, updated, error, &phaseElements, &changes, &timers, visibility, ore);
+    const std::vector<uint8_t>* visibility, std::vector<PhaseOreSpawnV744825>* ore,
+    std::vector<int32_t>* cellMelted) {
+    return StepThermalTask(source, elements, region, updated, error, &phaseElements, &changes, &timers, visibility, ore, cellMelted);
 }

@@ -30,13 +30,16 @@ def main():
     n = width * height
     visible = bytes([255]) * n
 
-    def initialize(changes):
+    def initialize(changes, properties=None, infected=None):
+        properties, infected = properties or {}, infected or {}
         payload = bytearray(20 + 40*n)
         struct.pack_into('<III??', payload, 0, width, height, 123456, False, True)
         for i in range(n):
             e, mass, temp = changes.get(i, (vacuum, 0., 0.))
-            struct.pack_into('<HBB4xff', payload, 14+16*i, e, 0, 255, temp, mass)
-            payload[14+16*n+12*i] = 0 # isolate thermal/postprocess preconditions
+            struct.pack_into('<HBB4xff', payload, 14+16*i, e, properties.get(i, 0), 0, temp, mass)
+            payload[14+16*n+12*i] = 255 # disease-free; insulation is cell-data byte 3
+            if i in infected:
+                struct.pack_into('<B3xi', payload, 14+16*n+12*i, 0, 1)
             struct.pack_into('<H', payload, 14+28*n+12*i, vacuum)
         b.Initialize(None)
         b.send(1108437482, elements); b.send(825301935, diseases)
@@ -44,25 +47,37 @@ def main():
         return b.send(1078620451, visible)
 
     center = 4*width+4
-    enclosed = {center + delta: (unob, 9999, 300) for delta in (-width, -1, 1, width)}
     cases = {
-        'partial-liquid-heat': {**enclosed, center: (water, 2000, 300), center-1: (granite, 1840, 400)},
-        'partial-gas-melt': {center: (oxygen, 1, 400), center-width: (ice, 1000, 268)},
-        'pressure-liquid-displacement': {**enclosed, center: (water, 10000, 300)},
-        'unsupported-material-transition-after-ore': {center: (water, 100, 268), 6*width+6: (dirt, 1000, 700)},
+        'remaining-nonwater-liquid-after-ore': ({center: (water, 100, 268), 5*width+5: (granite, 1840, 1500)}, {}, {}),
+        'partial-melt-nonwater-target': ({center: (oxygen, 1000, 2500), center-width: (granite, 1840, 300)}, {}, {}),
+        'unknown-properties-after-phase-events': ({center: (water, 100, 268), 5*width+5: (oxygen, 1, 300)}, {5*width+5: 1}, {}),
+        'disease-after-phase-events': ({center: (water, 100, 268), 5*width+5: (oxygen, 1, 300)}, {}, {5*width+5: True}),
     }
     rows = []
-    for name, changes in cases.items():
-        pointer = initialize(changes)
+    for name, (changes, properties, infected) in cases.items():
+        pointer = initialize(changes, properties, infected)
         saved, state, timers, descriptor = b.save(), m.diagnostics(b), m.timer_snapshot(b), c.string_at(pointer, 496)
-        b.send(-775326397, struct.pack('<fiiiiff', .2, 0, 0, width, height-2, 1, 0), expected=4)
+        try:
+            b.send(-775326397, struct.pack('<fiiiiff', .2, 0, 0, width, height-2, 1, 0), expected=4)
+        except AssertionError as ex:
+            raise AssertionError((name, str(ex))) from ex
+        expected_reason = {'remaining-nonwater-liquid-after-ore': 'Remaining non-water liquid',
+                           'partial-melt-nonwater-target': 'Partial melt currently supports',
+                           'unknown-properties-after-phase-events': 'without properties',
+                           'disease-after-phase-events': 'without disease'}[name]
+        actual_reason = b.GetLastError().decode('utf-8')
+        assert expected_reason in actual_reason, (name, actual_reason)
         assert b.save() == saved and m.diagnostics(b) == state and m.timer_snapshot(b) == timers
         assert c.string_at(pointer, 496) == descriptor
-        rows.append({'case': name, 'world_rng_tick_timers_events_unchanged': True})
+        rows.append({'case': name, 'expected_error_fragment': expected_reason,
+                     'actual_error': actual_reason, 'world_rng_tick_timers_events_unchanged': True})
         b.Shutdown()
 
     initialize({})
     baseline = b.save()
+    b.send(-1683118492, struct.pack('<ff4x', 1., 1.))
+    b.send(-1683118492, struct.pack('<ffB3x', 1., 1., 1), expected=4)
+    assert b.save() == baseline
     b.send(1154135737, bytes([255, 1]))
     enabled = b.save()
     assert enabled[28] == 1 and enabled[:28] == baseline[:28] and enabled[29:] == baseline[29:]

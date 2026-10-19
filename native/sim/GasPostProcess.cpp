@@ -3,6 +3,8 @@
 #include "PhaseTransitions.h"
 #include "PressureBreak.h"
 #include "SolidBehavior.h"
+#include "PartialTransitions.h"
+#include "PressureDisplacement.h"
 
 #include <algorithm>
 #include <cmath>
@@ -73,17 +75,10 @@ struct PhysicalContext {
     const std::vector<PhaseElementV744825>& phases;
     const std::vector<PressureBreakElementV744825>& pressure;
     const std::vector<SolidElementV744825>& solids;
+    const std::vector<LiquidElementV744825>& liquids;
     std::vector<WorldDamageInfoV744825>& damage;
     uint16_t tick;
 };
-bool PartialMeltNoop(const LoadedWorldV15& world,
-    const std::vector<PhaseElementV744825>& elements, std::size_t gas, std::size_t solid) {
-    const auto& s = elements[world.elementIdx[solid]];
-    return (elements[world.elementIdx[gas]].state & 3) > 1 || (s.state & 3) != 3 ||
-        world.mass[solid] <= 5.0f || (world.properties[solid] & 0x48) != 0 ||
-        world.temperature[gas] <= s.highTemperature + 3.0f ||
-        world.temperature[solid] >= s.highTemperature - 3.0f || s.highTransition == 65535;
-}
 bool StepPostProcessV744825(const LoadedWorldV15& source,
     const std::vector<GasPostElementV744825>& elements,
     const PressureRegionV744825& region, GasRandomStateV744825& random,
@@ -108,6 +103,7 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
     uint16_t vacuum = 65535, water = 65535;
     if (physical != nullptr && (physical->phases.size() != elements.size() ||
             physical->pressure.size() != elements.size() || physical->solids.size() != elements.size() ||
+            physical->liquids.size() != elements.size() ||
             timers == nullptr || frameFlow == nullptr)) {
         error = "Physical postprocess requires matching tables, flow and timers."; return false;
     }
@@ -121,12 +117,13 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
         error = "Missing or invalid Water in fluid postprocess."; return false;
     }
     float maximumGasTemperature = 0.0f;
+    bool unstableSolids = false;
     float partialMeltThreshold = std::numeric_limits<float>::max();
     for (std::size_t cell = 0; cell < count; ++cell) {
         const uint16_t id = source.elementIdx[cell];
         if (id >= elements.size() || !std::isfinite(source.mass[cell]) ||
             source.mass[cell] < 0.0f || !std::isfinite(source.temperature[cell]) ||
-            source.temperature[cell] < 0.0f || source.properties[cell] != 0 ||
+            source.temperature[cell] < 0.0f || (source.properties[cell] & ~uint8_t(physical == nullptr ? 0 : 0x40)) != 0 ||
             source.diseaseIdx[cell] != 255 || source.diseaseCount[cell] != 0) {
             error = "Gas postprocess requires finite cells without properties or disease.";
             return false;
@@ -138,6 +135,7 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
             y > 0 && y + 1 < source.simHeight;
         const uint8_t phase = element.state & 3;
         if (physical != nullptr) {
+            unstableSolids = unstableSolids || (element.state & 11) == 11;
             const bool gas = element.hash == 0xA4E0B340 || element.hash == 0x74DC00EF || element.hash == 0xCA627A30;
             const bool solid = element.hash == 0x6D95058C || element.hash == 873952427u ||
                 element.hash == 381796644u || element.hash == 1624244999u || element.hash == 493438017u ||
@@ -205,6 +203,8 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
         error = "Gas is hot enough to require the unimplemented partial-melt path.";
         return false;
     }
+    if (physical != nullptr && unstableSolids && !ValidateSolidDomainV744825(source,
+            physical->solids, vacuum, *timers, error)) return false;
     LoadedWorldV15 updated = source;
     auto flowData = frameFlow == nullptr ? std::vector<std::array<float, 4>>() : *frameFlow;
     GasRandomStateV744825 nextRandom = random;
@@ -246,7 +246,7 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
             } reset{timerData, changes, changes.size()};
             const auto& element = elements[updated.elementIdx[cell]];
             if (physical != nullptr && (element.state & 3) == 3) {
-                if (!ProcessUnstableSolidCellV744825(updated, physical->solids, vacuum, cell, (source.savedOptions & 1) != 0,
+                if (!ProcessUnstableSolidCellInPlaceV744825(updated, physical->solids, vacuum, cell, (source.savedOptions & 1) != 0,
                         nextRandom, timerData, changes, error, physical->tick)) return false;
                 continue;
             }
@@ -277,14 +277,17 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
                     if (!CheckLiquidPressureBreakV744825(updated, physical->pressure,
                             static_cast<uint32_t>(cell), damage, broke, error)) return false;
                     if (broke) continue;
-                    if (updated.mass[cell] > element.maxMass * 3.0f) {
-                        error = "Liquid pressure displacement above 3x maxMass is not implemented."; return false;
+                    bool displaced = false;
+                    if (!DisplaceOverpressuredWaterV744825(updated, physical->liquids, water, vacuum,
+                            static_cast<uint32_t>(cell), changes, timerData, displaced, error, physical->tick)) return false;
+                    if (displaced) continue;
+                    bool heated = false;
+                    for (std::size_t n : {cell - width, cell - 1, cell + 1, cell + width}) {
+                        if (!ApplyPartialHeatTransitionV744825(updated, physical->phases,
+                                static_cast<uint32_t>(cell), static_cast<uint32_t>(n), physical->tick,
+                                nextRandom, changes, heated, error, &timerData)) return false;
+                        if (heated) break;
                     }
-                    for (std::size_t n : {cell - width, cell - 1, cell + 1, cell + width})
-                        if (!IsPartialHeatTransitionNoopV744825(updated, physical->phases,
-                                static_cast<uint32_t>(cell), static_cast<uint32_t>(n))) {
-                            error = "Partial liquid heat transition is not implemented."; return false;
-                        }
                 }
                 // Mass <= maxMass rules out pressure-break and liquid pressure
                 // displacement. All neighbors are <= water.highTemperature+3;
@@ -331,13 +334,15 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
                     displaced = true;
                 }
             }
+            bool melted = false;
             if (!displaced && physical != nullptr) {
-                for (std::size_t n : {cell - width, cell - 1, cell + 1, cell + width})
-                    if (!PartialMeltNoop(updated, physical->phases, cell, n)) {
-                        error = "Partial gas melting of neighboring solids is not implemented."; return false;
-                    }
+                for (std::size_t n : {cell - width, cell - 1, cell + 1, cell + width}) {
+                    if (!ApplyPartialMeltV744825(updated, physical->phases, static_cast<uint32_t>(cell),
+                            static_cast<uint32_t>(n), physical->tick, nextRandom, changes, melted, error, &timerData)) return false;
+                    if (melted) break;
+                }
             }
-            if (displaced || Next(nextRandom) <= 0.9f)
+            if (displaced || melted || Next(nextRandom) <= 0.9f)
                 continue;
             const std::size_t candidates[] = {
                 static_cast<std::size_t>(static_cast<int64_t>(cell) + nextRandom.displacementDirection),
@@ -399,12 +404,13 @@ bool StepPhysicalPostProcessV744825(const LoadedWorldV15& source,
     const std::vector<PhaseElementV744825>& phaseElements,
     const std::vector<PressureBreakElementV744825>& pressureElements,
     const std::vector<SolidElementV744825>& solidElements,
+    const std::vector<LiquidElementV744825>& liquidElements,
     const PressureRegionV744825& region, GasRandomStateV744825& random,
     LoadedWorldV15& output, std::vector<uint32_t>& changes,
     std::vector<WorldDamageInfoV744825>& damage,
     std::vector<std::array<float, 4>>& flow, std::vector<uint8_t>& timers,
     std::string& error, uint16_t tickCount) {
-    PhysicalContext context{phaseElements, pressureElements, solidElements, damage, tickCount};
+    PhysicalContext context{phaseElements, pressureElements, solidElements, liquidElements, damage, tickCount};
     return StepPostProcessV744825(source, elements, region, random, output,
         changes, error, &flow, &timers, true, &context);
 }

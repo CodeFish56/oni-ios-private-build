@@ -16,7 +16,34 @@ build workflow. Restricted gas or water positive frames now work locally, includ
 inter-species gas displacement, water flow and stability-timer state.
 General colony physics is incomplete.
 
-## Phase transitions, pressure damage and solids (2026-10-19)
+## Partial transitions, material byproducts and pressure redistribution (2026-10-19)
+
+Active partial boiling/ice melting, captured-material whole-cell conversions,
+ordered byproduct ore and `NotifyOnMelt` events now run through the core.
+Water pressure redistribution follows the original strict **1.5 × maxMass**
+trigger; the previous 3× guard was incorrect and has been replaced.
+Native false results retain preceding gas-displacement effects.
+Integrated solid visits share one validated frame transaction, avoiding a
+whole-grid copy per sand cell.
+
+555 added material cases, 434 partial cases and 197 pressure-redistribution
+cases pass against the original DLL. Thirty new worlds /157 complete frames
+pass, bringing the regression to **95 worlds /541 frames**, plus 11
+initialization cases and 65537 actual tick updates. Normal and ASan/UBSan
+checks pass through the real staged library; negative fixtures now assert
+the specific failure reason as well as complete rollback.
+
+Sixteen production modules are wired into UnityFramework. Capabilities
+**3735551** still exclude the full-game requirement **458752**. Other remaining
+liquids, broader partial melts, disease/radiation/backwall heat, world settlement,
+ongoing gameplay and ARM64/device validation remain incomplete. A new IPA
+will still reject colony creation. No Actions run was triggered.
+See [current scope](docs/ios-transition-completion.md) and
+[verification](docs/transition-completion-verification.json).
+
+The sections below record earlier stages and their original test domains.
+
+## Earlier phase transitions, pressure damage and solids (2026-10-19)
 
 Whole-cell Water/Steam/Ice transitions, visibility-dependent frozen ore,
 ordered liquid pressure damage and headless solid movement now run through
@@ -28,7 +55,7 @@ normal and ASan/UBSan checks. The cumulative regression is 65 worlds /384
 frames, plus 11 initialization cases and 65537 actual tick updates. Original
 ore padding byte 7 is excluded; all defined event fields are compared.
 
-Fourteen production modules are linked, capabilities are 65535, and the full
+At that stage fourteen production modules were linked, capabilities were 65535, and the full
 game requirement 458752 remains unavailable. Nontrivial partial melting,
 byproduct ore, other liquids, disease/radiation/backwall heat and complete
 settlement/gameplay remain unfinished. No cloud build is needed solely to

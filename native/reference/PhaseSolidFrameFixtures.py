@@ -76,6 +76,7 @@ def main():
                '--source-save', str(a.source_save), '--synthetic', f'{width}x{height}', '--no-radiation',
                '--define-world', '--initialize-input', str(wire), '--step-seconds', steps,
                '--frame-region', f'0,0,{width},{height-2}', '--output-dir', str(dest)]
+        cmd += ['--normal-debug-properties']
         if name.endswith('enabled'): cmd += ['--saved-options', '1']
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=90)
         (dest / 'process.log').write_text(result.stdout + result.stderr, encoding='utf-8')

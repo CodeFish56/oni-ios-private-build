@@ -26,7 +26,7 @@ output. **It cannot yet generate a playable colony.**
   and shared RNG behavior follow the original. Verified headless unstable solids are listed below.
 - Foreground cell heat exchange before pressure: fixed source, accumulated output,
   original area/insulation coefficients, binary32 capacities and binary64 exchange
-  calculations. Whole-cell water transitions are listed below; backwall heat remains unsupported.
+  calculations. Audited whole-cell and partial transitions are listed below; backwall heat remains unsupported.
 - Water/O2/CO2 interaction: tick-rotated gas displacement, ordered water diagonal
   exchanges and one shared water/gas postprocess traversal with the original RNG
   sequence. The uint16 update tick wraps and stays outside the v15 save format.
@@ -84,7 +84,7 @@ The C ABI also reaches uint16 wrap via 65537 actual empty-region updates.
 All pass normal and ASan/UBSan builds. See [mixed-fluid scope](../docs/ios-mixed-fluids.md),
 [record](../docs/mixed-fluid-verification.json) and [tick record](../docs/tick-verification.json).
 
-## Current phase, pressure and solid verification (2026-10-19)
+## Earlier phase, pressure and solid verification (2026-10-19)
 
 The new three modules match 164 phase-related cases, 456 directional pressure
 cases and 191 solid scenarios (353 original calls). Full-frame coverage adds
@@ -95,6 +95,28 @@ padding and is normalized separately. Four new unsupported-path checks roll
 back the complete pending frame; saved-option set/clear/rejection/v15 restore
 also pass. See [scope](../docs/ios-phase-pressure-solids.md) and
 [record](../docs/phase-pressure-solid-verification.json).
+
+## Current transition and pressure completion (2026-10-19)
+
+Two additional modules implement nontrivial partial heat/ice-melt paths and
+Water overpressure redistribution. Whole-cell transitions now cover captured
+material chains, byproduct ore and the 4-byte CellMeltedInfo stream for property
+0x40 (NotifyOnMelt). The corrected pressure trigger is strictly 1.5f * maxMass;
+transport uses current mass after displacement * 0.49751242995262146f.
+Native false is distinct from unsupported API failure and can retain prior gas
+movement. Ordered duplicate notifications and immediate timer resets remain.
+
+The actual staged static library passes 555 general phase cases (199 materials,
+180 ore positives, six double-ore sequences, eight melt-event positives),
+434 partial cases (22 native-false cases with effects), and 197 redistribution
+cases. Another 30 worlds /157 complete frames bring coverage to **95 /541**.
+Normal and ASan/UBSan outputs match. The four negative physical inputs were
+corrected to set diseaseIdx=255 and insulation in the actual cell byte; their
+specific error reasons and complete rollback are now asserted. Integrated solid
+visits validate once and use the outer frame transaction instead of copying the
+whole grid for every visit. A dense 40x40 sand regression matches 12 frames.
+See [scope](../docs/ios-transition-completion.md) and
+[record](../docs/transition-completion-verification.json).
 
 ## Build locally
 
@@ -127,13 +149,13 @@ digest reports, not personal phone/signing logs.
 
 ## iOS integration and remaining work
 
-The workflow copies fourteen production `.cpp` modules and their headers into
+The workflow copies sixteen production `.cpp` modules and their headers into
 the Xcode export, adds them to UnityFramework and redirects seven audited
 `Sim.SIM_*` wrappers to this static C ABI. See [link details](../docs/ios-sim-link.md).
 No new 1.66 GB archive upload is needed.
 
-Current capabilities are **65535**, adding restricted whole-cell water transitions,
-liquid pressure damage and headless solids to the preceding verified modules.
+Current capabilities are **3735551**, including audited partial transitions,
+material whole-cell conversions and Water pressure redistribution.
 The game wrapper requires world settlement, game simulation and game render
 capabilities (**458752**); all remain absent. It raises a managed capability
 error before marshaling the callback. World-generation failure handling
@@ -142,11 +164,12 @@ explicitly and do not advance a pretend simulation.
 
 Remaining acceptance gates, in order:
 
-1. Complete nontrivial partial transitions, byproduct ore, other materials/liquids,
-   backwall heat, disease and radiation, then verify complete 500-step settlement.
-   Whole-cell water transitions, pressure events and headless solids are now
-   supported only within the documented audited domains. Large-world unstable
-   solid visits still need a prevalidated context to avoid repeated grid copies.
+1. Extend remaining liquid flow and partial-melt targets, sublimation, backwall
+   heat, disease and radiation, then verify complete 500-step settlement.
+   General phase conversion does not establish later flow for every material.
+   Partial helpers still reject border mutation. If displaced gas enters the
+   top border while unstable solids remain, the next frame rejects that domain.
+   Large-colony memory and performance remain unmeasured.
 2. Generate and check the IL2CPP reverse P/Invoke callback. The recovery script
    now adds the iOS `MonoPInvokeCallback` attribute; the current archive was
    exported earlier and still lacks that callback entry.

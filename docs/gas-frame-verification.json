@@ -6,35 +6,39 @@
   "native_sources_sha256": {
     "native/sim/FrameCellValues.cpp": "0957538f14d432302a8dcc263717c6b97367aee9a3c0f3ae629bd41af4f1c4bf",
     "native/sim/FrameStepSchedule.cpp": "7d3ce56f70e6913cc78e23f4de6cd6141cab2a0a9e88f0946c59cdda24ea0c52",
-    "native/sim/GasPostProcess.cpp": "914558c6623720b202b9af59b8a627e041731fbc5642f40e353a34717861e039",
+    "native/sim/GasPostProcess.cpp": "f0934701562fced493bb1151434fafef601bfd024588374b8d29a1bb78818101",
     "native/sim/GasPressure.cpp": "bdaec01c2aa907c7dcffddda3f8accf0cb37b61c515bedf5b4d28bb2b49caad0",
-    "native/sim/HeatExchange.cpp": "e8a2fe50ce2d192a3bcbae55360f26abf28db51dd29362012cd8a3317063ad21",
-    "native/sim/LiquidFlow.cpp": "28d57ab5a897e8a599c662e2719d1277e335175d4eb6bd3745e14d7e332be10a",
+    "native/sim/HeatExchange.cpp": "078025bb493eaff93582dae43e6d2a26db8582c45a5444c75babc177a6922053",
+    "native/sim/LiquidFlow.cpp": "afe6fc37d2fdd077d98b96c165b59fafc24de118c039cbd238a961a235642fe4",
     "native/sim/PressureFlux.cpp": "f879dfdcf4dbef0c92444b00c2d3026654d1cdfe60ef74a83fbd10fd2e74cc04",
     "native/sim/SaveWorldV15.cpp": "ae5735b79b27844f087f4ceadd48d40af7af869f11713f17ac2fe19c92a2c1d7",
-    "native/sim/SimCore.cpp": "8bbca7b7e8b2dd9ebdbf7a7280dbd4d36a102bf9d7b133525ddba372a3169e42",
+    "native/sim/SimCore.cpp": "75724f8c07647faf4da4f3b936649d75235374719fcc1fcd5b7339c7c90becd6",
     "native/sim/SimCoreExports.cpp": "a9947521b8181116390616888aaab74a7e1cbd27ca3e0c8655cee586bc4a557d",
     "native/sim/StabilityTimers.cpp": "ab790c1c11b8cfb3a2ecf2216c03971564a8162e4a3d961f04a467d617c1ad54",
-    "native/sim/PhaseTransitions.cpp": "093c588d28b0c0c50ef04dd3c6c8f6ce978d8720bff4804da909df1f36cf6124",
+    "native/sim/PhaseTransitions.cpp": "7c46762e205fb0895e11256241582087893af5da6b5d808703f07392f91ff896",
     "native/sim/PressureBreak.cpp": "ed51e36ceace35b53347750736194d329e0ef3ebadb980ba133d78c822e33995",
-    "native/sim/SolidBehavior.cpp": "5d04c93972f2718fb597d582267856f6e3063a8955a759f6b2559dab51b5e866",
+    "native/sim/SolidBehavior.cpp": "629a24dee13cb11b3db99c98a2204fb69bb7bb1c90ffe6b02795dbfbee739882",
+    "native/sim/PartialTransitions.cpp": "1244b34945aed0fb6463d3257a5302ac98e8e484597c60dc310dead9f057b74c",
+    "native/sim/PressureDisplacement.cpp": "75182ca6cbfb5f29ef5ae5641a775da4d79004857181af5364f5f6cb47de83da",
     "native/sim/FrameCellValues.h": "2d3766a0309b1b3db50322a39c67f7f806b96a593ff771c2cae7ef65285b2ad2",
     "native/sim/FrameStepSchedule.h": "793da8b4813b44dd8b2fdfcc462d711301966b0ac266d2d593e8036acb4c58ee",
-    "native/sim/GasPostProcess.h": "133256bb63c28bd1e3e2070c005c2b6415f14d2f1c2e55b2f4914462d004fed6",
+    "native/sim/GasPostProcess.h": "aaba46a16ca6225c1eaa2fa7582cbdde3f112afe20e4311fc6fa0d18e54c5fa7",
     "native/sim/GasPressure.h": "29df1076fb810938ca810bedabeb402c9923f820a39547aca6735e2de46d5113",
-    "native/sim/HeatExchange.h": "e5e639d7253b14ba74384d9590051b84999026520cfcfdca4e517f843d1f0bc6",
+    "native/sim/HeatExchange.h": "4e1fac29f56a247f125bc07efe81d20867398e24646abea497a538aab3c90580",
     "native/sim/LiquidFlow.h": "805668f72589f8b3865c318a95085dae9486acd4173b44fde86c44b621b18a82",
     "native/sim/PressureFlux.h": "a71ae9b043dd5225b76adc1c62a2af8ba9c7bf644ddbafb5211a7606a128cbf0",
     "native/sim/SaveWorldV15.h": "95c866ff4608a59778e7958f6b8a10faad0ff2424042a55e893a9580d4486e6f",
-    "native/sim/SimCore.h": "1a295a8ede20f18511e9ef9681b65b72bf59b5bcd3b22016018879f099c5f5e3",
-    "native/sim/SimCoreExports.h": "f5c7a264380f457b6fd9aaef1bb9d2429bfcaa711fd3e679a9c894bc033ac0f2",
+    "native/sim/SimCore.h": "f773e148405cf4894364a490223f76a1bac44a0019b64b75ee009de487e4d264",
+    "native/sim/SimCoreExports.h": "3a77ecad97f60994b88bec0d78101a0d54d6205048567ea1e742e1b68c25d8a2",
     "native/sim/StabilityTimers.h": "6e2fe2d97c03d6699ff585b26452fe8e58fb5295e4a3ee166c0f545ca5a2b52c",
-    "native/sim/PhaseTransitions.h": "6ce643ee7c66a691a46b604af99fe74674e575a27ea583637eb95c42352b77f2",
+    "native/sim/PhaseTransitions.h": "d377766d47b275663df5834d9d8b3b7af8e8887494ff956f92dbbf5a02465e5f",
     "native/sim/PressureBreak.h": "fe2ad2da84b7b6b0076039359c5f5c0f74bedf1510a3915b76a1f97c81099f3e",
-    "native/sim/SolidBehavior.h": "e868872d2c3a92c47b65dfbe8c3cd3c7ca292fcaf14070283c0712a4c09ebc4b",
-    "native/sim/CMakeLists.txt": "95373d25c8d7dd4d03cf34826ef53246dbdd69cddda75649a03514a1ee922cd9",
+    "native/sim/SolidBehavior.h": "53dc2c84af6d65ab5aff4dd36d1f72b6a238a6a728024cbb6708733c3ba1ae39",
+    "native/sim/PartialTransitions.h": "3fe2c836319ffc1027f29f4a138feafbdcd8ea73e372365bac558741cd50978b",
+    "native/sim/PressureDisplacement.h": "32452ad6983829b5f67c5cb28ed5dc4dd51591713fae301d62afaa95bf7f6cae",
+    "native/sim/CMakeLists.txt": "f43f1e7e91de3595b9b9ddc6f40f7952f4fa6fc2263ea3135dca3ddd8b4f5f73",
     "native/sim/Verify-Bridge.py": "f11006d6ff96c741f60b7a0eed1844a2d0905e183fcf96a61bb1a0cd3624fd42",
-    "native/sim/Verify-GasFrames.py": "e25d7d4cf73866cb46182fef6e4699b45c7dfa826906c2e4e14f10d5909bdd6e",
+    "native/sim/Verify-GasFrames.py": "f6a8a8bfc05c00d29de71d032ec4ca3727f975a08ce38787b78af2febd2acb2f",
     "native/sim/Verify-GasPost.py": "86a0b594e396ab88c3aa0015bbfa5cb1642f0b5fa68599370fc49de376b39f1f",
     "native/sim/Verify-WaterFlow.py": "c87a20cb7c1e463c21172565bc6aa485d4a1a080f910a2f5ef23bd917fa98d88",
     "native/sim/Verify-Timers.py": "2fccca33ab336216058e17e36f706210c2c07b4545177a2ca88bbce0c826878e",
@@ -42,24 +46,28 @@
     "native/sim/Verify-WaterGas.py": "ae6becb60738af57730241d9420e83bbbca4081654e48c7fba30ec9569522508",
     "native/sim/Verify-MixedPost.py": "d053f47c3621e9ee0cabeb7bdbf3dabae1078af970c41db507de0c42ad7b2062",
     "native/sim/Verify-TickFrames.py": "ec2d1102fc35f849b16efb7644276a62911e790365748d17bf84fb85dfa04432",
-    "native/sim/Verify-Phase.py": "4818d1dba9a10c01af920d6284bbc70d483aebdcf0a8639584fcd23388d2fd8f",
+    "native/sim/Verify-Phase.py": "3d9fec00a961e65553d201fe7bac3b31190b227e3e16797ed69e27b8e0e78516",
     "native/sim/Verify-PressureBreak.py": "55946b3ce65d0197412168e18e0b1ad3e421a81f9f17a786d22e5a3b1bc89db9",
     "native/sim/Verify-Solid.py": "0a796771d0ab06e289ee727a77da5d9de60d7dfb80e1024cba978bb83dc684dc",
-    "native/sim/Verify-PhysicalFailures.py": "71b02247c32a0b8481b0cd46855ccd59162ebaf0e7f9ebdbae2be7f319a7acbc",
+    "native/sim/Verify-PhysicalFailures.py": "6702b11af71e1f39c2a6cbdeade9dfbe0c883bbfaf15f1f936248d9a2744bbe5",
+    "native/sim/Verify-Partial.py": "007e442b69c62811432ace1c91a606a3aa2b4abed6eef6a64b511e1300d0a938",
+    "native/sim/Verify-PressureDisplacement.py": "43fafaaa9aacda5b0023e40fa24104f63e0d75aa14351fd615c26fc3322b474c",
     "native/tests/GasPostProbe.cpp": "00802420f92b1414b3ac063ebf0d155fc3cf454d74ffc3de27a78000f7005232",
     "native/tests/WaterFlowProbe.cpp": "83980b3a167c53666b8e5361b81308a0ab4f07b591dabdc9de8d9927805e5c39",
     "native/tests/TimerProbe.cpp": "1153833323b2575b7c3f9f8c29db5c86809558d77a9002c79cfc346c9360df52",
     "native/tests/HeatProbe.cpp": "04b23fb8c401363e999c3c20a5f553070c7550f135f42086f00f5a55e944f2d0",
     "native/tests/WaterGasProbe.cpp": "24df278849760858d62ccbf9e48d26c63328abf258ff9f5e9c20ccb0e8cef0c4",
     "native/tests/MixedPostProbe.cpp": "79a4f81ac8fc82089d553505f22ebdfdc572f92ac1c6f5c2eac0dce754e54fd1",
-    "native/tests/PhaseProbe.cpp": "3283452f93bd41e842e922ee4d3a2773b0f52273da7e6d09d95b4844f5b74795",
+    "native/tests/PhaseProbe.cpp": "13494b2406eb59a8ae0939dee15683ad70d6f7c01c021b8cb0480b9ec48a8c02",
     "native/tests/PressureBreakProbe.cpp": "9dd9e82406bccda7821dbf150859f8813c0e159a95e838cdcd2bc1cc5961dc52",
     "native/tests/SolidProbe.cpp": "36e7ec85820b084ae3c88cb509ef8a21fb2633dd65fafd564e226011d911e205",
+    "native/tests/PartialProbe.cpp": "bfc0a4a6911528bed10361a447696366e19f69ab1519d3a6758ee0f8a472f3b4",
+    "native/tests/PressureDisplacementProbe.cpp": "e09383681bcbf8333e5b714160dc9a1273ad36df8986a0400ede1675a21c6e19",
     "native/abi/GameDataUpdate.h": "5e18419453fa399bd29118827732251b68664ed3e000c0406a80412ad5a0d10a",
     "native/abi/SimExports.h": "824f64d08a68ac613b516613973ba4e0068e3ff4c6ee552f6478d29d6faa2c00",
     "native/abi/SimWireABI.h": "f2f2994d8e90f47fa45e8f86ca75552256c43682cf31879d8eeb0cda1e2df88c",
     "native/reference/WorldgenReference.csproj": "1608ccaab335bfd46861d2740f7143d452c1a29a113bbe49c30e283841ac489c",
-    "native/reference/WorldgenReference.cs.txt": "c80001627645b847027374b7fcdc4713f11db0830ce123f939aa044769d8b9be",
+    "native/reference/WorldgenReference.cs.txt": "3c2719a00becbe22173d89f4a119719d93e71d555cc81c8002a418e89757f8ce",
     "native/reference/WorldgenAnalyze.py": "fa75b0602d02edc902d82a85fbe5ad7abebd2630d4d1473bff7661ef95b8a567",
     "native/reference/GasPostReference/GasPostReference.csproj": "3e6bb3f7427b5373177a326dc15d18af114737f328556c5dc97cf5e9d38c94a0",
     "native/reference/GasPostReference/GasPostReference.cs.txt": "c325d2149746a41b0fec7cf5a55de902f8f0560706cf3f280904c812620dd994",
@@ -83,21 +91,28 @@
     "native/reference/TickReference/TickReference.cs.txt": "50d3185a2afef5694769058677d88f588748fb8032abfa9731de5871cb293a33",
     "native/reference/TickReference/README.md": "0589dff45bb426aa5c5f0b4aeb2a4a9d04440928d3569a9d1264426f502db02f",
     "native/reference/PhaseReference/PhaseReference.csproj": "e26e41c0a6ec83114ac77609316ef8b96d7b700d07c7c989d6723f7f8b56f075",
-    "native/reference/PhaseReference/PhaseReference.cs.txt": "df542abbfc351998fcb1e8cf755602045cc76e2a29f1e3b780cd8ed3fa5751ee",
-    "native/reference/PhaseReference/README.md": "178f4928d00bcea2f0200f395fc0c22b2d736452a408cdfd806143e86ae7dc2c",
+    "native/reference/PhaseReference/PhaseReference.cs.txt": "f46e130f34e6c9d31bfdc972cfe5afd5695fdded3a5def485a9d7ce077d39840",
+    "native/reference/PhaseReference/README.md": "8cac9566c0c47d269462cb3d34f1b1fcccaabbce27d8cf1a92f068f35e2a1ada",
     "native/reference/PressureReference/PressureReference.csproj": "606b2b72ee71a7820d1222fe10727d87edaa9c5ba6006b588f53b53305082421",
     "native/reference/PressureReference/PressureReference.cs.txt": "cc40a1a866f3b0bb25e8eab26d580ab7ecf47c2d621ed61342f8a5e33245439c",
     "native/reference/PressureReference/README.md": "86176fc01a77f477fc81f1381246976eb94d63e0244da60ea6da253c9daf8aab",
     "native/reference/SolidReference/SolidReference.csproj": "d96c6a011aff44db1b21230e09e2392150f89292427a57441dca969d0c9b7c63",
     "native/reference/SolidReference/SolidReference.cs.txt": "150ccbee95b255d4c558c1bf0172b9c52227134093825c07362de56c4ce82729",
     "native/reference/SolidReference/README.md": "df23f697b73c89d66cce5eba84a95f9961c8c15bfca1c445fa7a868837aa1787",
+    "native/reference/PartialReference/PartialReference.csproj": "ee95d75b8274168ed7a96f7997b99f7c831361288253351157ec339c445fbc98",
+    "native/reference/PartialReference/PartialReference.cs.txt": "8acfde3351535f6894717c7682607784f715fd64e4351e1e1d34605e2b1d204a",
+    "native/reference/PartialReference/README.md": "0fbbffdd8fde99eba710134671087a1dec1bc287d7b4f3686fcfadb9523e531f",
+    "native/reference/PressureDisplacementReference/PressureDisplacementReference.csproj": "c8ba123927739a5e4dc874154fb3e439f5d0501c0e4b9b5589b2e518fc45941a",
+    "native/reference/PressureDisplacementReference/PressureDisplacementReference.cs.txt": "12f715c87246896ef3aba555d4b69cd166c4a657ab65b328c95c9b7fcb135d62",
+    "native/reference/PressureDisplacementReference/README.md": "f3f2063de269cc556d613bea1336f3dd8505bd7dc9fdb49752621d9cb280aeb1",
     "native/reference/HeatFrameFixtures.py": "3fc0219ce1420b6dd05e65465db47641a10ec24a507e465458190ee62d82a53e",
     "native/reference/MixedFrameFixtures.py": "e9863e6ed319d27b6dee6a03ea64f3c03c79c4a5830a39065706a234bbca6335",
-    "native/reference/PhaseSolidFrameFixtures.py": "d3c14a5902393701e1c9643219df44a85980b7cb049f04bba96ff83629faaff5"
+    "native/reference/PhaseSolidFrameFixtures.py": "a72df6e93415c5d0cf39daa7135eb659dec11dbee6d6a6849546acee68c47ad8",
+    "native/reference/TransitionFrameFixtures.py": "f357635af9a3dcaaf57eb259bcb8ba3ad44c4ff4627a4086d4c3fc3bf09ebf91"
   },
   "native_c_abi": {
     "all_passed": true,
-    "library_sha256": "ee59d7912b4050264396e9326111a61a58d2351c80dbfdc2bc347f29e288f559",
+    "library_sha256": "6d84f529dbca408630f77222357b06e04045234c1713ebae70e4aa2da899704a",
     "cases": [
       {
         "case": "co2-chunk33",
@@ -130,7 +145,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "8340edb7fc681d41ffcedc6857ca756a63d6f5c294f9b87a47573543cd36e918"
           },
@@ -160,7 +176,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "8340edb7fc681d41ffcedc6857ca756a63d6f5c294f9b87a47573543cd36e918"
           },
@@ -190,7 +207,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "c904928cf53c7974ec4e5a6bc1e5d5af3fb7af789aa02970c5c39d86f4bfeb92",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1304411373,
@@ -232,7 +250,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1521402717,
@@ -274,7 +293,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "48efc90fb04df1b020cc9923486d7b55180440b0d0feec1c321c6307388f116e",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 152081554,
@@ -324,7 +344,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -354,7 +375,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -384,7 +406,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "7f969f42c675a5c38297327b89719c866238b2066e9aafd7ec12eea9b9d2edae",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2862516726,
@@ -426,7 +449,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "067a9f47129d12a9f53f16211503237477b51a7390a3164b94cf06d484499231",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 651778590,
@@ -468,7 +492,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "7e5dd86cc530a80371c78454265a7f5b3f505600d85f3397843b43ec057a1464",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3952945265,
@@ -510,7 +535,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3952945265,
@@ -552,7 +578,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "4ba80a5b91af6f89c2ad2a1cb730609cadab392e55e2d59f1b5631adf152fc13",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1767821780,
@@ -602,7 +629,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -632,7 +660,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -662,7 +691,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "be1b4acb75c0372afbcf116ae7029059cacda842287f498e7e1373273136ed8f",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1173750646,
@@ -704,7 +734,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "80b8894f3d59efad5dd88ba2336566f84b3b5c98cc58f18e6ff302581cccb3a9",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1108856350,
@@ -746,7 +777,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "793f674dd1d50d1a7a4918b99fcf97863d334ba52636d0bcc92f1b5467c03abc",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2342988613,
@@ -796,7 +828,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -826,7 +859,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -856,7 +890,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e021feba653b98a0a89885d70ef3b8edf6834e49c27b8cc39ab698b7f7f7fb0b",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1304411373,
@@ -906,7 +941,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -936,7 +972,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -966,7 +1003,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "ecb391b6710b0516f13f60da07a01caa55139225a518851d44551ee53587be46",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2974707906,
@@ -1008,7 +1046,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "1a17f4ae84685f84ce010160be38a5202d3d190cb935ea2ab211b84fc5b8ae64",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1786695849,
@@ -1050,7 +1089,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "c6058f68ef9d5462270430226b053deba270fcf7c259c70671f08ba1eb0eee9a",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2792476232,
@@ -1100,7 +1140,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "8340edb7fc681d41ffcedc6857ca756a63d6f5c294f9b87a47573543cd36e918"
           },
@@ -1130,7 +1171,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "8340edb7fc681d41ffcedc6857ca756a63d6f5c294f9b87a47573543cd36e918"
           },
@@ -1160,7 +1202,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "096ae29ebe0f6dae5558a7393f3925a44222dca98a70303c36af68fb268f2e94",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 531692094,
@@ -1202,7 +1245,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "1cedce91d5dff662952db3fc8a74781fbf2c683d747f4663630398bf509fb7b1",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1106551924,
@@ -1244,7 +1288,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "9f2dfb6208f7db55c39693465923ffed5d7872bc9b8c810ebb016eb2d0343b42",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3029545293,
@@ -1294,7 +1339,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -1324,7 +1370,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -1354,7 +1401,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "bfd4ecda7eaf98c4767dace15f78e96745a6fedcef200b105bf4e11aed6da024",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3814371222,
@@ -1396,7 +1444,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "724499ba00aca4ed18d22c775e470f96819e684a4b68603af8c0d6fa11768011",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3875652217,
@@ -1438,7 +1487,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "f8b8e0dade87a849d2629d34667c4d0dc80bc42bad6576ae4419a5992239465a",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2650313208,
@@ -1480,7 +1530,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "3ea48c57a0cb7d8e6806b7a53e599b88ce7fb753c8d886e63d4cbe329d530d3b",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3787032086,
@@ -1530,7 +1581,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -1560,7 +1612,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -1590,7 +1643,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "c5d104177fbf8f0f59c55ecc318bfec73cc5b2f201054a23aeb2cc0434636d2c",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3118938910,
@@ -1632,7 +1686,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "5367eb268355631c0b8e2bab97c18ec75331579282ac7f2bffcacbb9a644e7d9",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 964979954,
@@ -1674,7 +1729,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e126821604b9e5b4ff53d37a5d2abf47ece2d175a528c4b8d796caf3fb99192a",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1683670487,
@@ -1716,7 +1772,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "4a8b7e2a17775548a33c944a5cf991b4b4fa66af5e93c497035a6b99145fcc26",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 874874951,
@@ -1758,7 +1815,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "c111e6e7e8063c1ffd90fed7b240acf613e3e240ec45081bbdb65175d3e51e74",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1797891404,
@@ -1808,7 +1866,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -1838,7 +1897,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -1868,7 +1928,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "aba0e239802959705b80afb129c6cca09520737d89f5b328ab9a6daafda3cdb6",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 311787930,
@@ -1910,7 +1971,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "0981c0e3b9e527ff8b0f1e352d59e26c0e83713fede98f97276f8350bb809fbf",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1538578743,
@@ -1952,7 +2014,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1538578743,
@@ -1994,7 +2057,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "8068dae42883b522411ef3a51284de6871283dd891305b062243dca73145cd88",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2665383703,
@@ -2044,7 +2108,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -2074,7 +2139,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -2104,7 +2170,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "93e68d311ff955619b7450f76e21d7461464fe2a4c30b92fe631dcb258336b83",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3300065695,
@@ -2146,7 +2213,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "62ab69aa169a659390661eec5424646f73f8d5a30f6015e253291310d71edb41",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3011983130,
@@ -2188,7 +2256,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "8c2883d65e8e03a33e8c051fe6d10296b7087ad160d320b1127112f4ebc59e0b",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2564205386,
@@ -2230,7 +2299,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "b5d582016468bdd1c83496f6cbb2e7d57136abd05262aed38799d08afb9bb9b5",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 4033059792,
@@ -2272,7 +2342,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "df3b9fffa1a1eef9561e6727b675eb24fdd7ea9e3a7236f1a3f6aa450e5f18dc",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2766390072,
@@ -2314,7 +2385,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "485df035c4c658c4452e122f0810c59c1a83a96c44d300d2f7779f7181d65ce2",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 962751080,
@@ -2364,7 +2436,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "8340edb7fc681d41ffcedc6857ca756a63d6f5c294f9b87a47573543cd36e918"
           },
@@ -2394,7 +2467,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "8340edb7fc681d41ffcedc6857ca756a63d6f5c294f9b87a47573543cd36e918"
           },
@@ -2424,7 +2498,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 347834183,
@@ -2466,7 +2541,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "f083d88b78a3c2a3c5c81be08f0c019cded04569dfcc22931ac9c8eb7b2a7d93",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3642133216,
@@ -2508,7 +2584,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "29d7dd9ec68daf3072801da0f8eadf1f4f0d713769abbaacfbcd0c39c5b40176",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3390150815,
@@ -2558,7 +2635,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -2588,7 +2666,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -2618,7 +2697,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "9a5a261d3ea6b41b279f3d32767795b8943e375b9e3704d4c5859405b1f02eee",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 545660764,
@@ -2660,7 +2740,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "d0ab7afed7a896cc2cc5961dca0e32b2002f45aa54bdddbab0d87aa11e81bc52",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 388645031,
@@ -2702,7 +2783,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "2e07561830984d8ad160cd79a82a7196c8ead905b0211b1af6f6e5336d7d776e",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3111734449,
@@ -2744,7 +2826,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "73f34fe9d823d31c8919740074422def5751a360d927af31a084162e4d8f79b3",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3035292552,
@@ -2786,7 +2869,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "011d6ddef0e4a95dee20a3ae2deef0b65a1f7b652215c2884a21aaa279d368cd",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2580298142,
@@ -2828,7 +2912,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "5a1fae654a559eb1f7d2275c59b4c8163268a0a73aa276a708eb5375fb47f66b",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 283424123,
@@ -2870,7 +2955,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "dcadc14feedba43127907817a8e8f71935edeb6e4eea392429390c36606d8c25",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1094930622,
@@ -2912,7 +2998,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "17d381304d9ea18e3918adff5f6133dfc2d18f18df961f553c30f50194fc8d30",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 4013417789,
@@ -2954,7 +3041,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "896d12f0b75dae45aabf963c13ab57f82cef530706aa0a28edd56d7fe3be0bd5",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2917041087,
@@ -2996,7 +3084,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "de8215596c628eda77497389d94096b78672ffe2fe0c7b4a609412fa21095bcf",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 786383623,
@@ -3046,7 +3135,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -3076,7 +3166,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -3106,7 +3197,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "c8cb247840b69c2a62df56d521d7cae2b7e9aba0a6944b2db851f04e40678bac",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3355220929,
@@ -3148,7 +3240,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "f416dc94715677bbf2b4a48a3272897e58e5ea1cf48ff9ab19df94cfe95723b3",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2355352866,
@@ -3190,7 +3283,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2355352866,
@@ -3232,7 +3326,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "5b7d09d8cf6725041842edb413fc38e95fe205266ff9e6f900dbf285622a7769",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3203325654,
@@ -3282,7 +3377,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -3312,7 +3408,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -3342,7 +3439,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "4c56684ff655372dc699cd00f42e6edeab2dd2d9bcdb1ae2f9c1686ccc32fba6",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1255673126,
@@ -3392,7 +3490,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -3422,7 +3521,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -3452,7 +3552,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "d8f88ee978a96fa0336c613287ff4d4ccc3a11aed3d40ab19b76521390966ea0",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1212255774,
@@ -3494,7 +3595,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "92959b2718df35790bc19a2146ca4aaa5c0504d6fc06e902d285a004a50bf76e",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2254780752,
@@ -3536,7 +3638,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "77b90b221f583fd4629bfeb58cb236c944dded517ff44feb5490026481c6e8c7",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2254780752,
@@ -3586,7 +3689,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -3616,7 +3720,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -3646,7 +3751,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "96971e5e74fac367d5d530fb1bd1ae5d1eeed50f428d25151b511e704de76704",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 70,
@@ -3688,7 +3794,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "17d43293bdaac95db06bbe7268190f8a6e011dd92a7e0bc8097812dbdff3fd14",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 70,
@@ -3730,7 +3837,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "5a42633bca39f8719c8487f56f3b02d5545882559c8b51f5031bed74d78ce4a8",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 70,
@@ -3772,7 +3880,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "2ec53396ea2fac9f6de5e041ad2921b243a079f37f29c27058f27331a1d9913a",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 70,
@@ -3822,7 +3931,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -3852,7 +3962,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -3882,7 +3993,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "4f9afcb1130db61d888faed9b01b8e5794324ea43523149567a5ab52c46f3150",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2453560421,
@@ -3924,7 +4036,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "515653ec08eb4e67e5e8d7b674ce872b20c8cc5ec67b19b82465f1fedf4ab4d3",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 916526923,
@@ -3966,7 +4079,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "f3711f71245b1c54cd3cb8f8fff675e864805907f65cd8d1ef683185189921b2",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 1592233166,
@@ -4008,7 +4122,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "c969dbe881a6c38f30e1d1f0cd53db004a919d94d3c9f78e9987d5e28f970e6b",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 478860501,
@@ -4058,7 +4173,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -4088,7 +4204,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -4118,7 +4235,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "28555b039894e4388736b096a6d99feffbd04e06c940db5ec6e8acc64067b803",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 9020,
@@ -4160,7 +4278,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "68b11a817eb3ee78217d9b0f913d89b2728f88e4de149373cd46a8ff2eab7335",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 9020,
@@ -4202,7 +4321,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "560fb838cb8dc36e09e41f44cc4d581ecfe7dc51ba1618d28476f9f3e35dc1e1",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 9020,
@@ -4252,7 +4372,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -4282,7 +4403,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -4312,7 +4434,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "12afde784a156c865c947de32a6e5610e3e48e6e54a7cdab4ca8647e9c386876",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 0,
@@ -4354,7 +4477,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "eef5ad8a9e257e8fab527ff46be6bf640d6ec522dd84398e6ce90d3e249f7a91",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 0,
@@ -4396,7 +4520,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "7ea1f76f2e01b03120a2f81363843b268035052107641fa907caf118a8127357",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 0,
@@ -4438,7 +4563,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "eaef9bd66de1e4966369b578c2b0fc2ee76f9b8182b831f31249aca3855cbf46",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 0,
@@ -4480,7 +4606,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "f9e9d59209a4da2f34489dffe022835cca10e0b6fc0fe0fa62696489454a47c3",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 0,
@@ -4522,7 +4649,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "0ca2f03ccc7f4428341650e6aa5b08106562edac35f966b00059b2354bebdcf9",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 0,
@@ -4564,7 +4692,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "eca09e7445aa02c60165950853fa5e1658a4fb44fb45604ab12c444aaffddc52",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 0,
@@ -4606,7 +4735,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "07ec3f7c967f934a6d515de8f7538ab3d22b2b562da1ee699d82dd18289a54f2",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 0,
@@ -4648,7 +4778,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "397a4ed26ccb3007901fb3505a3c0003e86374be8770059b0cfa5d7bda94d734",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 0,
@@ -4690,7 +4821,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "cd98f9427e37759082a9557116383605b28379139a8beed88517e0c04889f4da",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 0,
@@ -4740,7 +4872,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -4770,7 +4903,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "fc97a9d6cc0683137bd0d0d1c9139115498a5c010761bcb6a717badf90038f93"
           },
@@ -4800,7 +4934,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "6d0f8891b4fe3e6d85eec866fa6029f31de492b25bd349946087ddcd378ba6b8",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 2448473299,
@@ -4842,7 +4977,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "004052edea56093cb434a4a69d3d1953dad376524f48c4e2abc0306a4821f797",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 948918077,
@@ -4884,7 +5020,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 948918077,
@@ -4926,7 +5063,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "bc02c2b91f1de8a2fd75a2650de3bf9b8eb4cf9e51a688a2ff185d8226459932",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 3737403844,
@@ -4976,7 +5114,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -5006,7 +5145,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "timers_low5_sha256": "f43b792d319b88a4e166b3d606f7329230cc91e3c3d99dcf8856aba68aa48e0b"
           },
@@ -5036,7 +5176,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 70,
@@ -5078,7 +5219,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "f3c0ca0cb0f8e120532a6fc72b825566ee1150163743ba3f995f2f3dbe350a36",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 70,
@@ -5120,7 +5262,8 @@
               "solidSubstanceChangeInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "substanceChangeInfo": "f25c844eafab736a7fa915cbc2c37fa615d41d79a7eb7cd2e3ae56c7fe5b0af9",
               "worldDamageInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "spawnOreInfo": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "cellMeltedInfos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             },
             "state": {
               "randomSeed": 70,
@@ -5177,8 +5320,8 @@
         "world_and_rng_unchanged": true
       }
     ],
-    "capabilities": 65535,
-    "limits": "Restricted non-radiating O2/CO2/Water/Steam/Ice and reviewed solids; no active partial transitions, backwall heat, settlement or iPhone execution"
+    "capabilities": 3735551,
+    "limits": "Restricted headless frames, Water as the remaining liquid, reviewed gases/solids and audited partial transitions; no disease, backwall heat, radiation, complete settlement or ARM64/iPhone execution"
   },
   "original_fixtures": [
     {
@@ -5420,13 +5563,13 @@
     "case_count": 21,
     "subsequent_frames": 86,
     "same_output_as_normal": true,
-    "library_sha256": "8fa03fd04b58b07f60bae114170399fdcbb59baf122e6f743eb01f7c0e65862d",
+    "library_sha256": "f5fe64b69b951172903f42333f9b06cb72549fb304da2c94cd9e92d5e02f7a86",
     "options": "AddressSanitizer + UndefinedBehaviorSanitizer, halt on error; Python process leak detection disabled"
   },
   "generated_wrapper_probe": {
     "passed": true,
     "generated_source_sha256": "6fbd5e90a4c5ac92e00db4b2830b2b364edbdbd3f390bdc1513e1047325736b5",
-    "linked_static_core_sha256": "1b8e71ddb09b18e6bbf7d34d60beb58360151ec2a5eed5104c4aeb1cf733d3a4",
+    "linked_static_core_sha256": "22c9e4ef671f5d59afe5af31d3f49289692d10f62e5484f9156aecb381288e48",
     "checks": [
       "game capability rejection before callback conversion",
       "worldgen helper receives capability error",

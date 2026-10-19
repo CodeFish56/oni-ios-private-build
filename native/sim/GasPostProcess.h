@@ -23,6 +23,7 @@ struct PhaseElementV744825;
 struct PressureBreakElementV744825;
 struct WorldDamageInfoV744825;
 struct SolidElementV744825;
+struct LiquidElementV744825;
 
 bool DecodeGasPostElementsV744825(const std::vector<uint8_t>& bytes,
     std::vector<GasPostElementV744825>& elements, std::string& error);
@@ -60,6 +61,7 @@ bool StepPhysicalPostProcessV744825(const LoadedWorldV15& source,
     const std::vector<PhaseElementV744825>& phaseElements,
     const std::vector<PressureBreakElementV744825>& pressureElements,
     const std::vector<SolidElementV744825>& solidElements,
+    const std::vector<LiquidElementV744825>& liquidElements,
     const PressureRegionV744825& region, GasRandomStateV744825& random,
     LoadedWorldV15& output, std::vector<uint32_t>& changes,
     std::vector<WorldDamageInfoV744825>& damage,

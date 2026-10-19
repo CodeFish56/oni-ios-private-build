@@ -23,7 +23,8 @@ public:
         OniSim_OxygenCO2Displacement | OniSim_LowMassGasPostprocess |
         OniSim_StabilityTimerSemantics | OniSim_RestrictedWaterPhysics |
         OniSim_RestrictedHeatExchange | OniSim_WaterGasPhysics |
-        OniSim_WaterWholeCellTransitions | OniSim_LiquidPressureDamage | OniSim_HeadlessSolidBehavior;
+        OniSim_WaterWholeCellTransitions | OniSim_LiquidPressureDamage | OniSim_HeadlessSolidBehavior |
+        OniSim_HeadlessPartialTransitions | OniSim_GeneralWholeCellTransitions | OniSim_WaterPressureRedistribution;
 
     void Initialize(OniSim_GameMessageHandler callback);
     void Shutdown();
@@ -85,6 +86,7 @@ private:
     std::vector<int32_t> pendingSolidSubstance_, outputSolidSubstance_;
     std::vector<WorldDamageInfoV744825> pendingDamage_, outputDamage_;
     std::vector<PhaseOreSpawnV744825> pendingOre_, outputOre_;
+    std::vector<int32_t> pendingMelted_, outputMelted_;
     std::vector<uint8_t> visibility_;
     std::vector<std::array<float, 4>> frameFlow_;
     std::vector<uint16_t> flowSourceElements_;

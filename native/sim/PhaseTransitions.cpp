@@ -18,9 +18,6 @@ float F32(const std::vector<uint8_t>& b, std::size_t p) {
     std::memcpy(&value, &bits, sizeof(value));
     return value;
 }
-bool WaterChain(uint32_t hash) {
-    return hash == 0x6D796197u || hash == 0xCA627A30u || hash == 0x341774ABu;
-}
 }
 
 bool DecodePhaseElementsV744825(const std::vector<uint8_t>& bytes,
@@ -64,7 +61,9 @@ bool DecodePhaseElementsV744825(const std::vector<uint8_t>& bytes,
             (e.highTransition != 65535 && e.highTransition >= n) ||
             !std::isfinite(e.lowTemperature) || !std::isfinite(e.highTemperature) ||
             !std::isfinite(e.specificHeatCapacity) || !std::isfinite(e.defaultMass) ||
-            !std::isfinite(e.lowOreFraction) || !std::isfinite(e.highOreFraction)) {
+            !std::isfinite(e.lowOreFraction) || !std::isfinite(e.highOreFraction) ||
+            e.lowOreFraction < 0 || e.lowOreFraction > 1 || e.highOreFraction < 0 ||
+            e.highOreFraction > 1 || e.defaultMass < 0) {
             error = "Phase table contains invalid transition indices or finite values.";
             return false;
         }
@@ -77,7 +76,8 @@ bool ApplyStateTransitionV744825(LoadedWorldV15& updated,
     const std::vector<PhaseElementV744825>& elements, uint32_t cell,
     std::vector<uint32_t>& changes, bool& transitioned, std::string& error,
     std::vector<uint8_t>* timers, const std::vector<uint8_t>* visibility,
-    std::vector<PhaseOreSpawnV744825>* oreEvents) {
+    std::vector<PhaseOreSpawnV744825>* oreEvents,
+    std::vector<int32_t>* cellMeltedEvents) {
     const std::size_t n = static_cast<std::size_t>(updated.simWidth) * updated.simHeight;
     if (updated.simWidth < 3 || updated.simHeight < 3 || cell >= n ||
         updated.elementIdx.size() != n || updated.temperature.size() != n ||
@@ -102,49 +102,67 @@ bool ApplyStateTransitionV744825(LoadedWorldV15& updated,
         return true;
     }
     const uint16_t target = low ? e.lowTransition : e.highTransition;
-    if (target >= elements.size() || !WaterChain(e.hash) ||
-        !WaterChain(elements[target].hash) || updated.properties[cell] != 0 ||
-        updated.diseaseIdx[cell] != 255 || updated.diseaseCount[cell] != 0 ||
-        (low ? e.lowOre : e.highOre) != 65535) {
-        error = "Phase transition currently supports only the disease-free Water/Steam/Ice chain without properties or ore byproducts.";
+    const uint16_t ore = low ? e.lowOre : e.highOre;
+    if (target >= elements.size() || (ore != 65535 && ore >= elements.size()) ||
+        (updated.properties[cell] & ~uint8_t(0x40)) != 0 ||
+        updated.diseaseIdx[cell] != 255 || updated.diseaseCount[cell] != 0) {
+        error = "Phase transition requires captured targets, no disease and only the optional 0x40 property.";
         return false;
     }
     const float adjusted = low ? temperature + 1.5f : temperature - 1.5f;
     const float result = adjusted > 0.0f ? adjusted : 0.0f;
     const uint32_t x = cell % updated.simWidth;
     const uint32_t y = cell / updated.simWidth;
-    const bool gameCell = x > 0 && x + 1 < updated.simWidth &&
-        y > 0 && y + 1 < updated.simHeight;
+    // Native helpers validate the flattened index only, not separate x/y.
+    // Certain bordered side cells therefore alias an adjacent game row.
+    const int64_t gameIndex = (int64_t(y) - 1) * (updated.simWidth - 2) + int64_t(x) - 1;
+    const bool gameCell = gameIndex >= 0 && gameIndex < int64_t(updated.simWidth - 2) * (updated.simHeight - 2);
     // Native low transition tries an ore entity at <= .8 of the target's
     // default mass. SpawnOre succeeds only for a visible game cell when the
     // force-ore flag is false. The headless flag does not bypass visibility.
     const auto& te = elements[target];
-    const bool spawnOre = low && (te.state & 3) == 3 &&
-        !(updated.mass[cell] / te.defaultMass > .8f) && gameCell &&
+    const float fraction = low ? e.lowOreFraction : e.highOreFraction;
+    const float byproductMass = fraction * updated.mass[cell];
+    const bool spawnByproduct = ore != 65535 && byproductMass > .001f && gameCell;
+    const float remainingMass = spawnByproduct ? updated.mass[cell] - byproductMass : updated.mass[cell];
+    const bool spawnOre = low && (te.state & 3) == 3 && remainingMass > 0 &&
+        !(remainingMass / te.defaultMass > .8f) && gameCell &&
         visibility && (*visibility)[cell] > 0;
+    const bool melted = high && (updated.properties[cell] & 0x40) != 0 && gameCell;
+    if ((spawnByproduct || spawnOre) && !oreEvents) {
+        error = "State transition requires owned ore event output.";
+        return false;
+    }
+    if (melted && !cellMeltedEvents) {
+        error = "High-temperature 0x40 transition requires owned CellMeltedInfo output.";
+        return false;
+    }
     uint16_t vacuum = 65535;
     if (spawnOre) {
-        if (!oreEvents) {
-            error = "Visible low-mass freezing requires owned ore event output.";
-            return false;
-        }
         for (std::size_t i = 0; i < elements.size(); ++i)
             if (elements[i].hash == 0x2D39BF75u) vacuum = static_cast<uint16_t>(i);
         if (vacuum == 65535) {
             error = "Visible freezing requires the captured vacuum element.";
             return false;
         }
-        PhaseOreSpawnV744825 ore;
-        ore.cell = static_cast<int32_t>((y - 1) * (updated.simWidth - 2) + x - 1);
-        ore.element = target;
-        ore.mass = updated.mass[cell];
-        ore.temperature = result;
-        oreEvents->push_back(ore);
     }
+    if (spawnByproduct) {
+        PhaseOreSpawnV744825 event;
+        event.cell = static_cast<int32_t>(gameIndex); event.element = ore;
+        event.mass = byproductMass; event.temperature = result;
+        oreEvents->push_back(event);
+    }
+    if (spawnOre) {
+        PhaseOreSpawnV744825 event;
+        event.cell = static_cast<int32_t>(gameIndex); event.element = target;
+        event.mass = remainingMass; event.temperature = result;
+        oreEvents->push_back(event);
+    }
+    if (melted) cellMeltedEvents->push_back(static_cast<int32_t>(gameIndex));
     if (gameCell) changes.push_back(cell);
     updated.temperature[cell] = spawnOre ? 0.0f : result;
     updated.elementIdx[cell] = spawnOre ? vacuum : target;
-    if (spawnOre) updated.mass[cell] = 0.0f;
+    updated.mass[cell] = spawnOre ? 0.0f : remainingMass;
     if (timers) (*timers)[cell] |= 31;
     transitioned = true;
     return true;

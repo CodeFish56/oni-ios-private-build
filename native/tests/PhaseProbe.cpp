@@ -86,18 +86,50 @@ int main(int argc, char** argv) {
             throw std::runtime_error(error);
         std::vector<uint32_t> changes;
         std::vector<PhaseOreSpawnV744825> oreEvents;
+        std::vector<int32_t> cellMeltedEvents;
         std::vector<uint8_t> visibility(count,0);
         if (std::filesystem::exists(input / "before.visibilityGame.bin")) {
             auto gameVisibility = ReadValues<uint8_t>(input / "before.visibilityGame.bin",(width-2)*(height-2));
-            for (uint32_t y=0;y<height-2;++y) for (uint32_t x=0;x<width-2;++x)
-                visibility[(y+1)*width+x+1]=gameVisibility[y*(width-2)+x];
+            for (uint32_t n=0;n<count;++n) {
+                const int64_t game=(int64_t(n/width)-1)*(width-2)+int64_t(n%width)-1;
+                if (game>=0 && game<int64_t(gameVisibility.size())) visibility[n]=gameVisibility[std::size_t(game)];
+            }
         }
         const bool isPartial=U32Argument(argv[7])!=0;
         const uint32_t cell=U32Argument(argv[6]);
+        const LoadedWorldV15 initial = result;
+        const auto initialTimers = timers;
         bool transitioned=false, noop=false;
         if (isPartial) noop=IsPartialHeatTransitionNoopV744825(result,elements,cell,cell+1);
-        else if (!ApplyStateTransitionV744825(result,elements,cell,changes,transitioned,error,&timers,&visibility,&oreEvents))
+        else if (!ApplyStateTransitionV744825(result,elements,cell,changes,transitioned,error,&timers,&visibility,&oreEvents,&cellMeltedEvents))
             throw std::runtime_error(error);
+        unsigned missingOutputRejections = 0;
+        auto sameWorld = [](const LoadedWorldV15& a, const LoadedWorldV15& b) {
+            return a.elementIdx==b.elementIdx && a.temperature==b.temperature && a.mass==b.mass &&
+                a.properties==b.properties && a.insulation==b.insulation && a.strengthInfo==b.strengthInfo &&
+                a.radiation==b.radiation && a.diseaseIdx==b.diseaseIdx && a.diseaseCount==b.diseaseCount &&
+                a.backwallElement==b.backwallElement && a.backwallMass==b.backwallMass &&
+                a.backwallTemperature==b.backwallTemperature;
+        };
+        for (unsigned missing=0; missing<2; ++missing) {
+            if (isPartial || (missing==0 ? oreEvents.empty() : cellMeltedEvents.empty())) continue;
+            auto rejectedWorld=initial;
+            auto rejectedTimers=initialTimers;
+            std::vector<uint32_t> rejectedChanges{cell};
+            std::vector<PhaseOreSpawnV744825> rejectedOre(1);
+            std::vector<int32_t> rejectedMelted{12345};
+            const auto sentinelOre=rejectedOre;
+            bool rejectedTransition=true;
+            std::string rejectedError;
+            if (ApplyStateTransitionV744825(rejectedWorld,elements,cell,rejectedChanges,rejectedTransition,
+                    rejectedError,&rejectedTimers,&visibility,missing==0?nullptr:&rejectedOre,
+                    missing==1?nullptr:&rejectedMelted) || rejectedError.empty() ||
+                !rejectedTransition || !sameWorld(rejectedWorld,initial) || rejectedTimers!=initialTimers ||
+                rejectedChanges!=std::vector<uint32_t>{cell} || rejectedMelted!=std::vector<int32_t>{12345} ||
+                rejectedOre.size()!=1 || std::memcmp(rejectedOre.data(),sentinelOre.data(),sizeof(PhaseOreSpawnV744825))!=0)
+                throw std::runtime_error("Missing phase output storage did not reject before mutation");
+            ++missingOutputRejections;
+        }
         std::filesystem::create_directories(output);
         auto writeWorld = [&](const std::string& view, const LoadedWorldV15& world) {
 #define WRITE_GRID(member) WriteValues(output / ("after." + view + "." #member ".bin"), world.member)
@@ -111,8 +143,9 @@ int main(int argc, char** argv) {
         WriteValues(output / "after.timers.bin", timers);
         WriteValues(output / "after.changes.sim.bin", changes);
         WriteValues(output / "after.oreSpawns.bin", oreEvents);
+        WriteValues(output / "after.cellMelted.bin", cellMeltedEvents);
         std::ofstream state(output / "state.json", std::ios::trunc);
-        state << "{\n  \"changeCount\": " << changes.size() << ",\n  \"transitioned\": " << (transitioned?"true":"false") << ",\n  \"partialNoop\": " << (noop?"true":"false") << "\n}\n";
+        state << "{\n  \"changeCount\": " << changes.size() << ",\n  \"transitioned\": " << (transitioned?"true":"false") << ",\n  \"partialNoop\": " << (noop?"true":"false") << ",\n  \"missingOutputRejections\": " << missingOutputRejections << "\n}\n";
         if (!state) throw std::runtime_error("Failed writing candidate state.json");
         return 0;
     } catch (const std::exception& exception) {

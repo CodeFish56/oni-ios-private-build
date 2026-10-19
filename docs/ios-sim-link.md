@@ -2,7 +2,7 @@
 
 ## 当前边界
 
-`scripts/integrate_ios_sim_core.py` 将仓库 `native/sim` 与 `native/abi` 的小型源码集复制到解压后的 `Libraries/OniSimCore`，把 14 个模拟模块加入 **UnityFramework** 的 Sources。无需重新上传 1.66 GB 的 Unity 导出归档。
+`scripts/integrate_ios_sim_core.py` 将仓库 `native/sim` 与 `native/abi` 的源码集复制到解压后的 `Libraries/OniSimCore`，把 16 个模拟模块加入 **UnityFramework** 的 Sources，共 35 个源码、头文件及 ABI 文件。无需重新上传 1.66 GB 的 Unity 导出归档。
 
 这一步提供静态链接与错误传播机制。它不代表已经具备创建殖民地或持续运行游戏的能力。启动游戏前必须同时具备：
 
@@ -40,7 +40,7 @@
 
 SHA-256 计划 `scripts/ios-sim-core-plan.json` 约束生成 C++ 与 Xcode project 的输入/输出。源码版本或目标结构不吻合时，脚本在写入前拒绝执行。重复运行已知输出时不重复添加 Xcode 对象。构建报告记录实际复制源码的逐文件 SHA-256。
 
-14 个文件按 C++17 编译、开启 C++ 异常、关闭浮点乘加收缩，仅对这些文件添加 `Libraries/OniSimCore/abi` 头文件路径。Probe 测试程序不会编入应用。
+16 个生产文件按 C++17 编译、开启 C++ 异常、关闭浮点乘加收缩，仅对这些文件添加 `Libraries/OniSimCore/abi` 头文件路径。Probe 测试程序不会编入应用。当前能力为 `3735551`，不包含完整游戏要求的 `458752`；新增部分相变和液体置换不会绕过能力检查。
 
 ## 使用方式
 

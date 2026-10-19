@@ -13,7 +13,7 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 EVENTS = {"solidInfo": (100, 8), "liquidChangeInfo": (112, 4),
           "solidSubstanceChangeInfo": (124, 4), "substanceChangeInfo": (136, 8),
-          "worldDamageInfo": (220, 8), "spawnOreInfo": (184, 20)}
+          "worldDamageInfo": (220, 8), "spawnOreInfo": (184, 20), "cellMeltedInfos": (376, 4)}
 
 
 class Diagnostics(c.Structure):
@@ -100,6 +100,10 @@ def run(bridge, fixture, elements, diseases):
         bridge.send(-895846551, (fixture / "world-offsets.bin").read_bytes())
     if report.get("saved_options", 0):
         bridge.send(1154135737, bytes([0, report["saved_options"]]))
+    if report.get("normal_debug_properties", False):
+        bridge.send(-1683118492, struct.pack('<ff4x', 1., 1.))
+        assert all(report[phase + '_sim_flags']['isDebugEditing'] == 0
+                   for phase in ['start', 'prepare'] + [f'frame{i+1:03d}' for i in range(len(report['step_seconds']))])
     rows = [{"phase": "start", "arrays": snapshot(bridge.send(-931446686), fixture, "start", report)}]
     rows[-1]["timers_low5_sha256"] = hashlib.sha256(timer_snapshot(bridge, fixture, "start", report)).hexdigest()
     if fixture.name == "oxygen-single":
@@ -219,7 +223,7 @@ def main():
     denied = rejected_features(bridge, args.fixtures / "oxygen-single", args.elements.read_bytes(), args.diseases.read_bytes()) if (args.fixtures / "oxygen-single").is_dir() else []
     result = {"all_passed": True, "library_sha256": hashlib.sha256(args.library.read_bytes()).hexdigest(),
               "cases": rows, "rejected_features": denied, "capabilities": bridge.GetCapabilities(),
-              "limits": "Restricted non-radiating O2/CO2/Water/Steam/Ice and reviewed solids; no active partial transitions, backwall heat, settlement or iPhone execution"}
+              "limits": "Restricted headless frames, Water as the remaining liquid, reviewed gases/solids and audited partial transitions; no disease, backwall heat, radiation, complete settlement or ARM64/iPhone execution"}
     args.result.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
 
 

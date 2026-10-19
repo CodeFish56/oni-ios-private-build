@@ -81,6 +81,7 @@ void SimCore::Shutdown() {
     pendingSolid_.clear(); outputSolid_.clear(); pendingSolidSubstance_.clear(); outputSolidSubstance_.clear();
     pendingDamage_.clear(); outputDamage_.clear();
     pendingOre_.clear(); outputOre_.clear(); visibility_.clear();
+    pendingMelted_.clear(); outputMelted_.clear();
     stabilityTimers_.clear(); tickCount_ = 0;
     radiationEnabled_ = false; allocationOnly_ = false; seed_ = 0; cellValues_ = {}; pendingFrames_ = 0;
     accumulatedFlow_.clear(); textureFlow_.clear(); textureLiquid_.clear();
@@ -362,6 +363,8 @@ void SimCore::BindOutput() {
     update_.worldDamageInfo = outputDamage_.empty() ? nullptr : outputDamage_.data();
     update_.numSpawnOreInfo = static_cast<int32_t>(outputOre_.size());
     update_.spawnOreInfo = outputOre_.empty() ? nullptr : outputOre_.data();
+    update_.numCellMeltedInfos = static_cast<int32_t>(outputMelted_.size());
+    update_.cellMeltedInfos = outputMelted_.empty() ? nullptr : outputMelted_.data();
 }
 
 void SimCore::GetDiagnostics(OniSimDiagnostics* state) {
@@ -425,12 +428,6 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
             !DecodeSolidElementsV744825(elementBytes_, solids, error)) {
         status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
     }
-    for (std::size_t cell = 0; cell < world.elementIdx.size(); ++cell) {
-        const uint16_t id = world.elementIdx[cell];
-        if (pressure[id].state == 2) {
-            if (id != water) return Fail(OniSimStatus::UnsupportedFeature, "Only the verified water liquid is supported.");
-        }
-    }
     std::vector<HeatElementV744825> thermal;
     if (!DecodeHeatElementsV744825(elementBytes_, thermal, error)) {
         status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
@@ -453,13 +450,18 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
     auto timers = stabilityTimers_;
     std::vector<WorldDamageInfoV744825> damage;
     std::vector<PhaseOreSpawnV744825> ore;
+    std::vector<int32_t> melted;
     for (int step = 0; step < plan.updateDataCalls; ++step) {
         LoadedWorldV15 updated = current; std::vector<uint32_t> changes;
         direction = -direction;
-        if (!StepHeatAndTransitionsV744825(current, thermal, phases, region, updated, changes, timers, error, &visibility_, &ore)) {
+        if (!StepHeatAndTransitionsV744825(current, thermal, phases, region, updated, changes, timers, error, &visibility_, &ore, &melted)) {
             status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
         }
         notified.insert(notified.end(), changes.begin(), changes.end());
+        // A hot non-water liquid may fully transition before its flow pass.
+        // Only remaining unsupported liquids require a different flow kernel.
+        for (uint16_t id : updated.elementIdx) if (pressure[id].state == 2 && id != water)
+            return Fail(OniSimStatus::UnsupportedFeature, "Remaining non-water liquid requires an unimplemented flow kernel.");
         // Original UpdateData copies the accumulated thermal output back to
         // the fixed source before launching pressure work.
         current = std::move(updated);
@@ -482,7 +484,7 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
         flowSource = updated.elementIdx;
         current = std::move(updated);
         const bool processed = StepPhysicalPostProcessV744825(current, post, phases, pressureBreak,
-            solids, region, random, updated, changes, damage, flow, timers, error, tickCount);
+            solids, liquids, region, random, updated, changes, damage, flow, timers, error, tickCount);
         if (!processed) {
             status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
         }
@@ -517,6 +519,7 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
     pendingSolid_ = std::move(solidChanges); pendingSolidSubstance_ = std::move(solidSubstance);
     pendingDamage_ = std::move(damage);
     pendingOre_ = std::move(ore);
+    pendingMelted_ = std::move(melted);
     stabilityTimers_ = std::move(timers);
     carrySeconds_ = carry; physicsSteps_ += static_cast<uint64_t>(plan.updateDataCalls);
     tickCount_ = tickCount;
@@ -605,10 +608,21 @@ void* SimCore::HandleMessage(int32_t id, int32_t bytes, const uint8_t* data) {
         outputSolidSubstance_ = std::move(pendingSolidSubstance_); pendingSolidSubstance_.clear();
         outputDamage_ = std::move(pendingDamage_); pendingDamage_.clear();
         outputOre_ = std::move(pendingOre_); pendingOre_.clear();
+        outputMelted_ = std::move(pendingMelted_); pendingMelted_.clear();
         for (uint32_t y = 0; y < world_.GameHeight(); ++y) for (uint32_t x = 0; x < world_.GameWidth(); ++x)
             visibility_[world_.SimIndex(x, y)] = data[std::size_t(y) * world_.GameWidth() + x];
         update_.numFramesProcessed = pendingFrames_; pendingFrames_ = 0; pendingPhysicsFrame_ = false; BindOutput(); return &update_;
     case -775326397: QueueFrame(data, length); return nullptr;
+    case -1683118492:
+        if ((phase_ != Phase::GridReady && phase_ != Phase::Started) || length != 12 || pendingFrames_ != 0) {
+            Fail(OniSimStatus::InvalidState, "Debug properties require an allocated grid and no pending frame."); return nullptr;
+        }
+        if (F32(data) != 1.0f || F32(data + 4) != 1.0f || data[8] != 0) {
+            Fail(OniSimStatus::UnsupportedFeature, "Only normal temperature scales with debug editing disabled are supported."); return nullptr;
+        }
+        // This runtime's verified contract is normal editing, not the
+        // original constructor's unspecified debugProperties bytes.
+        return nullptr;
     case 1154135737: {
         if ((phase_ != Phase::GridReady && phase_ != Phase::Started) || length != 2 || pendingFrames_ != 0) {
             Fail(OniSimStatus::InvalidState, "Saved options require an allocated grid and no pending frame."); return nullptr;
