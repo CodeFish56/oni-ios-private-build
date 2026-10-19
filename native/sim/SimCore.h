@@ -5,6 +5,8 @@
 #include "SaveWorldV15.h"
 #include "SimCoreExports.h"
 #include "GasPostProcess.h"
+#include "PressureBreak.h"
+#include "PhaseTransitions.h"
 #include "SimWireABI.h"
 #include <array>
 #include <string>
@@ -20,7 +22,8 @@ public:
         OniSim_CellValues | OniSim_SaveV15 | OniSim_SingleGasPhysics |
         OniSim_OxygenCO2Displacement | OniSim_LowMassGasPostprocess |
         OniSim_StabilityTimerSemantics | OniSim_RestrictedWaterPhysics |
-        OniSim_RestrictedHeatExchange | OniSim_WaterGasPhysics;
+        OniSim_RestrictedHeatExchange | OniSim_WaterGasPhysics |
+        OniSim_WaterWholeCellTransitions | OniSim_LiquidPressureDamage | OniSim_HeadlessSolidBehavior;
 
     void Initialize(OniSim_GameMessageHandler callback);
     void Shutdown();
@@ -76,6 +79,13 @@ private:
     static_assert(sizeof(SubstanceNotification) == 8);
     std::vector<SubstanceNotification> pendingSubstance_, outputSubstance_;
     std::vector<int32_t> pendingLiquidChanges_, outputLiquidChanges_;
+    struct SolidNotification { int32_t cell, solidMask; };
+    static_assert(sizeof(SolidNotification) == 8);
+    std::vector<SolidNotification> pendingSolid_, outputSolid_;
+    std::vector<int32_t> pendingSolidSubstance_, outputSolidSubstance_;
+    std::vector<WorldDamageInfoV744825> pendingDamage_, outputDamage_;
+    std::vector<PhaseOreSpawnV744825> pendingOre_, outputOre_;
+    std::vector<uint8_t> visibility_;
     std::vector<std::array<float, 4>> frameFlow_;
     std::vector<uint16_t> flowSourceElements_;
     std::vector<uint8_t> stabilityTimers_;

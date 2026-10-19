@@ -48,7 +48,7 @@
   ],
   "patched_sha256": "6fbd5e90a4c5ac92e00db4b2830b2b364edbdbd3f390bdc1513e1047325736b5",
   "pbx_source_sha256": "707f00e46969ba1e586d5268cdf1d26fbfadaed7bca94153f1afe9e338f35cb0",
-  "pbx_patched_sha256": "85bb3ea8d69ea1fc737e7c7fa5d2a9f79e0111150f6afcb548f492231fc8e6d1",
+  "pbx_patched_sha256": "6a156c272c66046c9356685095bbcb60c0a607c5d8fe90b0a4e99a40fc3bfb27",
   "native_cpp_files": [
     "FrameCellValues.cpp",
     "FrameStepSchedule.cpp",
@@ -60,7 +60,10 @@
     "SaveWorldV15.cpp",
     "SimCore.cpp",
     "SimCoreExports.cpp",
-    "StabilityTimers.cpp"
+    "StabilityTimers.cpp",
+    "PhaseTransitions.cpp",
+    "PressureBreak.cpp",
+    "SolidBehavior.cpp"
   ],
   "required_capabilities": 458752,
   "callback_evidence": "IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t GAME_MessageHandler_Invoke_mF315338021656237FFC402518AAE46FDCDE678D8 (GAME_MessageHandler_tB0A13A9744BC86BE363957B6719F85AEBFD9271A* __this, int32_t ___0_message_id, intptr_t ___1_data, const RuntimeMethod* method) ",

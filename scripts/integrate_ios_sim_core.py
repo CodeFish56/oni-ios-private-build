@@ -22,7 +22,7 @@ ROOT = "Libraries/OniSimCore"
 CPP_FILES = (
     "FrameCellValues.cpp", "FrameStepSchedule.cpp", "GasPostProcess.cpp",
     "GasPressure.cpp", "HeatExchange.cpp", "LiquidFlow.cpp", "PressureFlux.cpp", "SaveWorldV15.cpp",
-    "SimCore.cpp", "SimCoreExports.cpp", "StabilityTimers.cpp",
+    "SimCore.cpp", "SimCoreExports.cpp", "StabilityTimers.cpp", "PhaseTransitions.cpp", "PressureBreak.cpp", "SolidBehavior.cpp",
 )
 SIM_HEADERS = tuple(name.replace(".cpp", ".h") for name in CPP_FILES)
 ABI_HEADERS = ("GameDataUpdate.h", "SimExports.h", "SimWireABI.h")

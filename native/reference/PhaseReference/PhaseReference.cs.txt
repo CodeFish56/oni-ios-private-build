@@ -1,0 +1,231 @@
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text.Json;
+
+// Controlled original full and partial state transition oracle. No game UI or frame is run.
+internal static class PhaseReference
+{
+    const string DllHash = "031960F120AC1D59FD8E43F6E1A7369111C629B90C24D52186B691DFE2D8A727";
+    const int Width = 5, Height = 5, SimWidth = 7, SimHeight = 7;
+    const int Count = Width * Height, SimCount = SimWidth * SimHeight;
+    const int Center = 3 * SimWidth + 3;
+    static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate int Callback(int message, IntPtr data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void Initialize(Callback callback);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void Shutdown();
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate IntPtr Handle(int id, int bytes, IntPtr data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] [return: MarshalAs(UnmanagedType.I1)] delegate bool PhaseChange(IntPtr simData, IntPtr events, int simCell, IntPtr elementData);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] [return: MarshalAs(UnmanagedType.I1)] delegate bool PartialChange(IntPtr simData, IntPtr events, int simCell, int neighbour);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void HeatTask(IntPtr task);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate void CopyFrom(IntPtr destination, IntPtr source);
+    sealed record CellPatch(int X,int Y,string Element,float Mass,float Temperature=300f,byte Insulation=255);
+    sealed record Case(string Name,CellPatch[] Cells,bool Partial=false,bool? ExpectedNoop=null,uint Seed=70,int Direction=-1,bool Visible=false);
+    static readonly (string Name, int Offset, int Size)[] Grids = [
+        ("elementIdx",0,2),("temperature",0x20,4),("mass",0x40,4),("properties",0x60,1),
+        ("insulation",0x80,1),("strengthInfo",0xa0,1),("diseaseIdx",0xc0,1),
+        ("diseaseCount",0xe0,4),("diseaseInfestationTickCount",0x100,1),
+        ("diseaseGrowthAccumulatedError",0x120,4),("radiation",0x140,4)];
+    static readonly string[] EventNames = ["substanceChangeInfo","spawnLiquidInfo","spawnOreInfo","unstableCellInfo",
+        "elementChunkMeltedInfo","buildingMeltedInfo","buildingOverheatInfo","buildingNoLongerOverheatedInfo",
+        "cellMeltedInfo","callbackInfo","worldDamageInfo","massConsumedCallbacks","radiationConsumedCallbacks",
+        "massEmittedCallbacks","diseaseConsumedCallbacks","spawnFXInfo","componentStateChangedMessages",
+        "digInfo","backwallElementChangedInfo","backwallShouldTransitionInfo"];
+    static string Hash(byte[] bytes) => Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant();
+    static string Arg(string[] args, string name) {
+        int at = Array.IndexOf(args,name);
+        return at >= 0 && at+1 < args.Length ? args[at+1] : throw new ArgumentException("Missing " + name);
+    }
+    static uint Bits(float value) => BitConverter.SingleToUInt32Bits(value);
+    static float Float(uint bits) => BitConverter.UInt32BitsToSingle(bits);
+    static IEnumerable<Case> Cases() {
+        CellPatch C(string e,float m,float t) => new(3,3,e,m,t);
+        string Tag(float v)=>v.ToString("R",System.Globalization.CultureInfo.InvariantCulture).Replace('.','p');
+        foreach(var pair in new[]{("water",269.5f),("water",375.5f),("steam",369.5f),("ice",275.5f)})
+            foreach(float mass in new[]{0f,.00001f,1f,799.99994f,800f,800.00006f,1000f})
+                foreach(float temperature in new[]{MathF.BitDecrement(pair.Item2),pair.Item2,MathF.BitIncrement(pair.Item2)})
+                    yield return new("full-"+pair.Item1+"-"+Tag(mass)+"-"+Tag(temperature),[C(pair.Item1,mass,temperature)]);
+        foreach(float mass in new[]{0f,.00001f,1f,799.99994f,800f,800.00006f,1000f})
+            foreach(float temperature in new[]{269.49997f,269.5f,269.50003f})
+                yield return new("visible-water-"+Tag(mass)+"-"+Tag(temperature),[C("water",mass,temperature)],Visible:true);
+        foreach(var item in new[]{("water",0f),("water",1f),("water",10000f),("ice",0f),("ice",10000f),("steam",0f),("steam",10000f)})
+            yield return new("full-limit-"+item.Item1+"-"+Tag(item.Item2),[C(item.Item1,1000f,item.Item2)]);
+        foreach(float mass in new[]{4.9999995f,5f,5.0000005f,10f})
+            foreach(float nt in new[]{375.49997f,375.5f,375.50003f,500f})
+                foreach(float t in new[]{369.49997f,369.5f,369.50003f})
+                    yield return new("partial-water-"+Tag(mass)+"-"+Tag(nt)+"-"+Tag(t),
+                        [C("water",mass,t),new(4,3,"steam",100f,nt)],true,
+                        mass<5f || nt<=375.5f || nt<385.5f || t>=369.5f);
+        foreach(float nt in new[]{285.49997f,285.5f,285.50003f,500f})
+            yield return new("partial-ice-"+Tag(nt),[C("ice",10f,268f),new(4,3,"water",100f,nt)],true,
+                nt<=275.5f || nt<285.5f);
+    }
+    static int Main(string[] args) {
+        if(!OperatingSystem.IsWindows() || IntPtr.Size!=8) return 2;
+        try {
+            if(args.Contains("--list-cases")) { foreach(var item in Cases()) Console.WriteLine(item.Name); return 0; }
+            if(args.Contains("--suite")) return Suite(args);
+            Case selected=Cases().Single(c=>c.Name==Arg(args,"--case"));
+            return Run(args,selected);
+        } catch(Exception ex) { Console.Error.WriteLine(ex.GetType().Name+": "+ex.Message); return 1; }
+    }
+    static int Suite(string[] args) {
+        string output=Path.GetFullPath(Arg(args,"--output-dir"));Directory.CreateDirectory(output);
+        var results=new List<object>(); int completed=0,failed=0;
+        string executable=Environment.ProcessPath ?? throw new InvalidOperationException("Process path unavailable");
+        foreach(var item in Cases()) {
+            string destination=Path.Combine(output,item.Name);
+            var start=new ProcessStartInfo(executable) { UseShellExecute=false,CreateNoWindow=true,
+                RedirectStandardOutput=true,RedirectStandardError=true };
+            if(Path.GetFileNameWithoutExtension(executable).Equals("dotnet",StringComparison.OrdinalIgnoreCase))
+                start.ArgumentList.Add(Assembly.GetExecutingAssembly().Location);
+            foreach(string text in new[]{"--game-root",Arg(args,"--game-root"),"--capture-dir",Arg(args,"--capture-dir"),
+                "--output-dir",destination,"--case",item.Name}) start.ArgumentList.Add(text);
+            using Process child=Process.Start(start)!;
+            Task<string> stdout=child.StandardOutput.ReadToEndAsync(),stderr=child.StandardError.ReadToEndAsync();
+            if(!child.WaitForExit(20000)) { child.Kill(true); throw new TimeoutException(item.Name+" exceeded 20 seconds"); }
+            string log=stdout.GetAwaiter().GetResult(),error=stderr.GetAwaiter().GetResult();
+            Directory.CreateDirectory(destination);File.WriteAllText(Path.Combine(destination,"process.log"),log+error);
+            if(child.ExitCode!=0) ++failed;
+            results.Add(new { name=item.Name,exit_code=child.ExitCode,report=Path.Combine(destination,"report.json") });
+            ++completed;
+            if(completed%10==0 || child.ExitCode!=0) Console.WriteLine($"Completed {completed}; failed {failed}; last {item.Name}");
+            File.WriteAllText(Path.Combine(output,"suite.json"),JsonSerializer.Serialize(new {
+                build="U59-744825-V",oracle="direct RVA 0x359E0 full state transition or 0x4B7F0 partial heat transition, no physics frame",
+                completed,failed,cases=results },JsonOptions));
+            if(child.ExitCode!=0) return 1;
+        }
+        Console.WriteLine($"Original full/partial phase transition oracle completed {completed} cases; failures {failed}");
+        return failed==0?0:1;
+    }
+    static int Run(string[] args, Case item) {
+        string game=Path.GetFullPath(Arg(args,"--game-root")),capture=Path.GetFullPath(Arg(args,"--capture-dir"));
+        string output=Path.GetFullPath(Arg(args,"--output-dir"));Directory.CreateDirectory(output);
+        string native=Path.Combine(game,"OxygenNotIncluded_Data","Plugins","x86_64","SimDLL.dll");
+        byte[] nativeBytes=File.ReadAllBytes(native),elements=File.ReadAllBytes(Path.Combine(capture,"elements.bin")),
+            diseases=File.ReadAllBytes(Path.Combine(capture,"diseases.bin"));
+        if(!Hash(nativeBytes).Equals(DllHash,StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException("Expected exact Build 744825 DLL");
+        int elementCount=BitConverter.ToInt32(elements);
+        if(elementCount<=0 || elementCount>65534 || elements.Length<4+164*elementCount ||
+            diseases.Length<8 || BitConverter.ToInt32(diseases,4)!=elementCount)
+            throw new InvalidDataException("Invalid captured tables");
+        var ids=new Dictionary<uint,ushort>();
+        for(int index=0;index<elementCount;index++) {
+            if(BitConverter.ToUInt16(elements,4+index*164+8)!=index) throw new InvalidDataException("Element index mismatch");
+            ids.Add(BitConverter.ToUInt32(elements,4+index*164),checked((ushort)index));
+        }
+        ushort vacuum=ids[0x2d39bf75u];
+        ushort Element(string value) => value switch { "oxygen"=>ids[0xA4E0B340u],"co2"=>ids[0x74DC00EFu],"water"=>ids[1836671383u],"steam"=>ids[0xCA627A30u],"ice"=>ids[0x341774ABu],"solid"=>ids[1838482828u],"vacuum"=>vacuum,_=>throw new InvalidDataException("Unknown element") };
+        int centerGame=(Height/2)*Width+Width/2;
+        byte[] payload=new byte[20+40*Count];
+        using(var stream=new MemoryStream(payload)) using(var writer=new BinaryWriter(stream)) {
+            writer.Write(Width);writer.Write(Height);writer.Write(item.Seed);writer.Write(false);writer.Write(true);
+            for(int index=0;index<Count;index++) {
+                int x=index%Width+1,y=index/Width+1;
+                CellPatch? patch=item.Cells.LastOrDefault(p=>p.X==x&&p.Y==y);
+                writer.Write(patch==null?vacuum:Element(patch.Element));
+                writer.Write((byte)0);writer.Write(patch?.Insulation??(byte)255);writer.Write((byte)0);writer.Write(new byte[3]);
+                writer.Write(patch?.Temperature??0f);writer.Write(patch?.Mass??0f);
+            }
+            for(int index=0;index<Count;index++) {writer.Write((byte)255);writer.Write(new byte[3]);writer.Write(0);writer.Write(0f);}
+            for(int index=0;index<Count;index++) {writer.Write(vacuum);writer.Write((ushort)0);writer.Write(0f);writer.Write(0f);}
+        }
+        File.WriteAllBytes(Path.Combine(output,"initialize-from-cells.bin"),payload);
+        var stages=new List<string>();var phases=new Dictionary<string,object>();
+        var report=new Dictionary<string,object> {
+            ["build"]="U59-744825-V",["dll_sha256"]=Hash(nativeBytes),["elements_sha256"]=Hash(elements),
+            ["diseases_sha256"]=Hash(diseases),["case"]=item,["width"]=Width,["height"]=Height,
+            ["sim_width"]=SimWidth,["sim_height"]=SimHeight,["center_sim_cell"]=Center,["center_game_cell"]=centerGame,
+            ["native_entry_rva"]=item.Partial?"0x4B7F0":"0x359E0",["new_game_frames_submitted"]=0,
+            ["diagnostic_overrides"]="CopyFrom(updated to source) RVA 0x6390; seed/direction, center timer 0xA2, center flow[1.25,2.5,3.75,5]",
+            ["stages"]=stages,["phases"]=phases };
+        void Stage(string text) {stages.Add(text);Console.WriteLine(text);File.WriteAllText(Path.Combine(output,"report.json"),JsonSerializer.Serialize(report,JsonOptions));}
+        Environment.SetEnvironmentVariable("PATH",Path.GetDirectoryName(native)+Path.PathSeparator+game+Path.PathSeparator+Environment.GetEnvironmentVariable("PATH"));
+        IntPtr library=NativeLibrary.Load(native);
+        var initialize=Marshal.GetDelegateForFunctionPointer<Initialize>(NativeLibrary.GetExport(library,"SIM_Initialize"));
+        var shutdown=Marshal.GetDelegateForFunctionPointer<Shutdown>(NativeLibrary.GetExport(library,"SIM_Shutdown"));
+        var handle=Marshal.GetDelegateForFunctionPointer<Handle>(NativeLibrary.GetExport(library,"SIM_HandleMessage"));
+        var phase=Marshal.GetDelegateForFunctionPointer<PhaseChange>(library+0x359e0);
+        var partial=Marshal.GetDelegateForFunctionPointer<PartialChange>(library+0x4b7f0);
+        var heatTask=Marshal.GetDelegateForFunctionPointer<HeatTask>(library+0x458d0);
+        var copyFrom=Marshal.GetDelegateForFunctionPointer<CopyFrom>(library+0x6390);
+        Callback callback=(id,data)=>{Stage("Native callback id="+id);return 0;};
+        IntPtr Send(int id,byte[] bytes) {
+            IntPtr ptr=bytes.Length==0?IntPtr.Zero:Marshal.AllocHGlobal(bytes.Length);
+            try {if(bytes.Length>0)Marshal.Copy(bytes,0,ptr,bytes.Length);return handle(id,bytes.Length,ptr);}
+            finally {if(ptr!=IntPtr.Zero)Marshal.FreeHGlobal(ptr);}
+        }
+        bool active=false;
+        try {
+            Stage("Initialize: calling");initialize(callback);active=true;Stage("Initialize: returned");
+            Send(1108437482,elements);Stage("Elements: returned");Send(825301935,diseases);Stage("Diseases: returned");
+            Send(2062421945,payload);Stage("InitializeFromCells: returned");
+            IntPtr update=Send(-931446686,[]);if(update==IntPtr.Zero)throw new InvalidDataException("Start returned null");
+            Stage("Start: returned; no frame queued");
+            IntPtr sim=Marshal.ReadIntPtr(library,0x115640);
+            if(sim==IntPtr.Zero||Marshal.ReadInt32(sim)!=SimWidth||Marshal.ReadInt32(sim,4)!=SimHeight)
+                throw new InvalidDataException("Internal SimData dimensions mismatch");
+            report["observed_headless"]=Marshal.ReadByte(sim,0x859);
+            report["observed_radiation"]=Marshal.ReadByte(sim,0x85a);
+            report["observed_force_ore"]=Marshal.ReadByte(sim,0xb8);
+            if(Marshal.ReadByte(sim,0xb8)!=0) throw new InvalidDataException("Expected force-ore disabled");
+            if(Marshal.ReadByte(sim,0x859)!=1 || Marshal.ReadByte(sim,0x85a)!=0)
+                throw new InvalidDataException("Native initialization flags mismatch");
+            IntPtr soa=Marshal.ReadIntPtr(sim,0x28),events=Marshal.ReadIntPtr(sim,0xa8),flow=Marshal.ReadIntPtr(sim,0x68),timers=Marshal.ReadIntPtr(sim,0x70);
+            if(soa==IntPtr.Zero||events==IntPtr.Zero||flow==IntPtr.Zero||timers==IntPtr.Zero)
+                throw new InvalidDataException("Required native pointers are null");
+            IntPtr sourceSoa=Marshal.ReadIntPtr(sim,0x20);
+            Stage("Diagnostic CopyFrom(updated -> source): calling");copyFrom(sourceSoa,soa);Stage("Diagnostic CopyFrom: returned");
+            Marshal.WriteInt32(sim,0x0c,unchecked((int)item.Seed));Marshal.WriteInt32(sim,0x14,item.Direction);
+            Marshal.Copy(new float[]{1.25f,2.5f,3.75f,5f},0,flow+Center*16,4);Marshal.WriteByte(timers,Center,0xa2);
+            Marshal.WriteByte(Marshal.ReadIntPtr(sim,0x98),centerGame,item.Visible?(byte)255:(byte)0);
+            IntPtr updatedTemperatures=Marshal.ReadIntPtr(soa,0x28);
+
+            void Snapshot(string phase) {
+                var arrays=new Dictionary<string,object>();
+                byte[] Copy(string name,IntPtr ptr,int length) {
+                    byte[] raw=new byte[length];if(length>0)Marshal.Copy(ptr,raw,0,length);
+                    File.WriteAllBytes(Path.Combine(output,phase+"."+name+".bin"),raw);
+                    arrays[name]=new{bytes=length,sha256=Hash(raw)};return raw;
+                }
+                foreach(var view in new[]{("source",sourceSoa),("updated",soa)}) foreach(var field in Grids) {
+                    IntPtr begin=Marshal.ReadIntPtr(view.Item2,field.Offset+8),end=Marshal.ReadIntPtr(view.Item2,field.Offset+16);
+                    if(end-begin!=SimCount*field.Size)throw new InvalidDataException("Vector size mismatch: "+field.Name);
+                    Copy(view.Item1+"."+field.Name,begin,SimCount*field.Size);
+                }
+                Copy("flow",flow,SimCount*16);Copy("timers",timers,SimCount);
+                Copy("accumulatedFlow",Marshal.ReadIntPtr(sim,0x60),SimCount*4);
+                Copy("visibilityGame",Marshal.ReadIntPtr(sim,0x98),Count);
+                var eventVectors=new Dictionary<string,object>();
+                for(int index=0;index<EventNames.Length;index++) {
+                    int offset=index*0x20;IntPtr begin=Marshal.ReadIntPtr(events,offset+8),end=Marshal.ReadIntPtr(events,offset+16);
+                    long bytes=end-begin;if(bytes<0||bytes>SimCount*1024L)throw new InvalidDataException("Event vector bounds: "+EventNames[index]);
+                    byte[] raw=Copy("events."+EventNames[index],begin,checked((int)bytes));
+                    eventVectors[EventNames[index]]=new{bytes,hex=Convert.ToHexString(raw)};
+                }
+                byte[] ev=File.ReadAllBytes(Path.Combine(output,phase+".events.substanceChangeInfo.bin"));
+                if(ev.Length%8!=0)throw new InvalidDataException("Unexpected SubstanceChangeInfo size");
+                var changes=new List<object>();
+                for(int at=0;at<ev.Length;at+=8)changes.Add(new{cell=BitConverter.ToInt32(ev,at),oldElement=BitConverter.ToUInt16(ev,at+4),newElement=BitConverter.ToUInt16(ev,at+6)});
+                phases[phase]=new{seed=unchecked((uint)Marshal.ReadInt32(sim,0xc)),displacementDirection=Marshal.ReadInt32(sim,0x14),
+                    iterateDirection=Marshal.ReadInt32(sim,0x10),arrays,event_vectors=eventVectors,substance_changes=changes};
+                Stage(phase+": copied 11 source and 11 updated grids, flow, timers, accumulatedFlow, 20 event vectors");
+            }
+            Snapshot("before");Stage("Phase oracle: calling");
+            bool changed;
+            if(item.Partial) changed=partial(sim,events,Center,Center+1);
+            else {
+                IntPtr temperatureElements=Marshal.ReadIntPtr(library,0x115628);
+                int index=Marshal.ReadInt16(Marshal.ReadIntPtr(soa,8),Center*2)&65535;
+                changed=phase(sim,events,Center,temperatureElements+index*56);
+            }
+            report["native_transition_result"]=changed;
+            Stage("Phase oracle: returned");Snapshot("after");
+            report["complete"]=true;Stage("Oracle complete");
+        } finally {
+            if(active) {shutdown();Stage("Shutdown: returned");}GC.KeepAlive(callback);NativeLibrary.Free(library);
+        }
+        return 0;
+    }
+}

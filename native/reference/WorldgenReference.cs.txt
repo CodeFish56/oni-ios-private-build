@@ -47,6 +47,7 @@ internal static class WorldgenReference
         float[] stepSeconds = args.Contains("--step-seconds") ? Arg(args,"--step-seconds").Split(',')
             .Select(s=>float.Parse(s,System.Globalization.CultureInfo.InvariantCulture)).ToArray() : [];
         uint seed = args.Contains("--seed") ? uint.Parse(Arg(args,"--seed")) : 123456u;
+        byte savedOptions = args.Contains("--saved-options") ? byte.Parse(Arg(args,"--saved-options")) : (byte)0;
         if(stepSeconds.Length>100 || stepSeconds.Any(s=>!float.IsFinite(s)||s<0||s>2))
             throw new ArgumentException("Frame seconds outside 0..2 or too many frames");
         if(stepSeconds.Length>0 && OperatingSystem.IsWindows()) {
@@ -216,6 +217,7 @@ internal static class WorldgenReference
             ["world_offsets_defined"] = loadWorld || defineWorld,
             ["width"] = width, ["height"] = height, ["seed"] = seed,
             ["gas_fixture"] = gasLayout, ["step_seconds"] = stepSeconds,
+            ["saved_options"] = savedOptions,
             ["initialize_input_override"] = args.Contains("--initialize-input"),
             ["headless"] = headless, ["radiation"] = radiation, ["wire_sha256"] = Hash(wireInput),
             ["wire_length"] = wireInput.Length, ["wire_content_length"] = loadWorld ? wireInput.Length : 14 + 40 * count,
@@ -250,7 +252,7 @@ internal static class WorldgenReference
             var counts = new Dictionary<string, int>();
             for (int offset = 0x64; offset < 0x1c0; offset += 12) counts["0x" + offset.ToString("x")] = Marshal.ReadInt32(update, offset);
             foreach(var (name,offset,size) in new (string,int,int)[] {("solidInfo",0x64,8),("liquidChangeInfo",0x70,4),
-                ("solidSubstanceChangeInfo",0x7c,4),("substanceChangeInfo",0x88,8)}) {
+                ("solidSubstanceChangeInfo",0x7c,4),("substanceChangeInfo",0x88,8),("worldDamageInfo",0xdc,8),("spawnOreInfo",0xb8,20)}) {
                 int entries=Marshal.ReadInt32(update,offset);
                 if(entries<0||entries>count*32) throw new InvalidDataException("Unexpected event count: "+name);
                 byte[] events=new byte[checked(entries*size)];
@@ -292,6 +294,7 @@ internal static class WorldgenReference
             report[phase + "_sim_flags"] = new { numGameCells=Marshal.ReadInt32(simData,8), seed=unchecked((uint)Marshal.ReadInt32(simData,12)),
                 iterateDirection=Marshal.ReadInt32(simData,16),displacementDirection=Marshal.ReadInt32(simData,20),
                 tickCount=unchecked((ushort)Marshal.ReadInt16(simData,0xa0)),
+                savedOptions=Marshal.ReadByte(simData,0x18),
                 headless=Marshal.ReadByte(simData,0x859), radiation=Marshal.ReadByte(simData,0x85a),
                 voidIndex=unchecked((ushort)Marshal.ReadInt16(simData,0x1a)), vacuumIndex=unchecked((ushort)Marshal.ReadInt16(simData,0x1c)),
                 unobtaniumIndex=unchecked((ushort)Marshal.ReadInt16(simData,0x1e)) };
@@ -325,6 +328,7 @@ internal static class WorldgenReference
                 File.WriteAllBytes(Path.Combine(output,"world-offsets.bin"),offsets);
             }
         }
+        if (savedOptions != 0) { Send(1154135737, [0, savedOptions]); Stage("SetSavedOptions: returned"); }
         Inspect("start",Send(-931446686,[]));
         if (zeroFrame) {
             byte[] frame = new byte[28];

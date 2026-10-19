@@ -19,6 +19,11 @@ struct GasRandomStateV744825 {
     uint64_t calls = 0;
 };
 
+struct PhaseElementV744825;
+struct PressureBreakElementV744825;
+struct WorldDamageInfoV744825;
+struct SolidElementV744825;
+
 bool DecodeGasPostElementsV744825(const std::vector<uint8_t>& bytes,
     std::vector<GasPostElementV744825>& elements, std::string& error);
 
@@ -46,3 +51,17 @@ bool StepFluidPostProcessV744825(const LoadedWorldV15& source,
     LoadedWorldV15& output, std::vector<uint32_t>& elementChanges,
     std::string& error, std::vector<std::array<float, 4>>* frameFlow = nullptr,
     std::vector<uint8_t>* timers = nullptr);
+
+// Ordered postprocessing with verified whole-cell Water/Steam/Ice transitions,
+// liquid pressure damage and headless unstable solids. Partial melting,
+// sublimation, other liquids, diseases and radiation still reject atomically.
+bool StepPhysicalPostProcessV744825(const LoadedWorldV15& source,
+    const std::vector<GasPostElementV744825>& elements,
+    const std::vector<PhaseElementV744825>& phaseElements,
+    const std::vector<PressureBreakElementV744825>& pressureElements,
+    const std::vector<SolidElementV744825>& solidElements,
+    const PressureRegionV744825& region, GasRandomStateV744825& random,
+    LoadedWorldV15& output, std::vector<uint32_t>& changes,
+    std::vector<WorldDamageInfoV744825>& damage,
+    std::vector<std::array<float, 4>>& flow, std::vector<uint8_t>& timers,
+    std::string& error, uint16_t tickCount = 0);

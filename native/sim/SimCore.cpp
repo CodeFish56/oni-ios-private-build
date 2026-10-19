@@ -4,6 +4,7 @@
 #include "FrameStepSchedule.h"
 #include "StabilityTimers.h"
 #include "LiquidFlow.h"
+#include "SolidBehavior.h"
 #include <algorithm>
 #include <cmath>
 #include <cstring>
@@ -77,6 +78,9 @@ void SimCore::Shutdown() {
     seedKnown_ = false; iterateDirection_ = -1; carrySeconds_ = 0; physicsSteps_ = 0; random_ = {}; pendingPhysicsFrame_ = false;
     pendingSubstance_.clear(); outputSubstance_.clear(); frameFlow_.clear(); flowSourceElements_.clear();
     pendingLiquidChanges_.clear(); outputLiquidChanges_.clear();
+    pendingSolid_.clear(); outputSolid_.clear(); pendingSolidSubstance_.clear(); outputSolidSubstance_.clear();
+    pendingDamage_.clear(); outputDamage_.clear();
+    pendingOre_.clear(); outputOre_.clear(); visibility_.clear();
     stabilityTimers_.clear(); tickCount_ = 0;
     radiationEnabled_ = false; allocationOnly_ = false; seed_ = 0; cellValues_ = {}; pendingFrames_ = 0;
     accumulatedFlow_.clear(); textureFlow_.clear(); textureLiquid_.clear();
@@ -214,8 +218,8 @@ bool SimCore::Load(const uint8_t* data, std::size_t bytes) {
         return Fail(OniSimStatus::InvalidState, "Load requires headless allocation and matching element/disease tables.");
     LoadedWorldV15 parsed; std::string error;
     if (bytes < 29) return Fail(OniSimStatus::InvalidInput, "SIMSAVE payload is truncated.");
-    if (data[28] != 0)
-        return Fail(OniSimStatus::UnsupportedFeature, "Only the verified zero SIMSAVE option byte is supported.");
+    if ((data[28] & ~1u) != 0)
+        return Fail(OniSimStatus::UnsupportedFeature, "SIMSAVE contains unimplemented saved option bits.");
     if (!DecodeSaveWorldV15(std::vector<uint8_t>(data, data + bytes), elementBytes_, diseaseBytes_, parsed, error)) {
         status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
     }
@@ -350,6 +354,14 @@ void SimCore::BindOutput() {
     update_.substanceChangeInfo = outputSubstance_.empty() ? nullptr : outputSubstance_.data();
     update_.numLiquidChangeInfo = static_cast<int32_t>(outputLiquidChanges_.size());
     update_.liquidChangeInfo = outputLiquidChanges_.empty() ? nullptr : outputLiquidChanges_.data();
+    update_.numSolidInfo = static_cast<int32_t>(outputSolid_.size());
+    update_.solidInfo = outputSolid_.empty() ? nullptr : outputSolid_.data();
+    update_.numSolidSubstanceChangeInfo = static_cast<int32_t>(outputSolidSubstance_.size());
+    update_.solidSubstanceChangeInfo = outputSolidSubstance_.empty() ? nullptr : outputSolidSubstance_.data();
+    update_.numWorldDamageInfo = static_cast<int32_t>(outputDamage_.size());
+    update_.worldDamageInfo = outputDamage_.empty() ? nullptr : outputDamage_.data();
+    update_.numSpawnOreInfo = static_cast<int32_t>(outputOre_.size());
+    update_.spawnOreInfo = outputOre_.empty() ? nullptr : outputOre_.data();
 }
 
 void SimCore::GetDiagnostics(OniSimDiagnostics* state) {
@@ -405,17 +417,19 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
     if (!DecodeLiquidElementsV744825(elementBytes_, liquids, water, liquidVacuum, error) || liquidVacuum != vacuum) {
         status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
     }
-    bool waterWorld = false, obstacleWorld = false, hasGas = false;
+    std::vector<PhaseElementV744825> phases;
+    std::vector<PressureBreakElementV744825> pressureBreak;
+    std::vector<SolidElementV744825> solids;
+    if (!DecodePhaseElementsV744825(elementBytes_, phases, error) ||
+            !DecodePressureBreakElementsV744825(elementBytes_, pressureBreak, error) ||
+            !DecodeSolidElementsV744825(elementBytes_, solids, error)) {
+        status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
+    }
     for (std::size_t cell = 0; cell < world.elementIdx.size(); ++cell) {
         const uint16_t id = world.elementIdx[cell];
-        hasGas = hasGas || pressure[id].state == 1;
         if (pressure[id].state == 2) {
             if (id != water) return Fail(OniSimStatus::UnsupportedFeature, "Only the verified water liquid is supported.");
-            waterWorld = true;
         }
-        const std::size_t x = cell % world.simWidth, y = cell / world.simWidth;
-        obstacleWorld = obstacleWorld || (pressure[id].state == 3 && x > 0 && y > 0 &&
-            x + 1 < world.simWidth && y + 1 < world.simHeight);
     }
     std::vector<HeatElementV744825> thermal;
     if (!DecodeHeatElementsV744825(elementBytes_, thermal, error)) {
@@ -436,12 +450,16 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
     std::vector<uint32_t> notified;
     LoadedWorldV15 current = world;
     std::vector<uint16_t> flowSource;
+    auto timers = stabilityTimers_;
+    std::vector<WorldDamageInfoV744825> damage;
+    std::vector<PhaseOreSpawnV744825> ore;
     for (int step = 0; step < plan.updateDataCalls; ++step) {
         LoadedWorldV15 updated = current; std::vector<uint32_t> changes;
         direction = -direction;
-        if (!StepHeatExchangeV744825(current, thermal, region, updated, error)) {
+        if (!StepHeatAndTransitionsV744825(current, thermal, phases, region, updated, changes, timers, error, &visibility_, &ore)) {
             status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
         }
+        notified.insert(notified.end(), changes.begin(), changes.end());
         // Original UpdateData copies the accumulated thermal output back to
         // the fixed source before launching pressure work.
         current = std::move(updated);
@@ -449,22 +467,22 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
             status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
         }
         notified.insert(notified.end(), changes.begin(), changes.end());
+        for (uint32_t cell : changes) ResetStableCellTimerV744825(timers[cell]);
+        const bool waterWorld = std::find(updated.elementIdx.begin(), updated.elementIdx.end(), water) != updated.elementIdx.end();
         if (waterWorld) {
             current = std::move(updated);
             if (!StepWaterFlowV744825(current, liquids, water, vacuum, region, updated, changes, flow, error, tickCount)) {
                 status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
             }
             notified.insert(notified.end(), changes.begin(), changes.end());
+            for (uint32_t cell : changes) ResetStableCellTimerV744825(timers[cell]);
         }
         // UpdateData copies updatedCells to cells after pressure and before
         // PostProcessCell; the flow renderer compares that snapshot to final.
         flowSource = updated.elementIdx;
         current = std::move(updated);
-        const bool mixedPost = (waterWorld && hasGas) || (!waterWorld && obstacleWorld);
-        const bool processed = mixedPost ?
-            StepFluidPostProcessV744825(current, post, region, random, updated, changes, error, &flow) :
-            waterWorld ? StepWaterPostProcessV744825(current, liquids, post, water, vacuum, region, random, updated, changes, flow, error) :
-            StepGasPostProcessV744825(current, post, region, random, updated, changes, error, &flow);
+        const bool processed = StepPhysicalPostProcessV744825(current, post, phases, pressureBreak,
+            solids, region, random, updated, changes, damage, flow, timers, error, tickCount);
         if (!processed) {
             status_ = OniSimStatus::UnsupportedFeature; error_ = error; return false;
         }
@@ -472,17 +490,23 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
         current = std::move(updated);
         tickCount = static_cast<uint16_t>(tickCount + 1u);
     }
-    auto timers = stabilityTimers_;
-    for (uint32_t cell : notified) ResetStableCellTimerV744825(timers[cell]);
     std::sort(notified.begin(), notified.end());
     notified.erase(std::unique(notified.begin(), notified.end()), notified.end());
     std::vector<SubstanceNotification> events;
     std::vector<int32_t> liquidChanges;
+    std::vector<SolidNotification> solidChanges;
+    std::vector<int32_t> solidSubstance;
     for (uint32_t cell : notified) {
         const uint32_t sx = cell % current.simWidth, sy = cell / current.simWidth;
         if (sx == 0 || sy == 0 || sx + 1 == current.simWidth || sy + 1 == current.simHeight) continue;
         const std::size_t game = std::size_t(sy - 1) * current.GameWidth() + sx - 1;
         events.push_back({static_cast<int32_t>(game), view_.elementIdx[game], current.elementIdx[cell]});
+        if (view_.elementIdx[game] != current.elementIdx[cell] &&
+                (pressure[view_.elementIdx[game]].state == 3 || pressure[current.elementIdx[cell]].state == 3)) {
+            solidSubstance.push_back(static_cast<int32_t>(game));
+            if ((pressure[view_.elementIdx[game]].state == 3) != (pressure[current.elementIdx[cell]].state == 3))
+                solidChanges.push_back({static_cast<int32_t>(game), pressure[current.elementIdx[cell]].state == 3 ? -1 : 0});
+        }
         if (view_.elementIdx[game] != current.elementIdx[cell] &&
             (pressure[view_.elementIdx[game]].state == 2 || pressure[current.elementIdx[cell]].state == 2))
             liquidChanges.push_back(static_cast<int32_t>(game));
@@ -490,6 +514,9 @@ bool SimCore::AdvanceFluidFrame(const NewGameFrame& frame, LoadedWorldV15& world
     world = std::move(current); frameFlow_ = std::move(flow); flowSourceElements_ = std::move(flowSource);
     pendingSubstance_ = std::move(events); random_ = random; iterateDirection_ = direction;
     pendingLiquidChanges_ = std::move(liquidChanges);
+    pendingSolid_ = std::move(solidChanges); pendingSolidSubstance_ = std::move(solidSubstance);
+    pendingDamage_ = std::move(damage);
+    pendingOre_ = std::move(ore);
     stabilityTimers_ = std::move(timers);
     carrySeconds_ = carry; physicsSteps_ += static_cast<uint64_t>(plan.updateDataCalls);
     tickCount_ = tickCount;
@@ -560,6 +587,7 @@ void* SimCore::HandleMessage(int32_t id, int32_t bytes, const uint8_t* data) {
             Fail(OniSimStatus::InvalidState, "Start requires a complete grid and tables, and an empty payload."); return nullptr;
         }
         RefreshCells(true); accumulatedFlow_.assign(CellCount(), 0);
+        visibility_.assign(world_.mass.size(), 0);
         textureFlow_.assign(CellCount() * 8, 0); textureLiquid_.assign(CellCount() * 4, 0);
         textureLiquidData_.assign(CellCount() * 4, 0); textureMaterial_.assign(CellCount() * 4, 0); sunlight_.assign(CellCount(), 0);
         phase_ = Phase::Started; BindOutput(); return &update_;
@@ -573,8 +601,24 @@ void* SimCore::HandleMessage(int32_t id, int32_t bytes, const uint8_t* data) {
         if (!RefreshTextures()) return nullptr;
         outputSubstance_ = std::move(pendingSubstance_); pendingSubstance_.clear();
         outputLiquidChanges_ = std::move(pendingLiquidChanges_); pendingLiquidChanges_.clear();
+        outputSolid_ = std::move(pendingSolid_); pendingSolid_.clear();
+        outputSolidSubstance_ = std::move(pendingSolidSubstance_); pendingSolidSubstance_.clear();
+        outputDamage_ = std::move(pendingDamage_); pendingDamage_.clear();
+        outputOre_ = std::move(pendingOre_); pendingOre_.clear();
+        for (uint32_t y = 0; y < world_.GameHeight(); ++y) for (uint32_t x = 0; x < world_.GameWidth(); ++x)
+            visibility_[world_.SimIndex(x, y)] = data[std::size_t(y) * world_.GameWidth() + x];
         update_.numFramesProcessed = pendingFrames_; pendingFrames_ = 0; pendingPhysicsFrame_ = false; BindOutput(); return &update_;
     case -775326397: QueueFrame(data, length); return nullptr;
+    case 1154135737: {
+        if ((phase_ != Phase::GridReady && phase_ != Phase::Started) || length != 2 || pendingFrames_ != 0) {
+            Fail(OniSimStatus::InvalidState, "Saved options require an allocated grid and no pending frame."); return nullptr;
+        }
+        const auto value = static_cast<uint8_t>((world_.savedOptions & ~data[0]) | data[1]);
+        if ((value & ~1u) != 0) {
+            Fail(OniSimStatus::UnsupportedFeature, "Only the verified diagonal falling sand option is supported."); return nullptr;
+        }
+        world_.savedOptions = value; return nullptr;
+    }
     case FrameCellValues::SetInsulationValueMessageId:
     case FrameCellValues::SetStrengthValueMessageId:
         return HandleMessages(id, bytes, 1, data);
@@ -612,7 +656,7 @@ uint8_t* SimCore::BeginSave(int32_t* bytes, int32_t x, int32_t y) {
     std::vector<uint8_t> out; const std::size_t n = world_.mass.size(); out.reserve(29 + 36 * n);
     const uint8_t signature[8] = {'S','I','M','S','A','V','E',0}; out.insert(out.end(), signature, signature + 8);
     PutU32(out, 15); PutU32(out, world_.simWidth); PutU32(out, world_.simHeight); PutU32(out, 0); PutU32(out, 0);
-    out.push_back(0); // Verified option byte in both radiation-enabled/disabled reference saves.
+    out.push_back(world_.savedOptions);
     for (std::size_t i = 0; i < n; ++i) {
         PutU32(out, elements_[world_.elementIdx[i]].hash); PutFloat(out, world_.temperature[i]);
         PutFloat(out, world_.mass[i]); PutFloat(out, world_.radiation[i]);

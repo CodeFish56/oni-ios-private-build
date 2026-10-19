@@ -12,6 +12,7 @@
 struct LoadedWorldV15 {
     uint32_t simWidth = 0;
     uint32_t simHeight = 0;
+    uint8_t savedOptions = 0;
     std::vector<uint16_t> elementIdx;
     std::vector<float> temperature;
     std::vector<float> mass;

@@ -12,7 +12,8 @@ spec = importlib.util.spec_from_file_location("bridge_verifier", Path(__file__).
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 EVENTS = {"solidInfo": (100, 8), "liquidChangeInfo": (112, 4),
-          "solidSubstanceChangeInfo": (124, 4), "substanceChangeInfo": (136, 8)}
+          "solidSubstanceChangeInfo": (124, 4), "substanceChangeInfo": (136, 8),
+          "worldDamageInfo": (220, 8), "spawnOreInfo": (184, 20)}
 
 
 class Diagnostics(c.Structure):
@@ -71,7 +72,13 @@ def snapshot(pointer, fixture, phase, report):
         count = struct.unpack_from("<i", descriptor, offset)[0]
         address = struct.unpack_from("<Q", descriptor, offset + 4)[0]
         actual = c.string_at(address, count * size) if count else b""
-        expected = (fixture / f"{phase}.{name}.bin").read_bytes()
+        path = fixture / f"{phase}.{name}.bin"
+        assert path.exists() or count == 0, (fixture.name, phase, name, "missing nonempty event evidence")
+        expected = path.read_bytes() if path.exists() else b""
+        if name == "spawnOreInfo":
+            # The original writes every member except reserved byte 7.
+            actual = bytearray(actual); expected = bytearray(expected)
+            for i in range(count): actual[i * size + 7] = expected[i * size + 7] = 0
         assert actual == expected, (fixture.name, phase, name, "event bytes differ")
         digests[name] = hashlib.sha256(actual).hexdigest()
     return digests
@@ -91,6 +98,8 @@ def run(bridge, fixture, elements, diseases):
     bridge.send(2062421945, payload)
     if report.get("world_offsets_defined"):
         bridge.send(-895846551, (fixture / "world-offsets.bin").read_bytes())
+    if report.get("saved_options", 0):
+        bridge.send(1154135737, bytes([0, report["saved_options"]]))
     rows = [{"phase": "start", "arrays": snapshot(bridge.send(-931446686), fixture, "start", report)}]
     rows[-1]["timers_low5_sha256"] = hashlib.sha256(timer_snapshot(bridge, fixture, "start", report)).hexdigest()
     if fixture.name == "oxygen-single":
@@ -160,14 +169,8 @@ def rejected_features(bridge, fixture, elements, diseases):
             if elements[14+i*164] & 3 == 1 and struct.unpack_from("<I", elements, 4+i*164)[0]
             not in (0xA4E0B340, 0x74DC00EF) and struct.unpack_from("<f", elements, 60+i*164)[0] < 300
             < struct.unpack_from("<f", elements, 64+i*164)[0]), 300, 1),
-        "mixed_phase_transition": lambda p: struct.pack_into("<H6xff", p, 14, indices[1836671383], 380, 1),
-        "mixed_temperature_domain": lambda p: (struct.pack_into("<H6xff", p, 14, indices[1836671383], 300, 1),
-            struct.pack_into("<f", p, 22 + gas * 16, 410)),
         "other_liquid": lambda p: struct.pack_into("<H6xff", p, 14, next(i for i in range(len(indices))
             if elements[14+i*164] & 3 == 2 and struct.unpack_from("<I", elements, 4+i*164)[0] != 1836671383), 300, 1),
-        "water_overpressure": lambda p: struct.pack_into("<H6xff", p, 14 + gas * 16, indices[1836671383], 300, 2000),
-        "hot_water_obstacle": lambda p: (struct.pack_into("<H6xff", p, 14 + gas * 16, indices[1836671383], 300, 1),
-            struct.pack_into("<H6xff", p, 14, indices[1838482828], 500, 9999)),
         "properties": lambda p: p.__setitem__(16, 1),
         "disease": lambda p: struct.pack_into("<B3xi", p, 14 + count * 16, 0, 1),
         "backwall": lambda p: struct.pack_into("<H2xff", p, 14 + count * 28, indices[(-105943486) & 0xffffffff], 1, 300),
@@ -194,6 +197,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("library", "fixtures", "elements", "diseases", "result"):
         parser.add_argument("--" + name, required=True, type=Path)
+    parser.add_argument("--case", action="append", default=[], help="Run selected retained cases while diagnosing a mismatch")
     args = parser.parse_args()
     bridge = module.Bridge(args.library)
     bridge.library.OniSim_GetDiagnostics.argtypes = [c.POINTER(Diagnostics)]
@@ -204,6 +208,8 @@ def main():
     bridge.library.OniSim_GetTickCount.restype = c.c_uint32
     rows = []
     for fixture in sorted(args.fixtures.iterdir()):
+        if args.case and fixture.name not in args.case:
+            continue
         if not (fixture / "report.json").is_file():
             continue
         row = run(bridge, fixture, args.elements.read_bytes(), args.diseases.read_bytes())
@@ -213,7 +219,7 @@ def main():
     denied = rejected_features(bridge, args.fixtures / "oxygen-single", args.elements.read_bytes(), args.diseases.read_bytes()) if (args.fixtures / "oxygen-single").is_dir() else []
     result = {"all_passed": True, "library_sha256": hashlib.sha256(args.library.read_bytes()).hexdigest(),
               "cases": rows, "rejected_features": denied, "capabilities": bridge.GetCapabilities(),
-              "limits": "Restricted non-radiating O2/CO2/Water worlds; mixed fluids 275..360 K, single water species, no phase changes, backwall heat, settlement or iPhone execution"}
+              "limits": "Restricted non-radiating O2/CO2/Water/Steam/Ice and reviewed solids; no active partial transitions, backwall heat, settlement or iPhone execution"}
     args.result.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
 
 

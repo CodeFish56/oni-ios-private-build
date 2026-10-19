@@ -16,6 +16,28 @@ build workflow. Restricted gas or water positive frames now work locally, includ
 inter-species gas displacement, water flow and stability-timer state.
 General colony physics is incomplete.
 
+## Phase transitions, pressure damage and solids (2026-10-19)
+
+Whole-cell Water/Steam/Ice transitions, visibility-dependent frozen ore,
+ordered liquid pressure damage and headless solid movement now run through
+the native core. Saved option bit 0 selects original basic/diagonal falling
+sand behavior and is preserved by v15 save/load.
+
+811 independent module cases and 21 new worlds /161 complete frames pass
+normal and ASan/UBSan checks. The cumulative regression is 65 worlds /384
+frames, plus 11 initialization cases and 65537 actual tick updates. Original
+ore padding byte 7 is excluded; all defined event fields are compared.
+
+Fourteen production modules are linked, capabilities are 65535, and the full
+game requirement 458752 remains unavailable. Nontrivial partial melting,
+byproduct ore, other liquids, disease/radiation/backwall heat and complete
+settlement/gameplay remain unfinished. No cloud build is needed solely to
+try entering a colony. No Actions run was triggered.
+See [current scope](docs/ios-phase-pressure-solids.md) and
+[verification](docs/phase-pressure-solid-verification.json).
+
+The sections below record the earlier stages and their original test domains.
+
 ## Mixed water/gas physics (2026-10-16)
 
 The core now handles Water with Oxygen/CO2, including gas displacement in tick

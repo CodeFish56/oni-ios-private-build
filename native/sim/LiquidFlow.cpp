@@ -23,11 +23,11 @@ bool Validate(const LoadedWorldV15& world, const std::vector<LiquidElementV74482
     }
     for (std::size_t i = 0; i < count; ++i) {
         const uint16_t id = world.elementIdx[i];
-        if (id >= elements.size() || (id != water && id != vacuum && elements[id].hash != 0x6D95058C &&
-                elements[id].hash != 0xA4E0B340 && elements[id].hash != 0x74DC00EF) ||
+        if (id >= elements.size() || (id != water && id != vacuum && (elements[id].state & 3) != 3 &&
+                elements[id].hash != 0xA4E0B340 && elements[id].hash != 0x74DC00EF && elements[id].hash != 0xCA627A30) ||
             !std::isfinite(world.mass[i]) || world.mass[i] < 0 || !std::isfinite(world.temperature[i]) ||
             world.temperature[i] < 0 || world.properties[i] != 0 || world.diseaseIdx[i] != 255 || world.diseaseCount[i] != 0) {
-            error = "Water flow requires finite water/O2/CO2/vacuum/Unobtanium without properties or disease."; return false;
+            error = "Water flow requires finite water/O2/CO2/steam/vacuum/solid cells without properties or disease."; return false;
         }
     }
     return true;

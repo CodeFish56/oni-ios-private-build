@@ -3,7 +3,7 @@
 This is a C++17 implementation of the verified Build U59-744825-V data path.
 It owns real cell, disease, backwall and CPU render buffers. It can initialize
 a headless grid, load a restricted SIMSAVE v15 world and write it back.
-It now advances restricted gas or water positive frames with real flow and event
+It now advances restricted gas/water/phase/solid frames with real flow and event
 output. **It cannot yet generate a playable colony.**
 
 ## Implemented and locally verified
@@ -23,14 +23,14 @@ output. **It cannot yet generate a playable colony.**
   notifications through the C ABI.
 - Water flow/postprocessing in the verified pressure/temperature range, liquid
   change events and persistent defined stability-timer bits; timer reset/countdown
-  and shared RNG behavior follow the original. Unstable solids remain unsupported.
+  and shared RNG behavior follow the original. Verified headless unstable solids are listed below.
 - Foreground cell heat exchange before pressure: fixed source, accumulated output,
   original area/insulation coefficients, binary32 capacities and binary64 exchange
-  calculations. Phase changes and backwall heat remain unsupported.
+  calculations. Whole-cell water transitions are listed below; backwall heat remains unsupported.
 - Water/O2/CO2 interaction: tick-rotated gas displacement, ordered water diagonal
   exchanges and one shared water/gas postprocess traversal with the original RNG
   sequence. The uint16 update tick wraps and stays outside the v15 save format.
-- Real SIMSAVE v15 output, with verified zero header option and zero offsets.
+- Real SIMSAVE v15 output, zero offsets and verified saved-option bit 0.
 - Seven `OniSim_*` C ABI entry points plus status/error/capability queries.
   Native exceptions are contained inside `noexcept` exports.
 
@@ -49,8 +49,8 @@ stripes, layers, checkerboards, pockets, low masses, variable frame lengths,
 zero seconds and 32-cell chunk boundaries. Every frame matches all 18 arrays,
 29 event counts, four event byte streams, RNG seed/directions and complete
 saved bytes. The original evaporation loss is preserved rather than forced
-to conserve mass. Defined timer bits also match; both sanitizers pass. Eleven
-unsupported-feature tests preserve world/RNG/timers on failure. See
+to conserve mass. Defined timer bits also match; both sanitizers pass. Seven remaining
+unsupported-feature tests preserve world/RNG/timers on failure; four former exclusions are now supported. See
 [positive-frame scope](../docs/ios-water-timers.md)
 and [record](../docs/gas-frame-verification.json).
 
@@ -75,13 +75,26 @@ See [heat scope](../docs/ios-heat-exchange.md) and
 [heat verification](../docs/heat-exchange-verification.json).
 
 The mixed-fluid stage adds 15 original worlds and 97 complete frames, including
-two pure-water temperature regressions near freezing and boiling. The cumulative
-regression is 44 worlds / 223 frames, with 11 unsupported-feature rollback tests.
+two pure-water temperature regressions near freezing and boiling.
+That stage verified 44 worlds / 223 frames. The current stage below adds new
+physics and rollback checks.
 Independent module probes match 288 water/gas calls and 96 ordered mixed
 postprocess cases, including raw duplicate notification order and shared RNG.
 The C ABI also reaches uint16 wrap via 65537 actual empty-region updates.
 All pass normal and ASan/UBSan builds. See [mixed-fluid scope](../docs/ios-mixed-fluids.md),
 [record](../docs/mixed-fluid-verification.json) and [tick record](../docs/tick-verification.json).
+
+## Current phase, pressure and solid verification (2026-10-19)
+
+The new three modules match 164 phase-related cases, 456 directional pressure
+cases and 191 solid scenarios (353 original calls). Full-frame coverage adds
+21 worlds /161 frames, totaling 65 worlds /384 frames. All pass normal and
+ASan/UBSan builds, with the same arrays, defined event fields, saves, RNG,
+directions, tick and defined timer bits. Ore byte 7 is native uninitialized
+padding and is normalized separately. Four new unsupported-path checks roll
+back the complete pending frame; saved-option set/clear/rejection/v15 restore
+also pass. See [scope](../docs/ios-phase-pressure-solids.md) and
+[record](../docs/phase-pressure-solid-verification.json).
 
 ## Build locally
 
@@ -114,13 +127,13 @@ digest reports, not personal phone/signing logs.
 
 ## iOS integration and remaining work
 
-The workflow copies eleven production `.cpp` modules and their headers into
+The workflow copies fourteen production `.cpp` modules and their headers into
 the Xcode export, adds them to UnityFramework and redirects seven audited
 `Sim.SIM_*` wrappers to this static C ABI. See [link details](../docs/ios-sim-link.md).
 No new 1.66 GB archive upload is needed.
 
-Current capabilities are **8191**, adding restricted water/gas interaction
-to the preceding heat, water, gas, timer and data capabilities.
+Current capabilities are **65535**, adding restricted whole-cell water transitions,
+liquid pressure damage and headless solids to the preceding verified modules.
 The game wrapper requires world settlement, game simulation and game render
 capabilities (**458752**); all remain absent. It raises a managed capability
 error before marshaling the callback. World-generation failure handling
@@ -129,13 +142,11 @@ explicitly and do not advance a pretend simulation.
 
 Remaining acceptance gates, in order:
 
-1. Implement mixed solid/liquid/gas time steps, backwall heat, phase changes,
-   disease and events. Validate one frame, then the complete 500-step world
-   settlement against controlled original runs, including conservation checks.
-   O2/CO2 pressure/postprocessing now runs through the C ABI for the verified
-   restricted domains. Other species, reactive solids, pressure breaks,
-   backwall heat/phase changes and radiation remain rejected. Unstable-solid
-   physics and the remaining disease grids still need reconstruction.
+1. Complete nontrivial partial transitions, byproduct ore, other materials/liquids,
+   backwall heat, disease and radiation, then verify complete 500-step settlement.
+   Whole-cell water transitions, pressure events and headless solids are now
+   supported only within the documented audited domains. Large-world unstable
+   solid visits still need a prevalidated context to avoid repeated grid copies.
 2. Generate and check the IL2CPP reverse P/Invoke callback. The recovery script
    now adds the iOS `MonoPInvokeCallback` attribute; the current archive was
    exported earlier and still lacks that callback entry.

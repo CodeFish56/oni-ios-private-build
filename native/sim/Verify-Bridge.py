@@ -105,7 +105,7 @@ def run_fixture(bridge: Bridge, fixture: Path, elements: bytes, diseases: bytes)
         struct.pack_into("<f", malformed, 33, float("nan"))
         bridge.send(-672538170, bytes(malformed), expected=4)
         malformed = bytearray(payload)
-        malformed[28] = 1
+        malformed[28] = 128
         bridge.send(-672538170, bytes(malformed), expected=4)
         assert bridge.send(-672538170, payload)
     else:

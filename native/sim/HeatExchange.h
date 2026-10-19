@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GasPressure.h"
+#include "PhaseTransitions.h"
 
 struct HeatElementV744825 {
     uint32_t hash = 0;
@@ -28,3 +29,13 @@ bool StepHeatExchangeV744825(const LoadedWorldV15& source,
     const std::vector<HeatElementV744825>& elements,
     const PressureRegionV744825& region, LoadedWorldV15& updated,
     std::string& error);
+
+// The same thermal task followed by the original whole-cell transition pass.
+// Keeps the old restricted entry available for its independent heat probes.
+bool StepHeatAndTransitionsV744825(const LoadedWorldV15& source,
+    const std::vector<HeatElementV744825>& elements,
+    const std::vector<PhaseElementV744825>& phaseElements,
+    const PressureRegionV744825& region, LoadedWorldV15& updated,
+    std::vector<uint32_t>& changes, std::vector<uint8_t>& timers,
+    std::string& error, const std::vector<uint8_t>* visibility = nullptr,
+    std::vector<PhaseOreSpawnV744825>* ore = nullptr);

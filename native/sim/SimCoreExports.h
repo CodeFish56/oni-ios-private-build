@@ -24,6 +24,9 @@ enum OniSimCapability : uint64_t {
     OniSim_RestrictedWaterPhysics = 1024ull,
     OniSim_RestrictedHeatExchange = 2048ull,
     OniSim_WaterGasPhysics = 4096ull,
+    OniSim_WaterWholeCellTransitions = 8192ull,
+    OniSim_LiquidPressureDamage = 16384ull,
+    OniSim_HeadlessSolidBehavior = 32768ull,
     OniSim_WorldgenSettlement = 1ull << 16,
     OniSim_GameSimulation = 1ull << 17,
     OniSim_GameRenderData = 1ull << 18

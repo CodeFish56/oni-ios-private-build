@@ -1,5 +1,8 @@
 #include "GasPostProcess.h"
 #include "StabilityTimers.h"
+#include "PhaseTransitions.h"
+#include "PressureBreak.h"
+#include "SolidBehavior.h"
 
 #include <algorithm>
 #include <cmath>
@@ -66,12 +69,27 @@ bool DecodeGasPostElementsV744825(const std::vector<uint8_t>& bytes,
 }
 
 namespace {
+struct PhysicalContext {
+    const std::vector<PhaseElementV744825>& phases;
+    const std::vector<PressureBreakElementV744825>& pressure;
+    const std::vector<SolidElementV744825>& solids;
+    std::vector<WorldDamageInfoV744825>& damage;
+    uint16_t tick;
+};
+bool PartialMeltNoop(const LoadedWorldV15& world,
+    const std::vector<PhaseElementV744825>& elements, std::size_t gas, std::size_t solid) {
+    const auto& s = elements[world.elementIdx[solid]];
+    return (elements[world.elementIdx[gas]].state & 3) > 1 || (s.state & 3) != 3 ||
+        world.mass[solid] <= 5.0f || (world.properties[solid] & 0x48) != 0 ||
+        world.temperature[gas] <= s.highTemperature + 3.0f ||
+        world.temperature[solid] >= s.highTemperature - 3.0f || s.highTransition == 65535;
+}
 bool StepPostProcessV744825(const LoadedWorldV15& source,
     const std::vector<GasPostElementV744825>& elements,
     const PressureRegionV744825& region, GasRandomStateV744825& random,
     LoadedWorldV15& output, std::vector<uint32_t>& elementChanges,
     std::string& error, std::vector<std::array<float, 4>>* frameFlow, std::vector<uint8_t>* timers,
-    bool allowWater) {
+    bool allowWater, PhysicalContext* physical = nullptr) {
     error.clear();
     const std::size_t count = static_cast<std::size_t>(source.simWidth) * source.simHeight;
     if (source.simWidth < 3 || source.simHeight < 3 ||
@@ -88,6 +106,11 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
         return false;
     }
     uint16_t vacuum = 65535, water = 65535;
+    if (physical != nullptr && (physical->phases.size() != elements.size() ||
+            physical->pressure.size() != elements.size() || physical->solids.size() != elements.size() ||
+            timers == nullptr || frameFlow == nullptr)) {
+        error = "Physical postprocess requires matching tables, flow and timers."; return false;
+    }
     for (std::size_t i = 0; i < elements.size(); ++i)
         if (elements[i].hash == 0x2D39BF75) vacuum = static_cast<uint16_t>(i);
         else if (elements[i].hash == 1836671383u) water = static_cast<uint16_t>(i);
@@ -114,6 +137,18 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
         const bool interior = x > 0 && x + 1 < source.simWidth &&
             y > 0 && y + 1 < source.simHeight;
         const uint8_t phase = element.state & 3;
+        if (physical != nullptr) {
+            const bool gas = element.hash == 0xA4E0B340 || element.hash == 0x74DC00EF || element.hash == 0xCA627A30;
+            const bool solid = element.hash == 0x6D95058C || element.hash == 873952427u ||
+                element.hash == 381796644u || element.hash == 1624244999u || element.hash == 493438017u ||
+                element.hash == static_cast<uint32_t>(-105943486) || element.hash == static_cast<uint32_t>(-474151749);
+            if (source.radiation[cell] != 0 || element.sublimateIndex != 65535 ||
+                    (phase == 0 && (id != vacuum || (interior && source.mass[cell] != 0))) ||
+                    (phase == 1 && !gas) || (phase == 2 && id != water) || (phase == 3 && !solid)) {
+                error = "Physical postprocess requires verified non-sublimating materials without radiation."; return false;
+            }
+            continue;
+        }
         if (allowWater && ((interior && id == vacuum && source.mass[cell] != 0.0f) ||
                 source.temperature[cell] > elements[water].highTemperature + 3.0f)) {
             error = "Fluid postprocess requires empty vacuum and no partial water heat transition: cell=" +
@@ -174,6 +209,8 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
     auto flowData = frameFlow == nullptr ? std::vector<std::array<float, 4>>() : *frameFlow;
     GasRandomStateV744825 nextRandom = random;
     std::vector<uint32_t> changes;
+    auto timerData = timers == nullptr ? std::vector<uint8_t>() : *timers;
+    auto damage = physical == nullptr ? std::vector<WorldDamageInfoV744825>() : physical->damage;
     auto Swap = [&](std::size_t a, std::size_t b) {
         std::swap(updated.elementIdx[a], updated.elementIdx[b]);
         std::swap(updated.mass[a], updated.mass[b]);
@@ -198,7 +235,21 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
     for (uint32_t y = region.minY + 1; y < endY; ++y) {
         for (uint32_t x = region.minX + 1; x < endX; ++x) {
             const std::size_t cell = static_cast<std::size_t>(y) * width + x;
+            struct ResetNotifications {
+                std::vector<uint8_t>& timers;
+                const std::vector<uint32_t>& changes;
+                std::size_t begin;
+                ~ResetNotifications() {
+                    if (!timers.empty()) for (std::size_t i = begin; i < changes.size(); ++i)
+                        ResetStableCellTimerV744825(timers[changes[i]]);
+                }
+            } reset{timerData, changes, changes.size()};
             const auto& element = elements[updated.elementIdx[cell]];
+            if (physical != nullptr && (element.state & 3) == 3) {
+                if (!ProcessUnstableSolidCellV744825(updated, physical->solids, vacuum, cell, (source.savedOptions & 1) != 0,
+                        nextRandom, timerData, changes, error, physical->tick)) return false;
+                continue;
+            }
             if (allowWater && updated.elementIdx[cell] == water) {
                 if (updated.mass[cell] < 0.01f) {
                     if (frameFlow != nullptr) flowData[cell] = {};
@@ -217,6 +268,23 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
                     float temperature = (updated.mass[cell] * a + updated.mass[below] * b) / total;
                     temperature = std::max(std::min(temperature, b), a);
                     updated.temperature[cell] = updated.temperature[below] = temperature;
+                    // Native DoDensityDisplacement returns true after mixing;
+                    // PostProcessCell ends before pressure or partial heat.
+                    continue;
+                }
+                if (physical != nullptr) {
+                    bool broke = false;
+                    if (!CheckLiquidPressureBreakV744825(updated, physical->pressure,
+                            static_cast<uint32_t>(cell), damage, broke, error)) return false;
+                    if (broke) continue;
+                    if (updated.mass[cell] > element.maxMass * 3.0f) {
+                        error = "Liquid pressure displacement above 3x maxMass is not implemented."; return false;
+                    }
+                    for (std::size_t n : {cell - width, cell - 1, cell + 1, cell + width})
+                        if (!IsPartialHeatTransitionNoopV744825(updated, physical->phases,
+                                static_cast<uint32_t>(cell), static_cast<uint32_t>(n))) {
+                            error = "Partial liquid heat transition is not implemented."; return false;
+                        }
                 }
                 // Mass <= maxMass rules out pressure-break and liquid pressure
                 // displacement. All neighbors are <= water.highTemperature+3;
@@ -263,6 +331,12 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
                     displaced = true;
                 }
             }
+            if (!displaced && physical != nullptr) {
+                for (std::size_t n : {cell - width, cell - 1, cell + 1, cell + width})
+                    if (!PartialMeltNoop(updated, physical->phases, cell, n)) {
+                        error = "Partial gas melting of neighboring solids is not implemented."; return false;
+                    }
+            }
             if (displaced || Next(nextRandom) <= 0.9f)
                 continue;
             const std::size_t candidates[] = {
@@ -292,7 +366,8 @@ bool StepPostProcessV744825(const LoadedWorldV15& source,
             }
         }
     }
-    if (timers != nullptr) for (uint32_t n : changes) ResetStableCellTimerV744825((*timers)[n]);
+    if (timers != nullptr) *timers = std::move(timerData);
+    if (physical != nullptr) physical->damage = std::move(damage);
     output = std::move(updated);
     if (frameFlow != nullptr) *frameFlow = std::move(flowData);
     random = nextRandom;
@@ -317,4 +392,19 @@ bool StepFluidPostProcessV744825(const LoadedWorldV15& source,
     std::string& error, std::vector<std::array<float, 4>>* frameFlow, std::vector<uint8_t>* timers) {
     return StepPostProcessV744825(source, elements, region, random, output,
         elementChanges, error, frameFlow, timers, true);
+}
+
+bool StepPhysicalPostProcessV744825(const LoadedWorldV15& source,
+    const std::vector<GasPostElementV744825>& elements,
+    const std::vector<PhaseElementV744825>& phaseElements,
+    const std::vector<PressureBreakElementV744825>& pressureElements,
+    const std::vector<SolidElementV744825>& solidElements,
+    const PressureRegionV744825& region, GasRandomStateV744825& random,
+    LoadedWorldV15& output, std::vector<uint32_t>& changes,
+    std::vector<WorldDamageInfoV744825>& damage,
+    std::vector<std::array<float, 4>>& flow, std::vector<uint8_t>& timers,
+    std::string& error, uint16_t tickCount) {
+    PhysicalContext context{phaseElements, pressureElements, solidElements, damage, tickCount};
+    return StepPostProcessV744825(source, elements, region, random, output,
+        changes, error, &flow, &timers, true, &context);
 }

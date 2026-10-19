@@ -146,6 +146,7 @@ bool DecodeSaveWorldV15(const std::vector<uint8_t>& save,
     LoadedWorldV15 parsed;
     parsed.simWidth = width;
     parsed.simHeight = height;
+    parsed.savedOptions = save[28];
     parsed.elementIdx.resize(cellCount);
     parsed.temperature.resize(cellCount);
     parsed.mass.resize(cellCount);

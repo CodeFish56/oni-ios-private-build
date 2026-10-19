@@ -52,7 +52,7 @@ bool ValidShape(const LoadedWorldV15& source, const LoadedWorldV15& updated,
 
 bool ValidCell(const LoadedWorldV15& source,
     const std::vector<HeatElementV744825>& elements, std::size_t cell,
-    const LoadedWorldV15& updated, bool task, std::string& error) {
+    const LoadedWorldV15& updated, bool task, std::string& error, bool materials = false) {
     if (cell >= source.mass.size() || source.elementIdx[cell] >= elements.size() ||
         !std::isfinite(source.mass[cell]) || source.mass[cell] < 0 ||
         !std::isfinite(source.temperature[cell]) || source.temperature[cell] < 0 ||
@@ -61,7 +61,7 @@ bool ValidCell(const LoadedWorldV15& source,
         return false;
     }
     const auto& e = elements[source.elementIdx[cell]];
-    if (!Supported(e)) {
+    if (!materials && !Supported(e)) {
         error = "Heat exchange supports only O2, CO2, water, vacuum and Unobtanium.";
         return false;
     }
@@ -196,10 +196,14 @@ bool UpdateHeatPairV744825(const LoadedWorldV15& source,
     return true;
 }
 
-bool StepHeatExchangeV744825(const LoadedWorldV15& source,
+namespace {
+bool StepThermalTask(const LoadedWorldV15& source,
     const std::vector<HeatElementV744825>& elements,
     const PressureRegionV744825& region, LoadedWorldV15& updated,
-    std::string& error) {
+    std::string& error, const std::vector<PhaseElementV744825>* phases,
+    std::vector<uint32_t>* changes, std::vector<uint8_t>* timers,
+    const std::vector<uint8_t>* visibility = nullptr,
+    std::vector<PhaseOreSpawnV744825>* ore = nullptr) {
     error.clear();
     if (!ValidShape(source, updated, error)) return false;
     const std::size_t count = source.mass.size();
@@ -210,13 +214,20 @@ bool StepHeatExchangeV744825(const LoadedWorldV15& source,
         return false;
     }
     for (std::size_t cell = 0; cell < count; ++cell) {
-        if (!ValidCell(source, elements, cell, updated, true, error)) return false;
+        if (!ValidCell(source, elements, cell, updated, phases == nullptr, error, phases != nullptr)) return false;
         if (source.backwallMass[cell] != 0 || source.radiation[cell] != 0) {
             error = "Heat exchange task does not yet support backwalls or radiation.";
             return false;
         }
     }
     LoadedWorldV15 next = updated;
+    auto notifications = changes == nullptr ? std::vector<uint32_t>() : *changes;
+    auto nextTimers = timers == nullptr ? std::vector<uint8_t>() : *timers;
+    auto nextOre = ore == nullptr ? std::vector<PhaseOreSpawnV744825>() : *ore;
+    if (phases != nullptr && (phases->size() != elements.size() ||
+            nextTimers.size() != count)) {
+        error = "Invalid thermal transition table or timers."; return false;
+    }
     const std::size_t width = source.simWidth;
     const uint32_t endX = region.maxX + 1, endY = region.maxY + 1;
     auto Pair = [&](std::size_t a, std::size_t b) {
@@ -233,11 +244,35 @@ bool StepHeatExchangeV744825(const LoadedWorldV15& source,
             if (y + 1 < endY) Pair(cell, cell + width);
         }
     }
-    // The original task performs DoStateTransition after finishing all pairs.
-    // Reject an unsupported transition atomically, using the accumulated output.
+    // The original finishes all pairs before visiting transitions in y/x order.
     for (uint32_t y = region.minY + 1; y < endY; ++y)
-        for (uint32_t x = region.minX + 1; x < endX; ++x)
-            if (!ValidCell(source, elements, y * width + x, next, true, error)) return false;
-    updated.temperature = std::move(next.temperature);
+        for (uint32_t x = region.minX + 1; x < endX; ++x) {
+            if (phases != nullptr) {
+                bool transitioned = false;
+                if (!ApplyStateTransitionV744825(next, *phases, static_cast<uint32_t>(y * width + x),
+                        notifications, transitioned, error, &nextTimers, visibility,
+                        ore == nullptr ? nullptr : &nextOre)) return false;
+            } else if (!ValidCell(source, elements, y * width + x, next, true, error)) return false;
+        }
+    updated = std::move(next);
+    if (changes != nullptr) *changes = std::move(notifications);
+    if (timers != nullptr) *timers = std::move(nextTimers);
+    if (ore != nullptr) *ore = std::move(nextOre);
     return true;
+}
+} // namespace
+
+bool StepHeatExchangeV744825(const LoadedWorldV15& source,
+    const std::vector<HeatElementV744825>& elements,
+    const PressureRegionV744825& region, LoadedWorldV15& updated, std::string& error) {
+    return StepThermalTask(source, elements, region, updated, error, nullptr, nullptr, nullptr);
+}
+
+bool StepHeatAndTransitionsV744825(const LoadedWorldV15& source,
+    const std::vector<HeatElementV744825>& elements,
+    const std::vector<PhaseElementV744825>& phaseElements,
+    const PressureRegionV744825& region, LoadedWorldV15& updated,
+    std::vector<uint32_t>& changes, std::vector<uint8_t>& timers, std::string& error,
+    const std::vector<uint8_t>* visibility, std::vector<PhaseOreSpawnV744825>* ore) {
+    return StepThermalTask(source, elements, region, updated, error, &phaseElements, &changes, &timers, visibility, ore);
 }
